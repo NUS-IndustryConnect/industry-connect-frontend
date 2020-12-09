@@ -1,0 +1,65 @@
+header {
+  display: flex;
+  height: 54px;
+}
+
+.app-title {
+  padding: 14px 16px;
+  background-color: var(--blue);
+  color: white;
+}
+
+.page-title {
+  flex: 1;
+  padding: 14px 16px;
+  background-color: white;
+  color: var(--blue);
+}
+
+.app-title, nav {
+  width: 225px;
+}
+
+nav {
+  padding: 16px;
+  background-color: var(--blue);
+  color: white;
+}
+
+nav ul {
+  margin: 0;
+  padding: 0;
+}
+
+nav li {
+  margin: 0;
+  margin-bottom: 15px;
+  list-style: none;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+}
+
+.page-container {
+  height: calc(100vh - 54px);
+  overflow-y: auto;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.page {
+  width: 100%;
+  max-width: 750px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+footer {
+  flex: 0 0 50px;
+  width: 100%;
+  background-color: var(--orange);
+}
