@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Page from '../../common/Page';
+import Page from '../../common/page';
 
 const NavigationPanel = () => (
   <nav>
