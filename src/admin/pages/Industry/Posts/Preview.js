@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link, useParams } from 'react-router-dom';
+
 import Page from '../../Page';
 import ContactButton from './ContactButton';
 
@@ -8,11 +10,14 @@ export default function Preview(props) {
     description = "",
     videoURL,
   } = props;
+  const { id } = useParams();
   return (
     <Page title="Preview Post">
       <section className="post-header">
         <h3>{companyPostTitle}</h3>
-        <button className="secondary">Edit</button>
+        <Link to={`/admin/industry/posts/edit/${id}`}>
+          <button className="secondary">Edit</button>
+        </Link>
       </section>
       { description.split("\n").map((para, i) => <p className={i}>{para}</p>) }
       { videoURL ? <iframe
