@@ -1,22 +1,28 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 import Page from '../Page';
 import Table from '../Table';
 import { getAnnouncements } from '../../api/announcements';
 
-const dataToRow = ({ announcementID, announcementTitle, lastUpdated }) => (
-  <tr key={announcementID}>
-    <td>{announcementTitle}</td>
-    <td>{lastUpdated.toLocaleDateString()}</td>
-  </tr>
-);
-
 const Manage = () => {
   const [data, setData] = useState([]);
+  const history = useHistory();
   useEffect(() => {
     getAnnouncements().then(setData);
   }, []);
+
+  const dataToRow = ({ announcementID, announcementTitle, lastUpdated }) => (
+    <tr
+      key={announcementID}
+      onClick={() => history.push(`/admin/announcements/edit/${announcementID}`)}
+      className="clickable"
+    >
+      <td>{announcementTitle}</td>
+      <td>{lastUpdated.toLocaleDateString()}</td>
+    </tr>
+  );
+
   return (
     <Page title="Manage Announcements">
       <Link to="/admin/announcements/new">
