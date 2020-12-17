@@ -2,30 +2,18 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 
 import Page from '../Page';
-import Form from '../Form';
+import AnnouncementForm, { getAnnouncementFields } from './AnnouncementForm';
 
 export default function New() {
   const history = useHistory();
   const submit = data => {
-    const announcementObj = {
-      announcementTitle: data.get('title'),
-      announcementSubtitle: data.get('subtitle'),
-      announcementBody: data.get('body')
-    };
+    const announcementObj = getAnnouncementFields(data);
     history.push('/admin/announcements')
     console.log(announcementObj);
   }
   return (
     <Page title="New Announcement">
-      <Form
-        fields={[
-          { type: "text", name: "title", label: "Announcement Title" },
-          { type: "text", name: "subtitle", label: "Announcement Subtitle" },
-          { type: "long-text", name: "body", label: "Announcement Body" },
-        ]}
-        submit={submit}
-        submitLabel="Post"
-      />
+      <AnnouncementForm submit={submit} />
     </Page>
   )
 }

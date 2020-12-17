@@ -13,8 +13,8 @@ const Posts = () => {
   return (
     <Switch>
       <Route path="/admin/industry/posts/new"><New /></Route>
-      <Route path="/admin/industry/posts/edit"><Edit /></Route>
-      <Route path="/admin/industry/posts/preview"><Preview /></Route>
+      <Route path="/admin/industry/posts/edit/:id"><Edit /></Route>
+      <Route path="/admin/industry/posts/preview/:id"><Preview /></Route>
       <Route path="/admin/industry/posts"><Manage /></Route>
     </Switch>
   )

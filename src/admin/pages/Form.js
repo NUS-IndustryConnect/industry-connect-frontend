@@ -17,15 +17,15 @@ const generateField = (fieldOptions) => {
         name={name}
         rows="5"
         required={!optional}
+        defaultValue={initial}
       >
-        {initial}
       </textarea>
     );
   } else if (type === "dropdown") {
     component = (
       <select name={name} id={name} required={!optional}>
         { options.map(({ value, label }) => (
-          <option key={value} value={value}>{label}</option>
+          <option key={value} value={value} selected={value === initial}>{label}</option>
         )) }
       </select>
     )
@@ -36,6 +36,7 @@ const generateField = (fieldOptions) => {
         id={name}
         name={name}
         required={!optional}
+        defaultValue={initial}
       />
     );
   }

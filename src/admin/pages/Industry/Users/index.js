@@ -13,8 +13,8 @@ const Users = () => {
   return (
     <Switch>
       <Route path="/admin/industry/users/new"><New /></Route>
-      <Route path="/admin/industry/users/edit"><Edit /></Route>
-      <Route path="/admin/industry/users/view"><View /></Route>
+      <Route path="/admin/industry/users/edit/:id"><Edit /></Route>
+      <Route path="/admin/industry/users/view/:id"><View /></Route>
       <Route path="/admin/industry/users"><Manage /></Route>
     </Switch>
   )
