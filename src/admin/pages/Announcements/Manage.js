@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 
 import Page from '../Page';
-import Table from '../Table';
+import SelectTable from '../SelectTable';
 import { getAnnouncements } from '../../api/announcements';
 
 const Manage = () => {
@@ -12,16 +12,21 @@ const Manage = () => {
     getAnnouncements().then(setData);
   }, []);
 
-  const dataToRow = ({ announcementID, announcementTitle, lastUpdated }) => (
-    <tr
-      key={announcementID}
-      onClick={() => history.push(`/admin/announcements/edit/${announcementID}`)}
-      className="clickable"
-    >
-      <td>{announcementTitle}</td>
-      <td>{lastUpdated.toLocaleDateString()}</td>
-    </tr>
-  );
+  const dataToRow = (data, checkbox=null) => {
+    const {
+      announcementID,
+      announcementTitle,
+      lastUpdated
+    } = data;
+    const handleClick = () => history.push(`/admin/announcements/edit/${announcementID}`);
+    return (
+      <tr key={announcementID} >
+        <td>{ checkbox }</td>
+        <td className="clickable" onClick={handleClick}>{announcementTitle}</td>
+        <td className="clickable" onClick={handleClick}>{lastUpdated.toLocaleDateString()}</td>
+      </tr>
+    )
+  };
 
   return (
     <Page title="Manage Announcements">
@@ -31,16 +36,17 @@ const Manage = () => {
       
       <section>
         <h3>Active Announcements</h3>
-        <Table
+        <SelectTable
           headers={["Announcement Title", "Last Updated"]}
           data={data}
           dataToRow={dataToRow}
+          idKey="announcementID"
         />
       </section>
   
       <section>
         <h3>Archived</h3>
-        <Table
+        <SelectTable
           headers={['Announcement Title', "Last Updated"]}
           data={data}
           dataToRow={dataToRow}
