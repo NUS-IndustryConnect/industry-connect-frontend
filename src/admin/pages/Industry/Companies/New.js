@@ -6,6 +6,7 @@ import CompaniesForm, { getCompanyFields } from './CompaniesForm';
 
 export default function New() {
   const history = useHistory();
+  // TODO: link up to BE API (temporary placeholder)
   const submit = data => {
     const companyObj = getCompanyFields(data);
     console.log(companyObj);

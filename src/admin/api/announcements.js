@@ -1,3 +1,4 @@
+// TODO: link up to BE API (temporary placeholder)
 const exampleAnnouncements = [
   {
     announcementID: 1,
@@ -41,7 +42,6 @@ const exampleAnnouncements = [
   }
 ];
 
-// temporary placeholder
 export const getAnnouncements = () => {
   return Promise.resolve(exampleAnnouncements);
 }

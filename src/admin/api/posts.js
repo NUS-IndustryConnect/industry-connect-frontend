@@ -1,5 +1,6 @@
 import { mergeCompanyInfo } from "./companies";
 
+// TODO: link up to BE API (temporary placeholder)
 const exampleApprovedPosts = [
   {
     postID: "1",

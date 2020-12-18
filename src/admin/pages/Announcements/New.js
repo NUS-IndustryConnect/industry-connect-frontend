@@ -6,6 +6,7 @@ import AnnouncementForm, { getAnnouncementFields } from './AnnouncementForm';
 
 export default function New() {
   const history = useHistory();
+  // TODO: link up to BE API (temporary placeholder)
   const submit = data => {
     const announcementObj = getAnnouncementFields(data);
     history.push('/admin/announcements')

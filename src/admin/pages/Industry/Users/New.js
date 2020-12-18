@@ -6,6 +6,7 @@ import UsersForm, { getUserFields } from './UsersForm';
 
 export default function New() {
   const history = useHistory();
+  // TODO: link up to BE API (temporary placeholder)
   const submit = data => {
     const companyObj = getUserFields(data);
     console.log(companyObj);
