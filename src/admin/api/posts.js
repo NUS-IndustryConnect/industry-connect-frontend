@@ -6,7 +6,7 @@ const exampleApprovedPosts = [
     companyID: "1",
     companyPostTitle: "New internship opportunity at Shopee",
     description: "Get a job here",
-    videoURL: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    videoURL: "https://www.youtube.com/watch?v=Jf_2EyDNywE",
     lastUpdated: new Date(),
     relatedJobs: []
   },
@@ -15,7 +15,7 @@ const exampleApprovedPosts = [
     companyID: "1",
     companyPostTitle: "New internship opportunity at Shopee",
     description: "Get a job here",
-    videoURL: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    videoURL: "https://www.youtube.com/watch?v=Jf_2EyDNywE",
     lastUpdated: new Date(),
     relatedJobs: []
   },
@@ -24,7 +24,7 @@ const exampleApprovedPosts = [
     companyID: "1",
     companyPostTitle: "New internship opportunity at Shopee",
     description: "Get a job here",
-    videoURL: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    videoURL: "https://www.youtube.com/watch?v=Jf_2EyDNywE",
     lastUpdated: new Date(),
     relatedJobs: []
   },
@@ -33,7 +33,7 @@ const exampleApprovedPosts = [
     companyID: "1",
     companyPostTitle: "New internship opportunity at Shopee",
     description: "Get a job here",
-    videoURL: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    videoURL: "https://www.youtube.com/watch?v=Jf_2EyDNywE",
     lastUpdated: new Date(),
     relatedJobs: []
   }
@@ -49,7 +49,7 @@ const pendingPosts = [
     companyID: "1",
     companyPostTitle: "NEW Job opportunities",
     description: "Get a job here",
-    videoURL: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    videoURL: "https://www.youtube.com/watch?v=Jf_2EyDNywE",
     lastUpdated: new Date(),
     relatedJobs: [],
     isRejected: false,
@@ -59,7 +59,7 @@ const pendingPosts = [
     companyID: "1",
     companyPostTitle: "NEW Job opportunities",
     description: "Get a job here",
-    videoURL: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    videoURL: "https://www.youtube.com/watch?v=Jf_2EyDNywE",
     lastUpdated: new Date(),
     relatedJobs: [],
     isRejected: false,

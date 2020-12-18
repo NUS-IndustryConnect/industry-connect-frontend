@@ -4,6 +4,8 @@ import {
   Route,
 } from "react-router-dom";
 
+import './index.css';
+
 import Manage from './Manage';
 import New from './New';
 import Edit from './Edit';

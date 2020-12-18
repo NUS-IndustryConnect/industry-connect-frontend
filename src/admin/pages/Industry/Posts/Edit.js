@@ -14,8 +14,8 @@ export default function Edit() {
   const initial = {
     title: "Title",
     description: "Description",
-    videoLink: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-    moreLink: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    videoLink: "https://www.youtube.com/watch?v=Jf_2EyDNywE",
+    moreLink: "https://www.youtube.com/watch?v=Jf_2EyDNywE",
     expiryDate: new Date().toISOString().substr(0,10),
   }
   return (
