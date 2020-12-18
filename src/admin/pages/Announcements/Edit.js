@@ -8,6 +8,7 @@ export default function Edit() {
   const history = useHistory();
   const { id } = useParams();
 
+  // TODO: link up to BE API (temporary placeholder)
   const submit = data => {
     const announcementObj = getAnnouncementFields(data);
     history.push('/admin/announcements')

@@ -27,7 +27,7 @@ export default function SelectTable(props) {
   const selectNone = () => setSelections([]);
   const toggleAll = event => event.target.checked ? selectAll() : selectNone();
 
-  // temporary hardcode, should lift to parent
+  // TODO: temporary hardcode, should lift to parent
   const actions = (
     <div className="actions">
       <button className="secondary">Archive</button>

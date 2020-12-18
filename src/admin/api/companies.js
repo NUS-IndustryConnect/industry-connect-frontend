@@ -1,3 +1,4 @@
+// TODO: link up to BE API (temporary placeholder)
 const exampleCompanies = [
   {
     companyID: "1",

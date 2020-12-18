@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import './index.css';
 
 export default function Login() {
+  // TODO: link up to authentication (temporary placeholder)
   return (
     <Page title="Admin Dashboard">
       <div className="login">
