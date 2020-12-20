@@ -9,6 +9,8 @@ import New from './New';
 import View from './View';
 import Edit from './Edit';
 
+import './index.css'
+
 const Companies = () => {
   return (
     <Switch>
