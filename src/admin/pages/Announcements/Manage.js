@@ -28,6 +28,16 @@ const Manage = () => {
     )
   };
 
+  const archiveItems = (selections) => {
+    // TODO: link up to BE API (temporary placeholder)
+    console.log("Archiving ", selections);
+  }
+
+  const deleteItems = (selections) => {
+    // TODO: link up to BE API (temporary placeholder)
+    console.log("Deleting ", selections);
+  }
+
   return (
     <Page title="Manage Announcements">
       <Link to="/admin/announcements/new">
@@ -41,6 +51,10 @@ const Manage = () => {
           data={data}
           dataToRow={dataToRow}
           idKey="announcementID"
+          actions={[
+            { label: "Archive", className: "secondary", onClick: archiveItems },
+            { label: "Delete", className: "warning", onClick: deleteItems }
+          ]}
         />
       </section>
   
@@ -51,6 +65,10 @@ const Manage = () => {
           data={data}
           dataToRow={dataToRow}
           className="archived"
+          idKey="announcementID"
+          actions={[
+            { label: "Delete", className: "warning", onClick: deleteItems }
+          ]}
         />
       </section>
     </Page>

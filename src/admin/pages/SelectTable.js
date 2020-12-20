@@ -6,7 +6,8 @@ export default function SelectTable(props) {
     data,
     dataToRow,
     idKey,
-    className=""
+    className="",
+    actions
   } = props;
 
   const [selections, setSelections] = useState([]);
@@ -27,13 +28,6 @@ export default function SelectTable(props) {
   const selectNone = () => setSelections([]);
   const toggleAll = event => event.target.checked ? selectAll() : selectNone();
 
-  // TODO: temporary hardcode, should lift to parent
-  const actions = (
-    <div className="actions">
-      <button className="secondary">Archive</button>
-      <button className="error">Delete</button>
-    </div>
-  )
   return (
     <React.Fragment>
       <table className={className + " select-table"}>
@@ -52,7 +46,18 @@ export default function SelectTable(props) {
             />)) }
         </tbody>
       </table>
-      { selections.length > 0 ? actions : null }
+      { (selections.length > 0 && actions) ?
+        <div className="actions">
+          { actions.map(({ label, className, onClick }) => 
+            <button
+              key={label}
+              className={className}
+              onClick={() => onClick(selections)}
+            >
+              {label}
+            </button>)}
+        </div> :
+        null }
     </React.Fragment>
   );
 }
