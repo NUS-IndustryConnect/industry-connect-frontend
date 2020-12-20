@@ -4,7 +4,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { getCompanyUsers } from '../../../api/users';
 
 import Page from '../../Page';
-import Table from '../../Table';
+import SelectTable from '../../SelectTable';
 
 export default function Manage() {
   const [data, setData] = useState([]);
@@ -13,18 +13,24 @@ export default function Manage() {
     getCompanyUsers().then(setData);
   }, []);
 
-  const dataToRow = ({ companyUserID, userEmail, company, lastLogin }) => (
-    <tr
-      key={companyUserID}
-      onClick={() => history.push(`/admin/industry/users/view/${companyUserID}`)}
-      className="clickable"
-    >
-      <td>{userEmail}</td>
-      <td>{company.companyName}</td>
-      <td>{company.companyTier}</td>
-      <td>{lastLogin.toLocaleDateString()}</td>
-    </tr>
-  );
+  const dataToRow = (data, checkbox) => {
+    const { companyUserID, userEmail, company, lastLogin } = data;
+    const handleClick = () => history.push(`/admin/industry/users/view/${companyUserID}`);
+    return (
+      <tr key={companyUserID} >
+        <td>{ checkbox }</td>
+        <td className="clickable" onClick={handleClick}>{userEmail}</td>
+        <td className="clickable" onClick={handleClick}>{company.companyName}</td>
+        <td className="clickable" onClick={handleClick}>{company.companyTier}</td>
+        <td className="clickable" onClick={handleClick}>{lastLogin.toLocaleDateString()}</td>
+      </tr>
+    )
+  };
+  
+  const deleteItems = (selections) => {
+    // TODO: link up to BE API (temporary placeholder)
+    console.log("Deleting ", selections);
+  }
 
   return (
     <Page title="Manage Company Users">
@@ -32,10 +38,14 @@ export default function Manage() {
         <button className="primary">New Company</button>
       </Link>
       
-      <Table
+      <SelectTable
         headers={["Email Address", "Company", "Tier", "Last Login"]}
         data={data}
         dataToRow={dataToRow}
+        idKey="companyUserID"
+        actions={[
+          { label: "Delete", className: "warning", onClick: deleteItems }
+        ]}
       />
     </Page>
   )

@@ -4,7 +4,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { getCompanies } from '../../../api/companies';
 
 import Page from '../../Page';
-import Table from '../../Table';
+import SelectTable from '../../SelectTable';
 
 export default function Manage() {
   const [data, setData] = useState([]);
@@ -13,16 +13,22 @@ export default function Manage() {
     getCompanies().then(setData);
   }, []);
 
-  const dataToRow = ({ companyID, companyName, companyTier }) => (
-    <tr
-      key={companyID}
-      onClick={() => history.push(`/admin/industry/companies/view/${companyID}`)}
-      className="clickable"
-    >
-      <td>{companyName}</td>
-      <td>{companyTier}</td>
-    </tr>
-  );
+  const dataToRow = (data, checkbox) => {
+    const { companyID, companyName, companyTier } = data;
+    const handleClick = () => history.push(`/admin/industry/companies/view/${companyID}`);
+    return (
+      <tr key={companyID} >
+        <td>{ checkbox }</td>
+        <td className="clickable" onClick={handleClick}>{companyName}</td>
+        <td className="clickable" onClick={handleClick}>{companyTier}</td>
+      </tr>
+    )
+  };
+  
+  const deleteItems = (selections) => {
+    // TODO: link up to BE API (temporary placeholder)
+    console.log("Deleting ", selections);
+  }
 
   return (
     <Page title="Manage Company">
@@ -30,10 +36,14 @@ export default function Manage() {
         <button className="primary">New Company</button>
       </Link>
       
-      <Table
+      <SelectTable
         headers={["Company Name", "Tier"]}
         data={data}
         dataToRow={dataToRow}
+        idKey="companyID"
+        actions={[
+          { label: "Delete", className: "warning", onClick: deleteItems }
+        ]}
       />
     </Page>
   )

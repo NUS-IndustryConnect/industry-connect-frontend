@@ -104,7 +104,7 @@ button.email > .email-address {
   background-color: var(--green);
 }
 
-.error {
+.warning {
   color: white;
   background-color: var(--red);
 }

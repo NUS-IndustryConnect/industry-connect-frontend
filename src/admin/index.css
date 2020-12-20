@@ -4,13 +4,13 @@
 }
 
 tr input[type="checkbox"] {
-  height: 20px;
-  width: 20px;
+  height: 18px;
+  width: 18px;
 }
 
 .select-table td:first-child,
 .select-table th:first-child {
-  padding: 3px 5px;
+  padding: 3px 2px;
   width: 30px;
   border: none;
   background-color: transparent;

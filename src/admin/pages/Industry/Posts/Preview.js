@@ -38,7 +38,7 @@ export default function Preview(props) {
       <section className="bottom-buttons">
         <ContactButton email="blah@example.com" />
         <div className="action-buttons">
-          <button className="error right">Reject</button>
+          <button className="warning right">Reject</button>
           <button className="success right">Approve</button>
         </div>
       </section>
