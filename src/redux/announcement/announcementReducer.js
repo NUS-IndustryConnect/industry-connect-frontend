@@ -6,9 +6,11 @@ const initState = {
     pinnedAnnouncements: [],
 }
 
-export default (state = initState, {type, payload}) => {
+const announcementReducer = (state = initState, {type, payload}) => {
     switch (type) {
         default:
             return state;
     }
 }
+
+export default announcementReducer;

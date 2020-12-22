@@ -6,9 +6,11 @@ const initState = {
     userInfo: {},
 }
 
-export default (state = initState, {type, payload}) => {
+const userReducer = (state = initState, {type, payload}) => {
     switch (type) {
         default:
             return state;
     }
 }
+
+export default userReducer;

@@ -5,8 +5,10 @@ import userReducer from './user/userReducer'
 import announcementReducer from './announcement/announcementReducer'
 import industryReducer from './industry/industryReducer'
 
-export default combineReducers({
+const rootReducer = combineReducers({
     user: userReducer,
     announcement: announcementReducer,
     industry: industryReducer,
 })
+
+export default rootReducer;
