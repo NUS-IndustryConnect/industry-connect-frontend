@@ -2,7 +2,7 @@ import React from 'react';
 
 import './index.css';
 
-const Page = ({ title, children, navigationPanel }) => {
+const Page = ({ title, children, className = "", navigationPanel }) => {
   return (
     <React.Fragment>
       <header>
@@ -16,7 +16,7 @@ const Page = ({ title, children, navigationPanel }) => {
       <main>
         {navigationPanel}
         <div className="page-container">
-          <div className="page">
+          <div className={`page ${className}`}>
             {children}
           </div>
           <footer></footer>

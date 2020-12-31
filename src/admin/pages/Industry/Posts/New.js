@@ -2,7 +2,7 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 
 import Page from '../../Page';
-import PostsForm, { getPostFields } from './PostsForm';
+import PostsForm, { getPostFields } from '../../../../common/post/PostsForm';
 
 export default function New() {
   const history = useHistory();

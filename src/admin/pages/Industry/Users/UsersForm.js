@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Form from '../../Form';
+import Form from '../../../../common/Form';
 
 export const getUserFields = data => ({
   email: data.get('email'),

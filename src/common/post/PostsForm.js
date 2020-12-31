@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Form from '../../Form';
+import Form from '../Form';
 
 export const getPostFields = data => ({
   companyPostTitle: data.get('title'),

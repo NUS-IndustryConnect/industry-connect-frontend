@@ -1,9 +1,8 @@
 import React from 'react';
-import { Link, useParams } from 'react-router-dom';
 
 import Page from '../../Page';
+import PostPreview from '../../../../common/post/PostPreview';
 import ContactButton from './ContactButton';
-import VideoEmbed from './VideoEmbed';
 
 // TODO: link up to Redux (temporary placeholder)
 const mockData = {
@@ -14,27 +13,9 @@ const mockData = {
 }
 
 export default function Preview(props) {
-  const {
-    companyPostTitle,
-    description = "",
-    videoURL,
-    moreURL,
-  // } = props;
-  } = mockData;
-  const { id } = useParams();
   return (
     <Page title="Preview Post">
-      <div className="post">
-        <div className="post-header">
-          <h3>{companyPostTitle}</h3>
-          <Link to={`/admin/industry/posts/edit/${id}`}>
-            <button className="secondary right">Edit</button>
-          </Link>
-        </div>
-        { description.split("\n").map((para, i) => <p key={i}>{para}</p>) }
-        <VideoEmbed videoURL={videoURL} />
-        { moreURL ? <a href={moreURL}><button className="primary right">Find out more</button></a> : null}
-      </div>
+      <PostPreview data={mockData} />
       <section className="bottom-buttons">
         <ContactButton email="blah@example.com" />
         <div className="action-buttons">

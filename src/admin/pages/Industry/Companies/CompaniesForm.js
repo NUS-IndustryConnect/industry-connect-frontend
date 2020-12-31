@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Form from '../../Form';
+import Form from '../../../../common/Form';
 
 const TIERS = [
   { value: 1, label: "Gold" },

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Form from '../Form';
+import Form from '../../../common/Form';
 
 export const getAnnouncementFields = data => ({
   announcementTitle: data.get('title'),
