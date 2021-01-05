@@ -3,6 +3,7 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 import logger from 'redux-logger'
 import thunk from 'redux-thunk'
 import { loadStudentAnnouncementData } from './announcement/announcementActions'
+import { loadStudentCompanyPostsData } from './industry/industryActions'
 
 import rootReducer from './rootReducer'
 
@@ -15,6 +16,7 @@ export const initStore = () => {
   console.log('Initialising Data...')
     return async (dispatch) => {
         await dispatch(loadStudentAnnouncementData());
+        await dispatch(loadStudentCompanyPostsData());
     }
 }
 

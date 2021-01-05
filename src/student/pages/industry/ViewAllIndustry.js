@@ -2,17 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { Card } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 
-import { getPostsApi } from '../../api/postsApi';
+// Redux
+import { useSelector } from 'react-redux'
 
 import './index.css';
 import Page from '../Page';
 
 const ViewAllIndustry = () => {
-  const [industries, setIndustries] = useState([]);
+  const { displayedPosts } = useSelector(state => state.industry)
   const history = useHistory();
-  useEffect(() => {
-    getPostsApi().then(setIndustries);
-  }, []);
 
   const dataToRow = (data) => {
     const {
@@ -43,7 +41,7 @@ const ViewAllIndustry = () => {
     )
   };
 
-  const listItems = industries.map(item => dataToRow(item))
+  const listItems = displayedPosts.map(item => dataToRow(item))
 
   return (
   <Page title="Industry">
