@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Page from './common/page';
+import Page from './common/Page/index.js';
 
 const Home = () => {
   return (

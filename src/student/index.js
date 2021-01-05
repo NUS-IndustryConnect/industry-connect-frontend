@@ -4,8 +4,8 @@ import {
   Route,
 } from "react-router-dom";
 
-import Announcements from './pages/Announcements';
-import Industry from './pages/Industry';
+import Announcements from './pages/announcements/Announcements';
+import Industry from './pages/industry/Industry';
 
 const Student = () => {
   return (
