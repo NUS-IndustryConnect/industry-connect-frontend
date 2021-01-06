@@ -1,7 +1,9 @@
 import React from 'react';
 
 export default function Table({ headers, data, dataToRow, className }) {
-  return (
+  return data.length === 0
+  ? <p>No items.</p>
+  : (
     <table className={className}>
       <thead>
         <tr>

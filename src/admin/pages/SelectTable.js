@@ -28,7 +28,9 @@ export default function SelectTable(props) {
   const selectNone = () => setSelections([]);
   const toggleAll = event => event.target.checked ? selectAll() : selectNone();
 
-  return (
+  return data.length === 0
+  ? <p>No items.</p>
+  : (
     <React.Fragment>
       <table className={className + " select-table"}>
         <thead>
