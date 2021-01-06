@@ -7,14 +7,14 @@ import Table from '../../Table';
 const mockData = {
   companyName: "Shopee",
   users: [
-    { userID: "1", email: "blah1@example.com", lastLogin: new Date() },
-    { userID: "2", email: "blah2@example.com", lastLogin: new Date() },
-    { userID: "3", email: "blah3@example.com", lastLogin: new Date() }
+    { userID: "1", email: "blah1@example.com", lastLoggedIn: new Date() },
+    { userID: "2", email: "blah2@example.com", lastLoggedIn: new Date() },
+    { userID: "3", email: "blah3@example.com", lastLoggedIn: new Date() }
   ],
   postHistory: [
-    { postID: "1", date: new Date(), title: "Shopee Design Thinking Workshop" },
-    { postID: "2", date: new Date(), title: "Shopee Ultra Hackathon 2020" },
-    { postID: "3", date: new Date(), title: "Shopee Summer Internship Positions are open now!" },
+    { companyPostID: "1", date: new Date(), title: "Shopee Design Thinking Workshop" },
+    { companyPostID: "2", date: new Date(), title: "Shopee Ultra Hackathon 2020" },
+    { companyPostID: "3", date: new Date(), title: "Shopee Summer Internship Positions are open now!" },
   ]
 }
 
@@ -23,20 +23,20 @@ export default function View() {
   const { companyName, users, postHistory } = mockData;
   const history = useHistory();
 
-  const usersDataToRow = ({ userID, email, lastLogin }) => (
+  const usersDataToRow = ({ userID, email, lastLoggedIn }) => (
     <tr
       key={userID}
       onClick={() => history.push(`/admin/industry/users/view/${userID}`)}
       className="clickable"
     >
       <td>{email}</td>
-      <td>{lastLogin.toLocaleDateString()}</td>
+      <td>{lastLoggedIn.toLocaleDateString()}</td>
     </tr>
   )
-  const postsDataToRow = ({ postID, date, title }) => (
+  const postsDataToRow = ({ companyPostID, date, title }) => (
     <tr
-      key={postID}
-      onClick={() => history.push(`/admin/industry/posts/preview/${postID}`)}
+      key={companyPostID}
+      onClick={() => history.push(`/admin/industry/posts/preview/${companyPostID}`)}
       className="clickable"
     >
       <td>{title}</td>

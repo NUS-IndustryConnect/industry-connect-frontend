@@ -57,7 +57,7 @@ const exampleAnnouncements = [
   }
 ];
 
-export const getAnnouncements = () => {
+const getAnnouncements = () => {
   return Promise.resolve(exampleAnnouncements)
   .then(data => {
     return {
@@ -68,22 +68,31 @@ export const getAnnouncements = () => {
   });
 }
 
-export const postAnnouncement = data => {
+const postAnnouncement = data => {
   return fetch('/announcement/add', {
     method: "POST",
     body: data,
   });
 }
 
-export const archiveAnnouncement = id => {
+const archiveAnnouncement = id => {
   return fetch(`/announcement/archive/${id}`, {
     method: "POST"
   })
 }
 
-export const updateAnnouncement = (id, data) => {
+const updateAnnouncement = (id, data) => {
   return fetch(`/announcement/update/${id}`, {
     method: "POST",
     body: data,
   })
 }
+
+const announcementsApi = {
+  getAnnouncements,
+  postAnnouncement,
+  archiveAnnouncement,
+  updateAnnouncement
+}
+
+export default announcementsApi;

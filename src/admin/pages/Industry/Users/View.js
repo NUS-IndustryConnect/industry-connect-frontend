@@ -7,24 +7,24 @@ import Table from '../../Table';
 const mockData = {
   email: "blah@example.com",
   companyName: "Shopee",
-  lastLogin: new Date(),
+  lastLoggedIn: new Date(),
   accountLocked: new Date(),
   postHistory: [
-    { postID: "1", date: new Date(), title: "Shopee Design Thinking Workshop" },
-    { postID: "2", date: new Date(), title: "Shopee Ultra Hackathon 2020" },
-    { postID: "3", date: new Date(), title: "Shopee Summer Internship Positions are open now!" },
+    { companyPostID: "1", date: new Date(), title: "Shopee Design Thinking Workshop" },
+    { companyPostID: "2", date: new Date(), title: "Shopee Ultra Hackathon 2020" },
+    { companyPostID: "3", date: new Date(), title: "Shopee Summer Internship Positions are open now!" },
   ]
 }
 
 export default function View() {
   // TODO: link up to Redux (temporary placeholder)
-  const { email, companyName, lastLogin, accountLocked, postHistory } = mockData;
+  const { email, companyName, lastLoggedIn, accountLocked, postHistory } = mockData;
   const history = useHistory();
 
-  const dataToRow = ({ postID, date, title }) => (
+  const dataToRow = ({ companyPostID, date, title }) => (
     <tr
-      key={postID}
-      onClick={() => history.push(`/admin/industry/posts/preview/${postID}`)}
+      key={companyPostID}
+      onClick={() => history.push(`/admin/industry/posts/preview/${companyPostID}`)}
       className="clickable"
     >
       <td>{title}</td>
@@ -45,7 +45,7 @@ export default function View() {
           </tr>
           <tr>
             <th>Last login</th>
-            <td>{lastLogin.toLocaleDateString()}</td>
+            <td>{lastLoggedIn.toLocaleDateString()}</td>
           </tr>
           <tr className="unlock-account">
             <th>Account locked</th>

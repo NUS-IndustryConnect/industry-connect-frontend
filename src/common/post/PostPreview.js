@@ -6,7 +6,7 @@ import './PostPreview.css'
 
 export default function Preview({ data }) {
   const {
-    companyPostTitle,
+    postTitle,
     description = "",
     videoURL,
     moreURL,
@@ -15,7 +15,7 @@ export default function Preview({ data }) {
   return (
     <div className="post">
       <div className="post-header">
-        <h3>{companyPostTitle}</h3>
+        <h3>{postTitle}</h3>
         <Link to={`/admin/industry/posts/edit/${id}`}>
           <button className="secondary right">Edit</button>
         </Link>

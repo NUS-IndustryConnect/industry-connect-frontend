@@ -3,7 +3,7 @@ import React from 'react';
 import Form from '../Form';
 
 export const getPostFields = data => ({
-  companyPostTitle: data.get('title'),
+  postTitle: data.get('title'),
   description: data.get('description'),
   videoURL: data.get('video-link'),
   moreURL: data.get('more-link'),

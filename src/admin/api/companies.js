@@ -37,7 +37,7 @@ const exampleCompanies = [
   }
 ]
 
-export const getCompanies = () => {
+const getCompanies = () => {
   // return fetch('/company/admin');
   return Promise.resolve(exampleCompanies);
 }
@@ -61,22 +61,31 @@ export const mergeCompanyInfo = async (data) => {
   );
 }
 
-export const postCompany = data => {
+const postCompany = data => {
   return fetch('/company/create', {
     method: "POST",
     body: data,
   })
 }
 
-export const deleteCompany = id => {
+const deleteCompany = id => {
   return fetch(`/company/${id}`, {
     method: "DELETE"
   })
 }
 
-export const updateCompany = (id, data) => {
+const updateCompany = (id, data) => {
   return fetch(`/company/${id}`, {
     method: "POST",
     body: data,
   })
 }
+
+const companyApi = {
+  getCompanies,
+  postCompany,
+  updateCompany,
+  deleteCompany,
+}
+
+export default companyApi;

@@ -1,6 +1,6 @@
 /* eslint-disable eqeqeq */
 import { getAnnouncementsApi } from "../../student/api/announcementsApi";
-import { getAnnouncements } from '../../admin/api/announcements';
+import adminApi from '../../admin/api';
 
 export const getAnnouncementsForStudents = async () => {
   console.log('Getting announcements for students from database....');
@@ -16,7 +16,7 @@ export const getAnnouncementsForStudents = async () => {
 
 export const getAnnouncementsForAdmin = async () => {
   console.log('Getting announcements for admin from database....');
-  const response = await getAnnouncements();
+  const response = await adminApi.announcements.getAnnouncements();
   return response;
 }
 

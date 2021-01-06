@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 
-import { getCompanyUsers } from '../../../api/users';
+import adminApi from '../../../api';
 
 import Page from '../../Page';
 import SelectTable from '../../SelectTable';
@@ -10,11 +10,11 @@ export default function Manage() {
   const [data, setData] = useState([]);
   const history = useHistory();
   useEffect(() => {
-    getCompanyUsers().then(setData);
+    adminApi.companyUsers.getCompanyUsers().then(setData);
   }, []);
 
   const dataToRow = (data, checkbox) => {
-    const { companyUserID, userEmail, company, lastLogin } = data;
+    const { companyUserID, userEmail, company, lastLoggedIn } = data;
     const handleClick = () => history.push(`/admin/industry/users/view/${companyUserID}`);
     return (
       <tr key={companyUserID} >
@@ -22,7 +22,7 @@ export default function Manage() {
         <td className="clickable" onClick={handleClick}>{userEmail}</td>
         <td className="clickable" onClick={handleClick}>{company.companyName}</td>
         <td className="clickable" onClick={handleClick}>{company.companyTier}</td>
-        <td className="clickable" onClick={handleClick}>{lastLogin.toLocaleDateString()}</td>
+        <td className="clickable" onClick={handleClick}>{lastLoggedIn.toLocaleDateString()}</td>
       </tr>
     )
   };

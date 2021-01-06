@@ -7,12 +7,12 @@ const ViewIndustry = () => {
   const history = useHistory();
   const location = useLocation();
   const { id } = useParams();
-  const { company, companyPostTitle, description, videoURL, embeddedVideoURL, link } = location.state;
+  const { company, postTitle, description, videoURL, embeddedVideoURL, link } = location.state;
   const { companyName } = company;
 
   return (
     <Page title="View Industry">
-        <h2>{companyPostTitle}</h2>
+        <h2>{postTitle}</h2>
         <h7>by <i>{companyName}</i></h7>
         <p>{description}</p>
         {embeddedVideoURL && 

@@ -14,23 +14,23 @@ const ViewAllIndustry = () => {
 
   const dataToRow = (data) => {
     const {
-      postID,
-      companyPostTitle,
+      companyPostID,
+      postTitle,
       lastUpdated,
       company
     } = data;
     const state = {
         ...data
     }
-    const handleClick = () => history.push({pathname: `/student/industry/${postID}`, state});
+    const handleClick = () => history.push({pathname: `/student/industry/${companyPostID}`, state});
     return (
-      <li key={postID}>
+      <li key={companyPostID}>
         <Card
           className="industry-list-card"
           onClick={handleClick}
         >
           <Card.Body>
-            <Card.Title style={{fontWeight: 'bold'}}>{companyPostTitle}</Card.Title>
+            <Card.Title style={{fontWeight: 'bold'}}>{postTitle}</Card.Title>
             <Card.Subtitle className="mb-2 text-muted">{company.companyName}</Card.Subtitle>
           </Card.Body>
           <Card.Footer>

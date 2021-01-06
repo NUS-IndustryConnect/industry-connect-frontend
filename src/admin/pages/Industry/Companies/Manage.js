@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 
-import { getCompanies } from '../../../api/companies';
+import adminApi from '../../../api';
 
 import Page from '../../Page';
 import SelectTable from '../../SelectTable';
@@ -10,7 +10,7 @@ export default function Manage() {
   const [data, setData] = useState([]);
   const history = useHistory();
   useEffect(() => {
-    getCompanies().then(setData);
+    adminApi.companies.getCompanies().then(setData);
   }, []);
 
   const dataToRow = (data, checkbox) => {

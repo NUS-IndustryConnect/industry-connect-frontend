@@ -1,79 +1,130 @@
-import { mergeCompanyInfo } from "./companies";
-
 // TODO: link up to BE API (temporary placeholder)
-const exampleApprovedPosts = [
+const examplePosts = [
   {
-    postID: "1",
+    companyPostID: "1",
     companyID: "1",
-    companyPostTitle: "New internship opportunity at Shopee",
-    description: "Get a job here",
-    videoURL: "https://www.youtube.com/watch?v=Jf_2EyDNywE",
+    companyName: "Shopee",
+    postTitle: "New internship opportunity at Shopee",
+    postSubtitle: "subtitle",
+    postDescription: "Get a job here",
+    videoUrl: "https://www.youtube.com/watch?v=Jf_2EyDNywE",
     lastUpdated: new Date(),
-    relatedJobs: []
+    validTill: new Date(),
+    approvedBy: "approver",
+    isActive: true,
+    links: [
+      "http://nus.edu.sg/",
+    ]
   },
   {
-    postID: "2",
+    companyPostID: "2",
     companyID: "1",
-    companyPostTitle: "New internship opportunity at Shopee",
-    description: "Get a job here",
-    videoURL: "https://www.youtube.com/watch?v=Jf_2EyDNywE",
+    companyName: "Shopee",
+    postTitle: "New internship opportunity at Shopee",
+    postSubtitle: "subtitle",
+    postDescription: "Get a job here",
+    videoUrl: "https://www.youtube.com/watch?v=Jf_2EyDNywE",
     lastUpdated: new Date(),
-    relatedJobs: []
+    validTill: new Date(),
+    approvedBy: "approver",
+    isActive: true,
+    links: [
+      "http://nus.edu.sg/",
+    ]
   },
   {
-    postID: "3",
+    companyPostID: "3",
     companyID: "1",
-    companyPostTitle: "New internship opportunity at Shopee",
-    description: "Get a job here",
-    videoURL: "https://www.youtube.com/watch?v=Jf_2EyDNywE",
+    companyName: "Shopee",
+    postTitle: "New internship opportunity at Shopee",
+    postSubtitle: "subtitle",
+    postDescription: "Get a job here",
+    videoUrl: "https://www.youtube.com/watch?v=Jf_2EyDNywE",
     lastUpdated: new Date(),
-    relatedJobs: []
+    validTill: new Date(),
+    approvedBy: "approver",
+    isActive: true,
+    links: [
+      "http://nus.edu.sg/",
+    ]
   },
   {
-    postID: "4",
+    companyPostID: "4",
     companyID: "1",
-    companyPostTitle: "New internship opportunity at Shopee",
-    description: "Get a job here",
-    videoURL: "https://www.youtube.com/watch?v=Jf_2EyDNywE",
+    companyName: "Shopee",
+    postTitle: "New internship opportunity at Shopee",
+    postSubtitle: "subtitle",
+    postDescription: "Get a job here",
+    videoUrl: "https://www.youtube.com/watch?v=Jf_2EyDNywE",
     lastUpdated: new Date(),
-    relatedJobs: []
+    validTill: new Date(),
+    approvedBy: "approver",
+    isActive: true,
+    links: [
+      "http://nus.edu.sg/",
+    ]
   }
 ]
 
-export const getApprovedPosts = () => {
-  return Promise.resolve(exampleApprovedPosts);
+const getPosts = () => {
+  return Promise.resolve(examplePosts);
+  // return fetch('/companyPost');
 }
 
-const pendingPosts = [
-  {
-    postID: "1",
-    companyID: "1",
-    companyPostTitle: "NEW Job opportunities",
-    description: "Get a job here",
-    videoURL: "https://www.youtube.com/watch?v=Jf_2EyDNywE",
-    lastUpdated: new Date(),
-    relatedJobs: [],
-    isRejected: false,
-  },
-  {
-    postID: "2",
-    companyID: "1",
-    companyPostTitle: "NEW Job opportunities",
-    description: "Get a job here",
-    videoURL: "https://www.youtube.com/watch?v=Jf_2EyDNywE",
-    lastUpdated: new Date(),
-    relatedJobs: [],
-    isRejected: false,
-  },
-]
-
-export const getPendingPosts = () => {
-  return Promise.resolve(pendingPosts);
+const getValidPosts = () => {
+  return fetch('/companyPost/valid');
 }
 
-export const getPosts = async () => {
-  const approved = await getApprovedPosts().then(mergeCompanyInfo);
-  const pending = await getPendingPosts().then(mergeCompanyInfo);
-
-  return { approved, pending }
+const getPostsByCompany = companyID => {
+  return fetch(`/companyPost/company/${companyID}`);
 }
+
+const getValidPostsByCompany = companyID => {
+  return fetch(`/companyPost/company/${companyID}/valid`);
+}
+
+const getPostsByUser = companyUserID => {
+  return fetch(`/companyPost/user/${companyUserID}`);
+}
+
+const createPost = data => {
+  return fetch('/companyPost/create', {
+    method: "POST",
+    body: data,
+  });
+}
+
+const updatePost = (id, data) => {
+  return fetch(`/companyPost/update/${id}`, {
+    method: "POST",
+    body: data
+  })
+}
+
+const archivePosts = companyPostIDs => {
+  return fetch('/companyPost/archive', {
+    method: "POST",
+    body: { companyPostIDs }
+  })
+}
+
+const deletePosts = companyPostIDs => {
+  return fetch('/companyPost/delete', {
+    method: "DELETE",
+    body: { companyPostIDs }
+  })
+}
+
+const postsApi = {
+  getPosts,
+  getValidPosts,
+  getPostsByCompany,
+  getValidPostsByCompany,
+  getPostsByUser,
+  createPost,
+  updatePost,
+  archivePosts,
+  deletePosts,
+}
+
+export default postsApi;
