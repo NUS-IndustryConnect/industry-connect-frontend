@@ -10,10 +10,6 @@ import Admin from './admin';
 import Company from './company';
 import './App.css';
 
-import store, { initStore } from "./redux/store";
-
-store.dispatch(initStore())
-
 function App() {
   return (
     <div className="App">
