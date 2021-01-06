@@ -51,14 +51,21 @@ const exampleAnnouncements = [
     description: "Body Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc justo nibh, pulvinar quis consectetur vel, tristique vel tellus. Praesent aliquet, justo quis tempus porta, metus neque ultricies justo, a lobortis nibh odio sit amet dolor. Nulla facilisi. Sed sem ante, tempus id ullamcorper vitae, efficitur nec risus. Sed luctus nibh in volutpat rutrum. In hac habitasse platea dictumst. Donec sit amet enim vel magna laoreet sagittis sed at tortor. Etiam laoreet luctus metus ac dignissim.",
     lastUpdated: new Date(),
     isImportant: false,
-    isValid: true,
+    isValid: false,
     validTill: new Date(),
     announceBy: "author"
   }
 ];
 
 export const getAnnouncements = () => {
-  return Promise.resolve(exampleAnnouncements);
+  return Promise.resolve(exampleAnnouncements)
+  .then(data => {
+    return {
+      pinnedAnnouncements: data.filter(elem => elem.isImportant),
+      displayedAnnouncements: data.filter(elem => elem.isValid && !elem.isImportant),
+      archivedAnnouncements: data.filter(elem => !elem.isValid),
+    }
+  });
 }
 
 export const postAnnouncement = data => {

@@ -1,7 +1,6 @@
-import { LOAD_STUDENT_ANNOUNCEMENT_DATA } from "../types";
+import { LOAD_STUDENT_ANNOUNCEMENT_DATA, LOAD_ADMIN_ANNOUNCEMENT_DATA } from "../types";
 
 const initState = {
-    isAdmin: false,
     archivedAnnouncements: [],
     displayedAnnouncements: [],
     pinnedAnnouncements: [],
@@ -12,9 +11,15 @@ const announcementReducer = (state = initState, {type, payload}) => {
         case LOAD_STUDENT_ANNOUNCEMENT_DATA:
             return {
                 ...state,
-                isAdmin: false,
                 displayedAnnouncements: [...payload.displayedAnnouncements],
-                pinnedAnnouncements: [...payload.pinnedAnnouncements]
+                pinnedAnnouncements: [...payload.pinnedAnnouncements],
+            }
+        case LOAD_ADMIN_ANNOUNCEMENT_DATA:
+            return {
+                ...state,
+                displayedAnnouncements: [...payload.displayedAnnouncements],
+                pinnedAnnouncements: [...payload.pinnedAnnouncements],
+                archivedAnnouncements: [...payload.archivedAnnouncements],
             }
         default:
             return state;

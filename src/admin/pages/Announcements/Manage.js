@@ -1,42 +1,53 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux'
 
 import Page from '../Page';
 import SelectTable from '../SelectTable';
-import { getAnnouncements } from '../../api/announcements';
+
+const archiveAnnouncement = {
+  label: "Archive",
+  className: "secondary",
+  onClick: selections => {
+    // TODO: link up to BE API (temporary placeholder)
+    console.log("Archiving ", selections);
+
+  }
+};
+
+const deleteAnnouncement = {
+  label: "Delete",
+  className: "warning",
+  onClick: selections => {
+    // TODO: link up to BE API (temporary placeholder)
+    console.log("Deleting ", selections);
+  } 
+};
 
 const Manage = () => {
-  const [data, setData] = useState([]);
+  const {
+    archivedAnnouncements,
+    displayedAnnouncements,
+    pinnedAnnouncements
+  } = useSelector(state => state.announcement);
+
   const history = useHistory();
-  useEffect(() => {
-    getAnnouncements().then(setData);
-  }, []);
 
   const dataToRow = (data, checkbox=null) => {
     const {
-      announcementID,
-      announcementTitle,
+      announceID,
+      title,
       lastUpdated
     } = data;
-    const handleClick = () => history.push(`/admin/announcements/edit/${announcementID}`);
+    const handleClick = () => history.push(`/admin/announcements/edit/${announceID}`);
     return (
-      <tr key={announcementID} >
+      <tr key={announceID} >
         <td>{ checkbox }</td>
-        <td className="clickable" onClick={handleClick}>{announcementTitle}</td>
+        <td className="clickable" onClick={handleClick}>{title}</td>
         <td className="clickable" onClick={handleClick}>{lastUpdated.toLocaleDateString()}</td>
       </tr>
     )
   };
-
-  const archiveItems = (selections) => {
-    // TODO: link up to BE API (temporary placeholder)
-    console.log("Archiving ", selections);
-  }
-
-  const deleteItems = (selections) => {
-    // TODO: link up to BE API (temporary placeholder)
-    console.log("Deleting ", selections);
-  }
 
   return (
     <Page title="Manage Announcements">
@@ -45,16 +56,24 @@ const Manage = () => {
       </Link>
       
       <section>
-        <h3>Active Announcements</h3>
+        <h3>Pinned</h3>
         <SelectTable
           headers={["Announcement Title", "Last Updated"]}
-          data={data}
+          data={pinnedAnnouncements}
           dataToRow={dataToRow}
-          idKey="announcementID"
-          actions={[
-            { label: "Archive", className: "secondary", onClick: archiveItems },
-            { label: "Delete", className: "warning", onClick: deleteItems }
-          ]}
+          idKey="announceID"
+          actions={[ archiveAnnouncement, deleteAnnouncement ]}
+        />
+      </section>
+
+      <section>
+        <h3>Active</h3>
+        <SelectTable
+          headers={["Announcement Title", "Last Updated"]}
+          data={displayedAnnouncements}
+          dataToRow={dataToRow}
+          idKey="announceID"
+          actions={[ archiveAnnouncement, deleteAnnouncement ]}
         />
       </section>
   
@@ -62,13 +81,11 @@ const Manage = () => {
         <h3>Archived</h3>
         <SelectTable
           headers={['Announcement Title', "Last Updated"]}
-          data={data}
+          data={archivedAnnouncements}
           dataToRow={dataToRow}
           className="archived"
-          idKey="announcementID"
-          actions={[
-            { label: "Delete", className: "warning", onClick: deleteItems }
-          ]}
+          idKey="announceID"
+          actions={[ deleteAnnouncement ]}
         />
       </section>
     </Page>
