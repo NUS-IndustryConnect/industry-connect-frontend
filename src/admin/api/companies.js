@@ -38,6 +38,7 @@ const exampleCompanies = [
 ]
 
 export const getCompanies = () => {
+  // return fetch('/company/admin');
   return Promise.resolve(exampleCompanies);
 }
 
@@ -58,4 +59,24 @@ export const mergeCompanyInfo = async (data) => {
       company: companiesObj[user.companyID]
     })
   );
+}
+
+export const postCompany = data => {
+  return fetch('/company/create', {
+    method: "POST",
+    body: data,
+  })
+}
+
+export const deleteCompany = id => {
+  return fetch(`/company/${id}`, {
+    method: "DELETE"
+  })
+}
+
+export const updateCompany = (id, data) => {
+  return fetch(`/company/${id}`, {
+    method: "POST",
+    body: data,
+  })
 }

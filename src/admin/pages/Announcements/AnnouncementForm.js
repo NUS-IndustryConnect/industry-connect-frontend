@@ -3,9 +3,9 @@ import React from 'react';
 import Form from '../../../common/Form';
 
 export const getAnnouncementFields = data => ({
-  announcementTitle: data.get('title'),
-  announcementSubtitle: data.get('subtitle'),
-  announcementBody: data.get('body')
+  title: data.get('title'),
+  subtitle: data.get('subtitle'),
+  description: data.get('body')
 });
 
 export default function AnnouncementForm({ submit, initial }) {

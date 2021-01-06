@@ -14,20 +14,20 @@ const ViewAllAnnouncements = () => {
 
   const dataToRow = (item) => {
     const {
-      announcementID,
-      announcementTitle,
-      announcementSubtitle,
-      announcementBody,
+      announceID,
+      title,
+      subtitle,
+      description,
       lastUpdated
     } = item;
     const state = {
-      title: announcementTitle, 
-      subtitle: announcementSubtitle, 
-      body: announcementBody,
+      title: title, 
+      subtitle: subtitle, 
+      body: description,
     }
-    const handleClick = () => history.push({pathname: `/student/announcements/${announcementID}`, state});
+    const handleClick = () => history.push({pathname: `/student/announcements/${announceID}`, state});
     return (
-      <li key={announcementID}>
+      <li key={announceID}>
         <Card
           bg='primary'
           border='primary'
@@ -35,8 +35,8 @@ const ViewAllAnnouncements = () => {
           onClick={handleClick}
         >
           <Card.Body>
-            <Card.Title style={{fontWeight: 'bold'}}>{announcementTitle}</Card.Title>
-            <Card.Subtitle className="mb-2 text-muted">{announcementSubtitle}</Card.Subtitle>
+            <Card.Title style={{fontWeight: 'bold'}}>{title}</Card.Title>
+            <Card.Subtitle className="mb-2 text-muted">{subtitle}</Card.Subtitle>
           </Card.Body>
           <Card.Footer>
             <small className="text-muted">Last updated on {lastUpdated.toLocaleDateString()}</small>
