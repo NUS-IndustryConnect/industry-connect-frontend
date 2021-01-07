@@ -4,7 +4,7 @@ import studentApi from '../student/api';
 
 // thunk version of API calls
 const getAnnouncementsAdmin = createAsyncThunk('admin/announcements/get', adminApi.announcements.getAnnouncements);
-const getAnnouncementsStudent = createAsyncThunk('admin/announcements/get', studentApi.announcements.getAnnouncements);
+const getAnnouncementsStudent = createAsyncThunk('admin/announcements/get', studentApi.announcements.getAnnouncementsApi);
 const postAnnouncement = createAsyncThunk('admin/announcements/post', adminApi.announcements.postAnnouncement);
 const updateAnnouncement = createAsyncThunk('admin/announcements/update', adminApi.announcements.updateAnnouncement);
 const archiveAnnouncement = createAsyncThunk('admin/announcements/archive', adminApi.announcements.archiveAnnouncement);
@@ -16,7 +16,7 @@ const archiveAnnouncements = announceIDs => dispatch => {
     ));
   };
 
-export const adminThunks = {
+export const announcementThunks = {
   getAnnouncementsAdmin,
   getAnnouncementsStudent,
   postAnnouncement,
@@ -34,6 +34,9 @@ export const announcementSlice = createSlice({
   },
   reducers: {},
   extraReducers: {
+    [getAnnouncementsStudent.fulfilled]: (state, action) => {
+      state.data = action.payload;
+    },
     [getAnnouncementsAdmin.fulfilled]: (state, action) => {
       state.data = action.payload;
     },

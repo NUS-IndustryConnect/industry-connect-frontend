@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 
 import Page from '../Page';
 import AnnouncementForm, { getAnnouncementFields } from './AnnouncementForm';
-import { adminThunks } from '../../../redux/announcementSlice';
+import { announcementThunks } from '../../../redux/announcementSlice';
 
 export default function New() {
   const history = useHistory();
@@ -17,7 +17,7 @@ export default function New() {
       validTill: "",
       announceBy: "author",
     };
-    dispatch(adminThunks.postAnnouncement(announcementObj))
+    dispatch(announcementThunks.postAnnouncement(announcementObj))
     history.push('/admin/announcements')
   }
   return (

@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import Page from '../Page';
 import AnnouncementForm, { getAnnouncementFields } from './AnnouncementForm';
-import { announcementSelector, adminThunks } from '../../../redux/announcementSlice';
+import { announcementSelector, announcementThunks } from '../../../redux/announcementSlice';
 
 export default function Edit() {
   const history = useHistory();
@@ -23,7 +23,7 @@ export default function Edit() {
       ...currentValues,
       ...getAnnouncementFields(data),
     };
-    dispatch(adminThunks.updateAnnouncement(announcementObj));
+    dispatch(announcementThunks.updateAnnouncement(announcementObj));
     history.push('/admin/announcements');
   }
   return (
