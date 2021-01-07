@@ -7,9 +7,14 @@ import { useSelector } from 'react-redux'
 
 import './index.css';
 import Page from '../Page';
+import {
+  displayedAnnouncementsSelector,
+  pinnedAnnouncementsSelector
+} from '../../../redux/announcementSlice';
 
 const ViewAllAnnouncements = () => {
-  const { displayedAnnouncements, pinnedAnnouncements } = useSelector(state => state.announcement)
+  const displayedAnnouncements = useSelector(displayedAnnouncementsSelector);
+  const pinnedAnnouncements = useSelector(pinnedAnnouncementsSelector);
   const history = useHistory();
 
   const dataToRow = (item) => {
@@ -25,6 +30,11 @@ const ViewAllAnnouncements = () => {
       subtitle: subtitle, 
       body: description,
     }
+    // TODO: this only works if I was at ViewAllAnnouncements and click on one of the announcements
+    // does not work if I go to the link directly e.g. http://localhost:3000/student/announcements/1
+    // FIXME: inside ViewAnnouncement, make use of id
+    // (which is the 1 in the URL, function supplied by react-router-dom)
+    // and find the data from redux store
     const handleClick = () => history.push({pathname: `/student/announcements/${announceID}`, state});
     return (
       <li key={announceID}>

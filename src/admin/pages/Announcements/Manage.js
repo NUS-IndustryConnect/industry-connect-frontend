@@ -8,7 +8,7 @@ import {
   displayedAnnouncementsSelector,
   pinnedAnnouncementsSelector,
   archivedAnnouncementsSelector,
-  adminThunks
+  announcementThunks
 } from '../../../redux/announcementSlice';
 
 const Manage = () => {
@@ -39,7 +39,7 @@ const Manage = () => {
     label: "Archive",
     className: "secondary",
     onClick: selections => {
-      dispatch(adminThunks.archiveAnnouncements(selections));
+      dispatch(announcementThunks.archiveAnnouncements(selections));
     }
   };
 

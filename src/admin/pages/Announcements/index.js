@@ -8,13 +8,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import ManageAnnouncements from './Manage';
 import NewAnnouncement from './New';
 import EditAnnouncement from './Edit';
-import { announcementsFetchedSelector, adminThunks } from '../../../redux/announcementSlice';
+import { announcementsFetchedSelector, announcementThunks } from '../../../redux/announcementSlice';
 
 export default function Announcements () {
   const dispatch = useDispatch();
   const dataFetched = useSelector(announcementsFetchedSelector);
   useEffect(() => {
-    if (!dataFetched) dispatch(adminThunks.getAnnouncementsAdmin());
+    if (!dataFetched) dispatch(announcementThunks.getAnnouncementsAdmin());
   }, [dispatch, dataFetched]);
   return (
     <Switch>
