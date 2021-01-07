@@ -57,37 +57,37 @@ const exampleAnnouncements = [
   }
 ];
 
-const getAnnouncements = async () => {
-  const data = await Promise.resolve(exampleAnnouncements);
-  return {
-    pinnedAnnouncements: data.filter(elem => elem.isImportant),
-    displayedAnnouncements: data.filter(elem => elem.isValid && !elem.isImportant),
-    archivedAnnouncements: data.filter(elem => !elem.isValid),
-  };
+const getAnnouncements = () => {
+  return Promise.resolve(exampleAnnouncements);
 }
 
-const postAnnouncement = data => {
-  return Promise.resolve()
-  .then(() => {
-    console.log("Posting announcement:", data);
-  })
+const postAnnouncement = async data => {
+  console.log("Posting announcement:", data);
+  return {
+    ...data,
+    announceID: Math.floor(Math.random() * 1000000), // testing only
+    lastUpdated: new Date(),
+    isValid: true,
+  };
   // return fetch('/announcement/add', {
   //   method: "POST",
   //   body: data,
   // });
 }
 
-const archiveAnnouncement = id => {
-  return fetch(`/announcement/archive/${id}`, {
-    method: "POST"
-  })
+const archiveAnnouncement = async id => {
+  return id;
+  // return fetch(`/announcement/archive/${id}`, {
+  //   method: "POST"
+  // })
 }
 
-const updateAnnouncement = data => {
-  return fetch(`/announcement/update/${data.id}`, {
-    method: "POST",
-    body: data,
-  })
+const updateAnnouncement = async data => {
+  return data;
+  // return fetch(`/announcement/update/${data.id}`, {
+  //   method: "POST",
+  //   body: data,
+  // })
 }
 
 const announcementsApi = {

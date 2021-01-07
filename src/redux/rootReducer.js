@@ -2,12 +2,12 @@ import { combineReducers } from 'redux'
 
 /* Reducers */
 import userReducer from './user/userReducer'
-import announcementReducer from './announcement/announcementReducer'
+import announcementsReducer from './announcementSlice';
 import industryReducer from './industry/industryReducer'
 
 const rootReducer = combineReducers({
   user: userReducer,
-  announcement: announcementReducer,
+  announcements: announcementsReducer,
   industry: industryReducer,
 })
 

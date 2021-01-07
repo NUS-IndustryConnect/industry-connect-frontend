@@ -1,30 +1,34 @@
 import React from 'react';
 import { useParams, useHistory } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import Page from '../Page';
 import AnnouncementForm, { getAnnouncementFields } from './AnnouncementForm';
-import { announcementsSelector } from '../../../redux/announcement/announcementFunctions';
+import { announcementSelector, adminThunks } from '../../../redux/announcementSlice';
 
 export default function Edit() {
   const history = useHistory();
+  const dispatch = useDispatch();
   const { id } = useParams();
-  const formData = useSelector(announcementsSelector(id));
+  const currentValues = useSelector(announcementSelector(id));
+  console.log(currentValues)
   const {
     title = "",
     subtitle = "",
     description = ""
-  } = formData || {};
+  } = currentValues || {};
 
-  // TODO: link up to BE API (temporary placeholder)
   const submit = data => {
-    const announcementObj = getAnnouncementFields(data);
-    history.push('/admin/announcements')
-    console.log(announcementObj);
+    const announcementObj = {
+      ...currentValues,
+      ...getAnnouncementFields(data),
+    };
+    dispatch(adminThunks.updateAnnouncement(announcementObj));
+    history.push('/admin/announcements');
   }
   return (
     <Page title="Edit Announcement">
-      { formData
+      { currentValues
         ? <AnnouncementForm
             submit={submit}
             initial={{
