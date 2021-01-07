@@ -67,10 +67,14 @@ const getAnnouncements = async () => {
 }
 
 const postAnnouncement = data => {
-  return fetch('/announcement/add', {
-    method: "POST",
-    body: data,
-  });
+  return Promise.resolve()
+  .then(() => {
+    console.log("Posting announcement:", data);
+  })
+  // return fetch('/announcement/add', {
+  //   method: "POST",
+  //   body: data,
+  // });
 }
 
 const archiveAnnouncement = id => {
@@ -79,8 +83,8 @@ const archiveAnnouncement = id => {
   })
 }
 
-const updateAnnouncement = (id, data) => {
-  return fetch(`/announcement/update/${id}`, {
+const updateAnnouncement = data => {
+  return fetch(`/announcement/update/${data.id}`, {
     method: "POST",
     body: data,
   })

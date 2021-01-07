@@ -1,4 +1,10 @@
-import { LOAD_STUDENT_ANNOUNCEMENT_DATA, LOAD_ADMIN_ANNOUNCEMENT_DATA } from "../types";
+import {
+  LOAD_STUDENT_ANNOUNCEMENT_DATA,
+  LOAD_ADMIN_ANNOUNCEMENT_DATA,
+  CREATE_ANNOUNCEMENT,
+  UPDATE_ANNOUNCEMENT,
+  ARCHIVE_ANNOUNCEMENT,
+} from "../types";
 
 const initState = {
   archivedAnnouncements: [],
@@ -6,7 +12,7 @@ const initState = {
   pinnedAnnouncements: [],
 }
 
-const announcementReducer = (state = initState, {type, payload}) => {
+const announcementReducer = (state = initState, { type, payload }) => {
   switch (type) {
     case LOAD_STUDENT_ANNOUNCEMENT_DATA:
       return {
@@ -21,6 +27,9 @@ const announcementReducer = (state = initState, {type, payload}) => {
         pinnedAnnouncements: [...payload.pinnedAnnouncements],
         archivedAnnouncements: [...payload.archivedAnnouncements],
       }
+    case CREATE_ANNOUNCEMENT:
+    case UPDATE_ANNOUNCEMENT:
+    case ARCHIVE_ANNOUNCEMENT:
     default:
       return state;
   }

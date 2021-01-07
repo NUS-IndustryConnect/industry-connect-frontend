@@ -1,24 +1,21 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import Page from '../../Page';
 import Table from '../../Table';
-
-const mockData = {
-  email: "blah@example.com",
-  companyName: "Shopee",
-  lastLoggedIn: new Date(),
-  accountLocked: new Date(),
-  postHistory: [
-    { companyPostID: "1", date: new Date(), title: "Shopee Design Thinking Workshop" },
-    { companyPostID: "2", date: new Date(), title: "Shopee Ultra Hackathon 2020" },
-    { companyPostID: "3", date: new Date(), title: "Shopee Summer Internship Positions are open now!" },
-  ]
-}
+import { userSelector } from '../../../../redux/industry/industryReducer';
 
 export default function View() {
   // TODO: link up to Redux (temporary placeholder)
-  const { email, companyName, lastLoggedIn, accountLocked, postHistory } = mockData;
+  const { id } = useParams();
+  const data = useSelector(userSelector(id));
+  const {
+    userEmail,
+    company,
+    lastLoggedIn,
+    userPosts // TODO: map from just postIDs to the full data and then uncomment the post history table
+  } = data || {};
   const history = useHistory();
 
   const dataToRow = ({ companyPostID, date, title }) => (
@@ -33,37 +30,40 @@ export default function View() {
   )
   return (
     <Page title="View Company User">
-      <table className="vertical">
-        <tbody>
-          <tr>
-            <th>Email</th>
-            <td>{email}</td>
-          </tr>
-          <tr>
-            <th>Company</th>
-            <td>{companyName}</td>
-          </tr>
-          <tr>
-            <th>Last login</th>
-            <td>{lastLoggedIn.toLocaleDateString()}</td>
-          </tr>
-          <tr className="unlock-account">
-            <th>Account locked</th>
-            <td>
-              {accountLocked.toLocaleDateString()}
-              <button className="success">Unlock</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <section>
-        <h4>Posts</h4>
-        <Table
-          headers={["Post Title", "Date"]}
-          data={postHistory}
-          dataToRow={dataToRow}
-        />
-      </section>
+      { data ? <React.Fragment>
+        <table className="vertical">
+          <tbody>
+            <tr>
+              <th>Email</th>
+              <td>{userEmail}</td>
+            </tr>
+            <tr>
+              <th>Company</th>
+              <td>{company.companyName}</td>
+            </tr>
+            <tr>
+              <th>Last login</th>
+              <td>{lastLoggedIn.toLocaleDateString()}</td>
+            </tr>
+            {/* <tr className="unlock-account">
+              <th>Account locked</th>
+              <td>
+                {accountLocked.toLocaleDateString()}
+                <button className="success">Unlock</button>
+              </td>
+            </tr> */}
+          </tbody>
+        </table>
+        <section>
+          <h4>Posts</h4>
+          {/* <Table
+            headers={["Post Title", "Date"]}
+            data={userPosts}
+            dataToRow={dataToRow}
+          /> */}
+        </section>
+      </React.Fragment> :
+      <p>User not found.</p> }
     </Page>
   )
 }

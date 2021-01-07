@@ -1,4 +1,10 @@
-import { LOAD_STUDENT_ANNOUNCEMENT_DATA, LOAD_ADMIN_ANNOUNCEMENT_DATA } from "../types"
+import {
+  LOAD_STUDENT_ANNOUNCEMENT_DATA,
+  LOAD_ADMIN_ANNOUNCEMENT_DATA,
+  CREATE_ANNOUNCEMENT,
+  UPDATE_ANNOUNCEMENT,
+  ARCHIVE_ANNOUNCEMENT
+} from "../types"
 import { getAnnouncementsForStudents } from "./announcementFunctions"
 
 import adminApi from '../../admin/api';
@@ -30,5 +36,35 @@ export const loadAdminAnnouncementData = () => {
     catch (err) {
       throw err;
     }
+  }
+}
+
+export const createAnnouncement = data => {
+  return async (dispatch) => {
+    await adminApi.announcements.postAnnouncement(data);
+    dispatch({
+      type: CREATE_ANNOUNCEMENT,
+      payload: data,
+    });
+  }
+}
+
+export const updateAnnouncement = data => {
+  return async (dispatch) => {
+    await adminApi.announcements.updateAnnouncement(data);
+    dispatch({
+      type: UPDATE_ANNOUNCEMENT,
+      payload: data,
+    });
+  }
+}
+
+export const archiveAnnouncement = id => {
+  return async (dispatch) => {
+    await adminApi.announcements.archiveAnnouncement(id);
+    dispatch({
+      type: ARCHIVE_ANNOUNCEMENT,
+      payload: id,
+    });
   }
 }

@@ -18,10 +18,33 @@ const initState = {
 }
 
 export const postsSelector = state => state.industry.posts;
+export const postSelector = id => state => {
+  return postsSelector(state)
+    .find(post => post.companyPostID === id);
+}
+
 export const companiesSelector = state => state.industry.companies;
+export const companySelector = id => state => {
+  return companiesSelector(state)
+    .find(company => company.companyID === id);
+}
+
 export const usersSelector = state => state.industry.users;
+export const userSelector = id => state => {
+  return usersSelector(state)
+    .find(user => user.companyUserID === id);
+};
+export const usersOfCompanySelector = companyID => state => {
+  return usersSelector(state)
+    .filter(user => user.companyID === companyID)
+};
+
 export const requestsSelector = state => state.industry.requests;
-export const usersOfCompanySelector = state => state.industry.users;
+export const requestSelector = companyPostID => state => {
+  return requestsSelector(state)
+    .find(request => request.companyPostID === companyPostID);
+}
+
 
 const industryReducer = (state = initState, {type, payload}) => {
   switch (type) {
