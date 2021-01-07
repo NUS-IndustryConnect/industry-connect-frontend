@@ -1,35 +1,21 @@
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 
 import Page from '../Page';
 import SelectTable from '../SelectTable';
-
-const archiveAnnouncement = {
-  label: "Archive",
-  className: "secondary",
-  onClick: selections => {
-    // TODO: link up to BE API (temporary placeholder)
-    console.log("Archiving ", selections);
-
-  }
-};
-
-const deleteAnnouncement = {
-  label: "Delete",
-  className: "warning",
-  onClick: selections => {
-    // TODO: link up to BE API (temporary placeholder)
-    console.log("Deleting ", selections);
-  } 
-};
+import {
+  displayedAnnouncementsSelector,
+  pinnedAnnouncementsSelector,
+  archivedAnnouncementsSelector,
+  adminThunks
+} from '../../../redux/announcementSlice';
 
 const Manage = () => {
-  const {
-    archivedAnnouncements,
-    displayedAnnouncements,
-    pinnedAnnouncements
-  } = useSelector(state => state.announcement);
+  const dispatch = useDispatch();
+  const displayedAnnouncements = useSelector(displayedAnnouncementsSelector);
+  const pinnedAnnouncements = useSelector(pinnedAnnouncementsSelector);
+  const archivedAnnouncements = useSelector(archivedAnnouncementsSelector);
 
   const history = useHistory();
 
@@ -49,6 +35,14 @@ const Manage = () => {
     )
   };
 
+  const archiveAnnouncement = {
+    label: "Archive",
+    className: "secondary",
+    onClick: selections => {
+      dispatch(adminThunks.archiveAnnouncements(selections));
+    }
+  };
+
   return (
     <Page title="Manage Announcements">
       <Link to="/admin/announcements/new">
@@ -62,7 +56,7 @@ const Manage = () => {
           data={pinnedAnnouncements}
           dataToRow={dataToRow}
           idKey="announceID"
-          actions={[ archiveAnnouncement, deleteAnnouncement ]}
+          actions={[ archiveAnnouncement ]}
         />
       </section>
 
@@ -73,7 +67,7 @@ const Manage = () => {
           data={displayedAnnouncements}
           dataToRow={dataToRow}
           idKey="announceID"
-          actions={[ archiveAnnouncement, deleteAnnouncement ]}
+          actions={[ archiveAnnouncement ]}
         />
       </section>
   
@@ -85,7 +79,7 @@ const Manage = () => {
           dataToRow={dataToRow}
           className="archived"
           idKey="announceID"
-          actions={[ deleteAnnouncement ]}
+          actions={[]}
         />
       </section>
     </Page>

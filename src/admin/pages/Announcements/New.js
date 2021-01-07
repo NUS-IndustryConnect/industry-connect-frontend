@@ -1,16 +1,24 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 import Page from '../Page';
 import AnnouncementForm, { getAnnouncementFields } from './AnnouncementForm';
+import { adminThunks } from '../../../redux/announcementSlice';
 
 export default function New() {
   const history = useHistory();
+  const dispatch = useDispatch();
   // TODO: link up to BE API (temporary placeholder)
   const submit = data => {
-    const announcementObj = getAnnouncementFields(data);
+    const announcementObj = {
+      ...getAnnouncementFields(data),
+      isImportant: false,
+      validTill: "",
+      announceBy: "author",
+    };
+    dispatch(adminThunks.postAnnouncement(announcementObj))
     history.push('/admin/announcements')
-    console.log(announcementObj);
   }
   return (
     <Page title="New Announcement">

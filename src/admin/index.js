@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import store, { initStoreForAdmin } from "../redux/store";
 
 import Login from './pages/Login';
 import Announcements from './pages/Announcements';
@@ -8,9 +7,6 @@ import Industry from './pages/Industry';
 import './index.css'
 
 const Admin = () => {
-  useEffect(() => {
-    store.dispatch(initStoreForAdmin())
-  }, [])
   return (
     <Switch>
       <Route path="/admin/announcements"><Announcements /></Route>
