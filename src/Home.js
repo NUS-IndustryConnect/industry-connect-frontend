@@ -8,7 +8,7 @@ const Home = () => {
       <p>I am a</p>
       <Link to="/student"><button className="primary">Student</button></Link>
       <Link to="/admin"><button className="primary">Admin</button></Link>
-      <Link to="/company"><button className="primary">Company</button></Link>
+      <Link to="/industry"><button className="primary">Industry</button></Link>
     </Page>
   )
 }
