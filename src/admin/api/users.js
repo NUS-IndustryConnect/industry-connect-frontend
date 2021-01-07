@@ -43,7 +43,7 @@ const getRawUsers = () => {
   return Promise.resolve(exampleUsers);
 }
 
-const getCompanyUsers = async () => {
+const getUsers = async () => {
   const rawUsers = await getRawUsers();
   return mergeCompanyInfo(rawUsers);
   // return fetch('/companyUsers/users');
@@ -71,7 +71,7 @@ const deleteUser = companyUserID => {
 }
 
 const usersApi = {
-  getCompanyUsers,
+  getUsers,
   getUsersOfCompany,
   getUser,
   createUser,

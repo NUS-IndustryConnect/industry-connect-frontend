@@ -9,7 +9,7 @@ import './index.css';
 import Page from '../Page';
 
 const ViewAllIndustry = () => {
-  const { displayedPosts } = useSelector(state => state.industry)
+  const { displayedPosts } = useSelector(state => state.industry.posts)
   const history = useHistory();
 
   const dataToRow = (data) => {

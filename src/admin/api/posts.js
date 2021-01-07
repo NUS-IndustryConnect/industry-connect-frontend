@@ -4,7 +4,7 @@ const examplePosts = [
     companyPostID: "1",
     companyID: "1",
     companyName: "Shopee",
-    postTitle: "New internship opportunity at Shopee",
+    postTitle: "Post 1",
     postSubtitle: "subtitle",
     postDescription: "Get a job here",
     videoUrl: "https://www.youtube.com/watch?v=Jf_2EyDNywE",
@@ -20,7 +20,7 @@ const examplePosts = [
     companyPostID: "2",
     companyID: "1",
     companyName: "Shopee",
-    postTitle: "New internship opportunity at Shopee",
+    postTitle: "Post 2",
     postSubtitle: "subtitle",
     postDescription: "Get a job here",
     videoUrl: "https://www.youtube.com/watch?v=Jf_2EyDNywE",
@@ -36,7 +36,7 @@ const examplePosts = [
     companyPostID: "3",
     companyID: "1",
     companyName: "Shopee",
-    postTitle: "New internship opportunity at Shopee",
+    postTitle: "Post 3",
     postSubtitle: "subtitle",
     postDescription: "Get a job here",
     videoUrl: "https://www.youtube.com/watch?v=Jf_2EyDNywE",
@@ -52,23 +52,27 @@ const examplePosts = [
     companyPostID: "4",
     companyID: "1",
     companyName: "Shopee",
-    postTitle: "New internship opportunity at Shopee",
+    postTitle: "Old Post 4",
     postSubtitle: "subtitle",
     postDescription: "Get a job here",
     videoUrl: "https://www.youtube.com/watch?v=Jf_2EyDNywE",
     lastUpdated: new Date(),
     validTill: new Date(),
     approvedBy: "approver",
-    isActive: true,
+    isActive: false,
     links: [
       "http://nus.edu.sg/",
     ]
   }
 ]
 
-const getPosts = () => {
-  return Promise.resolve(examplePosts);
-  // return fetch('/companyPost');
+const getPosts = async () => {
+  // return fetch('/companyPost')
+  const data = await Promise.resolve(examplePosts)
+  return {
+    displayedPosts: data.filter(elem => elem.isActive),
+    archivedPosts: data.filter(elem_1 => !elem_1.isActive),
+  }
 }
 
 const getValidPosts = () => {

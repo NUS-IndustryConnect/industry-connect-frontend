@@ -57,15 +57,13 @@ const exampleAnnouncements = [
   }
 ];
 
-const getAnnouncements = () => {
-  return Promise.resolve(exampleAnnouncements)
-  .then(data => {
-    return {
-      pinnedAnnouncements: data.filter(elem => elem.isImportant),
-      displayedAnnouncements: data.filter(elem => elem.isValid && !elem.isImportant),
-      archivedAnnouncements: data.filter(elem => !elem.isValid),
-    }
-  });
+const getAnnouncements = async () => {
+  const data = await Promise.resolve(exampleAnnouncements);
+  return {
+    pinnedAnnouncements: data.filter(elem => elem.isImportant),
+    displayedAnnouncements: data.filter(elem => elem.isValid && !elem.isImportant),
+    archivedAnnouncements: data.filter(elem => !elem.isValid),
+  };
 }
 
 const postAnnouncement = data => {

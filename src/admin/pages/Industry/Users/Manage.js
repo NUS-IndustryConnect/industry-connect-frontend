@@ -1,17 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
-
-import adminApi from '../../../api';
+import { useSelector } from 'react-redux';
 
 import Page from '../../Page';
 import SelectTable from '../../SelectTable';
+import { usersSelector } from '../../../../redux/industry/industryReducer';
+
+const deleteUser = {
+  label: "Delete",
+  className: "warning",
+  onClick: (selections) => {
+    // TODO: link up to BE API (temporary placeholder)
+    console.log("Deleting ", selections);
+  }
+}
 
 export default function Manage() {
-  const [data, setData] = useState([]);
+  const users = useSelector(usersSelector);
   const history = useHistory();
-  useEffect(() => {
-    adminApi.companyUsers.getCompanyUsers().then(setData);
-  }, []);
 
   const dataToRow = (data, checkbox) => {
     const { companyUserID, userEmail, company, lastLoggedIn } = data;
@@ -26,11 +32,6 @@ export default function Manage() {
       </tr>
     )
   };
-  
-  const deleteItems = (selections) => {
-    // TODO: link up to BE API (temporary placeholder)
-    console.log("Deleting ", selections);
-  }
 
   return (
     <Page title="Manage Company Users">
@@ -40,12 +41,10 @@ export default function Manage() {
       
       <SelectTable
         headers={["Email Address", "Company", "Tier", "Last Login"]}
-        data={data}
+        data={users}
         dataToRow={dataToRow}
         idKey="companyUserID"
-        actions={[
-          { label: "Delete", className: "warning", onClick: deleteItems }
-        ]}
+        actions={[ deleteUser ]}
       />
     </Page>
   )

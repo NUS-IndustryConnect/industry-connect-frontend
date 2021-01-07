@@ -1,17 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
-
-import adminApi from '../../../api';
+import { useSelector } from 'react-redux';
 
 import Page from '../../Page';
 import SelectTable from '../../SelectTable';
+import { companiesSelector } from '../../../../redux/industry/industryReducer';
 
 export default function Manage() {
-  const [data, setData] = useState([]);
+  const companies = useSelector(companiesSelector);
   const history = useHistory();
-  useEffect(() => {
-    adminApi.companies.getCompanies().then(setData);
-  }, []);
 
   const dataToRow = (data, checkbox) => {
     const { companyID, companyName, companyTier } = data;
@@ -38,7 +35,7 @@ export default function Manage() {
       
       <SelectTable
         headers={["Company Name", "Tier"]}
-        data={data}
+        data={companies}
         dataToRow={dataToRow}
         idKey="companyID"
         actions={[

@@ -4,7 +4,7 @@ import logger from 'redux-logger'
 import thunk from 'redux-thunk'
 
 import { loadStudentAnnouncementData, loadAdminAnnouncementData } from './announcement/announcementActions'
-import { loadStudentCompanyPostsData } from './industry/industryActions'
+import { loadStudentCompanyPostsData, loadAdminIndustryData } from './industry/industryActions'
 
 import rootReducer from './rootReducer'
 
@@ -27,6 +27,7 @@ export const initStoreForAdmin = () => {
   // TODO: wipe the store first?
   return async (dispatch) => {
     await dispatch(loadAdminAnnouncementData());
+    await dispatch(loadAdminIndustryData());
   }
 }
 

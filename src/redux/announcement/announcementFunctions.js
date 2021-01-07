@@ -1,7 +1,7 @@
 /* eslint-disable eqeqeq */
 import { getAnnouncementsApi } from "../../student/api/announcementsApi";
-import adminApi from '../../admin/api';
 
+// TODO: chuck this post processing (i.e. filtering by isImportant) into the getAnnouncementsApi directly
 export const getAnnouncementsForStudents = async () => {
   console.log('Getting announcements for students from database....');
   let studentAnnouncements;
@@ -13,12 +13,6 @@ export const getAnnouncementsForStudents = async () => {
     pinnedAnnouncements: studentAnnouncements.filter(item => item.isImportant),
   };
 };
-
-export const getAnnouncementsForAdmin = async () => {
-  console.log('Getting announcements for admin from database....');
-  const response = await adminApi.announcements.getAnnouncements();
-  return response;
-}
 
 export const announcementsSelector = id => state => {
   const {

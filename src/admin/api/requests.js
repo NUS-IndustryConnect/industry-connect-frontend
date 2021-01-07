@@ -2,7 +2,8 @@ const exampleRequests = [
   {
     companyPostId: "1",
     companyId: "1",
-    postTitle: "Inviting you to an exclusive Shopee event",
+    companyName: "Shopee",
+    postTitle: "Request 1",
     postSubtitle: "Sign up by 10 Jan!",
     description: "This is our event description",
     videoUrl: "https://www.youtube.com/watch?v=Jf_2EyDNywE",
@@ -14,7 +15,8 @@ const exampleRequests = [
   {
     companyPostId: "2",
     companyId: "1",
-    postTitle: "Inviting you to an exclusive Shopee event",
+    companyName: "Shopee",
+    postTitle: "Request 2",
     postSubtitle: "Sign up by 10 Jan!",
     description: "This is our event description",
     videoUrl: "https://www.youtube.com/watch?v=Jf_2EyDNywE",
@@ -26,13 +28,14 @@ const exampleRequests = [
   {
     companyPostId: "3",
     companyId: "1",
-    postTitle: "Inviting you to an exclusive Shopee event",
+    companyName: "Shopee",
+    postTitle: "Request 3",
     postSubtitle: "Sign up by 10 Jan!",
     description: "This is our event description",
     videoUrl: "https://www.youtube.com/watch?v=Jf_2EyDNywE",
     lastUpdated: new Date(),
     relatedJobs: [],
-    status: "pending",
+    status: "rejected",
     feedback: ""
   }
 ]

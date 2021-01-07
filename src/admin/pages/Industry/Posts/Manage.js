@@ -1,26 +1,27 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
-
-import { getPosts } from '../../../api/posts';
 
 import Page from '../../Page';
 import Table from '../../Table';
+import { postsSelector, requestsSelector } from '../../../../redux/industry/industryReducer';
 
 export default function Manage() {
-  const [data, setData] = useState({ approved: [], pending: [] });
+  const {
+    displayedPosts,
+    archivedPosts
+  } = useSelector(postsSelector);
+  const requests = useSelector(requestsSelector);
   const history = useHistory();
-  useEffect(() => {
-    getPosts().then(setData);
-  }, []);
 
-  const dataToRow = ({ postID, companyPostTitle, company, lastUpdated }) => (
+  const dataToRow = ({ companyPostID, postTitle, companyName, lastUpdated }) => (
     <tr 
-      key={postID}
-      onClick={() => history.push(`/admin/industry/posts/preview/${postID}`)}
+      key={companyPostID}
+      onClick={() => history.push(`/admin/industry/posts/preview/${companyPostID}`)}
       className="clickable"
     >
-      <td>{companyPostTitle}</td>
-      <td>{company.companyName}</td>
+      <td>{postTitle}</td>
+      <td>{companyName}</td>
       <td>{lastUpdated.toLocaleDateString()}</td>
     </tr>
   );
@@ -35,17 +36,28 @@ export default function Manage() {
         <h3>Pending</h3>
         <Table
           headers={["Title", "Company", "Last Updated"]}
-          data={data.pending}
+          data={requests}
           dataToRow={dataToRow}
+          className="pending"
         />
       </section>
   
       <section>
-        <h3>Approved</h3>
+        <h3>Displayed</h3>
         <Table
           headers={['Title', "Company", "Last Updated"]}
-          data={data.approved}
+          data={displayedPosts}
           dataToRow={dataToRow}
+        />
+      </section>
+
+      <section>
+        <h3>Archived</h3>
+        <Table
+          headers={['Title', "Company", "Last Updated"]}
+          data={archivedPosts}
+          dataToRow={dataToRow}
+          className="archived"
         />
       </section>
     </Page>

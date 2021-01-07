@@ -132,6 +132,10 @@ th {
   border-color: var(--mediumgrey);
 }
 
+.pending td {
+  background-color: var(--lightblue);
+}
+
 .clickable {
   cursor: pointer;
 }
