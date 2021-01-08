@@ -7,25 +7,24 @@ import Table from '../../Table';
 import { userSelector } from '../../../../redux/industry/userSlice';
 
 export default function View() {
-  // TODO: link up to Redux (temporary placeholder)
   const { id } = useParams();
   const data = useSelector(userSelector(id));
   const {
     userEmail,
     company,
     lastLoggedIn,
-    userPosts // TODO: map from just postIDs to the full data and then uncomment the post history table
+    userPosts
   } = data || {};
   const history = useHistory();
 
-  const dataToRow = ({ companyPostID, date, title }) => (
+  const dataToRow = ({ companyPostID, lastUpdated, postTitle }) => (
     <tr
       key={companyPostID}
       onClick={() => history.push(`/admin/industry/posts/preview/${companyPostID}`)}
       className="clickable"
     >
-      <td>{title}</td>
-      <td>{date.toLocaleDateString()}</td>
+      <td>{postTitle}</td>
+      <td>{lastUpdated.toLocaleDateString()}</td>
     </tr>
   )
   return (
@@ -56,11 +55,11 @@ export default function View() {
         </table>
         <section>
           <h4>Posts</h4>
-          {/* <Table
+          <Table
             headers={["Post Title", "Date"]}
             data={userPosts}
             dataToRow={dataToRow}
-          /> */}
+          />
         </section>
       </React.Fragment> :
       <p>User not found. Please select another user.</p> }
