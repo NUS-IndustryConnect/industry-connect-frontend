@@ -1,7 +1,9 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+
 import adminApi from '../../admin/api';
 import { companiesSelector, mergeCompanyInfo } from './companySlice';
 import { pluraliseThunk } from '../utils';
+import { postSelector } from './postSlice';
 
 // thunks
 const getUsers = createAsyncThunk('admin/users/get', adminApi.users.getUsers)
@@ -46,8 +48,14 @@ export const usersOfCompanySelector = companyID => state => {
     .filter(elem => elem.companyID === companyID)
 }
 export const userSelector = companyUserID => state => {
-  return usersSelector(state)
+  const rawUser = usersSelector(state)
     .find(elem => elem.companyUserID === companyUserID);
+  const userPosts = rawUser?.userPosts
+    .map(id => postSelector(id)(state))
+    .filter(Boolean);
+  return rawUser
+    ? { ...rawUser, userPosts }
+    : rawUser;
 }
 
 export default userSlice.reducer;
