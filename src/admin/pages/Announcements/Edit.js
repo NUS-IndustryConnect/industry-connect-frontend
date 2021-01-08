@@ -11,7 +11,7 @@ export default function Edit() {
   const dispatch = useDispatch();
   const { id } = useParams();
   const currentValues = useSelector(announcementSelector(id));
-  console.log(currentValues)
+
   const {
     title = "",
     subtitle = "",

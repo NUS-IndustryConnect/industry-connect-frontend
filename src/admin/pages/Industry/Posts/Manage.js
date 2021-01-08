@@ -4,13 +4,13 @@ import { Link, useHistory } from 'react-router-dom';
 
 import Page from '../../Page';
 import Table from '../../Table';
-import { postsSelector, requestsSelector } from '../../../../redux/industry/industryReducer';
+
+import { displayedPostsSelector, archivedPostsSelector } from '../../../../redux/industry/postSlice';
+import { requestsSelector } from '../../../../redux/industry/requestSlice';
 
 export default function Manage() {
-  const {
-    displayedPosts,
-    archivedPosts
-  } = useSelector(postsSelector);
+  const displayedPosts = useSelector(displayedPostsSelector);
+  const archivedPosts = useSelector(archivedPostsSelector);
   const requests = useSelector(requestsSelector);
   const history = useHistory();
 

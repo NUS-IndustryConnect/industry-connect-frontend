@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 export default function SelectTable(props) {
   const {
     headers,
-    data,
+    data = [],
     dataToRow,
     idKey,
     className="",
@@ -54,7 +54,10 @@ export default function SelectTable(props) {
             <button
               key={label}
               className={className}
-              onClick={() => onClick(selections)}
+              onClick={() => {
+                onClick(selections)
+                selectNone();
+              }}
             >
               {label}
             </button>)}

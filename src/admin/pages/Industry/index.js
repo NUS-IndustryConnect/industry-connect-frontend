@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   Switch,
   Route,
@@ -7,8 +7,15 @@ import {
 import Companies from './Companies';
 import Users from './Users';
 import Posts from './Posts';
+import { useDispatch, useSelector } from 'react-redux';
+import { getIndustryDataThunk, industryDataFetchedSelector } from '../../../redux/industry';
 
 const Industry = () => {
+  const dispatch = useDispatch();
+  const dataFetched = useSelector(industryDataFetchedSelector);
+  useEffect(() => {
+    if (!dataFetched) dispatch(getIndustryDataThunk());
+  }, [dispatch, dataFetched]);
   return (
     <Switch>
       <Route path="/admin/industry/companies"><Companies /></Route>

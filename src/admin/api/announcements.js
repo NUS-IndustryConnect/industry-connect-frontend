@@ -62,7 +62,6 @@ const getAnnouncements = () => {
 }
 
 const postAnnouncement = async data => {
-  console.log("Posting announcement:", data);
   return {
     ...data,
     announceID: Math.floor(Math.random() * 1000000), // testing only

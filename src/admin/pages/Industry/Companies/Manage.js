@@ -1,14 +1,15 @@
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import Page from '../../Page';
 import SelectTable from '../../SelectTable';
-import { companiesSelector } from '../../../../redux/industry/industryReducer';
+import { companiesSelector, companyThunks } from '../../../../redux/industry/companySlice';
 
 export default function Manage() {
   const companies = useSelector(companiesSelector);
   const history = useHistory();
+  const dispatch = useDispatch();
 
   const dataToRow = (data, checkbox) => {
     const { companyID, companyName, companyTier } = data;
@@ -22,9 +23,12 @@ export default function Manage() {
     )
   };
   
-  const deleteItems = (selections) => {
-    // TODO: link up to BE API (temporary placeholder)
-    console.log("Deleting ", selections);
+  const deleteCompany = {
+    label: "Delete",
+    className: "warning",
+    onClick: selections => {
+      dispatch(companyThunks.deleteCompanies(selections))
+    }
   }
 
   return (
@@ -38,9 +42,7 @@ export default function Manage() {
         data={companies}
         dataToRow={dataToRow}
         idKey="companyID"
-        actions={[
-          { label: "Delete", className: "warning", onClick: deleteItems }
-        ]}
+        actions={[ deleteCompany ]}
       />
     </Page>
   )

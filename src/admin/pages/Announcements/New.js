@@ -9,11 +9,10 @@ import { announcementThunks } from '../../../redux/announcementSlice';
 export default function New() {
   const history = useHistory();
   const dispatch = useDispatch();
-  // TODO: link up to BE API (temporary placeholder)
   const submit = data => {
     const announcementObj = {
       ...getAnnouncementFields(data),
-      isImportant: false,
+      isImportant: false, // FIXME: add this as field in form
       validTill: "",
       announceBy: "author",
     };

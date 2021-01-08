@@ -1,23 +1,23 @@
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import Page from '../../Page';
 import SelectTable from '../../SelectTable';
-import { usersSelector } from '../../../../redux/industry/industryReducer';
-
-const deleteUser = {
-  label: "Delete",
-  className: "warning",
-  onClick: (selections) => {
-    // TODO: link up to BE API (temporary placeholder)
-    console.log("Deleting ", selections);
-  }
-}
+import { usersSelector, userThunks } from '../../../../redux/industry/userSlice';
 
 export default function Manage() {
   const users = useSelector(usersSelector);
   const history = useHistory();
+  const dispatch = useDispatch();
+
+  const deleteUser = {
+    label: "Delete",
+    className: "warning",
+    onClick: selections => {
+      dispatch(userThunks.deleteUsers(selections));
+    }
+  }
 
   const dataToRow = (data, checkbox) => {
     const { companyUserID, userEmail, company, lastLoggedIn } = data;

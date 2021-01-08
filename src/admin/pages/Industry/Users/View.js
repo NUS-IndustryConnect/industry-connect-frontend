@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 
 import Page from '../../Page';
 import Table from '../../Table';
-import { userSelector } from '../../../../redux/industry/industryReducer';
+import { userSelector } from '../../../../redux/industry/userSlice';
 
 export default function View() {
   // TODO: link up to Redux (temporary placeholder)

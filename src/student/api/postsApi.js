@@ -53,5 +53,5 @@ export const getApprovedPosts = () => {
 }
 
 export const getPostsApi = async () => {
-    return await getApprovedPosts().then(mergeCompanyInfo);
+  return await getApprovedPosts().then(mergeCompanyInfo);
 }
