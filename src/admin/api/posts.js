@@ -68,11 +68,7 @@ const examplePosts = [
 
 const getPosts = async () => {
   // return fetch('/companyPost')
-  const data = await Promise.resolve(examplePosts)
-  return {
-    displayedPosts: data.filter(elem => elem.isActive),
-    archivedPosts: data.filter(elem_1 => !elem_1.isActive),
-  }
+  return Promise.resolve(examplePosts)
 }
 
 const getValidPosts = () => {

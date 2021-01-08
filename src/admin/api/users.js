@@ -1,5 +1,3 @@
-import { mergeCompanyInfo } from "./companies";
-
 // TODO: link up to BE API (temporary placeholder)
 const exampleUsers = [
   {
@@ -44,8 +42,7 @@ const getRawUsers = () => {
 }
 
 const getUsers = async () => {
-  const rawUsers = await getRawUsers();
-  return mergeCompanyInfo(rawUsers);
+  return getRawUsers();
   // return fetch('/companyUsers/users');
 }
 
@@ -53,28 +50,37 @@ const getUsersOfCompany = companyID => {
   return fetch(`/companyUsers/company/${companyID}`);
 }
 
-const getUser = companyUserID => {
+const getUser = async companyUserID => {
   return fetch(`/companyUsers/user/${companyUserID}`)
 }
 
-const createUser = data => {
-  return fetch('/companyUsers/create', {
-    method: "POST",
-    body: data,
-  })
+const postUser = async data => {
+  return {
+    ...data,
+    companyUserId: Math.floor(Math.random() * 100000),
+    companyId: "1",
+    lastLoggedIn: new Date(),
+    userPosts: []
+
+  };
+  // return fetch('/companyUsers/create', {
+  //   method: "POST",
+  //   body: data,
+  // })
 }
 
-const deleteUser = companyUserID => {
-  return fetch(`/companyUsers/${companyUserID}`, {
-    method: "DELETE"
-  })
+const deleteUser = async companyUserID => {
+  return companyUserID;
+  // return fetch(`/companyUsers/${companyUserID}`, {
+  //   method: "DELETE"
+  // })
 }
 
 const usersApi = {
   getUsers,
   getUsersOfCompany,
   getUser,
-  createUser,
+  postUser,
   deleteUser,
 }
 

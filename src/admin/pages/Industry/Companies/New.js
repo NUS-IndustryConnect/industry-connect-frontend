@@ -1,15 +1,17 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 import Page from '../../Page';
 import CompaniesForm, { getCompanyFields } from './CompaniesForm';
+import { companyThunks } from '../../../../redux/industry/companySlice';
 
 export default function New() {
   const history = useHistory();
-  // TODO: link up to BE API (temporary placeholder)
+  const dispatch = useDispatch();
   const submit = data => {
     const companyObj = getCompanyFields(data);
-    console.log(companyObj);
+    dispatch(companyThunks.postCompany(companyObj));
     history.push('/admin/industry/companies');
   }
   return (

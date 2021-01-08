@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function Table({ headers, data, dataToRow, className }) {
+export default function Table({ headers, data = [], dataToRow, className }) {
   return data.length === 0
   ? <p>No items.</p>
   : (

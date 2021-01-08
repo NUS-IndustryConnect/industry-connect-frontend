@@ -42,43 +42,31 @@ const getCompanies = () => {
   return Promise.resolve(exampleCompanies);
 }
 
-const arrayToObj = (arr, key) => {
-  let obj = {};
-  arr.forEach(elem => {
-    obj[elem[key]] = elem;
-  })
-  return obj;
+const postCompany = async data => {
+  return {
+    ...data,
+    companyID: Math.floor(Math.random() * 1000000),
+    companyPosts: []
+  }
+  // return fetch('/company/create', {
+  //   method: "POST",
+  //   body: data,
+  // })
 }
 
-export const mergeCompanyInfo = async (data) => {
-  const rawCompanies = await getCompanies(); // TODO: don't keep calling getCompanies
-  const companiesObj = arrayToObj(rawCompanies, "companyID");
-  return data.map(
-    user => ({
-      ...user,
-      company: companiesObj[user.companyID]
-    })
-  );
+const deleteCompany = async id => {
+  return id;
+  // return fetch(`/company/${id}`, {
+  //   method: "DELETE"
+  // })
 }
 
-const postCompany = data => {
-  return fetch('/company/create', {
-    method: "POST",
-    body: data,
-  })
-}
-
-const deleteCompany = id => {
-  return fetch(`/company/${id}`, {
-    method: "DELETE"
-  })
-}
-
-const updateCompany = (id, data) => {
-  return fetch(`/company/${id}`, {
-    method: "POST",
-    body: data,
-  })
+const updateCompany = async data => {
+  return data;
+  // return fetch(`/company/${id}`, {
+  //   method: "POST",
+  //   body: data,
+  // })
 }
 
 const companyApi = {

@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import adminApi from '../admin/api';
 import studentApi from '../student/api';
+import { pluraliseThunk } from './utils';
 
 // thunk version of API calls
 const getAnnouncementsAdmin = createAsyncThunk('admin/announcements/get', adminApi.announcements.getAnnouncements);
@@ -9,12 +10,7 @@ const postAnnouncement = createAsyncThunk('admin/announcements/post', adminApi.a
 const updateAnnouncement = createAsyncThunk('admin/announcements/update', adminApi.announcements.updateAnnouncement);
 const archiveAnnouncement = createAsyncThunk('admin/announcements/archive', adminApi.announcements.archiveAnnouncement);
 
-const archiveAnnouncements = announceIDs => dispatch => {
-  return Promise.all(
-    announceIDs.map(
-      id => dispatch(archiveAnnouncement(id))
-    ));
-  };
+const archiveAnnouncements = pluraliseThunk(archiveAnnouncement);
 
 export const announcementThunks = {
   getAnnouncementsAdmin,
