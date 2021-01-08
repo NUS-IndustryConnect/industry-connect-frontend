@@ -63,7 +63,7 @@ export default function View() {
           /> */}
         </section>
       </React.Fragment> :
-      <p>User not found.</p> }
+      <p>User not found. Please select another user.</p> }
     </Page>
   )
 }

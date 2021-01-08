@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 import adminApi from '../../admin/api';
 import { pluraliseThunk } from '../utils';
+import { postSelector } from './postSlice';
 
 // thunks
 const getCompanies = createAsyncThunk('admin/companies/get', adminApi.companies.getCompanies);
@@ -49,8 +50,14 @@ export const companiesDropdownSelector = state => {
     .map(({ companyID, companyName }) => ({ value: companyID, label: companyName }))
 }
 export const companySelector = companyID => state => {
-  return companiesSelector(state)
+  const rawCompany = companiesSelector(state)
     .find(elem => elem.companyID === companyID);
+  const companyPosts = rawCompany?.companyPosts
+    .map(id => postSelector(id)(state))
+    .filter(Boolean);
+  return rawCompany
+    ? { ...rawCompany, companyPosts }
+    : rawCompany;
 }
 
 const arrayToObj = (arr, key) => {
