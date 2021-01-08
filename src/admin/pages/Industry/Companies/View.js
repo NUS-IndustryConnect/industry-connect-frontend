@@ -1,81 +1,89 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import Page from '../../Page';
 import Table from '../../Table';
-
-const mockData = {
-  companyName: "Shopee",
-  users: [
-    { userID: "1", email: "blah1@example.com", lastLoggedIn: new Date() },
-    { userID: "2", email: "blah2@example.com", lastLoggedIn: new Date() },
-    { userID: "3", email: "blah3@example.com", lastLoggedIn: new Date() }
-  ],
-  postHistory: [
-    { companyPostID: "1", date: new Date(), title: "Shopee Design Thinking Workshop" },
-    { companyPostID: "2", date: new Date(), title: "Shopee Ultra Hackathon 2020" },
-    { companyPostID: "3", date: new Date(), title: "Shopee Summer Internship Positions are open now!" },
-  ]
-}
+import { companySelector } from '../../../../redux/industry/companySlice';
+import { usersOfCompanySelector } from '../../../../redux/industry/userSlice';
 
 export default function View() {
-  // TODO: link up to Redux (temporary placeholder)
-  const { companyName, users, postHistory } = mockData;
   const history = useHistory();
+  const { id: companyID } = useParams();
+  const data = useSelector(companySelector(companyID));
+  const {
+    companyName,
+    companyTier,
+    companyDescription,
+    companyPosts = []
+  } = data || {};
+  const users = useSelector(usersOfCompanySelector(companyID));
 
-  const usersDataToRow = ({ userID, email, lastLoggedIn }) => (
+  const usersDataToRow = ({ companyUserID, userEmail, lastLoggedIn }) => (
     <tr
-      key={userID}
-      onClick={() => history.push(`/admin/industry/users/view/${userID}`)}
+      key={companyUserID}
+      onClick={() => history.push(`/admin/industry/users/view/${companyUserID}`)}
       className="clickable"
     >
-      <td>{email}</td>
+      <td>{userEmail}</td>
       <td>{lastLoggedIn.toLocaleDateString()}</td>
     </tr>
-  )
-  const postsDataToRow = ({ companyPostID, date, title }) => (
+  );
+  const postsDataToRow = ({ companyPostID, lastUpdated, postTitle }) => (
     <tr
       key={companyPostID}
       onClick={() => history.push(`/admin/industry/posts/preview/${companyPostID}`)}
       className="clickable"
     >
-      <td>{title}</td>
-      <td>{date.toLocaleDateString()}</td>
+      <td>{postTitle}</td>
+      <td>{lastUpdated.toLocaleDateString()}</td>
     </tr>
-  )
+  );
   return (
     <Page title="View Company">
-      <h3>{companyName}</h3>
-      <section>
-        <table className="vertical">
-          <tbody>
-            <tr>
-              <th>Number of users</th>
-              <td>{users.length}</td>
-            </tr>
-            <tr>
-              <th>Number of posts</th>
-              <td>{postHistory.length}</td>
-            </tr>
-          </tbody>
-        </table>
-      </section>
-      <section>
-        <h4>Users</h4>
-        <Table
-          headers={["Email", "Last login"]}
-          data={users}
-          dataToRow={usersDataToRow}
-        />
-      </section>
-      <section>
-        <h4>Posts</h4>
-        <Table
-          headers={["Post Title", "Date"]}
-          data={postHistory}
-          dataToRow={postsDataToRow}
-        />
-      </section>
+      { data
+        ? <React.Fragment>
+          <h3>{companyName}</h3>
+          <section>
+            <table className="vertical">
+              <tbody>
+                <tr>
+                  <th>Tier</th>
+                  <td>{companyTier}</td>
+                </tr>
+                <tr>
+                  <th>Description</th>
+                  <td>{companyDescription}</td>
+                </tr>
+                <tr>
+                  <th>Number of users</th>
+                  <td>{users.length}</td>
+                </tr>
+                <tr>
+                  <th>Number of posts</th>
+                  <td>{companyPosts.length}</td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <section>
+            <h4>Users</h4>
+            <Table
+              headers={["Email", "Last login"]}
+              data={users}
+              dataToRow={usersDataToRow}
+            />
+          </section>
+          <section>
+            <h4>Posts</h4>
+            <Table
+              headers={["Post Title", "Date"]}
+              data={companyPosts}
+              dataToRow={postsDataToRow}
+            />
+          </section>
+        </React.Fragment>
+        : <p>Company not found. Please select another company.</p> }
     </Page>
-  )
+  );
 }
