@@ -3,8 +3,9 @@ import { useParams, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 import Page from '../Page';
-import AnnouncementForm, { getAnnouncementFields } from './AnnouncementForm';
+
 import { announcementSelector, announcementThunks } from '../../../redux/announcementSlice';
+import AnnouncementForm, { getAnnouncementFields } from './AnnouncementForm';
 
 export default function Edit() {
   const history = useHistory();

@@ -5,10 +5,10 @@ import {
 } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 
+import { announcementsFetchedSelector, announcementThunks } from '../../../redux/announcementSlice';
 import ManageAnnouncements from './Manage';
 import NewAnnouncement from './New';
 import EditAnnouncement from './Edit';
-import { announcementsFetchedSelector, announcementThunks } from '../../../redux/announcementSlice';
 
 export default function Announcements () {
   const dispatch = useDispatch();

@@ -2,8 +2,15 @@ import React from 'react';
 
 import './index.css';
 
-const Page = ({ title, children, className = "", navigationPanel, isError = true, errorMessage }) => {
-  console.log("isError", isError);
+const Page = (props) => {
+  const {
+    title,
+    children,
+    className="",
+    navigationPanel,
+    isError=false,
+    errorMessage
+  } = props;
   return (
     <React.Fragment>
       <header>

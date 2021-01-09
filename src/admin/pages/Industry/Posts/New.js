@@ -1,10 +1,10 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-
-import Page from '../../Page';
-import PostsForm, { getPostFields } from '../../../../common/post/PostsForm';
 import { useDispatch } from 'react-redux';
+
+import PostsForm, { getPostFields } from '../../../../common/post/PostsForm';
 import { postThunks } from '../../../../redux/industry/postSlice';
+import Page from '../../Page';
 
 export default function New() {
   const history = useHistory();

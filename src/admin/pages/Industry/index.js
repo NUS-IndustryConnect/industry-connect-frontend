@@ -3,12 +3,12 @@ import {
   Switch,
   Route,
 } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux';
 
+import { getIndustryDataThunk, industryDataFetchedSelector } from '../../../redux/industry';
 import Companies from './Companies';
 import Users from './Users';
 import Posts from './Posts';
-import { useDispatch, useSelector } from 'react-redux';
-import { getIndustryDataThunk, industryDataFetchedSelector } from '../../../redux/industry';
 
 const Industry = () => {
   const dispatch = useDispatch();

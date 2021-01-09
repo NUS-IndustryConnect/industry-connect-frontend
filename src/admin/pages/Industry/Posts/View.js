@@ -1,11 +1,10 @@
 import React from 'react';
-
-import Page from '../../Page';
-import PostPreview from '../../../../common/post/PostPreview';
-import ContactButton from './ContactButton';
 import { useParams } from 'react-router-dom';
-import { postSelector } from '../../../../redux/industry/postSlice';
 import { useSelector } from 'react-redux';
+
+import PostPreview from '../../../../common/post/PostPreview';
+import { postSelector } from '../../../../redux/industry/postSlice';
+import Page from '../../Page';
 
 export default function Preview() {
   const { id } = useParams();
@@ -17,6 +16,7 @@ export default function Preview() {
       isError={!Boolean(data)}
       errorMessage={<p>Post not found. Please select a different post.</p>}
     >
+      <PostPreview data={data} />
     </Page>
   )
 }

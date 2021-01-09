@@ -1,10 +1,10 @@
 import React from 'react';
 import { useHistory, useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
+import { userSelector, userThunks } from '../../../../redux/industry/userSlice';
 import Page from '../../Page';
 import UsersForm, { getUserFields } from './UsersForm';
-import { useDispatch, useSelector } from 'react-redux';
-import { userSelector, userThunks } from '../../../../redux/industry/userSlice';
 
 export default function Edit() {
   const history = useHistory();
