@@ -1,22 +1,33 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 
 import Page from '../../Page';
 import UsersForm, { getUserFields } from './UsersForm';
+import { useDispatch, useSelector } from 'react-redux';
+import { userSelector, userThunks } from '../../../../redux/industry/userSlice';
 
 export default function Edit() {
   const history = useHistory();
-  // TODO: link up to BE API (temporary placeholder)
+  const dispatch = useDispatch();
+  const { id } = useParams();
+  const currentValues = useSelector(userSelector(id));
+
   const submit = data => {
-    const companyObj = getUserFields(data);
-    console.log(companyObj);
+    const userObj = {
+      ...currentValues,
+      ...getUserFields(data)
+    };
+    dispatch(userThunks.updateUser(userObj));
     history.push('/admin/industry/users');
   }
-  // TODO: link up to Redux (temporary placeholder)
-  const initial = { email: "blah@example.com", company: "Shopee" };
+
   return (
-    <Page title="Edit Company User">
-      <UsersForm submit={submit} initial={initial} />
+    <Page
+      title="Edit Company User" 
+      isError={!Boolean(currentValues)}
+      errorMessage={<p>User not found. Please select another user.</p>}
+    >
+      <UsersForm submit={submit} initial={currentValues} />
     </Page>
   )
 }

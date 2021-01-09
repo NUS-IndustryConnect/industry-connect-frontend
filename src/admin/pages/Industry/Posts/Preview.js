@@ -3,24 +3,39 @@ import React from 'react';
 import Page from '../../Page';
 import PostPreview from '../../../../common/post/PostPreview';
 import ContactButton from './ContactButton';
+import { useParams, useHistory } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { requestSelector, requestThunks } from '../../../../redux/industry/requestSlice';
 
-// TODO: link up to Redux (temporary placeholder)
-const mockData = {
-  postTitle: "New internship opportunities at XXX",
-  description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lacinia dui ut faucibus lobortis. Nullam a scelerisque dolor, eu posuere lorem. Mauris eu sapien dictum, tincidunt mauris in, euismod nunc. Aliquam fermentum, justo in hendrerit commodo, lorem justo venenatis lacus, consequat fringilla tellus justo vitae ante. Sed pellentesque scelerisque hendrerit. Curabitur maximus odio gravida, dapibus magna vitae, sollicitudin dolor. Etiam tristique, eros commodo malesuada elementum, lacus leo sollicitudin nisi, finibus tristique metus diam euismod nibh. Sed sed tempus erat. Maecenas et dolor porttitor, luctus nunc posuere, tincidunt nisi.\nNulla convallis gravida lorem, quis tempor ligula convallis id. Phasellus ac ultricies ipsum. Pellentesque et urna tincidunt, tincidunt nulla vitae, lacinia libero. In facilisis mattis ex vestibulum placerat. Nam iaculis sagittis tempus. Mauris id risus a dolor bibendum tempor fringilla non velit. Aliquam molestie nibh sit amet est posuere varius id eget diam. Maecenas rutrum nulla vitae lorem molestie consequat. In sit amet augue varius enim placerat fermentum. Vivamus laoreet turpis sed diam sollicitudin, quis pretium massa mollis. Sed lobortis quis ex non tempor. Ut quis odio in lorem dictum euismod. Phasellus vitae dictum diam.",
-  videoURL: "https://www.youtube.com/watch?v=Jf_2EyDNywE",
-  moreURL: "https://www.tech.gov.sg/"
-}
+export default function Preview() {
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const { id } = useParams();
+  const data = useSelector(requestSelector(id));
 
-export default function Preview(props) {
+  const handleApprove = () => {
+    dispatch(requestThunks.approveRequest(id, "approver name"))
+    history.push("/admin/industry/posts")
+    // TODO: handle approver
+  }
+  const handleReject = () => {
+    // TODO: create form for typing in feedback
+    history.push("/admin/industry/posts")
+  }
+
   return (
-    <Page title="Preview Post">
-      <PostPreview data={mockData} />
+    <Page
+      title="Preview Post"
+      isError={!Boolean(data)}
+      errorMessage={<p>Post not found. Please select another post.</p>}
+    >
+      <PostPreview data={data} />
       <section className="bottom-buttons">
         <ContactButton email="blah@example.com" />
+        {/* TODO: replace placeholder email */}
         <div className="action-buttons">
-          <button className="warning right">Reject</button>
-          <button className="success right">Approve</button>
+          <button className="warning right" onClick={handleReject}>Reject</button>
+          <button className="success right" onClick={handleApprove}>Approve</button>
         </div>
       </section>
     </Page>

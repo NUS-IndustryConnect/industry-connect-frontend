@@ -6,8 +6,8 @@ import { companiesDropdownSelector } from '../../../../redux/industry/companySli
 
 export const getUserFields = data => ({
   name: data.get('name'),
-  userEmail: data.get('email'),
-  companyID: data.get('company'),
+  userEmail: data.get('userEmail'),
+  companyID: data.get('companyID'),
 });
 
 export default function UsersForm({ submit, initial }) {
@@ -15,9 +15,9 @@ export default function UsersForm({ submit, initial }) {
   return (
     <Form
       fields={[
-        { type: "name", name: "text", label: "Name", initial: initial?.name },
-        { type: "email", name: "email", label: "Email Address", initial: initial?.email },
-        { type: "dropdown", name: "company", label: "Company", options: companiesDropdown, initial: initial?.company },
+        { type: "text", name: "name", label: "Name", initial: initial?.name },
+        { type: "email", name: "userEmail", label: "Email Address", initial: initial?.userEmail },
+        { type: "dropdown", name: "companyID", label: "Company", options: companiesDropdown, initial: initial?.company },
       ]}
       submit={submit}
       submitLabel={initial ? "Update" : "Create"}

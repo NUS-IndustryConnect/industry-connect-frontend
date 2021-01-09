@@ -1,13 +1,13 @@
 import React from 'react';
 
-export default function VideoEmbed({ videoURL }) {
-  return videoURL ?
+export default function VideoEmbed({ videoUrl }) {
+  return videoUrl ?
     <iframe
       className="video"
-      title={videoURL}
+      title={videoUrl}
       width="560"
       height="315"
-      src={videoURL.replace("watch?v=", "embed/")}
+      src={videoUrl.replace("watch?v=", "embed/")}
       frameBorder="0"
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
       allowFullScreen

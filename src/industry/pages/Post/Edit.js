@@ -6,13 +6,13 @@ import PostsForm, { getPostFields } from '../../../common/post/PostsForm';
 
 export default function Edit() {
   const history = useHistory();
-  // TODO: link up to BE API (temporary placeholder)
+  // TODO: replace with redux dispatch
   const submit = data => {
-    const companyObj = getPostFields(data);
+    const postObj = getPostFields(data);
     history.push('/admin/industry/posts');
-    console.log(companyObj);
+    console.log(postObj);
   }
-  // TODO: link up to Redux (temporary placeholder)
+  // TODO: link up to Redux store
   const initial = {
     title: "Title",
     description: "Description",

@@ -1,8 +1,9 @@
-// TODO: link up to BE API (temporary placeholder)
+// TODO: replace with BE API calls
 const exampleUsers = [
   {
     companyUserID: "1",
     companyID: "1",
+    name: "blah1",
     userEmail: "blah1@example.com",
     lastLoggedIn: new Date(),
     userPosts: ["1", "2", "3"]
@@ -10,6 +11,7 @@ const exampleUsers = [
   {
     companyUserID: "2",
     companyID: "1",
+    name: "blah2",
     userEmail: "blah2@example.com",
     lastLoggedIn: new Date(),
     userPosts: []
@@ -17,6 +19,7 @@ const exampleUsers = [
   {
     companyUserID: "3",
     companyID: "1",
+    name: "blah3",
     userEmail: "blah3@example.com",
     lastLoggedIn: new Date(),
     userPosts: []
@@ -24,6 +27,7 @@ const exampleUsers = [
   {
     companyUserID: "4",
     companyID: "2",
+    name: "blah4",
     userEmail: "blah4@example.com",
     lastLoggedIn: new Date(),
     userPosts: []
@@ -31,6 +35,7 @@ const exampleUsers = [
   {
     companyUserID: "5",
     companyID: "3",
+    name: "blah5",
     userEmail: "blah5@example.com",
     lastLoggedIn: new Date(),
     userPosts: []
@@ -69,6 +74,14 @@ const postUser = async data => {
   // })
 }
 
+const updateUser = async data => {
+  return data;
+  // return fetch('/companyUsers/update', {
+  //   method: "POST",
+  //   body: data,
+  // })
+}
+
 const deleteUser = async companyUserID => {
   return companyUserID;
   // return fetch(`/companyUsers/${companyUserID}`, {
@@ -81,6 +94,7 @@ const usersApi = {
   getUsersOfCompany,
   getUser,
   postUser,
+  updateUser,
   deleteUser,
 }
 

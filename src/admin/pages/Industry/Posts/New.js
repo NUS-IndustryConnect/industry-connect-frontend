@@ -3,14 +3,17 @@ import { useHistory } from 'react-router-dom';
 
 import Page from '../../Page';
 import PostsForm, { getPostFields } from '../../../../common/post/PostsForm';
+import { useDispatch } from 'react-redux';
+import { postThunks } from '../../../../redux/industry/postSlice';
 
 export default function New() {
   const history = useHistory();
-  // TODO: link up to BE API (temporary placeholder)
+  const dispatch = useDispatch();
+
   const submit = data => {
-    const companyObj = getPostFields(data);
+    const postObj = getPostFields(data);
+    dispatch(postThunks.createPost(postObj));
     history.push('/admin/industry/posts');
-    console.log(companyObj);
   }
   return (
     <Page title="New Post">

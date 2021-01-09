@@ -1,4 +1,4 @@
-// TODO: link up to BE API (temporary placeholder)
+// TODO: replace with BE API calls
 const exampleStudents = [
   {
     studentID: "1",

@@ -20,11 +20,12 @@ export default function Manage() {
   }
 
   const dataToRow = (data, checkbox) => {
-    const { companyUserID, userEmail, company, lastLoggedIn } = data;
+    const { companyUserID, name, userEmail, company, lastLoggedIn } = data;
     const handleClick = () => history.push(`/admin/industry/users/view/${companyUserID}`);
     return (
       <tr key={companyUserID} >
         <td>{ checkbox }</td>
+        <td className="clickable" onClick={handleClick}>{name}</td>
         <td className="clickable" onClick={handleClick}>{userEmail}</td>
         <td className="clickable" onClick={handleClick}>{company.companyName}</td>
         <td className="clickable" onClick={handleClick}>{company.companyTier}</td>
@@ -40,7 +41,7 @@ export default function Manage() {
       </Link>
       
       <SelectTable
-        headers={["Email Address", "Company", "Tier", "Last Login"]}
+        headers={["Name", "Email Address", "Company", "Tier", "Last Login"]}
         data={users}
         dataToRow={dataToRow}
         idKey="companyUserID"

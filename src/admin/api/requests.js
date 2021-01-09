@@ -1,6 +1,6 @@
 const exampleRequests = [
   {
-    companyPostId: "1",
+    companyPostID: "11",
     companyId: "1",
     companyName: "Shopee",
     postTitle: "Request 1",
@@ -13,7 +13,7 @@ const exampleRequests = [
     feedback: ""
   },
   {
-    companyPostId: "2",
+    companyPostID: "12",
     companyId: "1",
     companyName: "Shopee",
     postTitle: "Request 2",
@@ -26,7 +26,7 @@ const exampleRequests = [
     feedback: ""
   },
   {
-    companyPostId: "3",
+    companyPostID: "13",
     companyId: "1",
     companyName: "Shopee",
     postTitle: "Request 3",

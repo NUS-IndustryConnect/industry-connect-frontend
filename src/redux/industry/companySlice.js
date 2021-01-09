@@ -32,13 +32,13 @@ export const companySlice = createSlice({
       state.push(action.payload);
     },
     [updateCompany.fulfilled]: (state, action) => {
-      state = state.map(elem =>
+      return state.map(elem =>
         elem.companyID === action.payload.companyID
           ? action.payload
           : elem);
     },
     [deleteCompany.fulfilled]: (state, action) => {
-      state = state.filter(elem => elem.companyID !== action.payload)
+      return state.filter(elem => elem.companyID !== action.payload)
     }
   }
 });

@@ -1,30 +1,51 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
 
 import Page from '../../Page';
 import Table from '../../Table';
+import SelectTable from '../../SelectTable';
 
-import { displayedPostsSelector, archivedPostsSelector } from '../../../../redux/industry/postSlice';
+import { displayedPostsSelector, archivedPostsSelector, postThunks } from '../../../../redux/industry/postSlice';
 import { requestsSelector } from '../../../../redux/industry/requestSlice';
 
 export default function Manage() {
+  const history = useHistory();
+  const dispatch = useDispatch();
   const displayedPosts = useSelector(displayedPostsSelector);
   const archivedPosts = useSelector(archivedPostsSelector);
   const requests = useSelector(requestsSelector);
-  const history = useHistory();
 
-  const dataToRow = ({ companyPostID, postTitle, companyName, lastUpdated }) => (
-    <tr 
-      key={companyPostID}
-      onClick={() => history.push(`/admin/industry/posts/preview/${companyPostID}`)}
-      className="clickable"
-    >
-      <td>{postTitle}</td>
-      <td>{companyName}</td>
-      <td>{lastUpdated.toLocaleDateString()}</td>
-    </tr>
-  );
+  const dataToRow = type => (data, checkbox=null) => {
+    const urlPath = `/admin/industry/posts/${type === "requests" ? "preview": "view"}`;
+    const { companyPostID, postTitle, companyName, lastUpdated } = data;
+    const handleClick = () => history.push(`${urlPath}/${companyPostID}`);
+    return (
+      <tr key={companyPostID}>
+        { type === "posts" ? <td>{ checkbox }</td> : null }
+        <td onClick={handleClick} className="clickable">{postTitle}</td>
+        <td onClick={handleClick} className="clickable">{companyName}</td>
+        <td onClick={handleClick} className="clickable">{lastUpdated.toLocaleDateString()}</td>
+      </tr>
+    )
+  };
+
+  const archivePosts = {
+    label: "Archive",
+    className: "secondary",
+    onClick: selections => {
+      console.log(selections);
+      dispatch(postThunks.archivePosts(selections));
+    }
+  }
+
+  const deletePosts = {
+    label: "Delete",
+    className: "warning",
+    onClick: selections => {
+      dispatch(postThunks.deletePosts(selections));
+    }
+  }
 
   return (
     <Page title="Manage Industry Posts">
@@ -37,27 +58,31 @@ export default function Manage() {
         <Table
           headers={["Title", "Company", "Last Updated"]}
           data={requests}
-          dataToRow={dataToRow}
+          dataToRow={dataToRow("requests")}
           className="pending"
         />
       </section>
   
       <section>
         <h3>Displayed</h3>
-        <Table
+        <SelectTable
           headers={['Title', "Company", "Last Updated"]}
           data={displayedPosts}
-          dataToRow={dataToRow}
+          idKey="companyPostID"
+          dataToRow={dataToRow("posts")}
+          actions={[ archivePosts, deletePosts ]}
         />
       </section>
 
       <section>
         <h3>Archived</h3>
-        <Table
+        <SelectTable
           headers={['Title', "Company", "Last Updated"]}
           data={archivedPosts}
-          dataToRow={dataToRow}
+          idKey="companyPostID"
+          dataToRow={dataToRow("posts")}
           className="archived"
+          actions={[ deletePosts ]}
         />
       </section>
     </Page>
