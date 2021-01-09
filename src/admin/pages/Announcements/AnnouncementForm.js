@@ -5,7 +5,7 @@ import Form from '../../../common/Form';
 export const getAnnouncementFields = data => ({
   title: data.get('title'),
   subtitle: data.get('subtitle'),
-  description: data.get('body')
+  description: data.get('description')
 });
 
 export default function AnnouncementForm({ submit, initial }) {
@@ -14,7 +14,7 @@ export default function AnnouncementForm({ submit, initial }) {
       fields={[
         { type: "text", name: "title", label: "Announcement Title", initial: initial?.title },
         { type: "text", name: "subtitle", label: "Announcement Subtitle", initial: initial?.subtitle },
-        { type: "long-text", name: "body", label: "Announcement Body", initial: initial?.body },
+        { type: "long-text", name: "description", label: "Announcement Body", initial: initial?.description },
       ]}
       submit={submit}
       submitLabel={initial ? "Update" : "Post"}

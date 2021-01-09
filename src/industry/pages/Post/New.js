@@ -6,11 +6,11 @@ import PostsForm, { getPostFields } from '../../../common/post/PostsForm';
 
 export default function New() {
   const history = useHistory();
-  // TODO: link up to BE API (temporary placeholder)
+  // TODO: replace with redux dispatch
   const submit = data => {
-    const companyObj = getPostFields(data);
+    const postObj = getPostFields(data);
     history.push('/industry/post/submitted');
-    console.log(companyObj);
+    console.log(postObj);
   }
   return (
     <Page title="New Post">

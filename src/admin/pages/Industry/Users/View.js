@@ -1,15 +1,17 @@
 import React from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory, useParams, Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import Page from '../../Page';
 import Table from '../../Table';
 import { userSelector } from '../../../../redux/industry/userSlice';
+import VerticalTable from '../../../../common/VerticalTable';
 
 export default function View() {
   const { id } = useParams();
   const data = useSelector(userSelector(id));
   const {
+    name,
     userEmail,
     company,
     lastLoggedIn,
@@ -28,41 +30,28 @@ export default function View() {
     </tr>
   )
   return (
-    <Page title="View Company User">
-      { data ? <React.Fragment>
-        <table className="vertical">
-          <tbody>
-            <tr>
-              <th>Email</th>
-              <td>{userEmail}</td>
-            </tr>
-            <tr>
-              <th>Company</th>
-              <td>{company.companyName}</td>
-            </tr>
-            <tr>
-              <th>Last login</th>
-              <td>{lastLoggedIn.toLocaleDateString()}</td>
-            </tr>
-            {/* <tr className="unlock-account">
-              <th>Account locked</th>
-              <td>
-                {accountLocked.toLocaleDateString()}
-                <button className="success">Unlock</button>
-              </td>
-            </tr> */}
-          </tbody>
-        </table>
-        <section>
-          <h4>Posts</h4>
-          <Table
-            headers={["Post Title", "Date"]}
-            data={userPosts}
-            dataToRow={dataToRow}
-          />
-        </section>
-      </React.Fragment> :
-      <p>User not found. Please select another user.</p> }
+    <Page
+      title="View Company User"
+      isError={!Boolean(data)}
+      errorMessage={<p>User not found. Please select another user.</p>}
+    >
+      <VerticalTable data={[
+        { header: "Name", data: name },
+        { header: "Email", data: userEmail },
+        { header: "Company", data: company.companyName },
+        { header: "Last login", data: lastLoggedIn.toLocaleDateString() },
+      ]}/>
+      <Link to={`/admin/industry/users/edit/${id}`}>
+        <button className="secondary">Edit</button>
+      </Link>
+      <section>
+        <h4>Posts</h4>
+        <Table
+          headers={["Post Title", "Date"]}
+          data={userPosts}
+          dataToRow={dataToRow}
+        />
+      </section>
     </Page>
   )
 }

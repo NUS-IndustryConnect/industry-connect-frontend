@@ -15,6 +15,7 @@ export const requestThunks = {
   rejectRequest,
 }
 
+// slice
 export const requestSlice = createSlice({
   name: "requests",
   initialState: [],
@@ -24,7 +25,7 @@ export const requestSlice = createSlice({
       return action.payload;
     },
     [createRequest.fulfilled]: (state, action) => {
-      
+      state.push(action.payload);
     },
     [approveRequest.fulfilled]: (state, action) => {
       
@@ -37,5 +38,9 @@ export const requestSlice = createSlice({
 
 // selectors
 export const requestsSelector = state => state.industry.requests;
+export const requestSelector = companyPostID => state => {
+  return requestsSelector(state)
+    .find(elem => elem.companyPostID === companyPostID);
+}
 
 export default requestSlice.reducer;

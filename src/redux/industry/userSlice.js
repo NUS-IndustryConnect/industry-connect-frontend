@@ -8,12 +8,14 @@ import { postSelector } from './postSlice';
 // thunks
 const getUsers = createAsyncThunk('admin/users/get', adminApi.users.getUsers)
 const postUser = createAsyncThunk('admin/users/create', adminApi.users.postUser)
+const updateUser = createAsyncThunk('admin/users/update', adminApi.users.updateUser)
 const deleteUser = createAsyncThunk('admin/users/delete', adminApi.users.deleteUser)
 const deleteUsers = pluraliseThunk(deleteUser);
 
 export const userThunks = {
   getUsers,
   postUser,
+  updateUser,
   deleteUser,
   deleteUsers,
 }
@@ -30,8 +32,14 @@ export const userSlice = createSlice({
     [postUser.fulfilled]: (state, action) => {
       state.push(action.payload);
     },
+    [updateUser.fulfilled]: (state, action) => {
+      return state.map(elem =>
+        elem.companyUserID === action.payload.companyUserID
+          ? action.payload
+          : elem);
+    },
     [deleteUser.fulfilled]: (state, action) => {
-      state = state.filter(elem => elem.companyUserID !== action.payload)
+      return state.filter(elem => elem.companyUserID !== action.payload)
     }
   }
 });

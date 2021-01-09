@@ -12,12 +12,6 @@ export default function Edit() {
   const { id } = useParams();
   const currentValues = useSelector(announcementSelector(id));
 
-  const {
-    title = "",
-    subtitle = "",
-    description = ""
-  } = currentValues || {};
-
   const submit = data => {
     const announcementObj = {
       ...currentValues,
@@ -27,18 +21,12 @@ export default function Edit() {
     history.push('/admin/announcements');
   }
   return (
-    <Page title="Edit Announcement">
-      { currentValues
-        ? <AnnouncementForm
-            submit={submit}
-            initial={{
-              title: title,
-              subtitle: subtitle,
-              body: description
-            }}
-          />
-        : <p>Announcement not found. Please select another announcement.</p>
-      }
+    <Page
+      title="Edit Announcement"
+      isError={!Boolean(currentValues)}
+      errorMessage={<p>Announcement not found. Please select another announcement.</p>}
+    >
+      <AnnouncementForm submit={submit} initial={currentValues} />
     </Page>
   )
 }

@@ -1,11 +1,12 @@
 import React from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory, useParams, Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import Page from '../../Page';
 import Table from '../../Table';
 import { companySelector } from '../../../../redux/industry/companySlice';
 import { usersOfCompanySelector } from '../../../../redux/industry/userSlice';
+import VerticalTable from '../../../../common/VerticalTable';
 
 export default function View() {
   const history = useHistory();
@@ -40,50 +41,39 @@ export default function View() {
     </tr>
   );
   return (
-    <Page title="View Company">
-      { data
-        ? <React.Fragment>
-          <h3>{companyName}</h3>
-          <section>
-            <table className="vertical">
-              <tbody>
-                <tr>
-                  <th>Tier</th>
-                  <td>{companyTier}</td>
-                </tr>
-                <tr>
-                  <th>Description</th>
-                  <td>{companyDescription}</td>
-                </tr>
-                <tr>
-                  <th>Number of users</th>
-                  <td>{users.length}</td>
-                </tr>
-                <tr>
-                  <th>Number of posts</th>
-                  <td>{companyPosts.length}</td>
-                </tr>
-              </tbody>
-            </table>
-          </section>
-          <section>
-            <h4>Users</h4>
-            <Table
-              headers={["Email", "Last login"]}
-              data={users}
-              dataToRow={usersDataToRow}
-            />
-          </section>
-          <section>
-            <h4>Posts</h4>
-            <Table
-              headers={["Post Title", "Date"]}
-              data={companyPosts}
-              dataToRow={postsDataToRow}
-            />
-          </section>
-        </React.Fragment>
-        : <p>Company not found. Please select another company.</p> }
+    <Page
+      title="View Company"
+      isError={!Boolean(data)}
+      errorMessage={<p>Company not found. Please select another company.</p>}
+    >
+      <h3>{companyName}</h3>
+      <section>
+        <VerticalTable data={[
+          { header: "Tier", data: companyTier },
+          { header: "Description", data: companyDescription },
+          { header: "Number of users", data: users.length },
+          { header: "Number of posts", data: companyPosts.length },
+        ]} />
+        <Link to={`/admin/industry/companies/edit/${companyID}`}>
+          <button className="secondary">Edit</button>
+        </Link>
+      </section>
+      <section>
+        <h4>Users</h4>
+        <Table
+          headers={["Email", "Last login"]}
+          data={users}
+          dataToRow={usersDataToRow}
+        />
+      </section>
+      <section>
+        <h4>Posts</h4>
+        <Table
+          headers={["Post Title", "Date"]}
+          data={companyPosts}
+          dataToRow={postsDataToRow}
+        />
+      </section>
     </Page>
   );
 }

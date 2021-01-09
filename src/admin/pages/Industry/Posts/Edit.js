@@ -1,28 +1,32 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 
-import Page from '../../Page';
 import PostsForm, { getPostFields } from '../../../../common/post/PostsForm';
+import { postOrRequestSelector, postThunks } from '../../../../redux/industry/postSlice';
+import Page from '../../Page';
 
 export default function Edit() {
   const history = useHistory();
-  // TODO: link up to BE API (temporary placeholder)
+  const dispatch = useDispatch();
+  const { id } = useParams();
+  const currentValues = useSelector(postOrRequestSelector(id));
+
   const submit = data => {
-    const companyObj = getPostFields(data);
+    const postObj = {
+      ...currentValues,
+      ...getPostFields(data)
+    };
+    dispatch(postThunks.updatePost(postObj))
     history.push('/admin/industry/posts');
-    console.log(companyObj);
-  }
-  // TODO: link up to Redux (temporary placeholder)
-  const initial = {
-    title: "Title",
-    description: "Description",
-    videoLink: "https://www.youtube.com/watch?v=Jf_2EyDNywE",
-    moreLink: "https://www.youtube.com/watch?v=Jf_2EyDNywE",
-    expiryDate: new Date().toISOString().substr(0,10),
   }
   return (
-    <Page title="Edit Post">
-      <PostsForm submit={submit} initial={initial} />
+    <Page
+      title="Edit Post"
+      isError={!Boolean(currentValues)}
+      errorMessage={<p>Post not found. Please select another post.</p>}
+    >
+      <PostsForm submit={submit} initial={currentValues} />
     </Page>
   )
 }
