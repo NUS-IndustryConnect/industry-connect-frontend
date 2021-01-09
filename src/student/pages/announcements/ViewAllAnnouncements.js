@@ -5,12 +5,12 @@ import { useHistory } from 'react-router-dom';
 // Redux
 import { useSelector } from 'react-redux'
 
-import './index.css';
-import Page from '../Page';
 import {
   displayedAnnouncementsSelector,
   pinnedAnnouncementsSelector
 } from '../../../redux/announcementSlice';
+import Page from '../Page';
+import './index.css';
 
 const ViewAllAnnouncements = () => {
   const displayedAnnouncements = useSelector(displayedAnnouncementsSelector);

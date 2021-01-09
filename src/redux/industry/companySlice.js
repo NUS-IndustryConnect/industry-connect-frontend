@@ -1,18 +1,21 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 import adminApi from '../../admin/api';
+import studentApi from '../../student/api';
 import { pluraliseThunk } from '../utils';
 import { postSelector } from './postSlice';
 
 // thunks
-const getCompanies = createAsyncThunk('admin/companies/get', adminApi.companies.getCompanies);
+const getAdminCompanies = createAsyncThunk('admin/companies/get', adminApi.companies.getCompanies);
+const getStudentCompanies = createAsyncThunk('student/companies/get', studentApi.companies.getCompanies);
 const postCompany = createAsyncThunk('admin/companies/post', adminApi.companies.postCompany);
 const updateCompany = createAsyncThunk('admin/companies/update', adminApi.companies.updateCompany);
 const deleteCompany = createAsyncThunk('admin/companies/delete', adminApi.companies.deleteCompany);
 const deleteCompanies = pluraliseThunk(deleteCompany);
 
 export const companyThunks = {
-  getCompanies,
+  getAdminCompanies,
+  getStudentCompanies,
   postCompany,
   updateCompany,
   deleteCompany,
@@ -25,7 +28,10 @@ export const companySlice = createSlice({
   initialState: [],
   reducers: {},
   extraReducers: {
-    [getCompanies.fulfilled]: (state, action) => {
+    [getAdminCompanies.fulfilled]: (state, action) => {
+      return action.payload;
+    },
+    [getStudentCompanies.fulfilled]: (state, action) => {
       return action.payload;
     },
     [postCompany.fulfilled]: (state, action) => {

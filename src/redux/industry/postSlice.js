@@ -1,17 +1,21 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 import adminApi from '../../admin/api';
+import studentApi from '../../student/api';
+import { companiesSelector, mergeCompanyInfo } from './companySlice';
 import { requestSelector } from './requestSlice';
 
 // thunks
-const getPosts = createAsyncThunk('admin/posts/get', adminApi.posts.getPosts)
+const getAdminPosts = createAsyncThunk('admin/posts/get', adminApi.posts.getPosts)
+const getStudentPosts = createAsyncThunk('student/posts/get', studentApi.posts.getPostsApi)
 const createPost = createAsyncThunk('admin/posts/create', adminApi.posts.createPost)
 const updatePost = createAsyncThunk('admin/posts/update', adminApi.posts.updatePost)
 const archivePosts = createAsyncThunk('admin/posts/archive', adminApi.posts.archivePosts)
 const deletePosts = createAsyncThunk('admin/posts/delete', adminApi.posts.deletePosts)
 
 export const postThunks = {
-  getPosts,
+  getAdminPosts,
+  getStudentPosts,
   createPost,
   updatePost,
   archivePosts,
@@ -23,7 +27,10 @@ export const postSlice = createSlice({
   initialState: [],
   reducers: {},
   extraReducers: {
-    [getPosts.fulfilled]: (state, action) => {
+    [getAdminPosts.fulfilled]: (state, action) => {
+      return action.payload;
+    },
+    [getStudentPosts.fulfilled]: (state, action) => {
       return action.payload;
     },
     [createPost.fulfilled]: (state, action) => {
@@ -46,7 +53,12 @@ export const postSlice = createSlice({
 });
 
 // selectors
-export const postsSelector = state => state.industry.posts;
+const rawPostsSelector = state => state.industry.posts;
+export const postsSelector = state => {
+  const posts = rawPostsSelector(state);
+  const companies = companiesSelector(state);
+  return mergeCompanyInfo(posts, companies);
+};
 export const displayedPostsSelector = state => {
   return postsSelector(state).filter(elem => elem.isActive)
 }

@@ -18,12 +18,22 @@ const dataFetchedReducer = createSlice({
 
 export const industryDataFetchedSelector = state => state.industry.dataFetched;
 
-export const getIndustryDataThunk = () => dispatch => {
+export const getAdminIndustryThunk = () => async dispatch => {
+  await Promise.all([
+    dispatch(companyThunks.getAdminCompanies()),
+    dispatch(userThunks.getUsers()),
+    dispatch(requestThunks.getRequests()),
+    dispatch(postThunks.getAdminPosts()),
+  ])
   dispatch(dataFetchedReducer.actions.fetch());
-  dispatch(companyThunks.getCompanies());
-  dispatch(userThunks.getUsers());
-  dispatch(requestThunks.getRequests());
-  dispatch(postThunks.getPosts());
+}
+
+export const getStudentIndustryThunk = () => async dispatch => {
+  await Promise.all([
+    dispatch(companyThunks.getStudentCompanies()),
+    dispatch(postThunks.getStudentPosts()),
+  ]);
+  dispatch(dataFetchedReducer.actions.fetch());
 }
 
 const industryReducer = combineReducers({

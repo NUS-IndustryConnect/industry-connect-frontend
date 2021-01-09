@@ -35,7 +35,6 @@ export default function Manage() {
     label: "Archive",
     className: "secondary",
     onClick: selections => {
-      console.log(selections);
       dispatch(postThunks.archivePosts(selections));
     }
   }

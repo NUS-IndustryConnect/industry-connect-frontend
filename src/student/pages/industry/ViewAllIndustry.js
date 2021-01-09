@@ -1,15 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Card } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 
 // Redux
 import { useSelector } from 'react-redux'
 
-import './index.css';
+import { postsSelector } from '../../../redux/industry/postSlice';
 import Page from '../Page';
+import './index.css';
 
 const ViewAllIndustry = () => {
-  const { displayedPosts } = useSelector(state => state.industry.posts)
+  const displayedPosts = useSelector(postsSelector);
   const history = useHistory();
 
   const dataToRow = (data) => {
@@ -22,6 +23,7 @@ const ViewAllIndustry = () => {
     const state = {
         ...data
     }
+    // TODO: same issue as announcements
     const handleClick = () => history.push({pathname: `/student/industry/${companyPostID}`, state});
     return (
       <li key={companyPostID}>

@@ -14,7 +14,7 @@ export default function Announcements () {
   const dispatch = useDispatch();
   const dataFetched = useSelector(announcementsFetchedSelector);
   useEffect(() => {
-    if (!dataFetched) dispatch(announcementThunks.getAnnouncementsAdmin());
+    if (!dataFetched) dispatch(announcementThunks.getAdminAnnouncements());
   }, [dispatch, dataFetched]);
   return (
     <Switch>

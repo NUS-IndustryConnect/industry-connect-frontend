@@ -4,8 +4,8 @@ import studentApi from '../student/api';
 import { pluraliseThunk } from './utils';
 
 // thunk version of API calls
-const getAnnouncementsAdmin = createAsyncThunk('admin/announcements/get', adminApi.announcements.getAnnouncements);
-const getAnnouncementsStudent = createAsyncThunk('admin/announcements/get', studentApi.announcements.getAnnouncementsApi);
+const getAdminAnnouncements = createAsyncThunk('admin/announcements/get', adminApi.announcements.getAnnouncements);
+const getStudentAnnouncements = createAsyncThunk('student/announcements/get', studentApi.announcements.getAnnouncementsApi);
 const postAnnouncement = createAsyncThunk('admin/announcements/post', adminApi.announcements.postAnnouncement);
 const updateAnnouncement = createAsyncThunk('admin/announcements/update', adminApi.announcements.updateAnnouncement);
 const archiveAnnouncement = createAsyncThunk('admin/announcements/archive', adminApi.announcements.archiveAnnouncement);
@@ -13,8 +13,8 @@ const archiveAnnouncement = createAsyncThunk('admin/announcements/archive', admi
 const archiveAnnouncements = pluraliseThunk(archiveAnnouncement);
 
 export const announcementThunks = {
-  getAnnouncementsAdmin,
-  getAnnouncementsStudent,
+  getAdminAnnouncements,
+  getStudentAnnouncements,
   postAnnouncement,
   updateAnnouncement,
   archiveAnnouncement,
@@ -30,10 +30,10 @@ export const announcementSlice = createSlice({
   },
   reducers: {},
   extraReducers: {
-    [getAnnouncementsStudent.fulfilled]: (state, action) => {
+    [getStudentAnnouncements.fulfilled]: (state, action) => {
       state.data = action.payload;
     },
-    [getAnnouncementsAdmin.fulfilled]: (state, action) => {
+    [getAdminAnnouncements.fulfilled]: (state, action) => {
       state.data = action.payload;
     },
     [postAnnouncement.fulfilled]: (state, action) => {

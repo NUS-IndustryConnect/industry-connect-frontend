@@ -13,7 +13,7 @@ export default function Announcements() {
   const dispatch = useDispatch();
   const dataFetched = useSelector(announcementsFetchedSelector);
   useEffect(() => {
-    if (!dataFetched) dispatch(announcementThunks.getAnnouncementsStudent());
+    if (!dataFetched) dispatch(announcementThunks.getStudentAnnouncements());
   }, [dispatch, dataFetched]);
   return (
     <Switch>
