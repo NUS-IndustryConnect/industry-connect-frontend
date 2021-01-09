@@ -7,9 +7,9 @@ const Home = () => {
   return (
     <Page title="Home">
       <p>I am a</p>
-      <ButtonLink to="/student" label="Student" classname="primary" />
-      <ButtonLink to="/admin" label="Admin" classname="primary" />
-      <ButtonLink to="/industry" label="Industry" classname="primary" />
+      <ButtonLink to="/student" label="Student" className="primary" />
+      <ButtonLink to="/admin" label="Admin" className="primary" />
+      <ButtonLink to="/industry" label="Industry" className="primary" />
     </Page>
   )
 }

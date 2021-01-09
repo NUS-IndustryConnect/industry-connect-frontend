@@ -16,6 +16,7 @@ export default function Preview() {
   return (
     <Page title="Preview Post">
       <PostPreview data={mockData} />
+      {/* TODO: Connect up to BE API */}
       <ButtonLink to="/industry/post/submitted" label="Submit for vetting" className="primary" />
     </Page>
   )

@@ -2,9 +2,9 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
+import { announcementThunks } from '../../../redux/announcementSlice';
 import Page from '../Page';
 import AnnouncementForm, { getAnnouncementFields } from './AnnouncementForm';
-import { announcementThunks } from '../../../redux/announcementSlice';
 
 export default function New() {
   const history = useHistory();

@@ -1,11 +1,11 @@
 import React from 'react';
-
-import Page from '../../Page';
-import PostPreview from '../../../../common/post/PostPreview';
-import ContactButton from './ContactButton';
 import { useParams, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+
+import PostPreview from '../../../../common/post/PostPreview';
 import { requestSelector, requestThunks } from '../../../../redux/industry/requestSlice';
+import Page from '../../Page';
+import ContactButton from './ContactButton';
 
 export default function Preview() {
   const history = useHistory();

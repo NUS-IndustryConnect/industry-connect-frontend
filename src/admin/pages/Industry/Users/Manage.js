@@ -37,7 +37,7 @@ export default function Manage() {
 
   return (
     <Page title="Manage Company Users">
-      <ButtonLink to="/admin/industry/users/new" label="New Company" className="primary" />
+      <ButtonLink to="/admin/industry/users/new" label="New Company User" className="primary" />
       
       <SelectTable
         headers={["Name", "Email Address", "Company", "Tier", "Last Login"]}
