@@ -1,8 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 import Page from '../../../common/Page';
 import PostPreview from '../../../common/post/PostPreview';
+import ButtonLink from '../../../common/ButtonLink';
 
 // TODO: link up to Redux store
 const mockData = {
@@ -16,9 +16,7 @@ export default function Preview() {
   return (
     <Page title="Preview Post">
       <PostPreview data={mockData} />
-      <Link to="/industry/post/submitted">
-        <button className="primary">Submit for vetting</button>
-      </Link>
+      <ButtonLink to="/industry/post/submitted" label="Submit for vetting" className="primary" />
     </Page>
   )
 }
