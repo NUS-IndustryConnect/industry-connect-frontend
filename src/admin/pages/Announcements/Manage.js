@@ -1,15 +1,16 @@
 import React from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux'
 
-import Page from '../Page';
-import SelectTable from '../SelectTable';
+import ButtonLink from '../../../common/ButtonLink';
 import {
   displayedAnnouncementsSelector,
   pinnedAnnouncementsSelector,
   archivedAnnouncementsSelector,
   announcementThunks
 } from '../../../redux/announcementSlice';
+import Page from '../Page';
+import SelectTable from '../SelectTable';
 
 const Manage = () => {
   const dispatch = useDispatch();
@@ -45,9 +46,7 @@ const Manage = () => {
 
   return (
     <Page title="Manage Announcements">
-      <Link to="/admin/announcements/new">
-        <button className="primary">New Announcement</button>
-      </Link>
+      <ButtonLink to="/admin/announcements/new" label="New Announcement" className="primary" />
       
       <section>
         <h3>Pinned</h3>

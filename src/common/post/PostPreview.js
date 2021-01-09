@@ -1,6 +1,7 @@
 import React from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
+import ButtonLink from '../ButtonLink';
 import VideoEmbed from './VideoEmbed';
 import './PostPreview.css'
 
@@ -17,9 +18,7 @@ export default function Preview({ data = {} }) {
     <div className="post">
       <div className="post-header">
         <h3>{postTitle}</h3>
-        <Link to={`/admin/industry/posts/edit/${id}`}>
-          <button className="secondary right">Edit</button>
-        </Link>
+        <ButtonLink to={`/admin/industry/posts/edit/${id}`} label="Edit" className="secondary right" />
       </div>
       <h5>{postSubtitle}</h5>
       { postDescription.split("\n").map((para, i) => <p key={i}>{para}</p>) }

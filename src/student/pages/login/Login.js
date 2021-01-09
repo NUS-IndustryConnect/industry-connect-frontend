@@ -1,8 +1,7 @@
 import React from 'react';
 
 import Page from '../../../common/Page';
-import { Link } from 'react-router-dom';
-
+import ButtonLink from '../../../common/ButtonLink';
 import './Login.css';
 
 export default function Login() {
@@ -13,9 +12,7 @@ export default function Login() {
         <h3>Welcome to IndustryConnect!</h3>
         <p>SoC Industry Updates is a platform made by students, for students. It serves as a one-stop shop for students from the School of Computing to learn about internships, jobs and future career opportunities in various industries.</p>
 
-        <Link to="/student">
-          <button className="primary">Login</button>
-        </Link>
+        <ButtonLink to="/student" label="Login" className="primary" />
       </div>
     </Page>
   )

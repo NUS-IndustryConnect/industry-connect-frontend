@@ -1,12 +1,13 @@
 import React from 'react';
-import { useHistory, useParams, Link } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-import Page from '../../Page';
-import Table from '../../Table';
+import VerticalTable from '../../../../common/VerticalTable';
+import ButtonLink from '../../../../common/ButtonLink';
 import { companySelector } from '../../../../redux/industry/companySlice';
 import { usersOfCompanySelector } from '../../../../redux/industry/userSlice';
-import VerticalTable from '../../../../common/VerticalTable';
+import Page from '../../Page';
+import Table from '../../Table';
 
 export default function View() {
   const history = useHistory();
@@ -54,9 +55,7 @@ export default function View() {
           { header: "Number of users", data: users.length },
           { header: "Number of posts", data: companyPosts.length },
         ]} />
-        <Link to={`/admin/industry/companies/edit/${companyID}`}>
-          <button className="secondary">Edit</button>
-        </Link>
+        <ButtonLink to={`/admin/industry/companies/edit/${companyID}`} label="Edit" className="secondary" />
       </section>
       <section>
         <h4>Users</h4>

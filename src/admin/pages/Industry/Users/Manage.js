@@ -1,10 +1,11 @@
 import React from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
+import ButtonLink from '../../../../common/ButtonLink';
+import { usersSelector, userThunks } from '../../../../redux/industry/userSlice';
 import Page from '../../Page';
 import SelectTable from '../../SelectTable';
-import { usersSelector, userThunks } from '../../../../redux/industry/userSlice';
 
 export default function Manage() {
   const users = useSelector(usersSelector);
@@ -36,9 +37,7 @@ export default function Manage() {
 
   return (
     <Page title="Manage Company Users">
-      <Link to="/admin/industry/users/new">
-        <button className="primary">New Company</button>
-      </Link>
+      <ButtonLink to="/admin/industry/users/new" label="New Company" className="primary" />
       
       <SelectTable
         headers={["Name", "Email Address", "Company", "Tier", "Last Login"]}

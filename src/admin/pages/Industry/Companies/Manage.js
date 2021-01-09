@@ -1,10 +1,11 @@
 import React from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
+import ButtonLink from '../../../../common/ButtonLink';
+import { companiesSelector, companyThunks } from '../../../../redux/industry/companySlice';
 import Page from '../../Page';
 import SelectTable from '../../SelectTable';
-import { companiesSelector, companyThunks } from '../../../../redux/industry/companySlice';
 
 export default function Manage() {
   const companies = useSelector(companiesSelector);
@@ -33,9 +34,7 @@ export default function Manage() {
 
   return (
     <Page title="Manage Company">
-      <Link to="/admin/industry/companies/new">
-        <button className="primary">New Company</button>
-      </Link>
+      <ButtonLink to="/admin/industry/companies/new" label="New Company" className="primary" />
       
       <SelectTable
         headers={["Company Name", "Tier"]}

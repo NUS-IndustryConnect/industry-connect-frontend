@@ -1,13 +1,14 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+
+import ButtonLink from '../../../../common/ButtonLink';
+import { displayedPostsSelector, archivedPostsSelector, postThunks } from '../../../../redux/industry/postSlice';
+import { requestsSelector } from '../../../../redux/industry/requestSlice';
 
 import Page from '../../Page';
 import Table from '../../Table';
 import SelectTable from '../../SelectTable';
-
-import { displayedPostsSelector, archivedPostsSelector, postThunks } from '../../../../redux/industry/postSlice';
-import { requestsSelector } from '../../../../redux/industry/requestSlice';
 
 export default function Manage() {
   const history = useHistory();
@@ -49,9 +50,7 @@ export default function Manage() {
 
   return (
     <Page title="Manage Industry Posts">
-      <Link to="/admin/industry/posts/new">
-        <button className="primary">New Industry Post</button>
-      </Link>
+      <ButtonLink to="/admin/industry/posts/new" label="New Industry Post" className="primary" />
       
       <section>
         <h3>Pending</h3>
