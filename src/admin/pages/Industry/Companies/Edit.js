@@ -1,25 +1,4 @@
 import React from 'react';
-<<<<<<< HEAD
-import { useHistory } from 'react-router-dom';
-
-import Page from '../../Page';
-import CompaniesForm, { getCompanyFields } from './CompaniesForm';
-
-export default function Edit() {
-  const history = useHistory();
-  // TODO: link up to BE API (temporary placeholder)
-  const submit = data => {
-    const companyObj = getCompanyFields(data);
-    console.log(companyObj);
-    history.push('/admin/industry/companies');
-  }
-  return (
-    <Page title="Edit Company">
-      <CompaniesForm
-        submit={submit}
-        initial={{ name: "hi", tier: 2 }}
-      />
-=======
 import { useHistory, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -48,7 +27,6 @@ export default function Edit() {
       errorMessage={<p>Company not found. Please select another company.</p>}
     >
       <CompaniesForm submit={submit} initial={currentValues} />
->>>>>>> 0abed8ac06c26622be97d96678b2b86a2eb41ada
     </Page>
   )
 }

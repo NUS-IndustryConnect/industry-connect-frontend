@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-// TODO: link up to BE API (temporary placeholder)
-=======
 // TODO: replace with BE API calls
->>>>>>> 0abed8ac06c26622be97d96678b2b86a2eb41ada
 const exampleCompanies = [
   {
     companyID: "1",
@@ -41,30 +37,6 @@ const exampleCompanies = [
   }
 ]
 
-<<<<<<< HEAD
-export const getCompanies = () => {
-  return Promise.resolve(exampleCompanies);
-}
-
-const arrayToObj = (arr, key) => {
-  let obj = {};
-  arr.forEach(elem => {
-    obj[elem[key]] = elem;
-  })
-  return obj;
-}
-
-export const mergeCompanyInfo = async (data) => {
-  const rawCompanies = await getCompanies(); // TODO: don't keep calling getCompanies
-  const companiesObj = arrayToObj(rawCompanies, "companyID");
-  return data.map(
-    user => ({
-      ...user,
-      company: companiesObj[user.companyID]
-    })
-  );
-}
-=======
 const getCompanies = () => {
   // return fetch('/company/admin');
   return Promise.resolve(exampleCompanies);
@@ -105,4 +77,3 @@ const companyApi = {
 }
 
 export default companyApi;
->>>>>>> 0abed8ac06c26622be97d96678b2b86a2eb41ada

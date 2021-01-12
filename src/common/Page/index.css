@@ -57,15 +57,8 @@ nav a {
 
 .page {
   width: 100%;
-<<<<<<< HEAD
-  min-width: 600px;
-  max-width: 50vw;
-  margin: 0 auto;
-  padding: 16px;
-=======
   max-width: 750px;
   margin: 16px auto;
->>>>>>> 0abed8ac06c26622be97d96678b2b86a2eb41ada
 }
 
 footer {
