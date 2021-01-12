@@ -1,0 +1,11 @@
+.post {
+  background-color: white;
+  border-radius: 10px;
+  border: 1px solid var(--lightgrey);
+  padding: 10px 25px 25px;
+}
+
+.video {
+  display: block;
+  margin: 0 auto;
+}

@@ -1,14 +1,15 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+
 import Page from './common/Page';
+import ButtonLink from './common/ButtonLink';
 
 const Home = () => {
   return (
     <Page title="Home">
       <p>I am a</p>
-      <Link to="/student"><button className="primary">Student</button></Link>
-      <Link to="/admin"><button className="primary">Admin</button></Link>
-      <Link to="/company"><button className="primary">Company</button></Link>
+      <ButtonLink to="/student" label="Student" className="primary" />
+      <ButtonLink to="/admin" label="Admin" className="primary" />
+      <ButtonLink to="/industry" label="Industry" className="primary" />
     </Page>
   )
 }

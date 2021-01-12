@@ -1,0 +1,17 @@
+.post-header, .bottom-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+tr input[type="checkbox"] {
+  height: 18px;
+  width: 18px;
+}
+
+.select-table td:first-child,
+.select-table th:first-child {
+  padding: 3px 2px;
+  width: 30px;
+  border: none;
+  background-color: transparent;
+}

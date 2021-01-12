@@ -1,0 +1,8 @@
+.login-container.page {
+  max-width: 500px;
+}
+
+.button-row {
+  display: flex;
+  justify-content: space-between;
+}

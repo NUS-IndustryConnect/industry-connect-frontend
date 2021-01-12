@@ -1,0 +1,69 @@
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+
+import adminApi from '../../admin/api';
+import { companiesSelector, mergeCompanyInfo } from './companySlice';
+import { pluraliseThunk } from '../utils';
+import { postSelector } from './postSlice';
+
+// thunks
+const getUsers = createAsyncThunk('admin/users/get', adminApi.users.getUsers)
+const postUser = createAsyncThunk('admin/users/create', adminApi.users.postUser)
+const updateUser = createAsyncThunk('admin/users/update', adminApi.users.updateUser)
+const deleteUser = createAsyncThunk('admin/users/delete', adminApi.users.deleteUser)
+const deleteUsers = pluraliseThunk(deleteUser);
+
+export const userThunks = {
+  getUsers,
+  postUser,
+  updateUser,
+  deleteUser,
+  deleteUsers,
+}
+
+// slice
+export const userSlice = createSlice({
+  name: "users",
+  initialState: [],
+  reducers: {},
+  extraReducers: {
+    [getUsers.fulfilled]: (state, action) => {
+      return action.payload;
+    },
+    [postUser.fulfilled]: (state, action) => {
+      state.push(action.payload);
+    },
+    [updateUser.fulfilled]: (state, action) => {
+      return state.map(elem =>
+        elem.companyUserID === action.payload.companyUserID
+          ? action.payload
+          : elem);
+    },
+    [deleteUser.fulfilled]: (state, action) => {
+      return state.filter(elem => elem.companyUserID !== action.payload)
+    }
+  }
+});
+
+// selectors
+const rawUsersSelector = state => state.industry.users;
+export const usersSelector = state => {
+  const users = rawUsersSelector(state);
+  const companies = companiesSelector(state);
+  return mergeCompanyInfo(users, companies);
+};
+export const usersOfCompanySelector = companyID => state => {
+  return usersSelector(state)
+    .filter(elem => elem.companyID === companyID)
+}
+export const userSelector = companyUserID => state => {
+  const rawUser = usersSelector(state)
+    .find(elem => elem.companyUserID === companyUserID);
+  const userPosts = rawUser?.userPosts
+    .map(id => postSelector(id)(state))
+    .filter(Boolean);
+  return rawUser
+    ? { ...rawUser, userPosts }
+    : rawUser;
+}
+
+export default userSlice.reducer;

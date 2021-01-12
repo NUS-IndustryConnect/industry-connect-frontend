@@ -13,49 +13,142 @@ main {
   align-items: stretch;
 }
 
+section {
+  margin-bottom: 50px;
+}
+
 h1, h2 {
   margin: 0;
   font-size: 1.25rem;
 }
 
 h3 {
-  margin-top: 0;
+  margin: 10px 0;
   font-size: 1.15rem;
 }
 
 h4 {
-  margin-top: 0;
+  margin: 5px 0;
   font-size: 1.1rem;
 }
 
-button {
+h5 {
+  margin: 4px 0;
+  font-size: 1rem;
+}
+
+/* textboxes */
+
+input[type="text"],
+input[type="email"],
+input[type="date"],
+select,
+textarea {
+  font-size: 1rem;
+  font-family: "Open Sans", sans-serif;
+  padding: 5px 7px;
+  border: 1px solid var(--mediumgrey);
+  border-radius: 4px;
+}
+
+input[type="text"],
+input[type="email"],
+textarea {
+  width: 100%;
+}
+
+textarea {
+  resize: none;
+}
+
+/* buttons */
+
+button, input[type="submit"], input[type="button"] {
   font-weight: 600;
   padding: 8px 12px;
-  margin: 5px;
+  margin: 10px 10px 0 0;
   border-radius: 5px;
   border: none;
   outline: none;
   cursor: pointer;
 }
 
-button.primary {
+button.right {
+  margin-right: 0;
+  margin-left: 10px;
+}
+
+button.email {
+  padding-right: 0;
+}
+
+button.email > .email-address {
+  background-color: white;
+  border-radius: 5px;
+  padding: 4px 8px;
+  margin: 0 4px;
+}
+
+.primary {
   color: white;
   background-color: var(--orange);
 }
 
-button.secondary {
+.secondary {
   color: var(--darkgrey);
   background-color: var(--lightgrey);
 }
 
-button.success {
+.success {
   color: white;
   background-color: var(--green);
 }
 
-button.error {
+.warning {
   color: white;
   background-color: var(--red);
+}
+
+/* tables */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+td {
+  padding: 5px 8px;
+  background-color: white;
+  border: 1px solid var(--lightgrey);
+}
+
+th {
+  text-align: left;
+}
+
+.archived td {
+  background-color: var(--lightgrey);
+  border-color: var(--mediumgrey);
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+/* Vertical tables */
+
+table.vertical th {
+  width: 25%;
+}
+
+table.vertical td {
+  background-color: transparent;
+  border: none;
+}
+
+.pending td {
+  background-color: var(--lightblue);
 }
 
 /* Components */
