@@ -2,7 +2,15 @@ import React from 'react';
 
 import './index.css';
 
-const Page = ({ title, children, navigationPanel }) => {
+const Page = (props) => {
+  const {
+    title,
+    children,
+    className="",
+    navigationPanel,
+    isError=false,
+    errorMessage
+  } = props;
   return (
     <React.Fragment>
       <header>
@@ -16,8 +24,8 @@ const Page = ({ title, children, navigationPanel }) => {
       <main>
         {navigationPanel}
         <div className="page-container">
-          <div className="page">
-            {children}
+          <div className={`page ${className}`}>
+            {isError ? errorMessage : children}
           </div>
           <footer></footer>
         </div>

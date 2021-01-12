@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 // TODO: link up to BE API (temporary placeholder)
+=======
+// TODO: replace with BE API calls
+>>>>>>> 0abed8ac06c26622be97d96678b2b86a2eb41ada
 const exampleCompanies = [
   {
     companyID: "1",
@@ -37,6 +41,7 @@ const exampleCompanies = [
   }
 ]
 
+<<<<<<< HEAD
 export const getCompanies = () => {
   return Promise.resolve(exampleCompanies);
 }
@@ -59,3 +64,45 @@ export const mergeCompanyInfo = async (data) => {
     })
   );
 }
+=======
+const getCompanies = () => {
+  // return fetch('/company/admin');
+  return Promise.resolve(exampleCompanies);
+}
+
+const postCompany = async data => {
+  return {
+    ...data,
+    companyID: Math.floor(Math.random() * 1000000),
+    companyPosts: []
+  }
+  // return fetch('/company/create', {
+  //   method: "POST",
+  //   body: data,
+  // })
+}
+
+const deleteCompany = async id => {
+  return id;
+  // return fetch(`/company/${id}`, {
+  //   method: "DELETE"
+  // })
+}
+
+const updateCompany = async data => {
+  return data;
+  // return fetch(`/company/${id}`, {
+  //   method: "POST",
+  //   body: data,
+  // })
+}
+
+const companyApi = {
+  getCompanies,
+  postCompany,
+  updateCompany,
+  deleteCompany,
+}
+
+export default companyApi;
+>>>>>>> 0abed8ac06c26622be97d96678b2b86a2eb41ada

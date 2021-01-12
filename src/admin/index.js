@@ -4,7 +4,10 @@ import { Switch, Route } from 'react-router-dom';
 import Login from './pages/Login';
 import Announcements from './pages/Announcements';
 import Industry from './pages/Industry';
+<<<<<<< HEAD
 
+=======
+>>>>>>> 0abed8ac06c26622be97d96678b2b86a2eb41ada
 import './index.css'
 
 const Admin = () => {

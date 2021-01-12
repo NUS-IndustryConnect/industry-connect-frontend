@@ -7,7 +7,7 @@ import {
 import Home from './Home';
 import Student from './student';
 import Admin from './admin';
-import Company from './company';
+import Industry from './industry';
 import './App.css';
 
 function App() {
@@ -17,7 +17,7 @@ function App() {
         <Switch>
           <Route path="/student"><Student /></Route>
           <Route path="/admin"><Admin /></Route>
-          <Route path="/company"><Company /></Route>
+          <Route path="/industry"><Industry /></Route>
           <Route path="/"><Home /></Route>
         </Switch>
       </Router>

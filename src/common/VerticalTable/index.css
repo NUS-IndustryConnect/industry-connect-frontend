@@ -1,0 +1,8 @@
+table.vertical th {
+  width: 25%;
+}
+
+table.vertical td {
+  background-color: transparent;
+  border: none;
+}

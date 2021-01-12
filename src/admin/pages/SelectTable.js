@@ -3,7 +3,11 @@ import React, { useState } from 'react';
 export default function SelectTable(props) {
   const {
     headers,
+<<<<<<< HEAD
     data,
+=======
+    data = [],
+>>>>>>> 0abed8ac06c26622be97d96678b2b86a2eb41ada
     dataToRow,
     idKey,
     className="",
@@ -28,7 +32,13 @@ export default function SelectTable(props) {
   const selectNone = () => setSelections([]);
   const toggleAll = event => event.target.checked ? selectAll() : selectNone();
 
+<<<<<<< HEAD
   return (
+=======
+  return data.length === 0
+  ? <p>No items.</p>
+  : (
+>>>>>>> 0abed8ac06c26622be97d96678b2b86a2eb41ada
     <React.Fragment>
       <table className={className + " select-table"}>
         <thead>
@@ -52,7 +62,14 @@ export default function SelectTable(props) {
             <button
               key={label}
               className={className}
+<<<<<<< HEAD
               onClick={() => onClick(selections)}
+=======
+              onClick={() => {
+                onClick(selections)
+                selectNone();
+              }}
+>>>>>>> 0abed8ac06c26622be97d96678b2b86a2eb41ada
             >
               {label}
             </button>)}

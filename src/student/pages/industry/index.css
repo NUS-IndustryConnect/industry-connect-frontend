@@ -1,0 +1,12 @@
+.list-unstyled {
+  list-style: none;
+  margin: 0;
+  padding: 0%;
+}
+
+.industry-list-card {
+  list-style-type : none;
+  background-color: white;
+  margin-top: 4px;
+  padding: 8px;
+}

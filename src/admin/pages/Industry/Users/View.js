@@ -1,4 +1,5 @@
 import React from 'react';
+<<<<<<< HEAD
 import { useHistory } from 'react-router-dom';
 
 import Page from '../../Page';
@@ -56,11 +57,61 @@ export default function View() {
           </tr>
         </tbody>
       </table>
+=======
+import { useHistory, useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+
+import VerticalTable from '../../../../common/VerticalTable';
+import ButtonLink from '../../../../common/ButtonLink';
+import { userSelector } from '../../../../redux/industry/userSlice';
+import Page from '../../Page';
+import Table from '../../Table';
+
+export default function View() {
+  const { id } = useParams();
+  const data = useSelector(userSelector(id));
+  const {
+    name,
+    userEmail,
+    company,
+    lastLoggedIn,
+    userPosts
+  } = data || {};
+  const history = useHistory();
+
+  const dataToRow = ({ companyPostID, lastUpdated, postTitle }) => (
+    <tr
+      key={companyPostID}
+      onClick={() => history.push(`/admin/industry/posts/preview/${companyPostID}`)}
+      className="clickable"
+    >
+      <td>{postTitle}</td>
+      <td>{lastUpdated.toLocaleDateString()}</td>
+    </tr>
+  )
+  return (
+    <Page
+      title="View Company User"
+      isError={!Boolean(data)}
+      errorMessage={<p>User not found. Please select another user.</p>}
+    >
+      <VerticalTable data={[
+        { header: "Name", data: name },
+        { header: "Email", data: userEmail },
+        { header: "Company", data: company.companyName },
+        { header: "Last login", data: lastLoggedIn.toLocaleDateString() },
+      ]}/>
+      <ButtonLink to={`/admin/industry/users/edit/${id}`} label="Edit" className="secondary" />
+>>>>>>> 0abed8ac06c26622be97d96678b2b86a2eb41ada
       <section>
         <h4>Posts</h4>
         <Table
           headers={["Post Title", "Date"]}
+<<<<<<< HEAD
           data={postHistory}
+=======
+          data={userPosts}
+>>>>>>> 0abed8ac06c26622be97d96678b2b86a2eb41ada
           dataToRow={dataToRow}
         />
       </section>
