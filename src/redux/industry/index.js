@@ -2,7 +2,7 @@ import { combineReducers } from 'redux'
 
 import companiesReducer, { companyThunks } from './companySlice';
 import usersReducer, { userThunks } from './userSlice';
-import requestsReducer, {requestThunks } from './requestSlice';
+import requestsReducer, { requestThunks } from './requestSlice';
 import postsReducer, { postThunks } from './postSlice';
 import { createSlice } from '@reduxjs/toolkit';
 
@@ -22,7 +22,7 @@ export const getAdminIndustryThunk = () => async dispatch => {
   await Promise.all([
     dispatch(companyThunks.getAdminCompanies()),
     dispatch(userThunks.getUsers()),
-    dispatch(requestThunks.getRequests()),
+    dispatch(requestThunks.getAdminRequests()),
     dispatch(postThunks.getAdminPosts()),
   ])
   dispatch(dataFetchedReducer.actions.fetch());
@@ -33,6 +33,14 @@ export const getStudentIndustryThunk = () => async dispatch => {
     dispatch(companyThunks.getStudentCompanies()),
     dispatch(postThunks.getStudentPosts()),
   ]);
+  dispatch(dataFetchedReducer.actions.fetch());
+}
+
+export const getIndustryIndustryThunk = () => async dispatch => {
+  await Promise.all([
+    dispatch(postThunks.getIndustryPosts()),
+    dispatch(requestThunks.getIndustryRequests())
+  ])
   dispatch(dataFetchedReducer.actions.fetch());
 }
 

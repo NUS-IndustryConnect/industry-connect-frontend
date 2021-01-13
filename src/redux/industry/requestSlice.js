@@ -1,15 +1,19 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 import adminApi from '../../admin/api';
+import industryApi from '../../industry/api';
+import { companiesSelector, mergeCompanyInfo } from './companySlice';
 
 // thunks
-const getRequests = createAsyncThunk('admin/requests/get', adminApi.requests.getRequests)
+const getAdminRequests = createAsyncThunk('admin/requests/get', adminApi.requests.getRequests)
+const getIndustryRequests = createAsyncThunk('industry/requests/get', industryApi.requests.getRequests)
 const createRequest = createAsyncThunk('admin/requests/create', adminApi.requests.createRequest)
 const approveRequest = createAsyncThunk('admin/requests/approve', adminApi.requests.approveRequest)
 const rejectRequest = createAsyncThunk('admin/requests/reject', adminApi.requests.rejectRequest)
 
 export const requestThunks = {
-  getRequests,
+  getAdminRequests,
+  getIndustryRequests,
   createRequest,
   approveRequest,
   rejectRequest,
@@ -21,7 +25,10 @@ export const requestSlice = createSlice({
   initialState: [],
   reducers: {},
   extraReducers: {
-    [getRequests.fulfilled]: (state, action) => {
+    [getAdminRequests.fulfilled]: (state, action) => {
+      return action.payload;
+    },
+    [getIndustryRequests.fulfilled]: (state, action) => {
       return action.payload;
     },
     [createRequest.fulfilled]: (state, action) => {
@@ -37,10 +44,19 @@ export const requestSlice = createSlice({
 });
 
 // selectors
-export const requestsSelector = state => state.industry.requests;
+const rawRequestsSelector = state => state.industry.requests;
+export const requestsSelector = state => {
+  const requests = rawRequestsSelector(state);
+  const companies = companiesSelector(state);
+  return mergeCompanyInfo(requests, companies);
+}
 export const requestSelector = companyPostID => state => {
   return requestsSelector(state)
     .find(elem => elem.companyPostID === companyPostID);
+}
+export const requestsByCompanySelector = companyID => state => {
+  return requestsSelector(state)
+    .filter(elem => elem.companyID === companyID)
 }
 
 export default requestSlice.reducer;
