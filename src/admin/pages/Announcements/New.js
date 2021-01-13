@@ -12,8 +12,6 @@ export default function New() {
   const submit = data => {
     const announcementObj = {
       ...getAnnouncementFields(data),
-      isImportant: false, // FIXME: add this as field in form
-      validTill: "",
       announceBy: "author",
     };
     dispatch(announcementThunks.postAnnouncement(announcementObj))
