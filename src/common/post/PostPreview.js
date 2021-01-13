@@ -14,11 +14,15 @@ export default function Preview({ data = {} }) {
     moreUrl,
   } = data;
   const { id } = useParams();
+  const editLink = id
+    ? `/industry/posts/edit/${id}`
+    : '/industry/posts/new';
+  // TODO: new -> preview -> edit does not work because the info from new is lost
   return (
     <div className="post">
       <div className="post-header">
         <h3>{postTitle}</h3>
-        <ButtonLink to={`/admin/industry/posts/edit/${id}`} label="Edit" className="secondary right" />
+        <ButtonLink to={editLink} label="Edit" className="secondary right" />
       </div>
       <h5>{postSubtitle}</h5>
       { description.split("\n").map((para, i) => <p key={i}>{para}</p>) }

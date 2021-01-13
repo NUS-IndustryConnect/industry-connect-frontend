@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import ButtonLink from '../../../../common/ButtonLink';
 import { companiesSelector, companyThunks } from '../../../../redux/industry/companySlice';
 import Page from '../../Page';
-import SelectTable from '../../SelectTable';
+import SelectTable from '../../../../common/SelectTable';
 
 export default function Manage() {
   const companies = useSelector(companiesSelector);

@@ -6,7 +6,7 @@ import VerticalTable from '../../../../common/VerticalTable';
 import ButtonLink from '../../../../common/ButtonLink';
 import { userSelector } from '../../../../redux/industry/userSlice';
 import Page from '../../Page';
-import Table from '../../Table';
+import Table from '../../../../common/Table';
 
 export default function View() {
   const { id } = useParams();

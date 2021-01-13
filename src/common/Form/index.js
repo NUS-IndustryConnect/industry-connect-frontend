@@ -1,5 +1,7 @@
 import React from 'react';
 
+import './index.css';
+
 const generateField = (fieldOptions) => {
   const {
     type,
@@ -29,6 +31,15 @@ const generateField = (fieldOptions) => {
         )) }
       </select>
     )
+  } else if (type === "checkbox") {
+    component = (
+      <input
+        type={type}
+        id={name}
+        name={name}
+        defaultChecked={initial}
+      />
+    );
   } else {
     component = (
       <input
@@ -42,8 +53,15 @@ const generateField = (fieldOptions) => {
   }
   return (
     <div className="form-field" key={name}>
-      <label htmlFor={name}><h5>{label}{optional ? " (Optional)": ""}</h5></label>
-      {component}
+      { type === "checkbox"
+        ? <React.Fragment>
+            { component }
+            <label htmlFor={name}>{label}</label>
+          </React.Fragment>
+        : <React.Fragment>
+            <label htmlFor={name}><h5>{label}{optional ? " (Optional)": ""}</h5></label>
+            { component }
+          </React.Fragment> }
     </div>
   );
 }

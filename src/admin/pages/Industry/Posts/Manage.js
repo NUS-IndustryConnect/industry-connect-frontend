@@ -7,8 +7,8 @@ import { displayedPostsSelector, archivedPostsSelector, postThunks } from '../..
 import { requestsSelector } from '../../../../redux/industry/requestSlice';
 
 import Page from '../../Page';
-import Table from '../../Table';
-import SelectTable from '../../SelectTable';
+import Table from '../../../../common/Table';
+import SelectTable from '../../../../common/SelectTable';
 
 export default function Manage() {
   const history = useHistory();

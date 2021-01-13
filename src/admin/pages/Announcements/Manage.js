@@ -10,7 +10,7 @@ import {
   announcementThunks
 } from '../../../redux/announcementSlice';
 import Page from '../Page';
-import SelectTable from '../SelectTable';
+import SelectTable from '../../../common/SelectTable';
 
 const Manage = () => {
   const dispatch = useDispatch();
@@ -49,7 +49,7 @@ const Manage = () => {
       <ButtonLink to="/admin/announcements/new" label="New Announcement" className="primary" />
       
       <section>
-        <h3>Pinned</h3>
+        <h3>Important</h3>
         <SelectTable
           headers={["Announcement Title", "Last Updated"]}
           data={pinnedAnnouncements}

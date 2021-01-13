@@ -7,7 +7,7 @@ import ButtonLink from '../../../../common/ButtonLink';
 import { companySelector } from '../../../../redux/industry/companySlice';
 import { usersOfCompanySelector } from '../../../../redux/industry/userSlice';
 import Page from '../../Page';
-import Table from '../../Table';
+import Table from '../../../../common/Table';
 
 export default function View() {
   const history = useHistory();

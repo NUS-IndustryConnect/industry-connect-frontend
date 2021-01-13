@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+import './index.css';
+
 export default function SelectTable(props) {
   const {
     headers,
