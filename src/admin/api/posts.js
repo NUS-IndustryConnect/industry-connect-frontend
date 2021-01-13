@@ -50,8 +50,8 @@ const examplePosts = [
   },
   {
     companyPostID: "4",
-    companyID: "1",
-    companyName: "Shopee",
+    companyID: "2",
+    companyName: "Grab",
     postTitle: "Old Post 4",
     postSubtitle: "subtitle",
     description: "Get a job here",
@@ -91,6 +91,7 @@ const createPost = async data => {
   return {
     ...data,
     companyPostID: Math.floor(Math.random() * 10000),
+    isActive: true,
     lastUpdated: new Date(),
   }
   // return fetch('/companyPost/create', {

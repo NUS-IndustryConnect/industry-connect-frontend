@@ -4,7 +4,6 @@ import { Switch, Route } from 'react-router-dom';
 import Login from './pages/Login';
 import Announcements from './pages/Announcements';
 import Industry from './pages/Industry';
-import './index.css'
 
 const Admin = () => {
   return (
