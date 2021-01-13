@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import Page from '../../../common/Page';
-import { sendOTP, login } from '../../api';
+import industryApi from '../../api';
 import './index.css';
 
 const ADMIN_EMAIL = "placeholder@nus.edu.sg"
@@ -26,7 +26,7 @@ export default function Login() {
   const handleSendOTP = event => {
     event.preventDefault();
     if (email.length > 0) {
-      sendOTP(email).then(() => {
+      industryApi.sendOTP(email).then(() => {
         setOTPSent(true);
         setErrorMessage(null);
       });
@@ -44,7 +44,7 @@ export default function Login() {
   const handleLogin = event => {
     event.preventDefault();
     if (OTP) {
-      login(email, OTP).then(() => {
+      industryApi.login(email, OTP).then(() => {
         history.push("/industry");
       });
     } else {

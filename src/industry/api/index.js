@@ -1,9 +1,11 @@
-export const sendOTP = email => {
-  console.log(`OTP sent to ${email}`);
-  return Promise.resolve();
+import authApi from './auth';
+import postsApi from './posts';
+import requestsApi from './requests';
+
+const industryApi = {
+  auth: authApi,
+  posts: postsApi,
+  requests: requestsApi,
 }
 
-export const login = (email, OTP) => {
-  console.log(`Logging into ${email} with ${OTP}`);
-  return Promise.resolve();
-}
+export default industryApi;
