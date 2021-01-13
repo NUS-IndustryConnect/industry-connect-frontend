@@ -1,5 +1,7 @@
 .login-container.page {
   max-width: 500px;
+  display: flex;
+  flex-direction: column;
 }
 
 .button-row {

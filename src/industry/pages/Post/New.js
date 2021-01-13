@@ -9,7 +9,11 @@ export default function New() {
   // TODO: replace with redux dispatch
   const submit = data => {
     const postObj = getPostFields(data);
-    history.push('/industry/post/submitted');
+    history.push({
+      pathname: '/industry/posts/preview',
+      state: { data: postObj },
+    });
+    // history.push('/industry/posts/submitted');
     console.log(postObj);
   }
   return (

@@ -11,7 +11,7 @@ export default function Submitted() {
       <p>Thank you for using the SoC Industry Updates platform!</p>
       <p>Your post has been submitted for vetting. NUS staff from the School of Computing will be in touch with you shortly via: <b>{email}</b>.</p>
 
-      <ButtonLink to="/industry/post/new" label="Create another post" className="primary" />
+      <ButtonLink to="/industry/posts/new" label="Create another post" className="primary" />
     </Page>
   )
 }
