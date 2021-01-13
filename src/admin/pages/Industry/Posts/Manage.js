@@ -19,13 +19,13 @@ export default function Manage() {
 
   const dataToRow = type => (data, checkbox=null) => {
     const urlPath = `/admin/industry/posts/${type === "requests" ? "preview": "view"}`;
-    const { companyPostID, postTitle, companyName, lastUpdated } = data;
+    const { companyPostID, postTitle, company, lastUpdated } = data;
     const handleClick = () => history.push(`${urlPath}/${companyPostID}`);
     return (
       <tr key={companyPostID}>
         { type === "posts" ? <td>{ checkbox }</td> : null }
         <td onClick={handleClick} className="clickable">{postTitle}</td>
-        <td onClick={handleClick} className="clickable">{companyName}</td>
+        <td onClick={handleClick} className="clickable">{company?.companyName}</td>
         <td onClick={handleClick} className="clickable">{lastUpdated.toLocaleDateString()}</td>
       </tr>
     )

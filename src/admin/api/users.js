@@ -62,8 +62,8 @@ const getUser = async companyUserID => {
 const postUser = async data => {
   return {
     ...data,
-    companyUserId: Math.floor(Math.random() * 100000),
-    companyId: "1",
+    companyUserID: Math.floor(Math.random() * 100000),
+    companyID: "1",
     lastLoggedIn: new Date(),
     userPosts: []
 

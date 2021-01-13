@@ -1,7 +1,7 @@
 const exampleRequests = [
   {
     companyPostID: "11",
-    companyId: "1",
+    companyID: "1",
     companyName: "Shopee",
     postTitle: "Request 1",
     postSubtitle: "Sign up by 10 Jan!",
@@ -14,7 +14,7 @@ const exampleRequests = [
   },
   {
     companyPostID: "12",
-    companyId: "1",
+    companyID: "1",
     companyName: "Shopee",
     postTitle: "Request 2",
     postSubtitle: "Sign up by 10 Jan!",
@@ -27,7 +27,7 @@ const exampleRequests = [
   },
   {
     companyPostID: "13",
-    companyId: "1",
+    companyID: "1",
     companyName: "Shopee",
     postTitle: "Request 3",
     postSubtitle: "Sign up by 10 Jan!",
