@@ -3,20 +3,28 @@ import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 import ButtonLink from '../../../../common/ButtonLink';
-import { usersSelector, userThunks } from '../../../../redux/industry/userSlice';
+import { userThunks, activeUsersSelector, archivedUsersSelector } from '../../../../redux/industry/userSlice';
 import Page from '../../Page';
 import SelectTable from '../../../../common/SelectTable';
 
 export default function Manage() {
-  const users = useSelector(usersSelector);
+  const activeUsers = useSelector(activeUsersSelector);
+  const archivedUsers = useSelector(archivedUsersSelector);
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const deleteUser = {
-    label: "Delete",
-    className: "warning",
+  const archiveUser = {
+    label: "Archive",
+    className: "secondary",
     onClick: selections => {
-      dispatch(userThunks.deleteUsers(selections));
+      dispatch(userThunks.archiveUsers(selections));
+    }
+  }
+  const unarchiveUser = {
+    label: "Unarchive",
+    className: "secondary",
+    onClick: selections => {
+      dispatch(userThunks.unarchiveUsers(selections));
     }
   }
 
@@ -39,13 +47,26 @@ export default function Manage() {
     <Page title="Manage Company Users">
       <ButtonLink to="/admin/industry/users/new" label="New Company User" className="primary" />
       
-      <SelectTable
-        headers={["Name", "Email Address", "Company", "Tier", "Last Login"]}
-        data={users}
-        dataToRow={dataToRow}
-        idKey="companyUserID"
-        actions={[ deleteUser ]}
-      />
+      <section>
+        <h3>Active</h3>
+        <SelectTable
+          headers={["Name", "Email Address", "Company", "Tier", "Last Login"]}
+          data={activeUsers}
+          dataToRow={dataToRow}
+          idKey="companyUserID"
+          actions={[ archiveUser ]}
+        />
+      </section>
+      <section>
+        <h3>Archived</h3>
+        <SelectTable
+          headers={["Name", "Email Address", "Company", "Tier", "Last Login"]}
+          data={archivedUsers}
+          dataToRow={dataToRow}
+          idKey="companyUserID"
+          actions={[ unarchiveUser ]}
+        />
+      </section>
     </Page>
   )
 }

@@ -9,8 +9,10 @@ const getStudentAnnouncements = createAsyncThunk('student/announcements/get', st
 const postAnnouncement = createAsyncThunk('admin/announcements/post', adminApi.announcements.postAnnouncement);
 const updateAnnouncement = createAsyncThunk('admin/announcements/update', adminApi.announcements.updateAnnouncement);
 const archiveAnnouncement = createAsyncThunk('admin/announcements/archive', adminApi.announcements.archiveAnnouncement);
+const unarchiveAnnouncement = createAsyncThunk('admin/announcements/unarchive', adminApi.announcements.unarchiveAnnouncement);
 
 const archiveAnnouncements = pluraliseThunk(archiveAnnouncement);
+const unarchiveAnnouncements = pluraliseThunk(unarchiveAnnouncement);
 
 export const announcementThunks = {
   getAdminAnnouncements,
@@ -19,6 +21,8 @@ export const announcementThunks = {
   updateAnnouncement,
   archiveAnnouncement,
   archiveAnnouncements,
+  unarchiveAnnouncement,
+  unarchiveAnnouncements,
 }
 
 // slice
@@ -47,8 +51,12 @@ export const announcementSlice = createSlice({
     },
     [archiveAnnouncement.fulfilled]: (state, action) => {
       const i = state.data.findIndex(elem => elem.announceID === action.payload);
-      state.data[i].isValid = false;
+      state.data[i].isActive = false;
       state.data[i].isImportant = false;
+    },
+    [unarchiveAnnouncement.fulfilled]: (state, action) => {
+      const i = state.data.findIndex(elem => elem.announceID === action.payload);
+      state.data[i].isActive = true;
     }
   }
 });
@@ -60,13 +68,13 @@ export const pinnedAnnouncementsSelector = state => {
   return allAnnouncementsSelector(state)
     .filter(elem => elem.isImportant);
 }
-export const displayedAnnouncementsSelector = state => {
+export const activeAnnouncementsSelector = state => {
   return allAnnouncementsSelector(state)
-    .filter(elem => elem.isValid && !elem.isImportant);
+    .filter(elem => elem.isActive && !elem.isImportant);
 }
 export const archivedAnnouncementsSelector = state => {
   return allAnnouncementsSelector(state)
-    .filter(elem => !elem.isValid);
+    .filter(elem => !elem.isActive);
 }
 export const announcementSelector = id => state => {
   return allAnnouncementsSelector(state)

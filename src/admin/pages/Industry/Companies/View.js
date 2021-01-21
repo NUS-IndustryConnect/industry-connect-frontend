@@ -3,13 +3,13 @@ import { useHistory, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import VerticalTable from '../../../../common/VerticalTable';
+import Table from '../../../../common/Table';
 import ButtonLink from '../../../../common/ButtonLink';
 import { companySelector } from '../../../../redux/industry/companySlice';
 import { usersOfCompanySelector } from '../../../../redux/industry/userSlice';
-import Page from '../../Page';
-import Table from '../../../../common/Table';
 import { requestsByCompanySelector } from '../../../../redux/industry/requestSlice';
 import { postsByCompanySelector } from '../../../../redux/industry/postSlice';
+import Page from '../../Page';
 
 export default function View() {
   const history = useHistory();
@@ -57,8 +57,8 @@ export default function View() {
           { header: "Tier", data: companyTier },
           { header: "Description", data: companyDescription },
           { header: "Users", data: users.length },
+          { header: "Pending Requests", data: requests.length },
           { header: "Posts", data: posts.length },
-          { header: "Requests", data: requests.length },
         ]} />
         <ButtonLink to={`/admin/industry/companies/edit/${companyID}`} label="Edit" className="secondary" />
       </section>
@@ -71,11 +71,12 @@ export default function View() {
         />
       </section>
       <section>
-        <h4>Requests</h4>
+        <h4>Pending Requests</h4>
         <Table
           headers={["Post Title", "Date"]}
           data={requests}
           dataToRow={postsDataToRow("preview")}
+          className="pending"
         />
       </section>
       <section>

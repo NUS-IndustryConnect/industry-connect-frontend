@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 
 import ButtonLink from '../../../common/ButtonLink';
 import {
-  displayedAnnouncementsSelector,
+  activeAnnouncementsSelector,
   pinnedAnnouncementsSelector,
   archivedAnnouncementsSelector,
   announcementThunks
@@ -14,7 +14,7 @@ import SelectTable from '../../../common/SelectTable';
 
 const Manage = () => {
   const dispatch = useDispatch();
-  const displayedAnnouncements = useSelector(displayedAnnouncementsSelector);
+  const activeAnnouncements = useSelector(activeAnnouncementsSelector);
   const pinnedAnnouncements = useSelector(pinnedAnnouncementsSelector);
   const archivedAnnouncements = useSelector(archivedAnnouncementsSelector);
 
@@ -36,13 +36,21 @@ const Manage = () => {
     )
   };
 
-  const archiveAnnouncement = {
+  const archiveAnnouncements = {
     label: "Archive",
     className: "secondary",
     onClick: selections => {
       dispatch(announcementThunks.archiveAnnouncements(selections));
     }
   };
+
+  const unarchiveAnnouncements = {
+    label: "Unarchive",
+    className: "secondary",
+    onClick: selections => {
+      dispatch(announcementThunks.unarchiveAnnouncements(selections));
+    }
+  }
 
   return (
     <Page title="Manage Announcements">
@@ -55,7 +63,7 @@ const Manage = () => {
           data={pinnedAnnouncements}
           dataToRow={dataToRow}
           idKey="announceID"
-          actions={[ archiveAnnouncement ]}
+          actions={[ archiveAnnouncements ]}
         />
       </section>
 
@@ -63,10 +71,10 @@ const Manage = () => {
         <h3>Active</h3>
         <SelectTable
           headers={["Announcement Title", "Last Updated"]}
-          data={displayedAnnouncements}
+          data={activeAnnouncements}
           dataToRow={dataToRow}
           idKey="announceID"
-          actions={[ archiveAnnouncement ]}
+          actions={[ archiveAnnouncements ]}
         />
       </section>
   
@@ -78,7 +86,7 @@ const Manage = () => {
           dataToRow={dataToRow}
           className="archived"
           idKey="announceID"
-          actions={[]}
+          actions={[ unarchiveAnnouncements ]}
         />
       </section>
     </Page>

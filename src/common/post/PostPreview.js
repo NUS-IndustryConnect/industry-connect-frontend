@@ -5,7 +5,7 @@ import ButtonLink from '../ButtonLink';
 import VideoEmbed from './VideoEmbed';
 import './PostPreview.css'
 
-export default function Preview({ data = {} }) {
+export default function Preview({ data = {}, urlPath }) {
   const {
     postTitle,
     postSubtitle,
@@ -15,8 +15,8 @@ export default function Preview({ data = {} }) {
   } = data;
   const { id } = useParams();
   const editLink = id
-    ? `/industry/posts/edit/${id}`
-    : '/industry/posts/new';
+    ? `${urlPath}/edit/${id}`
+    : `${urlPath}/new`;
   // TODO: new -> preview -> edit does not work because the info from new is lost
   return (
     <div className="post">

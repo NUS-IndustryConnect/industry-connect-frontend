@@ -23,7 +23,7 @@ export default function View() {
   const dataToRow = ({ companyPostID, lastUpdated, postTitle }) => (
     <tr
       key={companyPostID}
-      onClick={() => history.push(`/admin/industry/posts/preview/${companyPostID}`)}
+      onClick={() => history.push(`/admin/industry/posts/view/${companyPostID}`)}
       className="clickable"
     >
       <td>{postTitle}</td>

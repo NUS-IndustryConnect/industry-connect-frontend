@@ -13,7 +13,7 @@ const getIndustryPosts = createAsyncThunk('industry/posts/get', industryApi.post
 const createPost = createAsyncThunk('admin/posts/create', adminApi.posts.createPost)
 const updatePost = createAsyncThunk('admin/posts/update', adminApi.posts.updatePost)
 const archivePosts = createAsyncThunk('admin/posts/archive', adminApi.posts.archivePosts)
-const deletePosts = createAsyncThunk('admin/posts/delete', adminApi.posts.deletePosts)
+const unarchivePosts = createAsyncThunk('admin/posts/unarchive', adminApi.posts.unarchivePosts)
 
 export const postThunks = {
   getAdminPosts,
@@ -22,7 +22,7 @@ export const postThunks = {
   createPost,
   updatePost,
   archivePosts,
-  deletePosts,
+  unarchivePosts,
 }
 
 export const postSlice = createSlice({
@@ -54,8 +54,11 @@ export const postSlice = createSlice({
         state[i].isActive = false;
       })
     },
-    [deletePosts.fulfilled]: (state, action) => {
-      return state.filter(elem => !action.payload.includes(elem.companyPostID))
+    [unarchivePosts.fulfilled]: (state, action) => {
+      action.payload.forEach(companyPostID => {
+        const i = state.findIndex(elem => elem.companyPostID === companyPostID);
+        state[i].isActive = true;
+      })
     },
   }
 });
@@ -67,7 +70,7 @@ export const postsSelector = state => { // TODO: memoise this
   const companies = companiesSelector(state);
   return mergeCompanyInfo(posts, companies);
 };
-export const displayedPostsSelector = state => {
+export const activePostsSelector = state => {
   return postsSelector(state).filter(elem => elem.isActive)
 }
 export const archivedPostsSelector = state => {

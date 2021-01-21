@@ -7,7 +7,7 @@ const exampleAnnouncements = [
     description: "Body Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc justo nibh, pulvinar quis consectetur vel, tristique vel tellus. Praesent aliquet, justo quis tempus porta, metus neque ultricies justo, a lobortis nibh odio sit amet dolor. Nulla facilisi. Sed sem ante, tempus id ullamcorper vitae, efficitur nec risus. Sed luctus nibh in volutpat rutrum. In hac habitasse platea dictumst. Donec sit amet enim vel magna laoreet sagittis sed at tortor. Etiam laoreet luctus metus ac dignissim.",
     lastUpdated: new Date(),
     isImportant: true,
-    isValid: true,
+    isActive: true,
     validTill: new Date(),
     announceBy: "author"
   },
@@ -18,7 +18,7 @@ const exampleAnnouncements = [
     description: "Body Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc justo nibh, pulvinar quis consectetur vel, tristique vel tellus. Praesent aliquet, justo quis tempus porta, metus neque ultricies justo, a lobortis nibh odio sit amet dolor. Nulla facilisi. Sed sem ante, tempus id ullamcorper vitae, efficitur nec risus. Sed luctus nibh in volutpat rutrum. In hac habitasse platea dictumst. Donec sit amet enim vel magna laoreet sagittis sed at tortor. Etiam laoreet luctus metus ac dignissim.",
     lastUpdated: new Date(),
     isImportant: true,
-    isValid: true,
+    isActive: true,
     validTill: new Date(),
     announceBy: "author"
   },
@@ -29,7 +29,7 @@ const exampleAnnouncements = [
     description: "Body Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc justo nibh, pulvinar quis consectetur vel, tristique vel tellus. Praesent aliquet, justo quis tempus porta, metus neque ultricies justo, a lobortis nibh odio sit amet dolor. Nulla facilisi. Sed sem ante, tempus id ullamcorper vitae, efficitur nec risus. Sed luctus nibh in volutpat rutrum. In hac habitasse platea dictumst. Donec sit amet enim vel magna laoreet sagittis sed at tortor. Etiam laoreet luctus metus ac dignissim.",
     lastUpdated: new Date(),
     isImportant: true,
-    isValid: true,
+    isActive: true,
     validTill: new Date(),
     announceBy: "author"
   },
@@ -40,7 +40,7 @@ const exampleAnnouncements = [
     description: "Body Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc justo nibh, pulvinar quis consectetur vel, tristique vel tellus. Praesent aliquet, justo quis tempus porta, metus neque ultricies justo, a lobortis nibh odio sit amet dolor. Nulla facilisi. Sed sem ante, tempus id ullamcorper vitae, efficitur nec risus. Sed luctus nibh in volutpat rutrum. In hac habitasse platea dictumst. Donec sit amet enim vel magna laoreet sagittis sed at tortor. Etiam laoreet luctus metus ac dignissim.",
     lastUpdated: new Date(),
     isImportant: false,
-    isValid: true,
+    isActive: true,
     validTill: new Date(),
     announceBy: "author"
   },
@@ -51,7 +51,7 @@ const exampleAnnouncements = [
     description: "Body Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc justo nibh, pulvinar quis consectetur vel, tristique vel tellus. Praesent aliquet, justo quis tempus porta, metus neque ultricies justo, a lobortis nibh odio sit amet dolor. Nulla facilisi. Sed sem ante, tempus id ullamcorper vitae, efficitur nec risus. Sed luctus nibh in volutpat rutrum. In hac habitasse platea dictumst. Donec sit amet enim vel magna laoreet sagittis sed at tortor. Etiam laoreet luctus metus ac dignissim.",
     lastUpdated: new Date(),
     isImportant: false,
-    isValid: false,
+    isActive: false,
     validTill: new Date(),
     announceBy: "author"
   }
@@ -66,7 +66,7 @@ const postAnnouncement = async data => {
     ...data,
     announceID: Math.floor(Math.random() * 1000000), // testing only
     lastUpdated: new Date(),
-    isValid: true,
+    isActive: true,
   };
   // return fetch('/announcement/add', {
   //   method: "POST",
@@ -81,6 +81,10 @@ const archiveAnnouncement = async id => {
   // })
 }
 
+const unarchiveAnnouncement = async id => {
+  return id;
+}
+
 const updateAnnouncement = async data => {
   return data;
   // return fetch(`/announcement/update/${data.id}`, {
@@ -93,6 +97,7 @@ const announcementsApi = {
   getAnnouncements,
   postAnnouncement,
   archiveAnnouncement,
+  unarchiveAnnouncement,
   updateAnnouncement
 }
 

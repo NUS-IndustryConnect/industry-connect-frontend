@@ -3,12 +3,13 @@ import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 import ButtonLink from '../../../../common/ButtonLink';
-import { companiesSelector, companyThunks } from '../../../../redux/industry/companySlice';
+import { companyThunks, activeCompaniesSelector, archivedCompaniesSelector } from '../../../../redux/industry/companySlice';
 import Page from '../../Page';
 import SelectTable from '../../../../common/SelectTable';
 
 export default function Manage() {
-  const companies = useSelector(companiesSelector);
+  const activeCompanies = useSelector(activeCompaniesSelector);
+  const archivedCompanies = useSelector(archivedCompaniesSelector);
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -24,11 +25,19 @@ export default function Manage() {
     )
   };
   
-  const deleteCompany = {
-    label: "Delete",
-    className: "warning",
+  const archiveCompany = {
+    label: "Archive",
+    className: "secondary",
     onClick: selections => {
-      dispatch(companyThunks.deleteCompanies(selections))
+      dispatch(companyThunks.archiveCompanies(selections))
+    }
+  }
+
+  const unarchiveCompany = {
+    label: "Unarchive",
+    className: "secondary",
+    onClick: selections => {
+      dispatch(companyThunks.unarchiveCompanies(selections))
     }
   }
 
@@ -36,13 +45,26 @@ export default function Manage() {
     <Page title="Manage Company">
       <ButtonLink to="/admin/industry/companies/new" label="New Company" className="primary" />
       
-      <SelectTable
-        headers={["Company Name", "Tier"]}
-        data={companies}
-        dataToRow={dataToRow}
-        idKey="companyID"
-        actions={[ deleteCompany ]}
-      />
+      <section>
+        <h3>Active</h3>
+        <SelectTable
+          headers={["Company Name", "Tier"]}
+          data={activeCompanies}
+          dataToRow={dataToRow}
+          idKey="companyID"
+          actions={[ archiveCompany ]}
+        />
+      </section>
+      <section>
+        <h3>Archived</h3>
+        <SelectTable
+          headers={["Company Name", "Tier"]}
+          data={archivedCompanies}
+          dataToRow={dataToRow}
+          idKey="companyID"
+          actions={[ unarchiveCompany ]}
+        />
+      </section>
     </Page>
   )
 }
