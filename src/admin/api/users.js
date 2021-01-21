@@ -6,7 +6,8 @@ const exampleUsers = [
     name: "blah1",
     userEmail: "blah1@example.com",
     lastLoggedIn: new Date(),
-    userPosts: ["1", "2", "3"]
+    userPosts: ["1", "2", "3"],
+    isActive: true,
   },
   {
     companyUserID: "2",
@@ -14,7 +15,8 @@ const exampleUsers = [
     name: "blah2",
     userEmail: "blah2@example.com",
     lastLoggedIn: new Date(),
-    userPosts: []
+    userPosts: [],
+    isActive: true,
   },
   {
     companyUserID: "3",
@@ -22,7 +24,8 @@ const exampleUsers = [
     name: "blah3",
     userEmail: "blah3@example.com",
     lastLoggedIn: new Date(),
-    userPosts: []
+    userPosts: [],
+    isActive: true,
   },
   {
     companyUserID: "4",
@@ -30,7 +33,8 @@ const exampleUsers = [
     name: "blah4",
     userEmail: "blah4@example.com",
     lastLoggedIn: new Date(),
-    userPosts: []
+    userPosts: [],
+    isActive: true,
   },
   {
     companyUserID: "5",
@@ -38,7 +42,8 @@ const exampleUsers = [
     name: "blah5",
     userEmail: "blah5@example.com",
     lastLoggedIn: new Date(),
-    userPosts: []
+    userPosts: [],
+    isActive: false,
   }
 ]
 
@@ -65,7 +70,8 @@ const postUser = async data => {
     companyUserID: Math.floor(Math.random() * 100000),
     companyID: "1",
     lastLoggedIn: new Date(),
-    userPosts: []
+    userPosts: [],
+    isActive: true,
 
   };
   // return fetch('/companyUsers/create', {
@@ -82,11 +88,15 @@ const updateUser = async data => {
   // })
 }
 
-const deleteUser = async companyUserID => {
+const archiveUser = async companyUserID => {
   return companyUserID;
-  // return fetch(`/companyUsers/${companyUserID}`, {
-  //   method: "DELETE"
+  // return fetch(`/companyUsers/archive/${companyUserID}`, {
+  //   method: "POST"
   // })
+}
+
+const unarchiveUser = async companyUserID => {
+  return companyUserID;
 }
 
 const usersApi = {
@@ -95,7 +105,8 @@ const usersApi = {
   getUser,
   postUser,
   updateUser,
-  deleteUser,
+  archiveUser,
+  unarchiveUser,
 }
 
 export default usersApi;

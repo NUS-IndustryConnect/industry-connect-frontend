@@ -9,15 +9,19 @@ import { postSelector } from './postSlice';
 const getUsers = createAsyncThunk('admin/users/get', adminApi.users.getUsers)
 const postUser = createAsyncThunk('admin/users/create', adminApi.users.postUser)
 const updateUser = createAsyncThunk('admin/users/update', adminApi.users.updateUser)
-const deleteUser = createAsyncThunk('admin/users/delete', adminApi.users.deleteUser)
-const deleteUsers = pluraliseThunk(deleteUser);
+const archiveUser = createAsyncThunk('admin/users/archive', adminApi.users.archiveUser)
+const unarchiveUser = createAsyncThunk('admin/users/unarchive', adminApi.users.unarchiveUser)
+const archiveUsers = pluraliseThunk(archiveUser);
+const unarchiveUsers = pluraliseThunk(unarchiveUser);
 
 export const userThunks = {
   getUsers,
   postUser,
   updateUser,
-  deleteUser,
-  deleteUsers,
+  archiveUser,
+  archiveUsers,
+  unarchiveUser,
+  unarchiveUsers,
 }
 
 // slice
@@ -38,8 +42,13 @@ export const userSlice = createSlice({
           ? action.payload
           : elem);
     },
-    [deleteUser.fulfilled]: (state, action) => {
-      return state.filter(elem => elem.companyUserID !== action.payload)
+    [archiveUser.fulfilled]: (state, action) => {
+      const i = state.findIndex(elem => elem.companyUserID === action.payload);
+      state[i].isActive = false;
+    },
+    [unarchiveUser.fulfilled]: (state, action) => {
+      const i = state.findIndex(elem => elem.companyUserID === action.payload);
+      state[i].isActive = true;
     }
   }
 });
@@ -51,6 +60,13 @@ export const usersSelector = state => {
   const companies = companiesSelector(state);
   return mergeCompanyInfo(users, companies);
 };
+export const activeUsersSelector = state => {
+  return usersSelector(state).filter(elem => elem.isActive);
+}
+export const archivedUsersSelector = state => {
+  return usersSelector(state).filter(elem => !elem.isActive);
+}
+
 export const usersOfCompanySelector = companyID => state => {
   return usersSelector(state)
     .filter(elem => elem.companyID === companyID)

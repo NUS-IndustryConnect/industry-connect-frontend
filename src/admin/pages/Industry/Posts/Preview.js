@@ -29,7 +29,7 @@ export default function Preview() {
       isError={!Boolean(data)}
       errorMessage={<p>Post not found. Please select another post.</p>}
     >
-      <PostPreview data={data} />
+      <PostPreview data={data} urlPath="/admin/industry/posts" />
       <section className="bottom-buttons">
         <ContactButton email="blah@example.com" />
         {/* TODO: replace placeholder email */}

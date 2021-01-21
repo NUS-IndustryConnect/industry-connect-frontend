@@ -10,16 +10,21 @@ const getAdminCompanies = createAsyncThunk('admin/companies/get', adminApi.compa
 const getStudentCompanies = createAsyncThunk('student/companies/get', studentApi.companies.getCompanies);
 const postCompany = createAsyncThunk('admin/companies/post', adminApi.companies.postCompany);
 const updateCompany = createAsyncThunk('admin/companies/update', adminApi.companies.updateCompany);
-const deleteCompany = createAsyncThunk('admin/companies/delete', adminApi.companies.deleteCompany);
-const deleteCompanies = pluraliseThunk(deleteCompany);
+const archiveCompany = createAsyncThunk('admin/companies/archive', adminApi.companies.archiveCompany);
+const unarchiveCompany = createAsyncThunk('admin/companies/unarchive', adminApi.companies.unarchiveCompany);
+
+const archiveCompanies = pluraliseThunk(archiveCompany);
+const unarchiveCompanies = pluraliseThunk(unarchiveCompany);
 
 export const companyThunks = {
   getAdminCompanies,
   getStudentCompanies,
   postCompany,
   updateCompany,
-  deleteCompany,
-  deleteCompanies,
+  archiveCompany,
+  archiveCompanies,
+  unarchiveCompany,
+  unarchiveCompanies,
 }
 
 // slice
@@ -43,8 +48,13 @@ export const companySlice = createSlice({
           ? action.payload
           : elem);
     },
-    [deleteCompany.fulfilled]: (state, action) => {
-      return state.filter(elem => elem.companyID !== action.payload)
+    [archiveCompany.fulfilled]: (state, action) => {
+      const i = state.findIndex(elem => elem.companyID === action.payload);
+      state[i].isActive = false;
+    },
+    [unarchiveCompany.fulfilled]: (state, action) => {
+      const i = state.findIndex(elem => elem.companyID === action.payload);
+      state[i].isActive = true;
     }
   }
 });
@@ -64,6 +74,14 @@ export const companySelector = companyID => state => {
   return rawCompany
     ? { ...rawCompany, companyPosts }
     : rawCompany;
+}
+
+export const activeCompaniesSelector = state => {
+  return companiesSelector(state).filter(elem => elem.isActive)
+}
+
+export const archivedCompaniesSelector = state => {
+  return companiesSelector(state).filter(elem => !elem.isActive);
 }
 
 const arrayToObj = (arr, key) => {

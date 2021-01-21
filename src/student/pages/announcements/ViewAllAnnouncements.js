@@ -6,14 +6,14 @@ import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux'
 
 import {
-  displayedAnnouncementsSelector,
+  activeAnnouncementsSelector,
   pinnedAnnouncementsSelector
 } from '../../../redux/announcementSlice';
 import Page from '../Page';
 import './index.css';
 
 const ViewAllAnnouncements = () => {
-  const displayedAnnouncements = useSelector(displayedAnnouncementsSelector);
+  const displayedAnnouncements = useSelector(activeAnnouncementsSelector);
   const pinnedAnnouncements = useSelector(pinnedAnnouncementsSelector);
   const history = useHistory();
 

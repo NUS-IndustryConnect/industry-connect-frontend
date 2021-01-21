@@ -116,12 +116,8 @@ const archivePosts = async companyPostIDs => {
   // })
 }
 
-const deletePosts = async companyPostIDs => {
+const unarchivePosts = async companyPostIDs => {
   return companyPostIDs;
-  // return fetch('/companyPost/delete', {
-  //   method: "DELETE",
-  //   body: { companyPostIDs }
-  // })
 }
 
 const postsApi = {
@@ -133,7 +129,7 @@ const postsApi = {
   createPost,
   updatePost,
   archivePosts,
-  deletePosts,
+  unarchivePosts,
 }
 
 export default postsApi;
