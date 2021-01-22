@@ -8,6 +8,8 @@ const exampleUsers = [
     lastLoggedIn: new Date(),
     userPosts: ["1", "2", "3"],
     isActive: true,
+    isLocked: true,
+    lockedUntil: new Date(),
   },
   {
     companyUserID: "2",
@@ -17,6 +19,8 @@ const exampleUsers = [
     lastLoggedIn: new Date(),
     userPosts: [],
     isActive: true,
+    isLocked: false,
+    lockedUntil: null,
   },
   {
     companyUserID: "3",
@@ -26,6 +30,8 @@ const exampleUsers = [
     lastLoggedIn: new Date(),
     userPosts: [],
     isActive: true,
+    isLocked: false,
+    lockedUntil: null,
   },
   {
     companyUserID: "4",
@@ -35,6 +41,8 @@ const exampleUsers = [
     lastLoggedIn: new Date(),
     userPosts: [],
     isActive: true,
+    isLocked: false,
+    lockedUntil: null,
   },
   {
     companyUserID: "5",
@@ -44,6 +52,8 @@ const exampleUsers = [
     lastLoggedIn: new Date(),
     userPosts: [],
     isActive: false,
+    isLocked: false,
+    lockedUntil: null,
   }
 ]
 
@@ -72,6 +82,8 @@ const postUser = async data => {
     lastLoggedIn: new Date(),
     userPosts: [],
     isActive: true,
+    isLocked: false,
+    lockedUntil: null,
 
   };
   // return fetch('/companyUsers/create', {
@@ -86,6 +98,10 @@ const updateUser = async data => {
   //   method: "POST",
   //   body: data,
   // })
+}
+
+const unlockUser = async companyUserID => {
+  return companyUserID;
 }
 
 const archiveUser = async companyUserID => {
@@ -105,6 +121,7 @@ const usersApi = {
   getUser,
   postUser,
   updateUser,
+  unlockUser,
   archiveUser,
   unarchiveUser,
 }

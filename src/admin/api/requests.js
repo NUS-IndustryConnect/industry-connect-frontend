@@ -49,31 +49,34 @@ const getRequestsByCompany = companyID => {
   return fetch(`/companyPostRequest/${companyID}`);
 }
 
-const createRequest = data => {
-  return fetch('/companyPostRequest/create', {
-    method: "POST",
-    body: data,
-  })
+const createRequest = async data => {
+  return data;
+  // return fetch('/companyPostRequest/create', {
+  //   method: "POST",
+  //   body: data,
+  // })
 }
 
-const approveRequest = (companyPostRequestID, approvedBy) => {
-  return fetch('/companyPostRequest/approve', {
-    method: "POST",
-    body: {
-      companyPostRequestID,
-      approvedBy,
-    }
-  })
+const approveRequest = async ({ companyPostID, approvedBy }) => {
+  return companyPostID;
+  // return fetch('/companyPostRequest/approve', {
+  //   method: "POST",
+  //   body: {
+  //     companyPostID,
+  //     approvedBy,
+  //   }
+  // })
 }
 
-const rejectRequest = (companyPostRequestID, feedback) => {
-  return fetch('/companyPostRequest/reject', {
-    method: "POST",
-    body: {
-      companyPostRequestID,
-      feedback
-    }
-  })
+const rejectRequest = async ({ companyPostID, feedback }) => {
+  return companyPostID;
+  // return fetch('/companyPostRequest/reject', {
+  //   method: "POST",
+  //   body: {
+  //     companyPostID,
+  //     feedback
+  //   }
+  // })
 }
 
 const postRequestApi = {
