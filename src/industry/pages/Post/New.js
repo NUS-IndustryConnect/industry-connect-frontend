@@ -14,7 +14,7 @@ export default function New() {
   }
   return (
     <Page title="New Post">
-      <PostsForm submit={submit}/>
+      <PostsForm submit={submit} submitLabel="Submit for vetting" />
     </Page>
   )
 }

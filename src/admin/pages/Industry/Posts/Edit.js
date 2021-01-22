@@ -26,7 +26,12 @@ export default function Edit() {
       isError={!Boolean(currentValues)}
       errorMessage={<p>Post not found. Please select another post.</p>}
     >
-      <PostsForm submit={submit} isAdmin initial={currentValues} />
+      <PostsForm
+        submit={submit}
+        submitLabel="Update"
+        isAdmin
+        initial={currentValues}
+      />
     </Page>
   )
 }
