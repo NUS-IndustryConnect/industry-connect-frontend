@@ -8,7 +8,7 @@ import { companiesSelector, mergeCompanyInfo } from './companySlice';
 const getAdminRequests = createAsyncThunk('admin/requests/get', adminApi.requests.getRequests)
 const getIndustryRequests = createAsyncThunk('industry/requests/get', industryApi.requests.getRequests)
 const createRequest = createAsyncThunk('admin/requests/create', adminApi.requests.createRequest)
-const approveRequest = createAsyncThunk('admin/requests/approve', adminApi.requests.approveRequest)
+export const approveRequest = createAsyncThunk('admin/requests/approve', adminApi.requests.approveRequest)
 const rejectRequest = createAsyncThunk('admin/requests/reject', adminApi.requests.rejectRequest)
 
 export const requestThunks = {
@@ -35,7 +35,7 @@ export const requestSlice = createSlice({
       state.push(action.payload);
     },
     [approveRequest.fulfilled]: (state, action) => {
-      
+      return state.filter(elem => elem.companyPostID !== action.payload);
     },
     [rejectRequest.fulfilled]: (state, action) => {
       
