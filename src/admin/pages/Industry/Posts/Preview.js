@@ -14,7 +14,7 @@ export default function Preview() {
   const data = useSelector(requestSelector(id));
 
   const handleApprove = () => {
-    dispatch(requestThunks.approveRequest(id, "approver name"))
+    dispatch(requestThunks.approveRequest({ companyPostID: id, approvedBy: "approver name" }))
     history.push("/admin/industry/posts")
     // TODO: handle approver
   }
