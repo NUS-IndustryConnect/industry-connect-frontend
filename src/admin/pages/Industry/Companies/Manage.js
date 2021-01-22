@@ -61,6 +61,7 @@ export default function Manage() {
           headers={["Company Name", "Tier"]}
           data={archivedCompanies}
           dataToRow={dataToRow}
+          className="archived"
           idKey="companyID"
           actions={[ unarchiveCompany ]}
         />

@@ -3,6 +3,10 @@ tr input[type="checkbox"] {
   width: 18px;
 }
 
+tr.warning td {
+  background-color: var(--lightred);
+}
+
 .select-table td:first-child,
 .select-table th:first-child {
   padding: 3px 2px;

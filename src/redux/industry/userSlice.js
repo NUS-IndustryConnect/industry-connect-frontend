@@ -9,6 +9,7 @@ import { postSelector } from './postSlice';
 const getUsers = createAsyncThunk('admin/users/get', adminApi.users.getUsers)
 const postUser = createAsyncThunk('admin/users/create', adminApi.users.postUser)
 const updateUser = createAsyncThunk('admin/users/update', adminApi.users.updateUser)
+const unlockUser = createAsyncThunk('admin/users/unlock', adminApi.users.unlockUser);
 const archiveUser = createAsyncThunk('admin/users/archive', adminApi.users.archiveUser)
 const unarchiveUser = createAsyncThunk('admin/users/unarchive', adminApi.users.unarchiveUser)
 const archiveUsers = pluraliseThunk(archiveUser);
@@ -18,6 +19,7 @@ export const userThunks = {
   getUsers,
   postUser,
   updateUser,
+  unlockUser,
   archiveUser,
   archiveUsers,
   unarchiveUser,
@@ -41,6 +43,11 @@ export const userSlice = createSlice({
         elem.companyUserID === action.payload.companyUserID
           ? action.payload
           : elem);
+    },
+    [unlockUser.fulfilled]: (state, action) => {
+      const i = state.findIndex(elem => elem.companyUserID === action.payload);
+      state[i].isLocked = false;
+      state[i].lockedUntil = null;
     },
     [archiveUser.fulfilled]: (state, action) => {
       const i = state.findIndex(elem => elem.companyUserID === action.payload);

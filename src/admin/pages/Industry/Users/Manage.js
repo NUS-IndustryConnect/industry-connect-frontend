@@ -29,10 +29,10 @@ export default function Manage() {
   }
 
   const dataToRow = (data, checkbox) => {
-    const { companyUserID, name, userEmail, company, lastLoggedIn } = data;
+    const { companyUserID, name, userEmail, company, lastLoggedIn, isLocked } = data;
     const handleClick = () => history.push(`/admin/industry/users/view/${companyUserID}`);
     return (
-      <tr key={companyUserID} >
+      <tr key={companyUserID} className={isLocked ? "warning" : null}>
         <td>{ checkbox }</td>
         <td className="clickable" onClick={handleClick}>{name}</td>
         <td className="clickable" onClick={handleClick}>{userEmail}</td>
@@ -63,6 +63,7 @@ export default function Manage() {
           headers={["Name", "Email Address", "Company", "Tier", "Last Login"]}
           data={archivedUsers}
           dataToRow={dataToRow}
+          className="archived"
           idKey="companyUserID"
           actions={[ unarchiveUser ]}
         />
