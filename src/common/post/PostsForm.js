@@ -15,8 +15,9 @@ export const getPostFields = data => ({
 })
 
 // shared by both admin and industry
-export default function PostsForm({ preview=null, submit, initial, isAdmin }) {
+export default function PostsForm({ submit, submitLabel, initial, isAdmin }) {
   const companiesDropdown = useSelector(companiesDropdownSelector);
+  console.log("initial", initial);
   let fields = [
     { type: "text", name: "postTitle", label: "Title", initial: initial?.postTitle },
     { type: "text", name: "postSubtitle", label: "Subtitle", initial: initial?.postSubtitle },
@@ -33,7 +34,7 @@ export default function PostsForm({ preview=null, submit, initial, isAdmin }) {
     <Form
       fields={fields}
       submit={submit}
-      submitLabel="Preview"
+      submitLabel={submitLabel}
     />
   )
 }

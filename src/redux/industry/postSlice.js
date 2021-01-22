@@ -4,7 +4,7 @@ import adminApi from '../../admin/api';
 import studentApi from '../../student/api';
 import industryApi from '../../industry/api';
 import { companiesSelector, mergeCompanyInfo } from './companySlice';
-import { requestSelector } from './requestSlice';
+import { approveRequest, requestSelector } from './requestSlice';
 
 // thunks
 const getAdminPosts = createAsyncThunk('admin/posts/get', adminApi.posts.getPosts)
@@ -60,6 +60,9 @@ export const postSlice = createSlice({
         state[i].isActive = true;
       })
     },
+    [approveRequest.fulfilled]: (state, action) => {
+      // TODO: add this to posts
+    }
   }
 });
 
@@ -78,7 +81,7 @@ export const archivedPostsSelector = state => {
 }
 export const postSelector = companyPostID => state => {
   return postsSelector(state)
-    .find(elem => elem.companyPostID === companyPostID)
+    .find(elem => elem.companyPostID == companyPostID)
 }
 export const postOrRequestSelector = companyPostID => state => {
   return postSelector(companyPostID)(state)
