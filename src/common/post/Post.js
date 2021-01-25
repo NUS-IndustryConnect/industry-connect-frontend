@@ -1,29 +1,32 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
 
 import ButtonLink from '../ButtonLink';
 import VideoEmbed from './VideoEmbed';
-import './PostPreview.css'
+import './Post.css'
 
-export default function Preview({ data = {}, history }) {
+export default function Post({ data = {}, history }) {
   const {
     postTitle,
     postSubtitle,
+    companyName,
     description = "",
     videoUrl,
     moreUrl,
   } = data;
-  const { id } = useParams();
   return (
     <div className="post">
       <div className="post-header">
         <h3>{postTitle}</h3>
       </div>
       <h5>{postSubtitle}</h5>
-      { description.split("\n").map((para, i) => <p key={i}>{para}</p>) }
+      <p className="description">
+        { companyName }
+        { description.split("\n").map((para, i) => <p key={i}>{para}</p>) }
+      </p>
       <VideoEmbed videoUrl={videoUrl} />
       { moreUrl ? <a href={moreUrl}><button className="primary right">Find out more</button></a> : null}
       <button type="button" onClick={() => history.push('/student/industry')}>Back</button>
+      {moreUrl ? <ButtonLink to={moreUrl} /> : <></>}
     </div>
   )
 }
