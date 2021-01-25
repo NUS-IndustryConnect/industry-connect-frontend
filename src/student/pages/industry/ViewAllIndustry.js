@@ -1,6 +1,4 @@
-import React from 'react';
-import { Card } from 'react-bootstrap';
-import { useHistory } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 
 // Redux
 import { useSelector } from 'react-redux'
@@ -8,52 +6,43 @@ import { useSelector } from 'react-redux'
 import { postsSelector } from '../../../redux/industry/postSlice';
 import Page from '../Page';
 import './index.css';
+import SearchBar from '../../../common/SearchBar';
+import PostList from './PostList';
 
 const ViewAllIndustry = () => {
   const displayedPosts = useSelector(postsSelector);
-  const history = useHistory();
+  const [postList, setPostList] = useState(displayedPosts);
+  const [input, setInput] = useState('');
 
-  const dataToRow = (data) => {
-    const {
-      companyPostID,
-      postTitle,
-      lastUpdated,
-      company
-    } = data;
-    const state = {
-        ...data
+  useEffect(() => {setPostList(displayedPosts)}, [displayedPosts]);
+
+  const updateInput = async (input) => {
+    setInput(input);
+    if (input.trim() !== '') {
+      const filtered = displayedPosts.filter(post => {
+        return post.companyName.toLowerCase().includes(input.toLowerCase()) ||
+          post.postTitle.toLowerCase().includes(input.toLowerCase()) ||
+          post.postSubtitle.toLowerCase().includes(input.toLowerCase())
+      })
+      setPostList(filtered);
+    } else {
+      setPostList(displayedPosts)
     }
-    // TODO: same issue as announcements
-    const handleClick = () => history.push({pathname: `/student/industry/${companyPostID}`, state});
-    return (
-      <li key={companyPostID}>
-        <Card
-          className="industry-list-card"
-          onClick={handleClick}
-        >
-          <Card.Body>
-            <Card.Title style={{fontWeight: 'bold'}}>{postTitle}</Card.Title>
-            <Card.Subtitle className="mb-2 text-muted">{company.companyName}</Card.Subtitle>
-          </Card.Body>
-          <Card.Footer>
-            <small className="text-muted">Last updated on {lastUpdated.toLocaleDateString()}</small>
-          </Card.Footer>
-        </Card>
-      </li>
-    )
-  };
-
-  const listItems = displayedPosts.map(item => dataToRow(item))
+ }
 
   return (
-  <Page title="Industry">
-    <section>
-      <h3>Industry</h3>
-      <ul class="list-unstyled">
-        {listItems}
-      </ul>
-    </section>
-  </Page>
+    <Page title="Industry">
+      <section>
+        <h3>Industry</h3>
+        <SearchBar 
+          input={input}
+          onChange={updateInput}
+        />
+        <ul className="list-unstyled">
+          <PostList postList={postList} />
+        </ul>
+      </section>
+    </Page>
   )
 }
 

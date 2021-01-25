@@ -1,4 +1,4 @@
-.post {
+.announcement {
   background-color: white;
   border-radius: 10px;
   border: 1px solid var(--lightgrey);
@@ -9,7 +9,3 @@
   text-align: justify;
 }
 
-.video {
-  display: block;
-  margin: 0 auto;
-}

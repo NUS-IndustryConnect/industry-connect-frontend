@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux'
 import { announcementSelector } from '../../../redux/announcementSlice';
 
 import Page from '../Page';
+import Announcement from '../../../common/announcement/Announcement';
 
 const ViewAnnouncement = () => {
   const history = useHistory();
@@ -12,10 +13,11 @@ const ViewAnnouncement = () => {
 
   return (
     <Page title="View Announcement">
-        <h3>{currentValues?.title}</h3>
+      <Announcement data={currentValues} history={history} />
+        {/* <h3>{currentValues?.title}</h3>
         <h5>{currentValues?.subtitle}</h5>
         <p>{currentValues?.description}</p>
-        <button type="button" onClick={() => history.push('/student/announcements')}>Back</button>
+        <button type="button" onClick={() => history.push('/student/announcements')}>Back</button> */}
     </Page>
   )
 }
