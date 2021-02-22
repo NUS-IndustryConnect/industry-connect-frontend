@@ -1,4 +1,25 @@
-// TODO: replace with BE API calls
+import axios from 'axios';
+import { BASE_URL } from "../../redux/utils";
+
+export const getPostsApi = async () => {
+  console.log('Getting student company posts from database....');
+  const config = {
+      headers: {
+          'Content-Type': 'application/json',
+      },
+  };
+  let posts;
+  await axios
+      .get(`${BASE_URL}/companyPost/student`, config)
+      .then(res => {
+          posts = res.data.data;
+      })
+      .catch(err => {
+          throw err;
+      });
+  return posts;
+};
+
 const examplePosts = [
   {
     companyPostID: "1",
@@ -57,7 +78,3 @@ const examplePosts = [
     ]
   }
 ]
-
-export const getPostsApi = () => {
-  return Promise.resolve(examplePosts);
-}

@@ -59,14 +59,14 @@ const ViewAllAnnouncements = () => {
   <Page title="Announcements">
     <section className="pinned-list">
       <h3>Pinned Announcements</h3>
-      <ul class="list-unstyled">
+      <ul className="list-unstyled">
         {pinnedListItems}
       </ul>
     </section>
   
     <section className="announcement-list">
       <h3 >Announcements</h3>
-      <ul class="list-unstyled">
+      <ul className="list-unstyled">
         {listItems}
       </ul>
     </section>
