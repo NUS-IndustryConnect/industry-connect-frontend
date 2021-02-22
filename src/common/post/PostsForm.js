@@ -5,7 +5,7 @@ import Form from '../Form';
 import { companiesDropdownSelector } from '../../redux/industry/companySlice';
 
 export const getPostFields = data => ({
-  companyID: data.get('companyID'),
+  companyId: data.get('companyId'),
   postTitle: data.get('postTitle'),
   postSubtitle: data.get('postSubtitle'),
   description: data.get('description'),
@@ -17,7 +17,6 @@ export const getPostFields = data => ({
 // shared by both admin and industry
 export default function PostsForm({ submit, submitLabel, initial, isAdmin }) {
   const companiesDropdown = useSelector(companiesDropdownSelector);
-  console.log("initial", initial);
   let fields = [
     { type: "text", name: "postTitle", label: "Title", initial: initial?.postTitle },
     { type: "text", name: "postSubtitle", label: "Subtitle", initial: initial?.postSubtitle },
@@ -27,7 +26,7 @@ export default function PostsForm({ submit, submitLabel, initial, isAdmin }) {
     { type: "date", name: "expiryDate", label: "Expiry date", optional: true, initial: initial?.expiryDate },
   ];
   if (isAdmin) {
-    fields.unshift({ type: "dropdown", name: "companyID", label: "Company", options: companiesDropdown, initial: initial?.companyID });
+    fields.unshift({ type: "dropdown", name: "companyId", label: "Company", options: companiesDropdown, initial: initial?.companyId });
   }
 
   return (

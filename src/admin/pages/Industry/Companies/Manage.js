@@ -14,10 +14,10 @@ export default function Manage() {
   const dispatch = useDispatch();
 
   const dataToRow = (data, checkbox) => {
-    const { companyID, companyName, companyTier } = data;
-    const handleClick = () => history.push(`/admin/industry/companies/view/${companyID}`);
+    const { companyId, companyName, companyTier } = data;
+    const handleClick = () => history.push(`/admin/industry/companies/view/${companyId}`);
     return (
-      <tr key={companyID} >
+      <tr key={companyId} >
         <td>{ checkbox }</td>
         <td className="clickable" onClick={handleClick}>{companyName}</td>
         <td className="clickable" onClick={handleClick}>{companyTier}</td>
@@ -51,7 +51,7 @@ export default function Manage() {
           headers={["Company Name", "Tier"]}
           data={activeCompanies}
           dataToRow={dataToRow}
-          idKey="companyID"
+          idKey="companyId"
           actions={[ archiveCompany ]}
         />
       </section>
@@ -62,7 +62,7 @@ export default function Manage() {
           data={archivedCompanies}
           dataToRow={dataToRow}
           className="archived"
-          idKey="companyID"
+          idKey="companyId"
           actions={[ unarchiveCompany ]}
         />
       </section>

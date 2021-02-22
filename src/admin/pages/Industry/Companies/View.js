@@ -13,16 +13,16 @@ import Page from '../../Page';
 
 export default function View() {
   const history = useHistory();
-  const { id: companyID } = useParams();
-  const data = useSelector(companySelector(companyID));
+  const { id: companyId } = useParams();
+  const data = useSelector(companySelector(companyId));
   const {
     companyName,
     companyTier,
     companyDescription,
   } = data || {};
-  const users = useSelector(usersOfCompanySelector(companyID));
-  const posts = useSelector(postsByCompanySelector(companyID));
-  const requests = useSelector(requestsByCompanySelector(companyID))
+  const users = useSelector(usersOfCompanySelector(companyId));
+  const posts = useSelector(postsByCompanySelector(companyId));
+  const requests = useSelector(requestsByCompanySelector(companyId))
 
   const usersDataToRow = ({ companyUserID, name, userEmail, lastLoggedIn }) => (
     <tr
@@ -32,19 +32,22 @@ export default function View() {
     >
       <td>{name}</td>
       <td>{userEmail}</td>
-      <td>{lastLoggedIn.toLocaleDateString()}</td>
+      <td>{new Date(lastLoggedIn).toLocaleDateString()}</td>
     </tr>
   );
-  const postsDataToRow = urlPath => ({ companyPostID, lastUpdated, postTitle }) => (
-    <tr
-      key={companyPostID}
-      onClick={() => history.push(`/admin/industry/posts/${urlPath}/${companyPostID}`)}
-      className="clickable"
-    >
-      <td>{postTitle}</td>
-      <td>{lastUpdated.toLocaleDateString()}</td>
-    </tr>
-  );
+  const postsDataToRow = urlPath => ({ companyPostId, lastUpdated, postTitle }) => {
+    // TODO: date given is in DD-MM-YYYY format but new Date() expects MM-DD-YYYY
+    return (
+      <tr
+        key={companyPostId}
+        onClick={() => history.push(`/admin/industry/posts/${urlPath}/${companyPostId}`)}
+        className="clickable"
+      >
+        <td>{postTitle}</td>
+        <td>{new Date(lastUpdated).toLocaleDateString()}</td>
+      </tr>
+    )
+  };
   return (
     <Page
       title="View Company"
@@ -60,7 +63,7 @@ export default function View() {
           { header: "Pending Requests", data: requests.length },
           { header: "Posts", data: posts.length },
         ]} />
-        <ButtonLink to={`/admin/industry/companies/edit/${companyID}`} label="Edit" className="secondary" />
+        <ButtonLink to={`/admin/industry/companies/edit/${companyId}`} label="Edit" className="secondary" />
       </section>
       <section>
         <h4>Users</h4>

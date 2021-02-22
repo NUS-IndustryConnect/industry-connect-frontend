@@ -1,3 +1,5 @@
+import { api } from ".";
+
 // TODO: replace with BE API calls
 const exampleAnnouncements = [
   {
@@ -10,75 +12,29 @@ const exampleAnnouncements = [
     isActive: true,
     validTill: new Date(),
     announceBy: "author"
-  },
-  {
-    announceID: 2,
-    title: "Announcement title 2",
-    subtitle: "Subtitle",
-    description: "Body Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc justo nibh, pulvinar quis consectetur vel, tristique vel tellus. Praesent aliquet, justo quis tempus porta, metus neque ultricies justo, a lobortis nibh odio sit amet dolor. Nulla facilisi. Sed sem ante, tempus id ullamcorper vitae, efficitur nec risus. Sed luctus nibh in volutpat rutrum. In hac habitasse platea dictumst. Donec sit amet enim vel magna laoreet sagittis sed at tortor. Etiam laoreet luctus metus ac dignissim.",
-    lastUpdated: new Date(),
-    isImportant: true,
-    isActive: true,
-    validTill: new Date(),
-    announceBy: "author"
-  },
-  {
-    announceID: 3,
-    title: "Announcement title 3",
-    subtitle: "Subtitle",
-    description: "Body Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc justo nibh, pulvinar quis consectetur vel, tristique vel tellus. Praesent aliquet, justo quis tempus porta, metus neque ultricies justo, a lobortis nibh odio sit amet dolor. Nulla facilisi. Sed sem ante, tempus id ullamcorper vitae, efficitur nec risus. Sed luctus nibh in volutpat rutrum. In hac habitasse platea dictumst. Donec sit amet enim vel magna laoreet sagittis sed at tortor. Etiam laoreet luctus metus ac dignissim.",
-    lastUpdated: new Date(),
-    isImportant: true,
-    isActive: true,
-    validTill: new Date(),
-    announceBy: "author"
-  },
-  {
-    announceID: 4,
-    title: "Announcement title 4",
-    subtitle: "Subtitle",
-    description: "Body Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc justo nibh, pulvinar quis consectetur vel, tristique vel tellus. Praesent aliquet, justo quis tempus porta, metus neque ultricies justo, a lobortis nibh odio sit amet dolor. Nulla facilisi. Sed sem ante, tempus id ullamcorper vitae, efficitur nec risus. Sed luctus nibh in volutpat rutrum. In hac habitasse platea dictumst. Donec sit amet enim vel magna laoreet sagittis sed at tortor. Etiam laoreet luctus metus ac dignissim.",
-    lastUpdated: new Date(),
-    isImportant: false,
-    isActive: true,
-    validTill: new Date(),
-    announceBy: "author"
-  },
-  {
-    announceID: 5,
-    title: "Announcement title 5",
-    subtitle: "Subtitle",
-    description: "Body Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc justo nibh, pulvinar quis consectetur vel, tristique vel tellus. Praesent aliquet, justo quis tempus porta, metus neque ultricies justo, a lobortis nibh odio sit amet dolor. Nulla facilisi. Sed sem ante, tempus id ullamcorper vitae, efficitur nec risus. Sed luctus nibh in volutpat rutrum. In hac habitasse platea dictumst. Donec sit amet enim vel magna laoreet sagittis sed at tortor. Etiam laoreet luctus metus ac dignissim.",
-    lastUpdated: new Date(),
-    isImportant: false,
-    isActive: false,
-    validTill: new Date(),
-    announceBy: "author"
   }
 ];
 
 const getAnnouncements = () => {
-  return Promise.resolve(exampleAnnouncements);
+  return api.get("/announcement/admin")
+  .then(response => response.data.data)
+  .catch(error => { throw error });
 }
 
 const postAnnouncement = async data => {
-  return {
-    ...data,
-    announceID: Math.floor(Math.random() * 1000000), // testing only
-    lastUpdated: new Date(),
-    isActive: true,
-  };
-  // return fetch('/announcement/add', {
-  //   method: "POST",
-  //   body: data,
-  // });
+  return api.post("/announcement/add", data)
+  .then(response => {
+    return response.data;
+  })
+  .catch(error => {
+    console.error(error);
+    return [];
+  });
 }
 
 const archiveAnnouncement = async id => {
   return id;
-  // return fetch(`/announcement/archive/${id}`, {
-  //   method: "POST"
-  // })
+  // return api.post(`/announcement/archive/${id}`)
 }
 
 const unarchiveAnnouncement = async id => {
@@ -87,10 +43,7 @@ const unarchiveAnnouncement = async id => {
 
 const updateAnnouncement = async data => {
   return data;
-  // return fetch(`/announcement/update/${data.id}`, {
-  //   method: "POST",
-  //   body: data,
-  // })
+  // return api.post(`/announcement/update/${data.id}`, data);
 }
 
 const announcementsApi = {

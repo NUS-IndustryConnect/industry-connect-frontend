@@ -19,14 +19,15 @@ export default function Manage() {
 
   const dataToRow = type => (data, checkbox=null) => {
     const urlPath = `/admin/industry/posts/${type === "requests" ? "preview": "view"}`;
-    const { companyPostID, postTitle, company, lastUpdated } = data;
-    const handleClick = () => history.push(`${urlPath}/${companyPostID}`);
+    const { companyPostId, companyPostRequestId, postTitle, company, lastUpdated } = data;
+    const id = type === "requests" ? companyPostRequestId : companyPostId;
+    const handleClick = () => history.push(`${urlPath}/${id}`);
     return (
-      <tr key={companyPostID}>
+      <tr key={id}>
         { type === "posts" ? <td>{ checkbox }</td> : null }
         <td onClick={handleClick} className="clickable">{postTitle}</td>
         <td onClick={handleClick} className="clickable">{company?.companyName}</td>
-        <td onClick={handleClick} className="clickable">{lastUpdated.toLocaleDateString()}</td>
+        <td onClick={handleClick} className="clickable">{new Date(lastUpdated).toLocaleDateString()}</td>
       </tr>
     )
   };
@@ -66,7 +67,7 @@ export default function Manage() {
         <SelectTable
           headers={['Title', "Company", "Last Updated"]}
           data={activePosts}
-          idKey="companyPostID"
+          idKey="companyPostId"
           dataToRow={dataToRow("posts")}
           actions={[ archivePosts ]}
         />
@@ -77,7 +78,7 @@ export default function Manage() {
         <SelectTable
           headers={['Title', "Company", "Last Updated"]}
           data={archivedPosts}
-          idKey="companyPostID"
+          idKey="companyPostId"
           dataToRow={dataToRow("posts")}
           className="archived"
           actions={[ unarchivePosts ]}

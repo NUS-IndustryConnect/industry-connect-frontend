@@ -35,7 +35,7 @@ export const requestSlice = createSlice({
       state.push(action.payload);
     },
     [approveRequest.fulfilled]: (state, action) => {
-      return state.filter(elem => elem.companyPostID !== action.payload);
+      return state.filter(elem => elem.companyPostId !== action.payload);
     },
     [rejectRequest.fulfilled]: (state, action) => {
       
@@ -50,13 +50,13 @@ export const requestsSelector = state => {
   const companies = companiesSelector(state);
   return mergeCompanyInfo(requests, companies);
 }
-export const requestSelector = companyPostID => state => {
+export const requestSelector = companyPostRequestId => state => {
   return requestsSelector(state)
-    .find(elem => elem.companyPostID === companyPostID);
+    .find(elem => elem.companyPostRequestId === companyPostRequestId);
 }
-export const requestsByCompanySelector = companyID => state => {
+export const requestsByCompanySelector = companyId => state => {
   return requestsSelector(state)
-    .filter(elem => elem.companyID === companyID)
+    .filter(elem => elem.companyId === companyId)
 }
 
 export default requestSlice.reducer;

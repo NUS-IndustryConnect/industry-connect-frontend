@@ -38,7 +38,7 @@ export default function Manage() {
         <td className="clickable" onClick={handleClick}>{userEmail}</td>
         <td className="clickable" onClick={handleClick}>{company.companyName}</td>
         <td className="clickable" onClick={handleClick}>{company.companyTier}</td>
-        <td className="clickable" onClick={handleClick}>{lastLoggedIn.toLocaleDateString()}</td>
+        <td className="clickable" onClick={handleClick}>{new Date(lastLoggedIn).toLocaleDateString()}</td>
       </tr>
     )
   };
