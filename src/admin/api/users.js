@@ -1,8 +1,10 @@
+import { api } from ".";
+
 // TODO: replace with BE API calls
 const exampleUsers = [
   {
     companyUserID: "1",
-    companyID: "1",
+    companyId: "1",
     name: "blah1",
     userEmail: "blah1@example.com",
     lastLoggedIn: new Date(),
@@ -13,7 +15,7 @@ const exampleUsers = [
   },
   {
     companyUserID: "2",
-    companyID: "1",
+    companyId: "1",
     name: "blah2",
     userEmail: "blah2@example.com",
     lastLoggedIn: new Date(),
@@ -24,7 +26,7 @@ const exampleUsers = [
   },
   {
     companyUserID: "3",
-    companyID: "1",
+    companyId: "1",
     name: "blah3",
     userEmail: "blah3@example.com",
     lastLoggedIn: new Date(),
@@ -35,7 +37,7 @@ const exampleUsers = [
   },
   {
     companyUserID: "4",
-    companyID: "2",
+    companyId: "2",
     name: "blah4",
     userEmail: "blah4@example.com",
     lastLoggedIn: new Date(),
@@ -46,7 +48,7 @@ const exampleUsers = [
   },
   {
     companyUserID: "5",
-    companyID: "3",
+    companyId: "3",
     name: "blah5",
     userEmail: "blah5@example.com",
     lastLoggedIn: new Date(),
@@ -57,28 +59,26 @@ const exampleUsers = [
   }
 ]
 
-const getRawUsers = () => {
-  return Promise.resolve(exampleUsers);
-}
-
 const getUsers = async () => {
-  return getRawUsers();
-  // return fetch('/companyUsers/users');
+  // return Promise.resolve(exampleUsers);
+  return api.get('/companyUsers/users')
+  .then(response => response.data.data)
+  .catch(error => { throw error });
 }
 
-const getUsersOfCompany = companyID => {
-  return fetch(`/companyUsers/company/${companyID}`);
+const getUsersOfCompany = companyId => {
+  return api.get(`/companyUsers/company/${companyId}`);
 }
 
 const getUser = async companyUserID => {
-  return fetch(`/companyUsers/user/${companyUserID}`)
+  return api.get(`/companyUsers/user/${companyUserID}`)
 }
 
 const postUser = async data => {
   return {
     ...data,
     companyUserID: Math.floor(Math.random() * 100000),
-    companyID: "1",
+    companyId: "1",
     lastLoggedIn: new Date(),
     userPosts: [],
     isActive: true,
@@ -86,18 +86,12 @@ const postUser = async data => {
     lockedUntil: null,
 
   };
-  // return fetch('/companyUsers/create', {
-  //   method: "POST",
-  //   body: data,
-  // })
+  // return api.post('/companyUsers/create', data);
 }
 
 const updateUser = async data => {
   return data;
-  // return fetch('/companyUsers/update', {
-  //   method: "POST",
-  //   body: data,
-  // })
+  // return api.post('/companyUsers/update', data);
 }
 
 const unlockUser = async companyUserID => {
@@ -106,9 +100,7 @@ const unlockUser = async companyUserID => {
 
 const archiveUser = async companyUserID => {
   return companyUserID;
-  // return fetch(`/companyUsers/archive/${companyUserID}`, {
-  //   method: "POST"
-  // })
+  // return api.post(`/companyUsers/archive/${companyUserID}`);
 }
 
 const unarchiveUser = async companyUserID => {

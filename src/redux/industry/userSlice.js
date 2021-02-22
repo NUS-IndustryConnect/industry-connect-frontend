@@ -74,9 +74,9 @@ export const archivedUsersSelector = state => {
   return usersSelector(state).filter(elem => !elem.isActive);
 }
 
-export const usersOfCompanySelector = companyID => state => {
+export const usersOfCompanySelector = companyId => state => {
   return usersSelector(state)
-    .filter(elem => elem.companyID === companyID)
+    .filter(elem => elem.companyId === companyId)
 }
 export const userSelector = companyUserID => state => {
   const rawUser = usersSelector(state)

@@ -31,7 +31,7 @@ const Manage = () => {
       <tr key={announceID} >
         <td>{ checkbox }</td>
         <td className="clickable" onClick={handleClick}>{title}</td>
-        <td className="clickable" onClick={handleClick}>{lastUpdated.toLocaleDateString()}</td>
+        <td className="clickable" onClick={handleClick}>{new Date(lastUpdated).toLocaleDateString()}</td>
       </tr>
     )
   };

@@ -3,8 +3,8 @@ import React from 'react';
 import Form from '../../../../common/Form';
 
 const TIERS = [
-  { value: "Gold", label: "Gold" },
-  { value: "Silver", label: "Silver" }
+  { value: "gold", label: "Gold" },
+  { value: "silver", label: "Silver" }
 ];
 
 export const getCompanyFields = data => ({

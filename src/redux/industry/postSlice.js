@@ -44,19 +44,19 @@ export const postSlice = createSlice({
     },
     [updatePost.fulfilled]: (state, action) => {
       return state.map(elem =>
-        elem.companyPostID === action.payload.companyPostID
+        elem.companyPostId === action.payload.companyPostId
           ? action.payload
           : elem);
     },
     [archivePosts.fulfilled]: (state, action) => {
-      action.payload.forEach(companyPostID => {
-        const i = state.findIndex(elem => elem.companyPostID === companyPostID);
+      action.payload.forEach(companyPostId => {
+        const i = state.findIndex(elem => elem.companyPostId === companyPostId);
         state[i].isActive = false;
       })
     },
     [unarchivePosts.fulfilled]: (state, action) => {
-      action.payload.forEach(companyPostID => {
-        const i = state.findIndex(elem => elem.companyPostID === companyPostID);
+      action.payload.forEach(companyPostId => {
+        const i = state.findIndex(elem => elem.companyPostId === companyPostId);
         state[i].isActive = true;
       })
     },
@@ -79,18 +79,18 @@ export const activePostsSelector = state => {
 export const archivedPostsSelector = state => {
   return postsSelector(state).filter(elem => !elem.isActive);
 }
-export const postSelector = companyPostID => state => {
+export const postSelector = companyPostId => state => {
   return postsSelector(state)
-    .find(elem => elem.companyPostID == companyPostID)
+    .find(elem => elem.companyPostId == companyPostId)
 }
-export const postOrRequestSelector = companyPostID => state => {
-  return postSelector(companyPostID)(state)
-      || requestSelector(companyPostID)(state);
+export const postOrRequestSelector = companyPostId => state => {
+  return postSelector(companyPostId)(state)
+      || requestSelector(companyPostId)(state);
 }
 
-export const postsByCompanySelector = companyID => state => {
+export const postsByCompanySelector = companyId => state => {
   return postsSelector(state)
-    .filter(elem => elem.companyID === companyID)
+    .filter(elem => elem.companyId === companyId)
 }
 
 export default postSlice.reducer;

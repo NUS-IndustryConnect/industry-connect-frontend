@@ -1,8 +1,10 @@
+import { api } from "."
+
 // TODO: replace with BE API calls
 const examplePosts = [
   {
-    companyPostID: "1",
-    companyID: "1",
+    companyPostId: "1",
+    companyId: "1",
     companyName: "Shopee",
     postTitle: "Post 1",
     postSubtitle: "subtitle",
@@ -15,109 +17,54 @@ const examplePosts = [
     links: [
       "http://nus.edu.sg/",
     ]
-  },
-  {
-    companyPostID: "2",
-    companyID: "1",
-    companyName: "Shopee",
-    postTitle: "Post 2",
-    postSubtitle: "subtitle",
-    description: "Get a job here",
-    videoUrl: "https://www.youtube.com/watch?v=Jf_2EyDNywE",
-    lastUpdated: new Date(),
-    validTill: new Date(),
-    approvedBy: "approver",
-    isActive: true,
-    links: [
-      "http://nus.edu.sg/",
-    ]
-  },
-  {
-    companyPostID: "3",
-    companyID: "1",
-    companyName: "Shopee",
-    postTitle: "Post 3",
-    postSubtitle: "subtitle",
-    description: "Get a job here",
-    videoUrl: "https://www.youtube.com/watch?v=Jf_2EyDNywE",
-    lastUpdated: new Date(),
-    validTill: new Date(),
-    approvedBy: "approver",
-    isActive: true,
-    links: [
-      "http://nus.edu.sg/",
-    ]
-  },
-  {
-    companyPostID: "4",
-    companyID: "2",
-    companyName: "Grab",
-    postTitle: "Old Post 4",
-    postSubtitle: "subtitle",
-    description: "Get a job here",
-    videoUrl: "https://www.youtube.com/watch?v=Jf_2EyDNywE",
-    lastUpdated: new Date(),
-    validTill: new Date(),
-    approvedBy: "approver",
-    isActive: false,
-    links: [
-      "http://nus.edu.sg/",
-    ]
   }
 ]
 
 const getPosts = async () => {
-  // return fetch('/companyPost')
-  return Promise.resolve(examplePosts)
+  // return Promise.resolve(examplePosts)
+  return api.get("/companyPost")
+  .then(response => response.data)
+  .catch(error => { throw error });
 }
 
 const getValidPosts = () => {
-  return fetch('/companyPost/valid');
+  return api.get('/companyPost/valid');
 }
 
-const getPostsByCompany = companyID => {
-  return fetch(`/companyPost/company/${companyID}`);
+const getPostsByCompany = companyId => {
+  return api.get(`/companyPost/company/${companyId}`);
 }
 
-const getValidPostsByCompany = companyID => {
-  return fetch(`/companyPost/company/${companyID}/valid`);
+const getValidPostsByCompany = companyId => {
+  return api.get(`/companyPost/company/${companyId}/valid`);
 }
 
 const getPostsByUser = companyUserID => {
-  return fetch(`/companyPost/user/${companyUserID}`);
+  return api.get(`/companyPost/user/${companyUserID}`);
 }
 
 const createPost = async data => {
   return {
     ...data,
-    companyPostID: Math.floor(Math.random() * 10000),
+    companyPostId: Math.floor(Math.random() * 10000),
     isActive: true,
     lastUpdated: new Date(),
   }
-  // return fetch('/companyPost/create', {
-  //   method: "POST",
-  //   body: data,
-  // });
+  // return api.post('/companyPost/create', data);
 }
 
 const updatePost = async data => {
   return data;
-  // return fetch(`/companyPost/update/${data.id}`, {
-  //   method: "POST",
-  //   body: data
-  // })
+  // return api.post(`/companyPost/update/${data.id}`, data);
 }
 
-const archivePosts = async companyPostIDs => {
-  return companyPostIDs;
-  // return fetch('/companyPost/archive', {
-  //   method: "POST",
-  //   body: { companyPostIDs }
-  // })
+const archivePosts = async companyPostIds => {
+  return companyPostIds;
+  // return api.post('/companyPost/archive', { companyPostIds });
 }
 
-const unarchivePosts = async companyPostIDs => {
-  return companyPostIDs;
+const unarchivePosts = async companyPostIds => {
+  return companyPostIds;
 }
 
 const postsApi = {

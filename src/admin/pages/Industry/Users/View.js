@@ -23,14 +23,14 @@ export default function View() {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const dataToRow = ({ companyPostID, lastUpdated, postTitle }) => (
+  const dataToRow = ({ companyPostId, lastUpdated, postTitle }) => (
     <tr
-      key={companyPostID}
-      onClick={() => history.push(`/admin/industry/posts/view/${companyPostID}`)}
+      key={companyPostId}
+      onClick={() => history.push(`/admin/industry/posts/view/${companyPostId}`)}
       className="clickable"
     >
       <td>{postTitle}</td>
-      <td>{lastUpdated.toLocaleDateString()}</td>
+      <td>{new Date(lastUpdated).toLocaleDateString()}</td>
     </tr>
   )
 
@@ -42,7 +42,7 @@ export default function View() {
     { header: "Name", data: name },
     { header: "Email", data: userEmail },
     { header: "Company", data: company?.companyName },
-    { header: "Last login", data: lastLoggedIn?.toLocaleDateString() },
+    { header: "Last login", data: new Date(lastLoggedIn)?.toLocaleDateString() },
   ];
   if (isLocked) userData.push({
     header: "Locked until",
