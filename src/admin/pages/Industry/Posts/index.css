@@ -9,3 +9,8 @@
   display: block;
   margin: 0 auto;
 }
+
+/* pending requests, but request has been rejected */
+.pending .rejected td {
+  background-color: var(--lightred);
+}

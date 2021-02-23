@@ -17,14 +17,25 @@ export default function Manage() {
   const archivedPosts = useSelector(archivedPostsSelector);
   const requests = useSelector(requestsSelector);
 
-  const dataToRow = type => (data, checkbox=null) => {
-    const urlPath = `/admin/industry/posts/${type === "requests" ? "preview": "view"}`;
-    const { companyPostId, companyPostRequestId, postTitle, company, lastUpdated } = data;
-    const id = type === "requests" ? companyPostRequestId : companyPostId;
-    const handleClick = () => history.push(`${urlPath}/${id}`);
+  const requestsDataToRow = (data, checkbox=null) => {
+    const urlPath = '/admin/industry/posts/preview';
+    const { companyPostRequestId, postTitle, company, lastUpdated, status } = data;
+    const handleClick = () => history.push(`${urlPath}/${companyPostRequestId}`);
     return (
-      <tr key={id}>
-        { type === "posts" ? <td>{ checkbox }</td> : null }
+      <tr key={companyPostRequestId} className={status}>
+        <td onClick={handleClick} className="clickable">{postTitle}</td>
+        <td onClick={handleClick} className="clickable">{company?.companyName}</td>
+        <td onClick={handleClick} className="clickable">{new Date(lastUpdated).toLocaleDateString()}</td>
+      </tr>
+    )
+  };
+  const postsDataToRow = (data, checkbox=null) => {
+    const urlPath = '/admin/industry/posts/view';
+    const { companyPostId, postTitle, company, lastUpdated } = data;
+    const handleClick = () => history.push(`${urlPath}/${companyPostId}`);
+    return (
+      <tr key={companyPostId}>
+        <td>{ checkbox }</td>
         <td onClick={handleClick} className="clickable">{postTitle}</td>
         <td onClick={handleClick} className="clickable">{company?.companyName}</td>
         <td onClick={handleClick} className="clickable">{new Date(lastUpdated).toLocaleDateString()}</td>
@@ -57,7 +68,7 @@ export default function Manage() {
         <Table
           headers={["Title", "Company", "Last Updated"]}
           data={requests}
-          dataToRow={dataToRow("requests")}
+          dataToRow={requestsDataToRow}
           className="pending"
         />
       </section>
@@ -68,7 +79,7 @@ export default function Manage() {
           headers={['Title', "Company", "Last Updated"]}
           data={activePosts}
           idKey="companyPostId"
-          dataToRow={dataToRow("posts")}
+          dataToRow={postsDataToRow}
           actions={[ archivePosts ]}
         />
       </section>
@@ -79,7 +90,7 @@ export default function Manage() {
           headers={['Title', "Company", "Last Updated"]}
           data={archivedPosts}
           idKey="companyPostId"
-          dataToRow={dataToRow("posts")}
+          dataToRow={postsDataToRow}
           className="archived"
           actions={[ unarchivePosts ]}
         />

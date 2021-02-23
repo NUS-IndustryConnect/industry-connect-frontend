@@ -1,21 +1,5 @@
 import { api } from ".";
 
-const exampleRequests = [
-  {
-    companyPostRequestId: "11",
-    companyId: "1",
-    companyName: "Shopee",
-    postTitle: "Request 1",
-    postSubtitle: "Sign up by 10 Jan!",
-    postDescription: "This is our event description",
-    videoUrl: "https://www.youtube.com/watch?v=Jf_2EyDNywE",
-    lastUpdated: new Date(),
-    relatedJobs: [],
-    status: "pending",
-    feedback: ""
-  }
-]
-
 const getRequests = () => {
   // return Promise.resolve(exampleRequests);
   return api.get('/companyPostRequest')
@@ -28,24 +12,19 @@ const getRequestsByCompany = companyId => {
 }
 
 const createRequest = async data => {
-  return data;
-  // return api.post('/companyPostRequest/create', data)
+  return api.post('/companyPostRequest/create', data)
 }
 
 const approveRequest = async ({ companyPostRequestId, approvedBy }) => {
-  return companyPostRequestId;
-  // return api.put('/companyPostRequest/approve', {
-  //   companyPostRequestId,
-  //   approvedBy,
-  // })
+  const body = { companyPostRequestId, approvedBy };
+  return api.put('/companyPostRequest/approve', body)
+  .then(response => response.data);
 }
 
 const rejectRequest = async ({ companyPostRequestId, feedback }) => {
-  return companyPostRequestId;
-  // return api.put('/companyPostRequest/reject', {
-  //   companyPostRequestId,
-  //   feedback
-  // }
+  const body = { companyPostRequestId, feedback };
+  return api.put('/companyPostRequest/reject', body)
+  .then(response => response.data);
 }
 
 const postRequestApi = {
