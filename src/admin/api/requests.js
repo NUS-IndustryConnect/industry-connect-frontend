@@ -7,7 +7,7 @@ const exampleRequests = [
     companyName: "Shopee",
     postTitle: "Request 1",
     postSubtitle: "Sign up by 10 Jan!",
-    description: "This is our event description",
+    postDescription: "This is our event description",
     videoUrl: "https://www.youtube.com/watch?v=Jf_2EyDNywE",
     lastUpdated: new Date(),
     relatedJobs: [],
@@ -34,7 +34,7 @@ const createRequest = async data => {
 
 const approveRequest = async ({ companyPostRequestId, approvedBy }) => {
   return companyPostRequestId;
-  // return api.post('/companyPostRequest/approve', {
+  // return api.put('/companyPostRequest/approve', {
   //   companyPostRequestId,
   //   approvedBy,
   // })
@@ -42,7 +42,7 @@ const approveRequest = async ({ companyPostRequestId, approvedBy }) => {
 
 const rejectRequest = async ({ companyPostRequestId, feedback }) => {
   return companyPostRequestId;
-  // return api.post('/companyPostRequest/reject', {
+  // return api.put('/companyPostRequest/reject', {
   //   companyPostRequestId,
   //   feedback
   // }

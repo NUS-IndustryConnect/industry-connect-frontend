@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 import adminApi from '../../admin/api';
 import industryApi from '../../industry/api';
+import { putPayloadToState } from '../utils';
 import { companiesSelector, mergeCompanyInfo } from './companySlice';
 
 // thunks
@@ -25,15 +26,9 @@ export const requestSlice = createSlice({
   initialState: [],
   reducers: {},
   extraReducers: {
-    [getAdminRequests.fulfilled]: (state, action) => {
-      return action.payload;
-    },
-    [getIndustryRequests.fulfilled]: (state, action) => {
-      return action.payload;
-    },
-    [createRequest.fulfilled]: (state, action) => {
-      state.push(action.payload);
-    },
+    [getAdminRequests.fulfilled]: putPayloadToState,
+    [getIndustryRequests.fulfilled]: putPayloadToState,
+    [createRequest.fulfilled]: putPayloadToState,
     [approveRequest.fulfilled]: (state, action) => {
       return state.filter(elem => elem.companyPostId !== action.payload);
     },

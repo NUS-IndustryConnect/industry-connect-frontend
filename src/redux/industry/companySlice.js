@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 import adminApi from '../../admin/api';
 import studentApi from '../../student/api';
-import { pluraliseThunk } from '../utils';
+import { pluraliseThunk, putPayloadToState } from '../utils';
 import { postsSelector } from './postSlice';
 
 // thunks
@@ -33,25 +33,11 @@ export const companySlice = createSlice({
   initialState: [],
   reducers: {},
   extraReducers: {
-    [getAdminCompanies.fulfilled]: (state, action) => {
-      return action.payload;
-    },
-    [getStudentCompanies.fulfilled]: (state, action) => {
-      return action.payload;
-    },
-    [postCompany.fulfilled]: (state, action) => {
-      state.push(action.payload);
-    },
-    [updateCompany.fulfilled]: (state, action) => {
-      return state.map(elem =>
-        elem.companyId === action.payload.companyId
-          ? action.payload
-          : elem);
-    },
-    [archiveCompany.fulfilled]: (state, action) => {
-      const i = state.findIndex(elem => elem.companyId === action.payload);
-      state[i].isActive = false;
-    },
+    [getAdminCompanies.fulfilled]: putPayloadToState,
+    [getStudentCompanies.fulfilled]: putPayloadToState,
+    [postCompany.fulfilled]: putPayloadToState,
+    [updateCompany.fulfilled]: putPayloadToState,
+    [archiveCompany.fulfilled]: putPayloadToState,
     [unarchiveCompany.fulfilled]: (state, action) => {
       const i = state.findIndex(elem => elem.companyId === action.payload);
       state[i].isActive = true;

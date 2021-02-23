@@ -9,7 +9,7 @@ export default function Preview({ data = {}, urlPath }) {
   const {
     postTitle,
     postSubtitle,
-    description = "",
+    postDescription = "",
     videoUrl,
     moreUrl,
   } = data;
@@ -25,7 +25,7 @@ export default function Preview({ data = {}, urlPath }) {
         <ButtonLink to={editLink} label="Edit" className="secondary right" />
       </div>
       <h5>{postSubtitle}</h5>
-      { description.split("\n").map((para, i) => <p key={i}>{para}</p>) }
+      { postDescription?.split("\n").map((para, i) => <p key={i}>{para}</p>) }
       <VideoEmbed videoUrl={videoUrl} />
       { moreUrl ? <a href={moreUrl}><button className="primary right">Find out more</button></a> : null}
     </div>

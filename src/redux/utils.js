@@ -7,3 +7,5 @@ export const pluraliseThunk = thunk => ids => dispatch => {
     )
   )
 }
+
+export const putPayloadToState = (state, action) => action.payload;

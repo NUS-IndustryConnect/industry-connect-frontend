@@ -2,7 +2,7 @@ import React from 'react';
 
 import Form from '../../../../common/Form';
 
-const TIERS = [
+const COMPANY_TIERS = [
   { value: "gold", label: "Gold" },
   { value: "silver", label: "Silver" }
 ];
@@ -18,7 +18,7 @@ export default function CompaniesForm({ submit, initial }) {
     <Form
       fields={[
         { type: "text", name: "companyName", label: "Company Name", initial: initial?.companyName },
-        { type: "dropdown", name: "companyTier", label: "Tier", options: TIERS, initial: initial?.companyTier },
+        { type: "dropdown", name: "companyTier", label: "Tier", options: COMPANY_TIERS, initial: initial?.companyTier },
         { type: "long-text", name: "companyDescription", label: "Company Description", initial: initial?.companyDescription },
       ]}
       submit={submit}

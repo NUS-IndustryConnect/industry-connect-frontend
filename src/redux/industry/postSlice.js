@@ -3,6 +3,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import adminApi from '../../admin/api';
 import studentApi from '../../student/api';
 import industryApi from '../../industry/api';
+import { putPayloadToState } from '../utils';
 import { companiesSelector, mergeCompanyInfo } from './companySlice';
 import { approveRequest, requestSelector } from './requestSlice';
 
@@ -30,30 +31,12 @@ export const postSlice = createSlice({
   initialState: [],
   reducers: {},
   extraReducers: {
-    [getAdminPosts.fulfilled]: (state, action) => {
-      return action.payload;
-    },
-    [getStudentPosts.fulfilled]: (state, action) => {
-      return action.payload;
-    },
-    [getIndustryPosts.fulfilled]: (state, action) => {
-      return action.payload;
-    },
-    [createPost.fulfilled]: (state, action) => {
-      state.push(action.payload);
-    },
-    [updatePost.fulfilled]: (state, action) => {
-      return state.map(elem =>
-        elem.companyPostId === action.payload.companyPostId
-          ? action.payload
-          : elem);
-    },
-    [archivePosts.fulfilled]: (state, action) => {
-      action.payload.forEach(companyPostId => {
-        const i = state.findIndex(elem => elem.companyPostId === companyPostId);
-        state[i].isActive = false;
-      })
-    },
+    [getAdminPosts.fulfilled]: putPayloadToState,
+    [getStudentPosts.fulfilled]: putPayloadToState,
+    [getIndustryPosts.fulfilled]: putPayloadToState,
+    [createPost.fulfilled]: putPayloadToState,
+    [updatePost.fulfilled]: putPayloadToState,
+    [archivePosts.fulfilled]: putPayloadToState,
     [unarchivePosts.fulfilled]: (state, action) => {
       action.payload.forEach(companyPostId => {
         const i = state.findIndex(elem => elem.companyPostId === companyPostId);

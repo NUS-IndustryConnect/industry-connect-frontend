@@ -7,8 +7,8 @@ import { companiesDropdownSelector } from '../../redux/industry/companySlice';
 export const getPostFields = data => ({
   companyId: data.get('companyId'),
   postTitle: data.get('postTitle'),
-  postSubtitle: data.get('postSubtitle'),
-  description: data.get('description'),
+  postSubTitle: data.get('postSubTitle'),
+  postDescription: data.get('postDescription'),
   videoUrl: data.get('videoUrl'),
   moreUrl: data.get('moreUrl'),
   expiryDate: data.get('expiryDate')
@@ -16,11 +16,12 @@ export const getPostFields = data => ({
 
 // shared by both admin and industry
 export default function PostsForm({ submit, submitLabel, initial, isAdmin }) {
+  console.log('initial :', initial);
   const companiesDropdown = useSelector(companiesDropdownSelector);
   let fields = [
     { type: "text", name: "postTitle", label: "Title", initial: initial?.postTitle },
-    { type: "text", name: "postSubtitle", label: "Subtitle", initial: initial?.postSubtitle },
-    { type: "long-text", name: "description", label: "Description", initial: initial?.description },
+    { type: "text", name: "postSubTitle", label: "Subtitle", initial: initial?.postSubTitle },
+    { type: "long-text", name: "postDescription", label: "Description", initial: initial?.postDescription },
     { type: "text", name: "videoUrl", label: "Video embed link", optional: true, initial: initial?.videoUrl },
     { type: "text", name: "moreUrl", label: "View more link", optional: true, initial: initial?.moreLink },
     { type: "date", name: "expiryDate", label: "Expiry date", optional: true, initial: initial?.expiryDate },

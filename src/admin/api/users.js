@@ -1,110 +1,52 @@
 import { api } from ".";
 
-// TODO: replace with BE API calls
-const exampleUsers = [
-  {
-    companyUserID: "1",
-    companyId: "1",
-    name: "blah1",
-    userEmail: "blah1@example.com",
-    lastLoggedIn: new Date(),
-    userPosts: ["1", "2", "3"],
-    isActive: true,
-    isLocked: true,
-    lockedUntil: new Date(),
-  },
-  {
-    companyUserID: "2",
-    companyId: "1",
-    name: "blah2",
-    userEmail: "blah2@example.com",
-    lastLoggedIn: new Date(),
-    userPosts: [],
-    isActive: true,
-    isLocked: false,
-    lockedUntil: null,
-  },
-  {
-    companyUserID: "3",
-    companyId: "1",
-    name: "blah3",
-    userEmail: "blah3@example.com",
-    lastLoggedIn: new Date(),
-    userPosts: [],
-    isActive: true,
-    isLocked: false,
-    lockedUntil: null,
-  },
-  {
-    companyUserID: "4",
-    companyId: "2",
-    name: "blah4",
-    userEmail: "blah4@example.com",
-    lastLoggedIn: new Date(),
-    userPosts: [],
-    isActive: true,
-    isLocked: false,
-    lockedUntil: null,
-  },
-  {
-    companyUserID: "5",
-    companyId: "3",
-    name: "blah5",
-    userEmail: "blah5@example.com",
-    lastLoggedIn: new Date(),
-    userPosts: [],
-    isActive: false,
-    isLocked: false,
-    lockedUntil: null,
-  }
-]
-
 const getUsers = async () => {
   // return Promise.resolve(exampleUsers);
-  return api.get('/companyUsers/users')
-  .then(response => response.data.data)
-  .catch(error => { throw error });
+  return api.get('/companyUser/users')
+  .then(response => response.data)
+  .catch(error => {
+    console.error(error);
+    return [];
+  });
 }
 
 const getUsersOfCompany = companyId => {
-  return api.get(`/companyUsers/company/${companyId}`);
+  return api.get(`/companyUser/company/${companyId}`);
 }
 
-const getUser = async companyUserID => {
-  return api.get(`/companyUsers/user/${companyUserID}`)
+const getUser = async companyUserId => {
+  return api.get(`/companyUser/user/${companyUserId}`)
 }
 
 const postUser = async data => {
-  return {
-    ...data,
-    companyUserID: Math.floor(Math.random() * 100000),
-    companyId: "1",
-    lastLoggedIn: new Date(),
-    userPosts: [],
-    isActive: true,
-    isLocked: false,
-    lockedUntil: null,
-
-  };
-  // return api.post('/companyUsers/create', data);
+  return api.post('/companyUser/create', data)
+  .then(response => response.data)
+  .catch(error => {
+    console.error(error);
+    return [];
+  });
 }
 
 const updateUser = async data => {
   return data;
-  // return api.post('/companyUsers/update', data);
+  // TODO: BE API missing
+  // return api.post('/companyUser/update', data);
 }
 
-const unlockUser = async companyUserID => {
-  return companyUserID;
+const unlockUser = async companyUserId => {
+  return companyUserId;
 }
 
-const archiveUser = async companyUserID => {
-  return companyUserID;
-  // return api.post(`/companyUsers/archive/${companyUserID}`);
+const archiveUser = async companyUserId => {
+  return companyUserId;
+  // TODO: BE API missing
+  // return api.post(`/companyUser/archive/${companyUserId}`)
+  // .then(response => response.data);
 }
 
-const unarchiveUser = async companyUserID => {
-  return companyUserID;
+const unarchiveUser = async companyUserId => {
+  // TODO: BE API missing
+  return companyUserId;
 }
 
 const usersApi = {

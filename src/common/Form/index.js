@@ -34,9 +34,9 @@ const generateField = (fieldOptions) => {
     );
   } else if (type === "dropdown") {
     component = (
-      <select name={name} id={name} required={!optional}>
+      <select name={name} id={name} required={!optional} defaultValue={initial}>
         { options.map(({ value, label }) => (
-          <option key={value} value={value} selected={value === initial}>{label}</option>
+          <option key={value} value={value}>{label}</option>
         )) }
       </select>
     )

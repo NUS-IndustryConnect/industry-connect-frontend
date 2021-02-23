@@ -13,7 +13,7 @@ export default function View() {
   const data = useSelector(userSelector(id));
   const {
     name,
-    userEmail,
+    email,
     company,
     lastLoggedIn,
     userPosts,
@@ -40,7 +40,7 @@ export default function View() {
 
   const userData = [
     { header: "Name", data: name },
-    { header: "Email", data: userEmail },
+    { header: "Email", data: email },
     { header: "Company", data: company?.companyName },
     { header: "Last login", data: new Date(lastLoggedIn)?.toLocaleDateString() },
   ];

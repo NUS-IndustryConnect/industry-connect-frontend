@@ -24,14 +24,14 @@ export default function View() {
   const posts = useSelector(postsByCompanySelector(companyId));
   const requests = useSelector(requestsByCompanySelector(companyId))
 
-  const usersDataToRow = ({ companyUserID, name, userEmail, lastLoggedIn }) => (
+  const usersDataToRow = ({ companyUserId, name, email, lastLoggedIn }) => (
     <tr
-      key={companyUserID}
-      onClick={() => history.push(`/admin/industry/users/view/${companyUserID}`)}
+      key={companyUserId}
+      onClick={() => history.push(`/admin/industry/users/view/${companyUserId}`)}
       className="clickable"
     >
       <td>{name}</td>
-      <td>{userEmail}</td>
+      <td>{email}</td>
       <td>{new Date(lastLoggedIn).toLocaleDateString()}</td>
     </tr>
   );
