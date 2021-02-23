@@ -29,12 +29,8 @@ export const requestSlice = createSlice({
     [getAdminRequests.fulfilled]: putPayloadToState,
     [getIndustryRequests.fulfilled]: putPayloadToState,
     [createRequest.fulfilled]: putPayloadToState,
-    [approveRequest.fulfilled]: (state, action) => {
-      return state.filter(elem => elem.companyPostId !== action.payload);
-    },
-    [rejectRequest.fulfilled]: (state, action) => {
-      
-    },
+    [approveRequest.fulfilled]: putPayloadToState,
+    [rejectRequest.fulfilled]: putPayloadToState,
   }
 });
 

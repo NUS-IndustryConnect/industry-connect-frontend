@@ -15,10 +15,11 @@ export default function Preview() {
 
   const handleApprove = () => {
     dispatch(requestThunks.approveRequest({ companyPostRequestId: id, approvedBy: "approver name" }))
-    history.push("/admin/industry/posts")
     // TODO: handle approver
+    history.push("/admin/industry/posts")
   }
   const handleReject = () => {
+    dispatch(requestThunks.rejectRequest({ companyPostRequestId: id, feedback: "" }));
     // TODO: create form for typing in feedback
     history.push("/admin/industry/posts")
   }
