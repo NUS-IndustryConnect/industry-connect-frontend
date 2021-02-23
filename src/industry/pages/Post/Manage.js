@@ -16,17 +16,29 @@ export default function AfterLogin() {
   const archivedPosts = useSelector(archivedPostsSelector);
   const requests = useSelector(requestsSelector);
 
-  const dataToRow = type => (data, checkbox=null) => {
-    const { companyPostID, postTitle, lastUpdated } = data;
-    const handleClick = () => history.push(`/industry/posts/view/${companyPostID}`);
+  const requestsDataToRow = (data) => {
+    const { companyPostRequestId, postTitle, lastUpdated, status } = data;
+    const handleClick = () => history.push(`/industry/posts/view/${companyPostRequestId}`);
     return (
-      <tr key={companyPostID}>
-        { type === "posts" ? <td>{ checkbox }</td> : null }
+      <tr key={companyPostRequestId} className={status}>
         <td onClick={handleClick} className="clickable">{postTitle}</td>
-        <td onClick={handleClick} className="clickable">{lastUpdated.toLocaleDateString()}</td>
+        <td onClick={handleClick} className="clickable">{new Date(lastUpdated).toLocaleDateString()}</td>
       </tr>
     )
   };
+
+  const postsDataToRow = (data, checkbox=null) => {
+    const { companyPostId, postTitle, lastUpdated } = data;
+    const handleClick = () => history.push(`/industry/posts/view/${companyPostId}`);
+    return (
+      <tr key={companyPostId}>
+        <td>{ checkbox }</td>
+        <td onClick={handleClick} className="clickable">{postTitle}</td>
+        <td onClick={handleClick} className="clickable">{new Date(lastUpdated).toLocaleDateString()}</td>
+      </tr>
+    )
+  };
+
 
   const archivePosts = {
     label: "Archive",
@@ -52,7 +64,7 @@ export default function AfterLogin() {
         <Table
           headers={["Title", "Last Updated"]}
           data={requests}
-          dataToRow={dataToRow("requests")}
+          dataToRow={requestsDataToRow}
           className="pending"
         />
       </section>
@@ -63,7 +75,7 @@ export default function AfterLogin() {
           headers={['Title', "Last Updated"]}
           data={displayedPosts}
           idKey="companyPostID"
-          dataToRow={dataToRow("posts")}
+          dataToRow={postsDataToRow}
           actions={[ archivePosts ]}
         />
       </section>
@@ -74,7 +86,7 @@ export default function AfterLogin() {
           headers={['Title', "Last Updated"]}
           data={archivedPosts}
           idKey="companyPostID"
-          dataToRow={dataToRow("posts")}
+          dataToRow={postsDataToRow}
           className="archived"
           actions={[ unarchivePosts ]}
         />

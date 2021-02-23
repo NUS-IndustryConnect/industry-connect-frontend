@@ -1,7 +1,6 @@
 import { api } from ".";
 
 const getUsers = async () => {
-  // return Promise.resolve(exampleUsers);
   return api.get('/companyUser/users')
   .then(response => response.data)
   .catch(error => {

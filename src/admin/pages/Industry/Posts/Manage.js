@@ -17,7 +17,7 @@ export default function Manage() {
   const archivedPosts = useSelector(archivedPostsSelector);
   const requests = useSelector(requestsSelector);
 
-  const requestsDataToRow = (data, checkbox=null) => {
+  const requestsDataToRow = (data) => {
     const urlPath = '/admin/industry/posts/preview';
     const { companyPostRequestId, postTitle, company, lastUpdated, status } = data;
     const handleClick = () => history.push(`${urlPath}/${companyPostRequestId}`);

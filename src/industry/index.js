@@ -15,7 +15,7 @@ export default function Industry() {
   }, [dispatch, dataFetched]);
 
   // TODO: temporary login mechanism
-  const [isLoggedIn, setLoggedIn] = useState(false);
+  const [isLoggedIn, setLoggedIn] = useState(true);
   return (
     <Switch>
       <Route path="/industry/posts"><Post /></Route>

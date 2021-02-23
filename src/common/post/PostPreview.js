@@ -5,6 +5,7 @@ import ButtonLink from '../ButtonLink';
 import VideoEmbed from './VideoEmbed';
 import './PostPreview.css'
 
+// used by Admin and Industry
 export default function Preview({ data = {}, urlPath = "" }) {
   const {
     postTitle,

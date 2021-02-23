@@ -1,7 +1,6 @@
 import { api } from ".";
 
 const getCompanies = () => {
-  // return Promise.resolve(exampleCompanies);
   return api.get("/company/admin")
   .then(response => response.data)
   .catch(error => { throw error });
