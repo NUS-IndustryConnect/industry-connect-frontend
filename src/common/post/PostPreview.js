@@ -1,11 +1,11 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 
 import ButtonLink from '../ButtonLink';
 import VideoEmbed from './VideoEmbed';
 import './PostPreview.css'
 
-export default function Preview({ data = {}, urlPath }) {
+export default function Preview({ data = {}, urlPath = "" }) {
   const {
     postTitle,
     postSubtitle,
@@ -14,15 +14,17 @@ export default function Preview({ data = {}, urlPath }) {
     moreUrl,
   } = data;
   const { id } = useParams();
-  const editLink = id
-    ? `${urlPath}/edit/${id}`
-    : `${urlPath}/new`;
-  // TODO: new -> preview -> edit does not work because the info from new is lost
+  const history = useHistory();
+
+  const editButton = id
+    ? <ButtonLink to={`${urlPath}/edit/${id}`} label="Edit" className="secondary right" />
+    : <button className="secondary right" onClick={() => history.push(`${urlPath}/new`, { data })}>Edit</button>;
+  
   return (
     <div className="post">
       <div className="post-header">
         <h3>{postTitle}</h3>
-        <ButtonLink to={editLink} label="Edit" className="secondary right" />
+        {editButton}
       </div>
       <h5>{postSubtitle}</h5>
       { postDescription?.split("\n").map((para, i) => <p key={i}>{para}</p>) }

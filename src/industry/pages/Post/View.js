@@ -15,7 +15,7 @@ export default function Preview() {
       isError={!Boolean(data)}
       errorMessage={<p>Post not found. Please select another post.</p>}
     >
-      <PostPreview data={data} />
+      <PostPreview data={data} urlPath="/industry/posts" />
     </Page>
   )
 }

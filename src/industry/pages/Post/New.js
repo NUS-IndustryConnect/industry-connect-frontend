@@ -1,24 +1,26 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
 import Page from '../../../common/Page';
 import PostsForm, { getPostFields } from '../../../common/post/PostsForm';
 
 export default function New() {
   const history = useHistory();
-  // TODO: replace with redux dispatch
+  // if user goes from new -> preview -> (click on edit) -> new
+  // load the form state from location.state and pre-populate the form fields
+  const location = useLocation();
+  const data = location.state?.data;
+
   const submit = data => {
     const postObj = getPostFields(data);
     history.push({
       pathname: '/industry/posts/preview',
       state: { data: postObj },
     });
-    // history.push('/industry/posts/submitted');
-    console.log(postObj);
   }
   return (
     <Page title="New Post">
-      <PostsForm submit={submit} submitLabel="Submit for vetting" />
+      <PostsForm initial={data} submit={submit} submitLabel="Preview" />
     </Page>
   )
 }

@@ -1,24 +1,20 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 
 import Page from '../../../common/Page';
 import PostsForm, { getPostFields } from '../../../common/post/PostsForm';
+import { useSelector } from 'react-redux';
+import { postOrRequestSelector } from '../../../redux/industry/postSlice';
 
 export default function Edit() {
   const history = useHistory();
+  const { id } = useParams();
+  const initial = useSelector(postOrRequestSelector(id));
   // TODO: replace with redux dispatch
   const submit = data => {
     const postObj = getPostFields(data);
-    history.push('/admin/industry/posts');
+    history.push('/industry/posts');
     console.log(postObj);
-  }
-  // TODO: link up to Redux store
-  const initial = {
-    title: "Title",
-    description: "Description",
-    videoLink: "https://www.youtube.com/watch?v=Jf_2EyDNywE",
-    moreLink: "https://www.youtube.com/watch?v=Jf_2EyDNywE",
-    expiryDate: new Date().toISOString().substr(0,10),
   }
   return (
     <Page title="Edit Post">

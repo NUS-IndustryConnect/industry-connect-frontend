@@ -14,9 +14,9 @@ export default function Preview() {
       isError={!Boolean(data)}
       errorMessage={<p>Post not found. Please select another post.</p>}
     >
-      <PostPreview data={data} urlPath="/industry/post" />
+      <PostPreview data={data} urlPath="/industry/posts" />
       {/* TODO: Connect up to BE API */}
-      <ButtonLink to="/industry/post/submitted" label="Submit for vetting" className="primary" />
+      <ButtonLink to="/industry/posts/submitted" label="Submit for vetting" className="primary" />
     </Page>
   )
 }

@@ -23,7 +23,7 @@ export default function PostsForm({ submit, submitLabel, initial, isAdmin }) {
     { type: "text", name: "postSubTitle", label: "Subtitle", initial: initial?.postSubTitle },
     { type: "long-text", name: "postDescription", label: "Description", initial: initial?.postDescription },
     { type: "text", name: "videoUrl", label: "Video embed link", optional: true, initial: initial?.videoUrl },
-    { type: "text", name: "moreUrl", label: "View more link", optional: true, initial: initial?.moreLink },
+    { type: "text", name: "moreUrl", label: "View more link", optional: true, initial: initial?.moreUrl },
     { type: "date", name: "expiryDate", label: "Expiry date", optional: true, initial: initial?.expiryDate },
   ];
   if (isAdmin) {

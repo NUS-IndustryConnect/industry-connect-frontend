@@ -7,12 +7,12 @@ import ButtonLink from '../../../common/ButtonLink';
 import Table from '../../../common/Table';
 import SelectTable from '../../../common/SelectTable';
 import { requestsSelector } from '../../../redux/industry/requestSlice';
-import { displayedPostsSelector, archivedPostsSelector, postThunks } from '../../../redux/industry/postSlice';
+import { activePostsSelector, archivedPostsSelector, postThunks } from '../../../redux/industry/postSlice';
 
 export default function AfterLogin() {
   const history = useHistory();
   const dispatch = useDispatch();
-  const displayedPosts = useSelector(displayedPostsSelector);
+  const displayedPosts = useSelector(activePostsSelector);
   const archivedPosts = useSelector(archivedPostsSelector);
   const requests = useSelector(requestsSelector);
 
@@ -35,12 +35,12 @@ export default function AfterLogin() {
       dispatch(postThunks.archivePosts(selections));
     }
   }
-
-  const deletePosts = {
-    label: "Delete",
-    className: "warning",
+  
+  const unarchivePosts = {
+    label: "Unarchive",
+    className: "secondary",
     onClick: selections => {
-      dispatch(postThunks.deletePosts(selections));
+      dispatch(postThunks.unarchivePosts(selections));
     }
   }
 
@@ -48,7 +48,7 @@ export default function AfterLogin() {
     <Page title="Industry Posts">
       <ButtonLink to="/industry/posts/new" label="Create new post" className="primary" />
       <section>
-        <h3>Pending</h3>
+        <h3>Pending Requests</h3>
         <Table
           headers={["Title", "Last Updated"]}
           data={requests}
@@ -58,13 +58,13 @@ export default function AfterLogin() {
       </section>
   
       <section>
-        <h3>Displayed</h3>
+        <h3>Active</h3>
         <SelectTable
           headers={['Title', "Last Updated"]}
           data={displayedPosts}
           idKey="companyPostID"
           dataToRow={dataToRow("posts")}
-          actions={[ archivePosts, deletePosts ]}
+          actions={[ archivePosts ]}
         />
       </section>
 
@@ -76,7 +76,7 @@ export default function AfterLogin() {
           idKey="companyPostID"
           dataToRow={dataToRow("posts")}
           className="archived"
-          actions={[ deletePosts ]}
+          actions={[ unarchivePosts ]}
         />
       </section>
     </Page>
