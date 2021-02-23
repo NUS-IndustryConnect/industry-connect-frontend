@@ -9,7 +9,7 @@ export default function Post({ data = {}, history }) {
     postTitle,
     postSubtitle,
     companyName,
-    description = "",
+    postDescription = "",
     videoUrl,
     moreUrl,
   } = data;
@@ -21,7 +21,7 @@ export default function Post({ data = {}, history }) {
       <h5>{postSubtitle}</h5>
       <p className="description">
         { companyName }
-        { description.split("\n").map((para, i) => <p key={i}>{para}</p>) }
+        { postDescription.split("\n").map((para, i) => <p key={i}>{para}</p>) }
       </p>
       <VideoEmbed videoUrl={videoUrl} />
       { moreUrl ? <a href={moreUrl}><button className="primary right">Find out more</button></a> : null}

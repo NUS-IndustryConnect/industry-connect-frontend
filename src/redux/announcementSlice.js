@@ -41,7 +41,7 @@ export const announcementSlice = createSlice({
       state.data = action.payload;
     },
     [postAnnouncement.fulfilled]: (state, action) => {
-      state.data.push(action.payload);
+      state.data = action.payload;
     },
     [updateAnnouncement.fulfilled]: (state, action) => {
       state.data = state.data.map(elem =>
@@ -50,9 +50,10 @@ export const announcementSlice = createSlice({
           : elem);
     },
     [archiveAnnouncement.fulfilled]: (state, action) => {
-      const i = state.data.findIndex(elem => elem.announceID === action.payload);
-      state.data[i].isActive = false;
-      state.data[i].isImportant = false;
+      state.data = state.data.map(elem =>
+        elem.announceID === action.payload.announceID
+          ? action.payload
+          : elem);
     },
     [unarchiveAnnouncement.fulfilled]: (state, action) => {
       const i = state.data.findIndex(elem => elem.announceID === action.payload);
@@ -66,7 +67,7 @@ export const announcementsFetchedSelector = state => state.announcements.dataFet
 export const allAnnouncementsSelector = state => state.announcements.data;
 export const pinnedAnnouncementsSelector = state => {
   return allAnnouncementsSelector(state)
-    .filter(elem => elem.isImportant);
+    .filter(elem => elem.isActive && elem.isImportant);
 }
 export const activeAnnouncementsSelector = state => {
   return allAnnouncementsSelector(state)

@@ -67,8 +67,8 @@ const getValidPostsByCompany = companyID => {
   return fetch(`/companyPost/company/${companyID}/valid`);
 }
 
-const getPostsByUser = companyUserID => {
-  return fetch(`/companyPost/user/${companyUserID}`);
+const getPostsByUser = companyUserId => {
+  return fetch(`/companyPost/user/${companyUserId}`);
 }
 
 const createPost = async data => {

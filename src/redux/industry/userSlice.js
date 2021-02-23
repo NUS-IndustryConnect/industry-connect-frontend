@@ -2,8 +2,8 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 import adminApi from '../../admin/api';
 import { companiesSelector, mergeCompanyInfo } from './companySlice';
-import { pluraliseThunk } from '../utils';
-import { postSelector } from './postSlice';
+import { pluraliseThunk, putPayloadToState } from '../utils';
+import { postsSelector } from './postSlice';
 
 // thunks
 const getUsers = createAsyncThunk('admin/users/get', adminApi.users.getUsers)
@@ -32,29 +32,27 @@ export const userSlice = createSlice({
   initialState: [],
   reducers: {},
   extraReducers: {
-    [getUsers.fulfilled]: (state, action) => {
-      return action.payload;
-    },
+    [getUsers.fulfilled]: putPayloadToState,
     [postUser.fulfilled]: (state, action) => {
       state.push(action.payload);
     },
     [updateUser.fulfilled]: (state, action) => {
       return state.map(elem =>
-        elem.companyUserID === action.payload.companyUserID
+        elem.companyUserId === action.payload.companyUserId
           ? action.payload
           : elem);
     },
     [unlockUser.fulfilled]: (state, action) => {
-      const i = state.findIndex(elem => elem.companyUserID === action.payload);
+      const i = state.findIndex(elem => elem.companyUserId === action.payload);
       state[i].isLocked = false;
       state[i].lockedUntil = null;
     },
     [archiveUser.fulfilled]: (state, action) => {
-      const i = state.findIndex(elem => elem.companyUserID === action.payload);
+      const i = state.findIndex(elem => elem.companyUserId === action.payload);
       state[i].isActive = false;
     },
     [unarchiveUser.fulfilled]: (state, action) => {
-      const i = state.findIndex(elem => elem.companyUserID === action.payload);
+      const i = state.findIndex(elem => elem.companyUserId === action.payload);
       state[i].isActive = true;
     }
   }
@@ -78,15 +76,12 @@ export const usersOfCompanySelector = companyId => state => {
   return usersSelector(state)
     .filter(elem => elem.companyId === companyId)
 }
-export const userSelector = companyUserID => state => {
+export const userSelector = companyUserId => state => {
   const rawUser = usersSelector(state)
-    .find(elem => elem.companyUserID === companyUserID);
-  const userPosts = rawUser?.userPosts
-    .map(id => postSelector(id)(state))
-    .filter(Boolean);
-  return rawUser
-    ? { ...rawUser, userPosts }
-    : rawUser;
+    .find(elem => elem.companyUserId === companyUserId);
+  const rawPosts = postsSelector(state);
+  const userPosts = rawPosts.filter(elem => elem.companyUserId === companyUserId);
+  return { ...rawUser, userPosts };
 }
 
 export default userSlice.reducer;

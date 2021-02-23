@@ -29,13 +29,13 @@ export default function Manage() {
   }
 
   const dataToRow = (data, checkbox) => {
-    const { companyUserID, name, userEmail, company, lastLoggedIn, isLocked } = data;
-    const handleClick = () => history.push(`/admin/industry/users/view/${companyUserID}`);
+    const { companyUserId, name, email, company, lastLoggedIn, isLocked } = data;
+    const handleClick = () => history.push(`/admin/industry/users/view/${companyUserId}`);
     return (
-      <tr key={companyUserID} className={isLocked ? "warning" : null}>
+      <tr key={companyUserId} className={isLocked ? "warning" : null}>
         <td>{ checkbox }</td>
         <td className="clickable" onClick={handleClick}>{name}</td>
-        <td className="clickable" onClick={handleClick}>{userEmail}</td>
+        <td className="clickable" onClick={handleClick}>{email}</td>
         <td className="clickable" onClick={handleClick}>{company.companyName}</td>
         <td className="clickable" onClick={handleClick}>{company.companyTier}</td>
         <td className="clickable" onClick={handleClick}>{new Date(lastLoggedIn).toLocaleDateString()}</td>
@@ -53,7 +53,7 @@ export default function Manage() {
           headers={["Name", "Email Address", "Company", "Tier", "Last Login"]}
           data={activeUsers}
           dataToRow={dataToRow}
-          idKey="companyUserID"
+          idKey="companyUserId"
           actions={[ archiveUser ]}
         />
       </section>
@@ -64,7 +64,7 @@ export default function Manage() {
           data={archivedUsers}
           dataToRow={dataToRow}
           className="archived"
-          idKey="companyUserID"
+          idKey="companyUserId"
           actions={[ unarchiveUser ]}
         />
       </section>
