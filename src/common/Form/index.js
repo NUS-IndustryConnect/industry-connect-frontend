@@ -2,6 +2,15 @@ import React from 'react';
 
 import './index.css';
 
+const convertDateFormat = dateString => {
+  // convert a dateString of the format "1/1/2021 12:00:00 AM"
+  // to the format YYYY-MM-DD
+  // to supply as defaultVault for <input type="date" />
+  return dateString
+    ? new Date(dateString).toISOString().slice(0, 10)
+    : null;
+}
+
 const generateField = (fieldOptions) => {
   const {
     type,
@@ -25,9 +34,9 @@ const generateField = (fieldOptions) => {
     );
   } else if (type === "dropdown") {
     component = (
-      <select name={name} id={name} required={!optional}>
+      <select name={name} id={name} required={!optional} defaultValue={initial}>
         { options.map(({ value, label }) => (
-          <option key={value} value={value} selected={value === initial}>{label}</option>
+          <option key={value} value={value}>{label}</option>
         )) }
       </select>
     )
@@ -47,7 +56,7 @@ const generateField = (fieldOptions) => {
         id={name}
         name={name}
         required={!optional}
-        defaultValue={initial}
+        defaultValue={type === "date" ? convertDateFormat(initial) : initial}
       />
     );
   }

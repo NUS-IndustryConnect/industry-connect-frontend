@@ -3,34 +3,42 @@ import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 import ButtonLink from '../../../../common/ButtonLink';
-import { usersSelector, userThunks } from '../../../../redux/industry/userSlice';
+import { userThunks, activeUsersSelector, archivedUsersSelector } from '../../../../redux/industry/userSlice';
 import Page from '../../Page';
 import SelectTable from '../../../../common/SelectTable';
 
 export default function Manage() {
-  const users = useSelector(usersSelector);
+  const activeUsers = useSelector(activeUsersSelector);
+  const archivedUsers = useSelector(archivedUsersSelector);
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const deleteUser = {
-    label: "Delete",
-    className: "warning",
+  const archiveUser = {
+    label: "Archive",
+    className: "secondary",
     onClick: selections => {
-      dispatch(userThunks.deleteUsers(selections));
+      dispatch(userThunks.archiveUsers(selections));
+    }
+  }
+  const unarchiveUser = {
+    label: "Unarchive",
+    className: "secondary",
+    onClick: selections => {
+      dispatch(userThunks.unarchiveUsers(selections));
     }
   }
 
   const dataToRow = (data, checkbox) => {
-    const { companyUserID, name, userEmail, company, lastLoggedIn } = data;
-    const handleClick = () => history.push(`/admin/industry/users/view/${companyUserID}`);
+    const { companyUserId, name, email, company, lastLoggedIn, isLocked } = data;
+    const handleClick = () => history.push(`/admin/industry/users/view/${companyUserId}`);
     return (
-      <tr key={companyUserID} >
+      <tr key={companyUserId} className={isLocked ? "warning" : null}>
         <td>{ checkbox }</td>
         <td className="clickable" onClick={handleClick}>{name}</td>
-        <td className="clickable" onClick={handleClick}>{userEmail}</td>
+        <td className="clickable" onClick={handleClick}>{email}</td>
         <td className="clickable" onClick={handleClick}>{company.companyName}</td>
         <td className="clickable" onClick={handleClick}>{company.companyTier}</td>
-        <td className="clickable" onClick={handleClick}>{lastLoggedIn.toLocaleDateString()}</td>
+        <td className="clickable" onClick={handleClick}>{new Date(lastLoggedIn).toLocaleDateString()}</td>
       </tr>
     )
   };
@@ -39,13 +47,27 @@ export default function Manage() {
     <Page title="Manage Company Users">
       <ButtonLink to="/admin/industry/users/new" label="New Company User" className="primary" />
       
-      <SelectTable
-        headers={["Name", "Email Address", "Company", "Tier", "Last Login"]}
-        data={users}
-        dataToRow={dataToRow}
-        idKey="companyUserID"
-        actions={[ deleteUser ]}
-      />
+      <section>
+        <h3>Active</h3>
+        <SelectTable
+          headers={["Name", "Email Address", "Company", "Tier", "Last Login"]}
+          data={activeUsers}
+          dataToRow={dataToRow}
+          idKey="companyUserId"
+          actions={[ archiveUser ]}
+        />
+      </section>
+      <section>
+        <h3>Archived</h3>
+        <SelectTable
+          headers={["Name", "Email Address", "Company", "Tier", "Last Login"]}
+          data={archivedUsers}
+          dataToRow={dataToRow}
+          className="archived"
+          idKey="companyUserId"
+          actions={[ unarchiveUser ]}
+        />
+      </section>
     </Page>
   )
 }

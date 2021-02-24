@@ -3,8 +3,9 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import adminApi from '../../admin/api';
 import studentApi from '../../student/api';
 import industryApi from '../../industry/api';
+import { putPayloadToState } from '../utils';
 import { companiesSelector, mergeCompanyInfo } from './companySlice';
-import { requestSelector } from './requestSlice';
+import { approveRequest, requestSelector } from './requestSlice';
 
 // thunks
 const getAdminPosts = createAsyncThunk('admin/posts/get', adminApi.posts.getPosts)
@@ -13,7 +14,7 @@ const getIndustryPosts = createAsyncThunk('industry/posts/get', industryApi.post
 const createPost = createAsyncThunk('admin/posts/create', adminApi.posts.createPost)
 const updatePost = createAsyncThunk('admin/posts/update', adminApi.posts.updatePost)
 const archivePosts = createAsyncThunk('admin/posts/archive', adminApi.posts.archivePosts)
-const deletePosts = createAsyncThunk('admin/posts/delete', adminApi.posts.deletePosts)
+const unarchivePosts = createAsyncThunk('admin/posts/unarchive', adminApi.posts.unarchivePosts)
 
 export const postThunks = {
   getAdminPosts,
@@ -22,7 +23,7 @@ export const postThunks = {
   createPost,
   updatePost,
   archivePosts,
-  deletePosts,
+  unarchivePosts,
 }
 
 export const postSlice = createSlice({
@@ -30,33 +31,21 @@ export const postSlice = createSlice({
   initialState: [],
   reducers: {},
   extraReducers: {
-    [getAdminPosts.fulfilled]: (state, action) => {
-      return action.payload;
-    },
-    [getStudentPosts.fulfilled]: (state, action) => {
-      return action.payload;
-    },
-    [getIndustryPosts.fulfilled]: (state, action) => {
-      return action.payload;
-    },
-    [createPost.fulfilled]: (state, action) => {
-      state.push(action.payload);
-    },
-    [updatePost.fulfilled]: (state, action) => {
-      return state.map(elem =>
-        elem.companyPostID === action.payload.companyPostID
-          ? action.payload
-          : elem);
-    },
-    [archivePosts.fulfilled]: (state, action) => {
-      action.payload.forEach(companyPostID => {
-        const i = state.findIndex(elem => elem.companyPostID === companyPostID);
-        state[i].isActive = false;
+    [getAdminPosts.fulfilled]: putPayloadToState,
+    [getStudentPosts.fulfilled]: putPayloadToState,
+    [getIndustryPosts.fulfilled]: putPayloadToState,
+    [createPost.fulfilled]: putPayloadToState,
+    [updatePost.fulfilled]: putPayloadToState,
+    [archivePosts.fulfilled]: putPayloadToState,
+    [unarchivePosts.fulfilled]: (state, action) => {
+      action.payload.forEach(companyPostId => {
+        const i = state.findIndex(elem => elem.companyPostId === companyPostId);
+        state[i].isActive = true;
       })
     },
-    [deletePosts.fulfilled]: (state, action) => {
-      return state.filter(elem => !action.payload.includes(elem.companyPostID))
-    },
+    [approveRequest.fulfilled]: (state, action) => {
+      // TODO: add the approved request to posts
+    }
   }
 });
 
@@ -67,24 +56,24 @@ export const postsSelector = state => { // TODO: memoise this
   const companies = companiesSelector(state);
   return mergeCompanyInfo(posts, companies);
 };
-export const displayedPostsSelector = state => {
+export const activePostsSelector = state => {
   return postsSelector(state).filter(elem => elem.isActive)
 }
 export const archivedPostsSelector = state => {
   return postsSelector(state).filter(elem => !elem.isActive);
 }
-export const postSelector = companyPostID => state => {
+export const postSelector = companyPostId => state => {
   return postsSelector(state)
-    .find(elem => elem.companyPostID === companyPostID)
+    .find(elem => elem.companyPostId == companyPostId)
 }
-export const postOrRequestSelector = companyPostID => state => {
-  return postSelector(companyPostID)(state)
-      || requestSelector(companyPostID)(state);
+export const postOrRequestSelector = companyPostId => state => {
+  return postSelector(companyPostId)(state)
+      || requestSelector(companyPostId)(state);
 }
 
-export const postsByCompanySelector = companyID => state => {
+export const postsByCompanySelector = companyId => state => {
   return postsSelector(state)
-    .filter(elem => elem.companyID === companyID)
+    .filter(elem => elem.companyId === companyId)
 }
 
 export default postSlice.reducer;

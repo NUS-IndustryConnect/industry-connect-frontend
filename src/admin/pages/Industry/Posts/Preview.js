@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import PostPreview from '../../../../common/post/PostPreview';
 import { requestSelector, requestThunks } from '../../../../redux/industry/requestSlice';
+import { userSelector } from '../../../../redux/industry/userSlice';
 import Page from '../../Page';
 import ContactButton from './ContactButton';
 
@@ -12,13 +13,16 @@ export default function Preview() {
   const dispatch = useDispatch();
   const { id } = useParams();
   const data = useSelector(requestSelector(id));
+  const companyUser = useSelector(userSelector(data?.companyUserId));
 
   const handleApprove = () => {
-    dispatch(requestThunks.approveRequest(id, "approver name"))
+    dispatch(requestThunks.approveRequest({ companyPostRequestId: id, approvedBy: "approver name" }))
+    // TODO: WAITING FOR ADMIN AUTHENTICATION
+    // handle approver
     history.push("/admin/industry/posts")
-    // TODO: handle approver
   }
   const handleReject = () => {
+    dispatch(requestThunks.rejectRequest({ companyPostRequestId: id, feedback: "" }));
     // TODO: create form for typing in feedback
     history.push("/admin/industry/posts")
   }
@@ -29,15 +33,18 @@ export default function Preview() {
       isError={!Boolean(data)}
       errorMessage={<p>Post not found. Please select another post.</p>}
     >
-      <PostPreview data={data} />
+      <PostPreview data={data} urlPath="/admin/industry/posts" />
       <section className="bottom-buttons">
-        <ContactButton email="blah@example.com" />
-        {/* TODO: replace placeholder email */}
+        <ContactButton email={companyUser?.email} />
         <div className="action-buttons">
           <button className="warning right" onClick={handleReject}>Reject</button>
           <button className="success right" onClick={handleApprove}>Approve</button>
         </div>
       </section>
+
+      {data?.status === "rejected"
+        ? <p>This post has been rejected.</p>
+        : null}
     </Page>
   )
 }

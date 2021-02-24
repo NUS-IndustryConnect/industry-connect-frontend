@@ -1,55 +1,24 @@
-const exampleRequests = [
-  {
-    companyPostID: "11",
-    companyID: "1",
-    companyName: "Shopee",
-    postTitle: "Request 1",
-    postSubtitle: "Sign up by 10 Jan!",
-    description: "This is our event description",
-    videoUrl: "https://www.youtube.com/watch?v=Jf_2EyDNywE",
-    lastUpdated: new Date(),
-    relatedJobs: [],
-    status: "pending",
-    feedback: ""
-  },
-  {
-    companyPostID: "12",
-    companyID: "1",
-    companyName: "Shopee",
-    postTitle: "Request 2",
-    postSubtitle: "Sign up by 10 Jan!",
-    description: "This is our event description",
-    videoUrl: "https://www.youtube.com/watch?v=Jf_2EyDNywE",
-    lastUpdated: new Date(),
-    relatedJobs: [],
-    status: "pending",
-    feedback: ""
-  },
-  {
-    companyPostID: "13",
-    companyID: "1",
-    companyName: "Shopee",
-    postTitle: "Request 3",
-    postSubtitle: "Sign up by 10 Jan!",
-    description: "This is our event description",
-    videoUrl: "https://www.youtube.com/watch?v=Jf_2EyDNywE",
-    lastUpdated: new Date(),
-    relatedJobs: [],
-    status: "rejected",
-    feedback: ""
-  }
-]
+import { api } from ".";
 
+// TODO: WAITING FOR COMPANY AUTHENTICATION
+// company should only be able to access their own company requests
+// and not those of other companies
 const getRequests = () => {
-  return Promise.resolve(exampleRequests);
-  // return fetch('/companyPostRequest');
+  return api.get('/companyPostRequest')
+  .then(response => response.data)
+  .catch(error => { throw error });
 }
 
+// TODO: WAITING FOR COMPANY AUTHENTICATION
+// this should be the implementation of getRequests
+// once company authentication is done
+const getRequestsByCompany = companyId => {
+  return api.get(`/companyPostRequest/${companyId}`);
+}
+
+
 const createRequest = data => {
-  return fetch('/companyPostRequest/create', {
-    method: "POST",
-    body: data,
-  })
+  return api.post('/companyPostRequest/create', data);
 }
 
 

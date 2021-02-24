@@ -1,79 +1,29 @@
-const exampleRequests = [
-  {
-    companyPostID: "11",
-    companyId: "1",
-    companyName: "Shopee",
-    postTitle: "Request 1",
-    postSubtitle: "Sign up by 10 Jan!",
-    description: "This is our event description",
-    videoUrl: "https://www.youtube.com/watch?v=Jf_2EyDNywE",
-    lastUpdated: new Date(),
-    relatedJobs: [],
-    status: "pending",
-    feedback: ""
-  },
-  {
-    companyPostID: "12",
-    companyId: "1",
-    companyName: "Shopee",
-    postTitle: "Request 2",
-    postSubtitle: "Sign up by 10 Jan!",
-    description: "This is our event description",
-    videoUrl: "https://www.youtube.com/watch?v=Jf_2EyDNywE",
-    lastUpdated: new Date(),
-    relatedJobs: [],
-    status: "pending",
-    feedback: ""
-  },
-  {
-    companyPostID: "13",
-    companyId: "1",
-    companyName: "Shopee",
-    postTitle: "Request 3",
-    postSubtitle: "Sign up by 10 Jan!",
-    description: "This is our event description",
-    videoUrl: "https://www.youtube.com/watch?v=Jf_2EyDNywE",
-    lastUpdated: new Date(),
-    relatedJobs: [],
-    status: "rejected",
-    feedback: ""
-  }
-]
+import { api } from ".";
 
 const getRequests = () => {
-  return Promise.resolve(exampleRequests);
-  // return fetch('/companyPostRequest');
+  return api.get('/companyPostRequest')
+  .then(response => response.data)
+  .catch(error => { throw error });
 }
 
-const getRequestsByCompany = companyID => {
-  return fetch(`/companyPostRequest/${companyID}`);
+const getRequestsByCompany = companyId => {
+  return api.get(`/companyPostRequest/${companyId}`);
 }
 
-const createRequest = data => {
-  return fetch('/companyPostRequest/create', {
-    method: "POST",
-    body: data,
-  })
+const createRequest = async data => {
+  return api.post('/companyPostRequest/create', data)
 }
 
-const approveRequest = (companyPostRequestID, approvedBy) => {
-  return fetch('/companyPostRequest/approve', {
-    method: "POST",
-    body: {
-      companyPostRequestID,
-      approvedBy,
-    }
-  })
+const approveRequest = async ({ companyPostRequestId, approvedBy }) => {
+  const body = { companyPostRequestId, approvedBy };
+  return api.put('/companyPostRequest/approve', body)
+  .then(response => response.data);
 }
 
-const rejectRequest = (companyPostRequestID, feedback) => {
-  return fetch('/companyPostRequest/reject', {
-    method: "POST",
-    body: {
-      companyPostRequestID,
-      feedback
-    }
-  })
+const rejectRequest = async ({ companyPostRequestId, feedback }) => {
+  const body = { companyPostRequestId, feedback };
+  return api.put('/companyPostRequest/reject', body)
+  .then(response => response.data);
 }
 
 const postRequestApi = {

@@ -1,74 +1,31 @@
-// TODO: replace with BE API calls
-const examplePosts = [
-  {
-    companyPostID: "1",
-    companyID: "1",
-    companyName: "Shopee",
-    postTitle: "Post 1",
-    postSubtitle: "subtitle",
-    description: "Get a job here",
-    videoUrl: "https://www.youtube.com/watch?v=Jf_2EyDNywE",
-    lastUpdated: new Date(),
-    validTill: new Date(),
-    approvedBy: "approver",
-    isActive: true,
-    links: [
-      "http://nus.edu.sg/",
-    ]
-  },
-  {
-    companyPostID: "2",
-    companyID: "1",
-    companyName: "Shopee",
-    postTitle: "Post 2",
-    postSubtitle: "subtitle",
-    description: "Get a job here",
-    videoUrl: "https://www.youtube.com/watch?v=Jf_2EyDNywE",
-    lastUpdated: new Date(),
-    validTill: new Date(),
-    approvedBy: "approver",
-    isActive: true,
-    links: [
-      "http://nus.edu.sg/",
-    ]
-  },
-  {
-    companyPostID: "3",
-    companyID: "1",
-    companyName: "Shopee",
-    postTitle: "Post 3",
-    postSubtitle: "subtitle",
-    description: "Get a job here",
-    videoUrl: "https://www.youtube.com/watch?v=Jf_2EyDNywE",
-    lastUpdated: new Date(),
-    validTill: new Date(),
-    approvedBy: "approver",
-    isActive: false,
-    links: [
-      "http://nus.edu.sg/",
-    ]
-  }
-]
+import { api } from "."
 
+// TODO: WAITING FOR COMPANY AUTHENTICATION
+// company should only be able to access their own company posts
+// and not those of other companies
 const getPosts = async () => {
-  // return fetch('/companyPost')
-  return Promise.resolve(examplePosts)
+  return api.get("/companyPost")
+  .then(response => response.data)
+  .catch(error => { throw error });
 }
 
 const getValidPosts = () => {
-  return fetch('/companyPost/valid');
+  return api.get('/companyPost/valid');
 }
 
+// TODO: WAITING FOR COMPANY AUTHENTICATION
+// this should be the implementation of getPosts
+// once company authentication is done
 const getPostsByCompany = companyID => {
-  return fetch(`/companyPost/company/${companyID}`);
+  return api.get(`/companyPost/company/${companyID}`);
 }
 
 const getValidPostsByCompany = companyID => {
-  return fetch(`/companyPost/company/${companyID}/valid`);
+  return api.get(`/companyPost/company/${companyID}/valid`);
 }
 
-const getPostsByUser = companyUserID => {
-  return fetch(`/companyPost/user/${companyUserID}`);
+const getPostsByUser = companyUserId => {
+  return api.get(`/companyPost/user/${companyUserId}`);
 }
 
 const createPost = async data => {
@@ -78,34 +35,17 @@ const createPost = async data => {
     isActive: true,
     lastUpdated: new Date(),
   }
-  // return fetch('/companyPost/create', {
-  //   method: "POST",
-  //   body: data,
-  // });
+  // return api.post('/companyPost/create', data);
 }
 
 const updatePost = async data => {
-  return data;
-  // return fetch(`/companyPost/update/${data.id}`, {
-  //   method: "POST",
-  //   body: data
-  // })
+  return api.put('/companyPost/update', data)
+  .then(response => response.data);
 }
 
-const archivePosts = async companyPostIDs => {
-  return companyPostIDs;
-  // return fetch('/companyPost/archive', {
-  //   method: "POST",
-  //   body: { companyPostIDs }
-  // })
-}
-
-const deletePosts = async companyPostIDs => {
-  return companyPostIDs;
-  // return fetch('/companyPost/delete', {
-  //   method: "DELETE",
-  //   body: { companyPostIDs }
-  // })
+const archivePosts = async companyPostId => {
+  return api.put(`/companyPost/archive/${companyPostId}`)
+  .then(response => response.data);
 }
 
 const postsApi = {
@@ -117,7 +57,6 @@ const postsApi = {
   createPost,
   updatePost,
   archivePosts,
-  deletePosts,
 }
 
 export default postsApi;

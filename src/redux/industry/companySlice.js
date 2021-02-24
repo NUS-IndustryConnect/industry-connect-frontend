@@ -2,24 +2,29 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 import adminApi from '../../admin/api';
 import studentApi from '../../student/api';
-import { pluraliseThunk } from '../utils';
-import { postSelector } from './postSlice';
+import { pluraliseThunk, putPayloadToState } from '../utils';
+import { postsSelector } from './postSlice';
 
 // thunks
 const getAdminCompanies = createAsyncThunk('admin/companies/get', adminApi.companies.getCompanies);
 const getStudentCompanies = createAsyncThunk('student/companies/get', studentApi.companies.getCompanies);
 const postCompany = createAsyncThunk('admin/companies/post', adminApi.companies.postCompany);
 const updateCompany = createAsyncThunk('admin/companies/update', adminApi.companies.updateCompany);
-const deleteCompany = createAsyncThunk('admin/companies/delete', adminApi.companies.deleteCompany);
-const deleteCompanies = pluraliseThunk(deleteCompany);
+const archiveCompany = createAsyncThunk('admin/companies/archive', adminApi.companies.archiveCompany);
+const unarchiveCompany = createAsyncThunk('admin/companies/unarchive', adminApi.companies.unarchiveCompany);
+
+const archiveCompanies = pluraliseThunk(archiveCompany);
+const unarchiveCompanies = pluraliseThunk(unarchiveCompany);
 
 export const companyThunks = {
   getAdminCompanies,
   getStudentCompanies,
   postCompany,
   updateCompany,
-  deleteCompany,
-  deleteCompanies,
+  archiveCompany,
+  archiveCompanies,
+  unarchiveCompany,
+  unarchiveCompanies,
 }
 
 // slice
@@ -28,23 +33,14 @@ export const companySlice = createSlice({
   initialState: [],
   reducers: {},
   extraReducers: {
-    [getAdminCompanies.fulfilled]: (state, action) => {
-      return action.payload;
-    },
-    [getStudentCompanies.fulfilled]: (state, action) => {
-      return action.payload;
-    },
-    [postCompany.fulfilled]: (state, action) => {
-      state.push(action.payload);
-    },
-    [updateCompany.fulfilled]: (state, action) => {
-      return state.map(elem =>
-        elem.companyID === action.payload.companyID
-          ? action.payload
-          : elem);
-    },
-    [deleteCompany.fulfilled]: (state, action) => {
-      return state.filter(elem => elem.companyID !== action.payload)
+    [getAdminCompanies.fulfilled]: putPayloadToState,
+    [getStudentCompanies.fulfilled]: putPayloadToState,
+    [postCompany.fulfilled]: putPayloadToState,
+    [updateCompany.fulfilled]: putPayloadToState,
+    [archiveCompany.fulfilled]: putPayloadToState,
+    [unarchiveCompany.fulfilled]: (state, action) => {
+      const i = state.findIndex(elem => elem.companyId === action.payload);
+      state[i].isActive = true;
     }
   }
 });
@@ -53,17 +49,22 @@ export const companySlice = createSlice({
 export const companiesSelector = state => state.industry.companies;
 export const companiesDropdownSelector = state => {
   return companiesSelector(state)
-    .map(({ companyID, companyName }) => ({ value: companyID, label: companyName }))
+    .map(({ companyId, companyName }) => ({ value: companyId, label: companyName }))
 }
-export const companySelector = companyID => state => {
+export const companySelector = companyId => state => {
   const rawCompany = companiesSelector(state)
-    .find(elem => elem.companyID === companyID);
-  const companyPosts = rawCompany?.companyPosts
-    .map(id => postSelector(id)(state))
-    .filter(Boolean);
-  return rawCompany
-    ? { ...rawCompany, companyPosts }
-    : rawCompany;
+    .find(elem => elem.companyId === companyId);
+  const rawCompanyPosts = postsSelector(state);
+  const companyPosts = rawCompanyPosts.filter((elem) => elem.companyId === companyId);
+  return { ...rawCompany, companyPosts };
+}
+
+export const activeCompaniesSelector = state => {
+  return companiesSelector(state).filter(elem => elem.isActive)
+}
+
+export const archivedCompaniesSelector = state => {
+  return companiesSelector(state).filter(elem => !elem.isActive);
 }
 
 const arrayToObj = (arr, key) => {
@@ -75,11 +76,11 @@ const arrayToObj = (arr, key) => {
 }
 
 export const mergeCompanyInfo = (users, companies) => {
-  const companiesObj = arrayToObj(companies, "companyID");
+  const companiesObj = arrayToObj(companies, "companyId");
   return users.map(
     user => ({
       ...user,
-      company: companiesObj[user.companyID]
+      company: companiesObj[user.companyId]
     })
   );
 }

@@ -11,25 +11,32 @@ const ADMIN_EMAIL_LINK = <a href={`mailto:${ADMIN_EMAIL}`}>{ADMIN_EMAIL}</a>
 const ERRORS = {
   INVALID_EMAIL: <p>Please enter a valid email address.</p>,
   INVALID_OTP: <p>Please enter a valid OTP.</p>,
-  NOT_RECOGNISED: <p>We don't recognise this email address. Would you like to request for an account with {ADMIN_EMAIL_LINK} instead?</p>,
-  INCORRECT: <p>Incorrect OTP. Your account will be locked after 5 incorrect attempts.</p>,
+  EMAIL_NOT_RECOGNISED: <p>We don't recognise this email address. Would you like to request for an account with {ADMIN_EMAIL_LINK} instead?</p>,
+  INCORRECT_OTP: <p>Incorrect OTP. Your account will be locked after 5 incorrect attempts.</p>,
   LOCKED: <p>More than 5 incorrect OTP attempts. Your account has been locked for 24 hours. You may contact {ADMIN_EMAIL_LINK} to unlock it.</p>
 }
 
-export default function Login() {
+export default function Login({ setLoggedIn }) {
   const [email, setEmail] = useState("");
   const [OTP, setOTP] = useState("");
   const [isOTPSent, setOTPSent] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
   const history = useHistory();
 
-  const handleSendOTP = event => {
+  const handleSendOTP = async event => {
     event.preventDefault();
-    if (email.length > 0) {
-      industryApi.sendOTP(email).then(() => {
+    if (isOTPSent) {
+      // there are 2 forms on the page
+      // so the user may press enter to submit the login form, not this form
+      return;
+    } else if (email.length > 0) {
+      if (email === "wenjun.lye@gmail.com") { // TODO: temporary account mechanism
+        await industryApi.auth.sendOTP(email)
         setOTPSent(true);
         setErrorMessage(null);
-      });
+      } else {
+        setErrorMessage(ERRORS.EMAIL_NOT_RECOGNISED)
+      }
     } else {
       setErrorMessage(ERRORS.INVALID_EMAIL);
     }
@@ -41,12 +48,17 @@ export default function Login() {
     setOTPSent(false);
   }
 
-  const handleLogin = event => {
+  const handleLogin = async event => {
     event.preventDefault();
     if (OTP) {
-      industryApi.login(email, OTP).then(() => {
+      if (OTP === "123456") { // TODO: temporary OTP mechanism
+        await industryApi.auth.login(email, OTP);
+        // TODO: handle wrong credentials
         history.push("/industry");
-      });
+        setLoggedIn(true);
+      } else {
+        setErrorMessage(ERRORS.INCORRECT_OTP);
+      }
     } else {
       setErrorMessage(ERRORS.INVALID_OTP);
     }
@@ -61,6 +73,7 @@ export default function Login() {
           onChange={e => setEmail(e.target.value)}
           placeholder="Email address"
           disabled={isOTPSent}
+          autoFocus
           required
         />
         { !isOTPSent ? 
@@ -75,11 +88,12 @@ export default function Login() {
             value={OTP}
             onChange={e => setOTP(e.target.value)}
             placeholder="OTP"
+            autoFocus
             required
           />
           <div className="button-row">
-            <button className="secondary" onClick={handleBack}>Back</button>
-            <button className="primary" onClick={handleLogin}>Login</button>
+            <button type="button" className="secondary" onClick={handleBack}>Back</button>
+            <button type="submit" className="primary right">Login</button>
           </div>
         </form>
         : null }

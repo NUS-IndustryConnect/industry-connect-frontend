@@ -2,13 +2,14 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 import adminApi from '../../admin/api';
 import industryApi from '../../industry/api';
+import { putPayloadToState } from '../utils';
 import { companiesSelector, mergeCompanyInfo } from './companySlice';
 
 // thunks
 const getAdminRequests = createAsyncThunk('admin/requests/get', adminApi.requests.getRequests)
 const getIndustryRequests = createAsyncThunk('industry/requests/get', industryApi.requests.getRequests)
 const createRequest = createAsyncThunk('admin/requests/create', adminApi.requests.createRequest)
-const approveRequest = createAsyncThunk('admin/requests/approve', adminApi.requests.approveRequest)
+export const approveRequest = createAsyncThunk('admin/requests/approve', adminApi.requests.approveRequest)
 const rejectRequest = createAsyncThunk('admin/requests/reject', adminApi.requests.rejectRequest)
 
 export const requestThunks = {
@@ -25,21 +26,11 @@ export const requestSlice = createSlice({
   initialState: [],
   reducers: {},
   extraReducers: {
-    [getAdminRequests.fulfilled]: (state, action) => {
-      return action.payload;
-    },
-    [getIndustryRequests.fulfilled]: (state, action) => {
-      return action.payload;
-    },
-    [createRequest.fulfilled]: (state, action) => {
-      state.push(action.payload);
-    },
-    [approveRequest.fulfilled]: (state, action) => {
-      
-    },
-    [rejectRequest.fulfilled]: (state, action) => {
-      
-    },
+    [getAdminRequests.fulfilled]: putPayloadToState,
+    [getIndustryRequests.fulfilled]: putPayloadToState,
+    [createRequest.fulfilled]: putPayloadToState,
+    [approveRequest.fulfilled]: putPayloadToState,
+    [rejectRequest.fulfilled]: putPayloadToState,
   }
 });
 
@@ -50,13 +41,13 @@ export const requestsSelector = state => {
   const companies = companiesSelector(state);
   return mergeCompanyInfo(requests, companies);
 }
-export const requestSelector = companyPostID => state => {
+export const requestSelector = companyPostRequestId => state => {
   return requestsSelector(state)
-    .find(elem => elem.companyPostID === companyPostID);
+    .find(elem => elem.companyPostRequestId === companyPostRequestId);
 }
-export const requestsByCompanySelector = companyID => state => {
+export const requestsByCompanySelector = companyId => state => {
   return requestsSelector(state)
-    .filter(elem => elem.companyID === companyID)
+    .filter(elem => elem.companyId === companyId)
 }
 
 export default requestSlice.reducer;

@@ -3,44 +3,51 @@ import { useHistory, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import VerticalTable from '../../../../common/VerticalTable';
+import Table from '../../../../common/Table';
 import ButtonLink from '../../../../common/ButtonLink';
 import { companySelector } from '../../../../redux/industry/companySlice';
 import { usersOfCompanySelector } from '../../../../redux/industry/userSlice';
+import { requestsByCompanySelector } from '../../../../redux/industry/requestSlice';
+import { postsByCompanySelector } from '../../../../redux/industry/postSlice';
 import Page from '../../Page';
-import Table from '../../../../common/Table';
 
 export default function View() {
   const history = useHistory();
-  const { id: companyID } = useParams();
-  const data = useSelector(companySelector(companyID));
+  const { id: companyId } = useParams();
+  const data = useSelector(companySelector(companyId));
   const {
     companyName,
     companyTier,
     companyDescription,
-    companyPosts = []
   } = data || {};
-  const users = useSelector(usersOfCompanySelector(companyID));
+  const users = useSelector(usersOfCompanySelector(companyId));
+  const posts = useSelector(postsByCompanySelector(companyId));
+  const requests = useSelector(requestsByCompanySelector(companyId))
 
-  const usersDataToRow = ({ companyUserID, userEmail, lastLoggedIn }) => (
+  const usersDataToRow = ({ companyUserId, name, email, lastLoggedIn }) => (
     <tr
-      key={companyUserID}
-      onClick={() => history.push(`/admin/industry/users/view/${companyUserID}`)}
+      key={companyUserId}
+      onClick={() => history.push(`/admin/industry/users/view/${companyUserId}`)}
       className="clickable"
     >
-      <td>{userEmail}</td>
-      <td>{lastLoggedIn.toLocaleDateString()}</td>
+      <td>{name}</td>
+      <td>{email}</td>
+      <td>{new Date(lastLoggedIn).toLocaleDateString()}</td>
     </tr>
   );
-  const postsDataToRow = ({ companyPostID, lastUpdated, postTitle }) => (
-    <tr
-      key={companyPostID}
-      onClick={() => history.push(`/admin/industry/posts/preview/${companyPostID}`)}
-      className="clickable"
-    >
-      <td>{postTitle}</td>
-      <td>{lastUpdated.toLocaleDateString()}</td>
-    </tr>
-  );
+  const postsDataToRow = urlPath => ({ companyPostId, lastUpdated, postTitle }) => {
+    // TODO: date given is in DD-MM-YYYY format but new Date() expects MM-DD-YYYY
+    return (
+      <tr
+        key={companyPostId}
+        onClick={() => history.push(`/admin/industry/posts/${urlPath}/${companyPostId}`)}
+        className="clickable"
+      >
+        <td>{postTitle}</td>
+        <td>{new Date(lastUpdated).toLocaleDateString()}</td>
+      </tr>
+    )
+  };
   return (
     <Page
       title="View Company"
@@ -52,25 +59,35 @@ export default function View() {
         <VerticalTable data={[
           { header: "Tier", data: companyTier },
           { header: "Description", data: companyDescription },
-          { header: "Number of users", data: users.length },
-          { header: "Number of posts", data: companyPosts.length },
+          { header: "Users", data: users.length },
+          { header: "Pending Requests", data: requests.length },
+          { header: "Posts", data: posts.length },
         ]} />
-        <ButtonLink to={`/admin/industry/companies/edit/${companyID}`} label="Edit" className="secondary" />
+        <ButtonLink to={`/admin/industry/companies/edit/${companyId}`} label="Edit" className="secondary" />
       </section>
       <section>
         <h4>Users</h4>
         <Table
-          headers={["Email", "Last login"]}
+          headers={["Name", "Email", "Last login"]}
           data={users}
           dataToRow={usersDataToRow}
+        />
+      </section>
+      <section>
+        <h4>Pending Requests</h4>
+        <Table
+          headers={["Post Title", "Date"]}
+          data={requests}
+          dataToRow={postsDataToRow("preview")}
+          className="pending"
         />
       </section>
       <section>
         <h4>Posts</h4>
         <Table
           headers={["Post Title", "Date"]}
-          data={companyPosts}
-          dataToRow={postsDataToRow}
+          data={posts}
+          dataToRow={postsDataToRow("view")}
         />
       </section>
     </Page>

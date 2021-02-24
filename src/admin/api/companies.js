@@ -1,79 +1,44 @@
-// TODO: replace with BE API calls
-const exampleCompanies = [
-  {
-    companyID: "1",
-    companyName: "Shopee",
-    companyTier: "Gold",
-    companyDescription: "Shopee",
-    companyPosts: [ "1", "2", "3" ]
-  },
-  {
-    companyID: "2",
-    companyName: "Grab",
-    companyTier: "Gold",
-    companyDescription: "Grab",
-    companyPosts: []
-  },
-  {
-    companyID: "3",
-    companyName: "Google",
-    companyTier: "Silver",
-    companyDescription: "Google",
-    companyPosts: []
-  },
-  {
-    companyID: "4",
-    companyName: "Facebook",
-    companyTier: "Silver",
-    companyDescription: "Facebook",
-    companyPosts: []
-  },
-  {
-    companyID: "5",
-    companyName: "Indeed",
-    companyTier: "Silver",
-    companyDescription: "Indeed",
-    companyPosts: []
-  }
-]
+import { api } from ".";
 
 const getCompanies = () => {
-  // return fetch('/company/admin');
-  return Promise.resolve(exampleCompanies);
+  return api.get("/company/admin")
+  .then(response => response.data)
+  .catch(error => { throw error });
 }
 
 const postCompany = async data => {
-  return {
-    ...data,
-    companyID: Math.floor(Math.random() * 1000000),
-    companyPosts: []
-  }
-  // return fetch('/company/create', {
-  //   method: "POST",
-  //   body: data,
-  // })
+  return api.post('/company/create', data)
+  .then(response => response.data)
+  .catch(error => {
+    console.error(error);
+    return [];
+  });
 }
 
-const deleteCompany = async id => {
+const archiveCompany = async id => {
+  return api.put(`/company/archive/${id}`)
+  .then(response => response.data);
+}
+
+const unarchiveCompany = async id => {
+  // TODO: BE API missing
   return id;
-  // return fetch(`/company/${id}`, {
-  //   method: "DELETE"
-  // })
 }
 
 const updateCompany = async data => {
-  return data;
-  // return fetch(`/company/${id}`, {
-  //   method: "POST",
-  //   body: data,
-  // })
+  return api.put(`/company/update/${data.companyId}`, data)
+  .then(response => {
+    console.log(response);
+    return response.data;
+  });
 }
 
 const companyApi = {
   getCompanies,
   postCompany,
   updateCompany,
-  deleteCompany,
+  archiveCompany,
+  unarchiveCompany,
 }
 
 export default companyApi;

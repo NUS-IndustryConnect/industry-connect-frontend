@@ -55,6 +55,7 @@ input[type="text"],
 input[type="email"],
 textarea {
   width: 100%;
+  box-sizing: border-box;
 }
 
 textarea {
@@ -89,22 +90,30 @@ button.email > .email-address {
   margin: 0 4px;
 }
 
-.primary {
+input[type="submit"].primary,
+input[type="button"].primary,
+button.primary {
   color: white;
   background-color: var(--orange);
 }
 
-.secondary {
+input[type="submit"].secondary,
+input[type="button"].secondary,
+button.secondary {
   color: var(--darkgrey);
   background-color: var(--lightgrey);
 }
 
-.success {
+input[type="submit"].success,
+input[type="button"].success,
+button.success {
   color: white;
   background-color: var(--green);
 }
 
-.warning {
+input[type="submit"].warning,
+input[type="button"].warning,
+button.warning {
   color: white;
   background-color: var(--red);
 }

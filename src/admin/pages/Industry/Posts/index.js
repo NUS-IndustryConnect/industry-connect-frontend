@@ -10,6 +10,8 @@ import Edit from './Edit';
 import Preview from './Preview';
 import View from './View';
 
+import './index.css';
+
 const Posts = () => {
   return (
     <Switch>

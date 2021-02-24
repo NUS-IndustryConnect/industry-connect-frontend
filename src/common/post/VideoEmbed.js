@@ -1,7 +1,7 @@
 import React from 'react';
 
 export default function VideoEmbed({ videoUrl }) {
-  return videoUrl ?
+  return videoUrl?.includes("youtube") ?
     <iframe
       className="video"
       title={videoUrl}

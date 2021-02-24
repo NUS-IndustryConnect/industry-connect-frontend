@@ -5,35 +5,36 @@ import Form from '../Form';
 import { companiesDropdownSelector } from '../../redux/industry/companySlice';
 
 export const getPostFields = data => ({
-  companyID: data.get('companyID'),
+  companyId: data.get('companyId'),
   postTitle: data.get('postTitle'),
-  postSubtitle: data.get('postSubtitle'),
-  description: data.get('description'),
+  postSubTitle: data.get('postSubTitle'),
+  postDescription: data.get('postDescription'),
   videoUrl: data.get('videoUrl'),
   moreUrl: data.get('moreUrl'),
   expiryDate: data.get('expiryDate')
 })
 
 // shared by both admin and industry
-export default function PostsForm({ preview=null, submit, initial, isAdmin }) {
+export default function PostsForm({ submit, submitLabel, initial, isAdmin }) {
+  console.log('initial :', initial);
   const companiesDropdown = useSelector(companiesDropdownSelector);
   let fields = [
     { type: "text", name: "postTitle", label: "Title", initial: initial?.postTitle },
-    { type: "text", name: "postSubtitle", label: "Subtitle", initial: initial?.postSubtitle },
-    { type: "long-text", name: "description", label: "Description", initial: initial?.description },
+    { type: "text", name: "postSubTitle", label: "Subtitle", initial: initial?.postSubTitle },
+    { type: "long-text", name: "postDescription", label: "Description", initial: initial?.postDescription },
     { type: "text", name: "videoUrl", label: "Video embed link", optional: true, initial: initial?.videoUrl },
-    { type: "text", name: "moreUrl", label: "View more link", optional: true, initial: initial?.moreLink },
+    { type: "text", name: "moreUrl", label: "View more link", optional: true, initial: initial?.moreUrl },
     { type: "date", name: "expiryDate", label: "Expiry date", optional: true, initial: initial?.expiryDate },
   ];
   if (isAdmin) {
-    fields.unshift({ type: "dropdown", name: "companyID", label: "Company", options: companiesDropdown, initial: initial?.companyID });
+    fields.unshift({ type: "dropdown", name: "companyId", label: "Company", options: companiesDropdown, initial: initial?.companyId });
   }
 
   return (
     <Form
       fields={fields}
       submit={submit}
-      submitLabel="Preview"
+      submitLabel={submitLabel}
     />
   )
 }

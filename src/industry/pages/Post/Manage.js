@@ -2,46 +2,43 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
-import ButtonLink from '../../../../common/ButtonLink';
-import { activePostsSelector, archivedPostsSelector, postThunks } from '../../../../redux/industry/postSlice';
-import { requestsSelector } from '../../../../redux/industry/requestSlice';
+import Page from '../../../common/Page';
+import ButtonLink from '../../../common/ButtonLink';
+import Table from '../../../common/Table';
+import SelectTable from '../../../common/SelectTable';
+import { requestsSelector } from '../../../redux/industry/requestSlice';
+import { activePostsSelector, archivedPostsSelector, postThunks } from '../../../redux/industry/postSlice';
 
-import Page from '../../Page';
-import Table from '../../../../common/Table';
-import SelectTable from '../../../../common/SelectTable';
-
-export default function Manage() {
+export default function AfterLogin() {
   const history = useHistory();
   const dispatch = useDispatch();
-  const activePosts = useSelector(activePostsSelector);
+  const displayedPosts = useSelector(activePostsSelector);
   const archivedPosts = useSelector(archivedPostsSelector);
   const requests = useSelector(requestsSelector);
 
   const requestsDataToRow = (data) => {
-    const urlPath = '/admin/industry/posts/preview';
-    const { companyPostRequestId, postTitle, company, lastUpdated, status } = data;
-    const handleClick = () => history.push(`${urlPath}/${companyPostRequestId}`);
+    const { companyPostRequestId, postTitle, lastUpdated, status } = data;
+    const handleClick = () => history.push(`/industry/posts/view/${companyPostRequestId}`);
     return (
       <tr key={companyPostRequestId} className={status}>
         <td onClick={handleClick} className="clickable">{postTitle}</td>
-        <td onClick={handleClick} className="clickable">{company?.companyName}</td>
         <td onClick={handleClick} className="clickable">{new Date(lastUpdated).toLocaleDateString()}</td>
       </tr>
     )
   };
+
   const postsDataToRow = (data, checkbox=null) => {
-    const urlPath = '/admin/industry/posts/view';
-    const { companyPostId, postTitle, company, lastUpdated } = data;
-    const handleClick = () => history.push(`${urlPath}/${companyPostId}`);
+    const { companyPostId, postTitle, lastUpdated } = data;
+    const handleClick = () => history.push(`/industry/posts/view/${companyPostId}`);
     return (
       <tr key={companyPostId}>
         <td>{ checkbox }</td>
         <td onClick={handleClick} className="clickable">{postTitle}</td>
-        <td onClick={handleClick} className="clickable">{company?.companyName}</td>
         <td onClick={handleClick} className="clickable">{new Date(lastUpdated).toLocaleDateString()}</td>
       </tr>
     )
   };
+
 
   const archivePosts = {
     label: "Archive",
@@ -50,7 +47,7 @@ export default function Manage() {
       dispatch(postThunks.archivePosts(selections));
     }
   }
-
+  
   const unarchivePosts = {
     label: "Unarchive",
     className: "secondary",
@@ -60,13 +57,12 @@ export default function Manage() {
   }
 
   return (
-    <Page title="Manage Industry Posts">
-      <ButtonLink to="/admin/industry/posts/new" label="New Industry Post" className="primary" />
-      
+    <Page title="Industry Posts">
+      <ButtonLink to="/industry/posts/new" label="Create new post" className="primary" />
       <section>
         <h3>Pending Requests</h3>
         <Table
-          headers={["Title", "Company", "Last Updated"]}
+          headers={["Title", "Last Updated"]}
           data={requests}
           dataToRow={requestsDataToRow}
           className="pending"
@@ -74,22 +70,22 @@ export default function Manage() {
       </section>
   
       <section>
-        <h3>Active Posts</h3>
+        <h3>Active</h3>
         <SelectTable
-          headers={['Title', "Company", "Last Updated"]}
-          data={activePosts}
-          idKey="companyPostId"
+          headers={['Title', "Last Updated"]}
+          data={displayedPosts}
+          idKey="companyPostID"
           dataToRow={postsDataToRow}
           actions={[ archivePosts ]}
         />
       </section>
 
       <section>
-        <h3>Archived Posts</h3>
+        <h3>Archived</h3>
         <SelectTable
-          headers={['Title', "Company", "Last Updated"]}
+          headers={['Title', "Last Updated"]}
           data={archivedPosts}
-          idKey="companyPostId"
+          idKey="companyPostID"
           dataToRow={postsDataToRow}
           className="archived"
           actions={[ unarchivePosts ]}

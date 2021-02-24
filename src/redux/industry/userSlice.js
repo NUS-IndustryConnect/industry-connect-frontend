@@ -2,22 +2,28 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 import adminApi from '../../admin/api';
 import { companiesSelector, mergeCompanyInfo } from './companySlice';
-import { pluraliseThunk } from '../utils';
-import { postSelector } from './postSlice';
+import { pluraliseThunk, putPayloadToState } from '../utils';
+import { postsSelector } from './postSlice';
 
 // thunks
 const getUsers = createAsyncThunk('admin/users/get', adminApi.users.getUsers)
 const postUser = createAsyncThunk('admin/users/create', adminApi.users.postUser)
 const updateUser = createAsyncThunk('admin/users/update', adminApi.users.updateUser)
-const deleteUser = createAsyncThunk('admin/users/delete', adminApi.users.deleteUser)
-const deleteUsers = pluraliseThunk(deleteUser);
+const unlockUser = createAsyncThunk('admin/users/unlock', adminApi.users.unlockUser);
+const archiveUser = createAsyncThunk('admin/users/archive', adminApi.users.archiveUser)
+const unarchiveUser = createAsyncThunk('admin/users/unarchive', adminApi.users.unarchiveUser)
+const archiveUsers = pluraliseThunk(archiveUser);
+const unarchiveUsers = pluraliseThunk(unarchiveUser);
 
 export const userThunks = {
   getUsers,
   postUser,
   updateUser,
-  deleteUser,
-  deleteUsers,
+  unlockUser,
+  archiveUser,
+  archiveUsers,
+  unarchiveUser,
+  unarchiveUsers,
 }
 
 // slice
@@ -26,20 +32,28 @@ export const userSlice = createSlice({
   initialState: [],
   reducers: {},
   extraReducers: {
-    [getUsers.fulfilled]: (state, action) => {
-      return action.payload;
-    },
+    [getUsers.fulfilled]: putPayloadToState,
     [postUser.fulfilled]: (state, action) => {
       state.push(action.payload);
     },
     [updateUser.fulfilled]: (state, action) => {
       return state.map(elem =>
-        elem.companyUserID === action.payload.companyUserID
+        elem.companyUserId === action.payload.companyUserId
           ? action.payload
           : elem);
     },
-    [deleteUser.fulfilled]: (state, action) => {
-      return state.filter(elem => elem.companyUserID !== action.payload)
+    [unlockUser.fulfilled]: (state, action) => {
+      const i = state.findIndex(elem => elem.companyUserId === action.payload);
+      state[i].isLocked = false;
+      state[i].lockedUntil = null;
+    },
+    [archiveUser.fulfilled]: (state, action) => {
+      const i = state.findIndex(elem => elem.companyUserId === action.payload);
+      state[i].isActive = false;
+    },
+    [unarchiveUser.fulfilled]: (state, action) => {
+      const i = state.findIndex(elem => elem.companyUserId === action.payload);
+      state[i].isActive = true;
     }
   }
 });
@@ -51,19 +65,23 @@ export const usersSelector = state => {
   const companies = companiesSelector(state);
   return mergeCompanyInfo(users, companies);
 };
-export const usersOfCompanySelector = companyID => state => {
-  return usersSelector(state)
-    .filter(elem => elem.companyID === companyID)
+export const activeUsersSelector = state => {
+  return usersSelector(state).filter(elem => elem.isActive);
 }
-export const userSelector = companyUserID => state => {
+export const archivedUsersSelector = state => {
+  return usersSelector(state).filter(elem => !elem.isActive);
+}
+
+export const usersOfCompanySelector = companyId => state => {
+  return usersSelector(state)
+    .filter(elem => elem.companyId === companyId)
+}
+export const userSelector = companyUserId => state => {
   const rawUser = usersSelector(state)
-    .find(elem => elem.companyUserID === companyUserID);
-  const userPosts = rawUser?.userPosts
-    .map(id => postSelector(id)(state))
-    .filter(Boolean);
-  return rawUser
-    ? { ...rawUser, userPosts }
-    : rawUser;
+    .find(elem => elem.companyUserId === companyUserId);
+  const rawPosts = postsSelector(state);
+  const userPosts = rawPosts.filter(elem => elem.companyUserId === companyUserId);
+  return { ...rawUser, userPosts };
 }
 
 export default userSlice.reducer;
