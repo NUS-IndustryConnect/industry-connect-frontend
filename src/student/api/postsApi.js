@@ -12,7 +12,7 @@ export const getPostsApi = async () => {
   await axios
       .get(`${BASE_URL}/companyPost/student`, config)
       .then(res => {
-          posts = res.data.data;
+          posts = res.data;
       })
       .catch(err => {
           throw err;
