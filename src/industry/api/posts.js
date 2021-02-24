@@ -1,6 +1,7 @@
 import { api } from "."
 
-// TODO: company should only be able to access their own company posts
+// TODO: WAITING FOR COMPANY AUTHENTICATION
+// company should only be able to access their own company posts
 // and not those of other companies
 const getPosts = async () => {
   return api.get("/companyPost")
@@ -12,7 +13,8 @@ const getValidPosts = () => {
   return api.get('/companyPost/valid');
 }
 
-// TODO: this should be the implementation of getPosts
+// TODO: WAITING FOR COMPANY AUTHENTICATION
+// this should be the implementation of getPosts
 // once company authentication is done
 const getPostsByCompany = companyID => {
   return api.get(`/companyPost/company/${companyID}`);

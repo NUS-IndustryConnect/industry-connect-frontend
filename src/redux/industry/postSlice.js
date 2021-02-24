@@ -44,7 +44,7 @@ export const postSlice = createSlice({
       })
     },
     [approveRequest.fulfilled]: (state, action) => {
-      // TODO: add this to posts
+      // TODO: add the approved request to posts
     }
   }
 });

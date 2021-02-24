@@ -13,7 +13,8 @@ export default function Preview() {
   const data = location?.state.data;
 
   const submit = () => {
-    // TODO: get appropriate companyId and companyUserId (subject to company authentication)
+    // TODO: WAITING FOR COMPANY AUTHENTICATION
+    // get appropriate companyId and companyUserId
     const filledData = {
       ...data,
       companyId: "nD7GMgRxi8wAe4LD",

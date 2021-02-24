@@ -17,7 +17,8 @@ export default function Preview() {
 
   const handleApprove = () => {
     dispatch(requestThunks.approveRequest({ companyPostRequestId: id, approvedBy: "approver name" }))
-    // TODO: handle approver
+    // TODO: WAITING FOR ADMIN AUTHENTICATION
+    // handle approver
     history.push("/admin/industry/posts")
   }
   const handleReject = () => {

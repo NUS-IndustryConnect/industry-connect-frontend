@@ -1,6 +1,7 @@
 import { api } from ".";
 
-// TODO: company should only be able to access their own company requests
+// TODO: WAITING FOR COMPANY AUTHENTICATION
+// company should only be able to access their own company requests
 // and not those of other companies
 const getRequests = () => {
   return api.get('/companyPostRequest')
@@ -8,7 +9,8 @@ const getRequests = () => {
   .catch(error => { throw error });
 }
 
-// TODO: this should be the implementation of getRequests
+// TODO: WAITING FOR COMPANY AUTHENTICATION
+// this should be the implementation of getRequests
 // once company authentication is done
 const getRequestsByCompany = companyId => {
   return api.get(`/companyPostRequest/${companyId}`);
