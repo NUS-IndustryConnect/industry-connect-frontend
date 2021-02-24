@@ -28,7 +28,7 @@ const PostList = ({ postList = [] }) => {
             <Card.Subtitle className="mb-2 text-muted">{companyName}</Card.Subtitle>
           </Card.Body>
           <Card.Footer>
-            <small className="text-muted">Last updated on {lastUpdated.toLocaleDateString()}</small>
+            <small className="text-muted">Last updated on {new Date(lastUpdated).toLocaleDateString()}</small>
           </Card.Footer>
         </Card>
       </li>
