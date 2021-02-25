@@ -1,11 +1,11 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import adminApi from '../admin/api';
-import studentApi from '../student/api';
+import { getAnnouncementsStudent } from '../server/announcements';
 import { pluraliseThunk } from './utils';
 
 // thunk version of API calls
 const getAdminAnnouncements = createAsyncThunk('admin/announcements/get', adminApi.announcements.getAnnouncements);
-const getStudentAnnouncements = createAsyncThunk('student/announcements/get', studentApi.announcements.getAnnouncementsApi);
+const getStudentAnnouncements = createAsyncThunk('student/announcements/get', getAnnouncementsStudent);
 const postAnnouncement = createAsyncThunk('admin/announcements/post', adminApi.announcements.postAnnouncement);
 const updateAnnouncement = createAsyncThunk('admin/announcements/update', adminApi.announcements.updateAnnouncement);
 const archiveAnnouncement = createAsyncThunk('admin/announcements/archive', adminApi.announcements.archiveAnnouncement);
