@@ -9,6 +9,12 @@ header {
   color: white;
 }
 
+.app-title-text {
+  cursor: pointer;
+  color: white;
+  text-decoration: none;
+}
+
 .page-title {
   flex: 1;
   padding: 14px 16px;

@@ -1,4 +1,6 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import './index.css';
 
@@ -11,11 +13,17 @@ const Page = (props) => {
     isError=false,
     errorMessage
   } = props;
+  const { token, role } = useSelector(state => state.user);
+
+  const headerLink = !token ? "/login" : "/" + role;
+
   return (
     <React.Fragment>
       <header>
         <div className="app-title">
-          <h1>IndustryConnect</h1>
+          <Link className="app-title-text" to={headerLink}>
+            <h1>IndustryConnect</h1>
+          </Link>
         </div>
         <div className="page-title">
           <h2>{title}</h2>

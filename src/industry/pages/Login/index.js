@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
 import Page from '../../../common/Page';
+import { login } from '../../../redux/user/userActions';
 import industryApi from '../../api';
 import './index.css';
 
@@ -16,7 +18,8 @@ const ERRORS = {
   LOCKED: <p>More than 5 incorrect OTP attempts. Your account has been locked for 24 hours. You may contact {ADMIN_EMAIL_LINK} to unlock it.</p>
 }
 
-export default function Login({ setLoggedIn }) {
+export default function Login() {
+  const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [OTP, setOTP] = useState("");
   const [isOTPSent, setOTPSent] = useState(false);
@@ -55,7 +58,7 @@ export default function Login({ setLoggedIn }) {
         await industryApi.auth.login(email, OTP);
         // TODO: handle wrong credentials
         history.push("/industry");
-        setLoggedIn(true);
+        dispatch(login({email, OTP}));
       } else {
         setErrorMessage(ERRORS.INCORRECT_OTP);
       }
@@ -63,6 +66,7 @@ export default function Login({ setLoggedIn }) {
       setErrorMessage(ERRORS.INVALID_OTP);
     }
   }
+  
   return (
     <Page title="Industry Posts" className="login-container">
       <h3>Login</h3>

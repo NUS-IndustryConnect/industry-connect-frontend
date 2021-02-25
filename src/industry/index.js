@@ -15,11 +15,11 @@ export default function Industry() {
   }, [dispatch, dataFetched]);
 
   // TODO: temporary login mechanism
-  const [isLoggedIn, setLoggedIn] = useState(true);
+  const { isLoggedIn } = useSelector(state => state.user);
   return (
     <Switch>
       <Route path="/industry/posts"><Post /></Route>
-      <Route path="/industry/login"><Login setLoggedIn={setLoggedIn}/></Route>
+      <Route path="/industry/login"><Login /></Route>
       <Route exact path="/industry"><Landing isLoggedIn={isLoggedIn}/></Route>
     </Switch>
   )
