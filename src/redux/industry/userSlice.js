@@ -1,17 +1,17 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-import adminApi from '../../admin/api';
+import adminApi from '../../server/adminApi';
 import { companiesSelector, mergeCompanyInfo } from './companySlice';
 import { pluraliseThunk, putPayloadToState } from '../utils';
 import { postsSelector } from './postSlice';
 
 // thunks
-const getUsers = createAsyncThunk('admin/users/get', adminApi.users.getUsers)
-const postUser = createAsyncThunk('admin/users/create', adminApi.users.postUser)
-const updateUser = createAsyncThunk('admin/users/update', adminApi.users.updateUser)
-const unlockUser = createAsyncThunk('admin/users/unlock', adminApi.users.unlockUser);
-const archiveUser = createAsyncThunk('admin/users/archive', adminApi.users.archiveUser)
-const unarchiveUser = createAsyncThunk('admin/users/unarchive', adminApi.users.unarchiveUser)
+const getUsers = createAsyncThunk('admin/users/get', adminApi.companyUsers.getAllCompanyUsers)
+const postUser = createAsyncThunk('admin/users/create', adminApi.companyUsers.postCompanyUser)
+const updateUser = createAsyncThunk('admin/users/update', adminApi.companyUsers.updateCompanyUser)
+const unlockUser = createAsyncThunk('admin/users/unlock', adminApi.companyUsers.unlockCompanyUser);
+const archiveUser = createAsyncThunk('admin/users/archive', adminApi.companyUsers.archiveCompanyUser)
+const unarchiveUser = createAsyncThunk('admin/users/unarchive', adminApi.companyUsers.unarchiveCompanyUser)
 const archiveUsers = pluraliseThunk(archiveUser);
 const unarchiveUsers = pluraliseThunk(unarchiveUser);
 
