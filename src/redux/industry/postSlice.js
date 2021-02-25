@@ -1,15 +1,15 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 import adminApi from '../../admin/api';
-import studentApi from '../../student/api';
 import industryApi from '../../industry/api';
 import { putPayloadToState } from '../utils';
 import { companiesSelector, mergeCompanyInfo } from './companySlice';
 import { approveRequest, requestSelector } from './requestSlice';
+import { getCompanyPostsStudent } from '../../server/companyPosts';
 
 // thunks
 const getAdminPosts = createAsyncThunk('admin/posts/get', adminApi.posts.getPosts)
-const getStudentPosts = createAsyncThunk('student/posts/get', studentApi.posts.getPostsApi)
+const getStudentPosts = createAsyncThunk('student/posts/get', getCompanyPostsStudent)
 const getIndustryPosts = createAsyncThunk('industry/posts/get', industryApi.posts.getPosts)
 const createPost = createAsyncThunk('admin/posts/create', adminApi.posts.createPost)
 const updatePost = createAsyncThunk('admin/posts/update', adminApi.posts.updatePost)

@@ -1,13 +1,13 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 import adminApi from '../../admin/api';
-import studentApi from '../../student/api';
+import { getCompanies } from '../../student/api/companies';
 import { pluraliseThunk, putPayloadToState } from '../utils';
 import { postsSelector } from './postSlice';
 
 // thunks
 const getAdminCompanies = createAsyncThunk('admin/companies/get', adminApi.companies.getCompanies);
-const getStudentCompanies = createAsyncThunk('student/companies/get', studentApi.companies.getCompanies);
+const getStudentCompanies = createAsyncThunk('student/companies/get', getCompanies);
 const postCompany = createAsyncThunk('admin/companies/post', adminApi.companies.postCompany);
 const updateCompany = createAsyncThunk('admin/companies/update', adminApi.companies.updateCompany);
 const archiveCompany = createAsyncThunk('admin/companies/archive', adminApi.companies.archiveCompany);
