@@ -5,7 +5,7 @@ import studentApi from '../server/studentApi';
 import { pluraliseThunk } from './utils';
 
 // thunk version of API calls
-const getAdminAnnouncements = createAsyncThunk('admin/announcements/get', adminApi.announcements.getAnnouncementsAdmin);
+const getAdminAnnouncements = createAsyncThunk('admin/announcements/get', adminApi.announcements.getAnnouncements);
 const getStudentAnnouncements = createAsyncThunk('student/announcements/get', studentApi.getAnnouncements);
 const postAnnouncement = createAsyncThunk('admin/announcements/post', adminApi.announcements.postAnnouncement);
 const updateAnnouncement = createAsyncThunk('admin/announcements/update', adminApi.announcements.updateAnnouncement);

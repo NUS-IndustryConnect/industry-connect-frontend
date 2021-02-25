@@ -1,6 +1,6 @@
 import { api } from "../utils";
 
-const getAnnouncements = () => {
+const getAnnouncements = async () => {
 	return api.get("/announcement/admin")
 		.then(response => response.data.data)
 		.catch(error => { throw error });
