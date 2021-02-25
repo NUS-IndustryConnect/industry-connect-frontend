@@ -1,12 +1,12 @@
-import { api } from ".";
+import { api } from "../utils";
 
 // TODO: WAITING FOR COMPANY AUTHENTICATION
 // company should only be able to access their own company requests
 // and not those of other companies
 const getRequests = () => {
   return api.get('/companyPostRequest')
-  .then(response => response.data)
-  .catch(error => { throw error });
+    .then(response => response.data)
+    .catch(error => { throw error });
 }
 
 // TODO: WAITING FOR COMPANY AUTHENTICATION
@@ -21,10 +21,10 @@ const createRequest = data => {
   return api.post('/companyPostRequest/create', data);
 }
 
-
-const postRequestApi = {
+const companyPostRequests = {
   getRequests,
+  getRequestsByCompany,
   createRequest,
 }
 
-export default postRequestApi;
+export default companyPostRequests;

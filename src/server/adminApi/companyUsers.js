@@ -1,6 +1,6 @@
-import { api } from ".";
+import { api } from "../utils";
 
-const getUsers = async () => {
+const getCompanyUsers = async () => {
   return api.get('/companyUser/users')
   .then(response => response.data)
   .catch(error => {
@@ -13,11 +13,11 @@ const getUsersOfCompany = companyId => {
   return api.get(`/companyUser/company/${companyId}`);
 }
 
-const getUser = async companyUserId => {
+const getCompanyUser = async companyUserId => {
   return api.get(`/companyUser/user/${companyUserId}`)
 }
 
-const postUser = async data => {
+const postCompanyUser = async data => {
   return api.post('/companyUser/create', data)
   .then(response => response.data)
   .catch(error => {
@@ -26,37 +26,37 @@ const postUser = async data => {
   });
 }
 
-const updateUser = async data => {
+const updateCompanyUser = async data => {
   return data;
   // TODO: BE API missing
   // return api.post('/companyUser/update', data);
 }
 
-const unlockUser = async companyUserId => {
+const unlockCompanyUser = async companyUserId => {
   return companyUserId;
 }
 
-const archiveUser = async companyUserId => {
+const archiveCompanyUser = async companyUserId => {
   return companyUserId;
   // TODO: BE API missing
   // return api.post(`/companyUser/archive/${companyUserId}`)
   // .then(response => response.data);
 }
 
-const unarchiveUser = async companyUserId => {
+const unarchiveCompanyUser = async companyUserId => {
   // TODO: BE API missing
   return companyUserId;
 }
 
-const usersApi = {
-  getUsers,
+const companyUsers = {
+  getCompanyUsers,
   getUsersOfCompany,
-  getUser,
-  postUser,
-  updateUser,
-  unlockUser,
-  archiveUser,
-  unarchiveUser,
+  getCompanyUser,
+  postCompanyUser,
+  updateCompanyUser,
+  unlockCompanyUser,
+  archiveCompanyUser,
+  unarchiveCompanyUser,
 }
 
-export default usersApi;
+export default companyUsers;

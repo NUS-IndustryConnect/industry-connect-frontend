@@ -1,16 +1,16 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-import adminApi from '../../admin/api';
-import industryApi from '../../industry/api';
+import adminApi from '../../server/adminApi';
+import companyApi from '../../server/companyApi';
 import { putPayloadToState } from '../utils';
 import { companiesSelector, mergeCompanyInfo } from './companySlice';
 
 // thunks
-const getAdminRequests = createAsyncThunk('admin/requests/get', adminApi.requests.getRequests)
-const getIndustryRequests = createAsyncThunk('industry/requests/get', industryApi.requests.getRequests)
-const createRequest = createAsyncThunk('admin/requests/create', adminApi.requests.createRequest)
-export const approveRequest = createAsyncThunk('admin/requests/approve', adminApi.requests.approveRequest)
-const rejectRequest = createAsyncThunk('admin/requests/reject', adminApi.requests.rejectRequest)
+const getAdminRequests = createAsyncThunk('admin/requests/get', adminApi.companyPostRequests.getRequestsAdmin)
+const getIndustryRequests = createAsyncThunk('industry/requests/get', companyApi.companyPostRequests.getRequests)
+const createRequest = createAsyncThunk('admin/requests/create', adminApi.companyPostRequests.createRequest)
+export const approveRequest = createAsyncThunk('admin/requests/approve', adminApi.companyPostRequests.approveRequest)
+const rejectRequest = createAsyncThunk('admin/requests/reject', adminApi.companyPostRequests.rejectRequest)
 
 export const requestThunks = {
   getAdminRequests,

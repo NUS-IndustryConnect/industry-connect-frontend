@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import Page from '../../../common/Page';
-import industryApi from '../../api';
+import authenticationApi from '../../../server/authenticationApi';
 import './index.css';
 
 const ADMIN_EMAIL = "placeholder@nus.edu.sg"
@@ -31,7 +31,7 @@ export default function Login({ setLoggedIn }) {
       return;
     } else if (email.length > 0) {
       if (email === "wenjun.lye@gmail.com") { // TODO: temporary account mechanism
-        await industryApi.auth.sendOTP(email)
+        await authenticationApi.sendOTP(email)
         setOTPSent(true);
         setErrorMessage(null);
       } else {
@@ -52,7 +52,7 @@ export default function Login({ setLoggedIn }) {
     event.preventDefault();
     if (OTP) {
       if (OTP === "123456") { // TODO: temporary OTP mechanism
-        await industryApi.auth.login(email, OTP);
+        await authenticationApi.auth.login(email, OTP);
         // TODO: handle wrong credentials
         history.push("/industry");
         setLoggedIn(true);
