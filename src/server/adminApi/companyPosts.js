@@ -1,3 +1,5 @@
+import { api } from "../utils";
+
 const getPosts = async () => {
 	// gets all company posts including archived
 	return api.get("/companyPost")
