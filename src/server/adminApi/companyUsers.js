@@ -1,6 +1,6 @@
 import { api } from "../utils";
 
-const getCompanyUsers = async () => {
+const getAllCompanyUsers = async () => {
   return api.get('/companyUser/users')
   .then(response => response.data)
   .catch(error => {
@@ -49,7 +49,7 @@ const unarchiveCompanyUser = async companyUserId => {
 }
 
 const companyUsers = {
-  getCompanyUsers,
+  getAllCompanyUsers,
   getUsersOfCompany,
   getCompanyUser,
   postCompanyUser,

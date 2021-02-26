@@ -6,7 +6,7 @@ import Page from '../../../common/Page';
 import PostPreview from '../../../common/post/PostPreview';
 import { postOrRequestSelector } from '../../../redux/industry/postSlice';
 
-export default function Preview() {
+export default function View() {
   const { id } = useParams();
   const data = useSelector(postOrRequestSelector(id));
   return (
@@ -16,6 +16,10 @@ export default function Preview() {
       errorMessage={<p>Post not found. Please select another post.</p>}
     >
       <PostPreview data={data} urlPath="/industry/posts" />
+
+      {data?.status === "rejected"
+        ? <p>This post has been rejected.</p>
+        : null}
     </Page>
   )
 }

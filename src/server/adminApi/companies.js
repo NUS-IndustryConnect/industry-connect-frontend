@@ -27,10 +27,7 @@ const unarchiveCompany = async id => {
 
 const updateCompany = async data => {
   return api.put(`/company/update/${data.companyId}`, data)
-  .then(response => {
-    console.log(response);
-    return response.data;
-  });
+  .then(response => response.data);
 }
 
 const companies = {

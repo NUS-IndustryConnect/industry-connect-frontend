@@ -5,7 +5,8 @@ import { api } from '../utils';
 // once company authentication is done
 const getPosts = () => {
 	// gets all company posts for a given company (even archived)
-  return api.get(`/companyPost`);
+  return api.get("/companyPost")
+  .then(response => response.data);
 }
 
 // TODO: WAITING FOR COMPANY AUTHENTICATION
