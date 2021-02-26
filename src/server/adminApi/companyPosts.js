@@ -33,7 +33,7 @@ const createPost = async data => {
 	.catch(error => {
 		console.error(error);
 		return [];
-	});;
+	});
 }
 
 const updatePost = async data => {

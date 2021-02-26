@@ -6,7 +6,7 @@ import PostPreview from '../../../../common/post/PostPreview';
 import { postSelector } from '../../../../redux/industry/postSlice';
 import Page from '../../Page';
 
-export default function Preview() {
+export default function View() {
   const { id } = useParams();
   const data = useSelector(postSelector(id));
 

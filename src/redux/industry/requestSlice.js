@@ -6,7 +6,7 @@ import { putPayloadToState } from '../utils';
 import { companiesSelector, mergeCompanyInfo } from './companySlice';
 
 // thunks
-const getAdminRequests = createAsyncThunk('admin/requests/get', adminApi.companyPostRequests.getRequestsAdmin)
+const getAdminRequests = createAsyncThunk('admin/requests/get', adminApi.companyPostRequests.getRequests)
 const getIndustryRequests = createAsyncThunk('industry/requests/get', companyApi.companyPostRequests.getRequests)
 const createRequest = createAsyncThunk('admin/requests/create', adminApi.companyPostRequests.createRequest)
 export const approveRequest = createAsyncThunk('admin/requests/approve', adminApi.companyPostRequests.approveRequest)
