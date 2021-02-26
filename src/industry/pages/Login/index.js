@@ -3,8 +3,8 @@ import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
 import Page from '../../../common/Page';
-import { login } from '../../../redux/user/userActions';
-import industryApi from '../../api';
+import { loginCompany } from '../../../redux/user/userActions';
+import authenticationApi from '../../../server/authenticationApi';
 import './index.css';
 
 const ADMIN_EMAIL = "placeholder@nus.edu.sg"
@@ -34,7 +34,7 @@ export default function Login() {
       return;
     } else if (email.length > 0) {
       if (email === "wenjun.lye@gmail.com") { // TODO: temporary account mechanism
-        await industryApi.auth.sendOTP(email)
+        await authenticationApi.sendOTP(email)
         setOTPSent(true);
         setErrorMessage(null);
       } else {
@@ -55,10 +55,10 @@ export default function Login() {
     event.preventDefault();
     if (OTP) {
       if (OTP === "123456") { // TODO: temporary OTP mechanism
-        await industryApi.auth.login(email, OTP);
+        await authenticationApi.login(email, OTP);
         // TODO: handle wrong credentials
         history.push("/industry");
-        dispatch(login({email, OTP}));
+        dispatch(loginCompany({email, OTP}));
       } else {
         setErrorMessage(ERRORS.INCORRECT_OTP);
       }

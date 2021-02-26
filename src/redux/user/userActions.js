@@ -1,6 +1,6 @@
 import { LOGIN_COMPANY_SUCCESSFUL } from "./userTypes"
 
-export const login = ({ email, otp }) => async (dispatch) => {
+export const loginCompany = ({ email, otp }) => async (dispatch) => {
   // TODO: link up to backend call
   Promise.resolve().then(() => {
     // response sucessful

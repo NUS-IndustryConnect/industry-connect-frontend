@@ -1,20 +1,20 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-import adminApi from '../../admin/api';
-import studentApi from '../../student/api';
-import industryApi from '../../industry/api';
+import adminApi from '../../server/adminApi';
+import companyApi from '../../server/companyApi';
+import studentApi from '../../server/studentApi';
 import { putPayloadToState } from '../utils';
 import { companiesSelector, mergeCompanyInfo } from './companySlice';
 import { approveRequest, requestSelector } from './requestSlice';
 
 // thunks
-const getAdminPosts = createAsyncThunk('admin/posts/get', adminApi.posts.getPosts)
-const getStudentPosts = createAsyncThunk('student/posts/get', studentApi.posts.getPostsApi)
-const getIndustryPosts = createAsyncThunk('industry/posts/get', industryApi.posts.getPosts)
-const createPost = createAsyncThunk('admin/posts/create', adminApi.posts.createPost)
-const updatePost = createAsyncThunk('admin/posts/update', adminApi.posts.updatePost)
-const archivePosts = createAsyncThunk('admin/posts/archive', adminApi.posts.archivePosts)
-const unarchivePosts = createAsyncThunk('admin/posts/unarchive', adminApi.posts.unarchivePosts)
+const getAdminPosts = createAsyncThunk('admin/posts/get', adminApi.companyPosts.getPosts)
+const getStudentPosts = createAsyncThunk('student/posts/get', studentApi.getCompanyPosts)
+const getIndustryPosts = createAsyncThunk('industry/posts/get', companyApi.companyPosts.getPosts)
+const createPost = createAsyncThunk('admin/posts/create', adminApi.companyPosts.createPost)
+const updatePost = createAsyncThunk('admin/posts/update', adminApi.companyPosts.updatePost)
+const archivePosts = createAsyncThunk('admin/posts/archive', adminApi.companyPosts.archivePosts)
+const unarchivePosts = createAsyncThunk('admin/posts/unarchive', adminApi.companyPosts.unarchivePosts)
 
 export const postThunks = {
   getAdminPosts,
@@ -64,7 +64,7 @@ export const archivedPostsSelector = state => {
 }
 export const postSelector = companyPostId => state => {
   return postsSelector(state)
-    .find(elem => elem.companyPostId == companyPostId)
+    .find(elem => elem.companyPostId === companyPostId)
 }
 export const postOrRequestSelector = companyPostId => state => {
   return postSelector(companyPostId)(state)

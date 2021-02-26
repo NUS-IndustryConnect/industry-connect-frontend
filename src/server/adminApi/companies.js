@@ -1,18 +1,18 @@
-import { api } from ".";
+import { api } from "../utils";
 
 const getCompanies = () => {
   return api.get("/company/admin")
-  .then(response => response.data)
-  .catch(error => { throw error });
+    .then(response => response.data)
+    .catch(error => { throw error });
 }
 
 const postCompany = async data => {
   return api.post('/company/create', data)
-  .then(response => response.data)
-  .catch(error => {
-    console.error(error);
-    return [];
-  });
+    .then(response => response.data)
+    .catch(error => {
+      console.error(error);
+      return [];
+    });
 }
 
 const archiveCompany = async id => {
@@ -27,13 +27,10 @@ const unarchiveCompany = async id => {
 
 const updateCompany = async data => {
   return api.put(`/company/update/${data.companyId}`, data)
-  .then(response => {
-    console.log(response);
-    return response.data;
-  });
+  .then(response => response.data);
 }
 
-const companyApi = {
+const companies = {
   getCompanies,
   postCompany,
   updateCompany,
@@ -41,4 +38,4 @@ const companyApi = {
   unarchiveCompany,
 }
 
-export default companyApi;
+export default companies;

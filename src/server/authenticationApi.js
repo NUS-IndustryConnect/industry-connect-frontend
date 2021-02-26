@@ -8,9 +8,9 @@ const login = (email, OTP) => {
   return Promise.resolve();
 }
 
-const authApi = {
+const authenticationApi = {
   sendOTP,
   login
 }
 
-export default authApi;
+export default authenticationApi;

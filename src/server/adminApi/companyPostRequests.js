@@ -1,4 +1,4 @@
-import { api } from ".";
+import { api } from "../utils";
 
 const getRequests = () => {
   return api.get('/companyPostRequest')
@@ -26,7 +26,7 @@ const rejectRequest = async ({ companyPostRequestId, feedback }) => {
   .then(response => response.data);
 }
 
-const postRequestApi = {
+const companyPostRequests = {
   getRequests,
   getRequestsByCompany,
   createRequest,
@@ -34,4 +34,4 @@ const postRequestApi = {
   rejectRequest,
 }
 
-export default postRequestApi;
+export default companyPostRequests;
