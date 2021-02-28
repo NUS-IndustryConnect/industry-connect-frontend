@@ -23,17 +23,16 @@ function App() {
           <Route path="/admin"><Admin /></Route>
           <Route path="/industry"><Industry /></Route>
           <Route path="/login"><Home /></Route>
-          <Route path="/"
-            render={() => {
+          <Route path="/" render={() => {
               // if logged in redirect to role
               if (!token) {
                 return <Redirect to="/login" />
               }
 
               return (
-                role == "student" ? <Redirect to="/student" /> :
-                role == "admin" ? <Redirect to="/admin" /> :
-                role == "company" ? <Redirect to="/industry" /> :
+                role === "student" ? <Redirect to="/student" /> :
+                role === "admin" ? <Redirect to="/admin" /> :
+                role === "company" ? <Redirect to="/industry" /> :
                   <Redirect to="/login" />
               )
             }}

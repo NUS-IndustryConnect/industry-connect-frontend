@@ -26,6 +26,15 @@ header {
   width: 225px;
 }
 
+.logout-title {
+  background-color: white;
+}
+
+.logout-button {
+  color: white;
+  background-color: var(--orange);
+}
+
 nav {
   padding: 16px;
   background-color: var(--blue);

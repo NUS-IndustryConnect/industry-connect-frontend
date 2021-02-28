@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useParams, useHistory, useLocation } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import Page from '../Page';
