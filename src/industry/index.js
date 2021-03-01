@@ -1,26 +1,20 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
-import { industryDataFetchedSelector, getIndustryIndustryThunk } from '../redux/industry';
 import Landing from './pages/Landing';
 import Login from './pages/Login';
-import Post from './pages/Post';
+import Protected from './routes/Protected';
+import ProtectedRoute from './routes/ProtectedRoute';
 
 export default function Industry() {
-  const dispatch = useDispatch();
-  const dataFetched = useSelector(industryDataFetchedSelector);
-  useEffect(() => {
-    if (!dataFetched) dispatch(getIndustryIndustryThunk());
-  }, [dispatch, dataFetched]);
-
-  // TODO: temporary login mechanism
   const { isLoggedIn } = useSelector(state => state.user);
+
   return (
     <Switch>
-      <Route path="/industry/posts"><Post /></Route>
-      <Route path="/industry/login"><Login /></Route>
-      <Route exact path="/industry"><Landing isLoggedIn={isLoggedIn}/></Route>
+      <Route path="/industry/landing" component={Landing} />
+      <Route path="/industry/login" component={Login} />
+      <ProtectedRoute path='/industry' component={Protected} auth={isLoggedIn} />
     </Switch>
   )
 }

@@ -15,11 +15,11 @@ import './index.css';
 const Posts = () => {
   return (
     <Switch>
-      <Route path="/admin/industry/posts/new"><New /></Route>
-      <Route path="/admin/industry/posts/edit/:id"><Edit /></Route>
-      <Route path="/admin/industry/posts/preview/:id"><Preview /></Route>
-      <Route path="/admin/industry/posts/view/:id"><View /></Route>
-      <Route path="/admin/industry/posts"><Manage /></Route>
+      <Route exact path="/admin/industry/posts/new"><New /></Route>
+      <Route exact path="/admin/industry/posts/edit/:id"><Edit /></Route>
+      <Route exact path="/admin/industry/posts/preview/:id"><Preview /></Route>
+      <Route exact path="/admin/industry/posts/view/:id"><View /></Route>
+      <Route exact path="/admin/industry/posts"><Manage /></Route>
     </Switch>
   )
 }

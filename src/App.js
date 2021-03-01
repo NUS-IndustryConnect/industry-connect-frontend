@@ -25,16 +25,7 @@ function App() {
           <Route path="/login"><Home /></Route>
           <Route path="/" render={() => {
               // if logged in redirect to role
-              if (!token) {
-                return <Redirect to="/login" />
-              }
-
-              return (
-                role === "student" ? <Redirect to="/student" /> :
-                role === "admin" ? <Redirect to="/admin" /> :
-                role === "company" ? <Redirect to="/industry" /> :
-                  <Redirect to="/login" />
-              )
+              return token ? <Redirect to={"/" + role} /> : <Redirect to="/login" />
             }}
           />
         </Switch>

@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
 import Page from '../../../common/Page';
-import { loginCompany } from '../../../redux/user/userActions';
+import { loginCompanyWithOTP } from '../../../redux/user/userActions';
 import authenticationApi from '../../../server/authenticationApi';
 import './index.css';
 
@@ -33,13 +33,14 @@ export default function Login() {
       // so the user may press enter to submit the login form, not this form
       return;
     } else if (email.length > 0) {
-      if (email === "wenjun.lye@gmail.com") { // TODO: temporary account mechanism
-        await authenticationApi.sendOTP(email)
-        setOTPSent(true);
-        setErrorMessage(null);
-      } else {
-        setErrorMessage(ERRORS.EMAIL_NOT_RECOGNISED)
-      }
+      await authenticationApi.sendOTP(email)
+        .then(res => {
+          setOTPSent(true);
+          setErrorMessage(null);
+        })
+        .catch(error => { // not a registered company user email
+          setErrorMessage(ERRORS.EMAIL_NOT_RECOGNISED)
+        })
     } else {
       setErrorMessage(ERRORS.INVALID_EMAIL);
     }
@@ -54,14 +55,15 @@ export default function Login() {
   const handleLogin = async event => {
     event.preventDefault();
     if (OTP) {
-      if (OTP === "123456") { // TODO: temporary OTP mechanism
-        await authenticationApi.login(email, OTP);
-        // TODO: handle wrong credentials
-        history.push("/industry");
-        dispatch(loginCompany({email, OTP}));
-      } else {
-        setErrorMessage(ERRORS.INCORRECT_OTP);
+      const data = {
+        email: email,
+        otp: OTP
       }
+      await dispatch(loginCompanyWithOTP(data)).then(res => {
+        history.push("/industry/posts");
+      }).catch(error => {
+        setErrorMessage(ERRORS.INCORRECT_OTP);
+      })
     } else {
       setErrorMessage(ERRORS.INVALID_OTP);
     }
@@ -101,7 +103,7 @@ export default function Login() {
           </div>
         </form>
         : null }
-      { errorMessage || null}
+      { errorMessage || null }
     </Page>
   )
 }

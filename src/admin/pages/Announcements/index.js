@@ -18,9 +18,9 @@ export default function Announcements () {
   }, [dispatch, dataFetched]);
   return (
     <Switch>
-      <Route path="/admin/announcements/new"><NewAnnouncement /></Route>
-      <Route path="/admin/announcements/edit/:id"><EditAnnouncement /></Route>
-      <Route path="/admin/announcements/"><ManageAnnouncements /></Route>
+      <Route exact path="/admin/announcements/new"><NewAnnouncement /></Route>
+      <Route exact path="/admin/announcements/edit/:id"><EditAnnouncement /></Route>
+      <Route exact path="/admin/announcements/"><ManageAnnouncements /></Route>
       <Route exact path="/admin"><ManageAnnouncements /></Route>
     </Switch>
   )

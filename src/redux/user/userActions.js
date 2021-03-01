@@ -1,3 +1,4 @@
+import authenticationApi from "../../server/authenticationApi";
 import { 
   LOGIN_ADMIN_SUCCESSFUL, 
   LOGIN_COMPANY_SUCCESSFUL, 
@@ -7,8 +8,7 @@ import {
 
 export const loginAdmin = () => async (dispatch) => {
   // TODO: link up to backend call
-  console.log("Redux action: Login admin")
-  Promise.resolve().then(() => {
+  Promise.resolve().then(res => {
     // response sucessful
     localStorage.setItem('@token', "res.data.token");
     dispatch({
@@ -19,13 +19,12 @@ export const loginAdmin = () => async (dispatch) => {
         isLoggedIn: true,
       }
     })
-  }).catch(err => console.log(err))
+  }).catch(err => { throw err; })
 }
 
 export const loginStudent = () => async (dispatch) => {
   // TODO: link up to backend call
-  console.log("Redux action: Login student")
-  Promise.resolve().then(() => {
+  Promise.resolve().then(res => {
     // response sucessful
     localStorage.setItem('@token', "res.data.token");
     dispatch({
@@ -36,23 +35,24 @@ export const loginStudent = () => async (dispatch) => {
         isLoggedIn: true,
       }
     })
-  }).catch(err => console.log(err))
+  }).catch(err => { throw err; })
 }
 
-export const loginCompany = ({ email, otp }) => async (dispatch) => {
-  // TODO: link up to backend call
-  Promise.resolve().then(() => {
-    // response sucessful
-    localStorage.setItem('@token', "res.data.token");
-    dispatch({
-      type: LOGIN_COMPANY_SUCCESSFUL,
-      payload: {
-        role: "company",
-        token: "success",
-        isLoggedIn: true,
-      }
+export const loginCompanyWithOTP = (data) => async (dispatch) => {
+  await authenticationApi.verifyOTP(data)
+    .then(res => {
+      localStorage.setItem('@token', "res.data.token");
+      dispatch({
+        type: LOGIN_COMPANY_SUCCESSFUL,
+        payload: {
+          role: "industry",
+          token: "success",
+          isLoggedIn: true,
+          userInfo: {...res},
+        }
+      })
     })
-  }).catch(err => console.log(err))
+    .catch(err => { throw err; })
 }
 
 export const logout = () => async (dispatch) => {

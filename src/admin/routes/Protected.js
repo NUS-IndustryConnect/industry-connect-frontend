@@ -29,21 +29,21 @@ const Protected = () => {
 
       <Route exact path="/admin/industry" component={Industry} />
       
-      <Route path="/admin/industry/companies" component={Companies} />
-      <Route path="/admin/industry/companies/new" component={NewCompany} />
-      <Route path="/admin/industry/companies/view/:id" component={ViewCompany} />
-      <Route path="/admin/industry/companies/edit/:id" component={EditCompany} />
+      <Route exact path="/admin/industry/companies" component={Companies} />
+      <Route exact path="/admin/industry/companies/new" component={NewCompany} />
+      <Route exact path="/admin/industry/companies/view/:id" component={ViewCompany} />
+      <Route exact path="/admin/industry/companies/edit/:id" component={EditCompany} />
       
-      <Route path="/admin/industry/users" component={Users} />
-      <Route path="/admin/industry/users/new" component={NewUser} />
-      <Route path="/admin/industry/users/edit/:id" component={EditUser} />
-      <Route path="/admin/industry/users/view/:id" component={ViewUser} />
+      <Route exact path="/admin/industry/users" component={Users} />
+      <Route exact path="/admin/industry/users/new" component={NewUser} />
+      <Route exact path="/admin/industry/users/edit/:id" component={EditUser} />
+      <Route exact path="/admin/industry/users/view/:id" component={ViewUser} />
 
-      <Route path="/admin/industry/posts" component={Posts} />
-      <Route path="/admin/industry/posts/new" component={NewPost} />
-      <Route path="/admin/industry/posts/edit/:id" component={EditPost} />
-      <Route path="/admin/industry/posts/preview/:id" component={PreviewPost} />
-      <Route path="/admin/industry/posts/view/:id" component={ViewPost} />
+      <Route exact path="/admin/industry/posts" component={Posts} />
+      <Route exact path="/admin/industry/posts/new" component={NewPost} />
+      <Route exact path="/admin/industry/posts/edit/:id" component={EditPost} />
+      <Route exact path="/admin/industry/posts/preview/:id" component={PreviewPost} />
+      <Route exact path="/admin/industry/posts/view/:id" component={ViewPost} />
     </>
   )
 }

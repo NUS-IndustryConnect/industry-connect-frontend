@@ -9,7 +9,7 @@ const Home = () => {
       <p>I am a</p>
       <ButtonLink to="/student" label="Student" className="primary" />
       <ButtonLink to="/admin" label="Admin" className="primary" />
-      <ButtonLink to="/industry" label="Industry" className="primary" />
+      <ButtonLink to="/industry/landing" label="Industry" className="primary" />
     </Page>
   )
 }
