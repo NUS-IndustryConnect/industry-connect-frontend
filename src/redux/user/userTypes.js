@@ -1,6 +1,9 @@
 // General Authentication Actions
 export const LOGOUT = "LOGOUT";
 
+// Admin Authentication Actions
+export const LOGIN_ADMIN_SUCCESSFUL = "LOGIN_ADMIN_SUCCESSFUL";
+
 // Student Authentication Actions
 export const LOGIN_STUDENT_SUCCESSFUL = "LOGIN_STUDENT_SUCCESSFUL";
 

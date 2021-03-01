@@ -1,4 +1,9 @@
-import { LOGIN_COMPANY_SUCCESSFUL, LOGIN_STUDENT_SUCCESSFUL, LOGOUT } from "./userTypes";
+import { 
+  LOGIN_ADMIN_SUCCESSFUL, 
+  LOGIN_COMPANY_SUCCESSFUL, 
+  LOGIN_STUDENT_SUCCESSFUL, 
+  LOGOUT 
+} from "./userTypes";
 
 const initState = {
   role: "",
@@ -10,12 +15,17 @@ const initState = {
 
 const userReducer = (state = initState, {type, payload}) => {
   switch (type) {
-    case LOGIN_STUDENT_SUCCESSFUL:
+    case LOGIN_ADMIN_SUCCESSFUL:
       return {
         ...state,
         ...payload
       };
     case LOGIN_COMPANY_SUCCESSFUL:
+      return {
+        ...state,
+        ...payload
+      };
+    case LOGIN_STUDENT_SUCCESSFUL:
       return {
         ...state,
         ...payload
