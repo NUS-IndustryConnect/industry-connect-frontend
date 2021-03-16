@@ -1,3 +1,4 @@
+import React from 'react';
 import { useSelector } from 'react-redux'
 import {
   BrowserRouter as Router,
@@ -5,6 +6,8 @@ import {
   Route,
   Redirect,
 } from "react-router-dom";
+
+import { Toaster } from 'react-hot-toast';
 
 import Home from './Home';
 import Student from './student';
@@ -17,6 +20,7 @@ function App() {
 
   return (
     <div className="App">
+      <div><Toaster position="bottom-right"/></div>
       <Router>
         <Switch>
           <Route path="/student"><Student /></Route>
