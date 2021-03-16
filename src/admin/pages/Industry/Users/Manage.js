@@ -29,12 +29,11 @@ export default function Manage() {
   }
 
   const dataToRow = (data, checkbox) => {
-    const { companyUserId, name, email, company, lastLoggedIn, isLocked } = data;
+    const { companyUserId, email, company, lastLoggedIn, isLocked } = data;
     const handleClick = () => history.push(`/admin/industry/users/view/${companyUserId}`);
     return (
       <tr key={companyUserId} className={isLocked ? "warning" : null}>
         <td>{ checkbox }</td>
-        <td className="clickable" onClick={handleClick}>{name}</td>
         <td className="clickable" onClick={handleClick}>{email}</td>
         <td className="clickable" onClick={handleClick}>{company.companyName}</td>
         <td className="clickable" onClick={handleClick}>{company.companyTier}</td>
@@ -50,7 +49,7 @@ export default function Manage() {
       <section>
         <h3>Active</h3>
         <SelectTable
-          headers={["Name", "Email Address", "Company", "Tier", "Last Login"]}
+          headers={["Email Address", "Company", "Tier", "Last Login"]}
           data={activeUsers}
           dataToRow={dataToRow}
           idKey="companyUserId"
@@ -60,7 +59,7 @@ export default function Manage() {
       <section>
         <h3>Archived</h3>
         <SelectTable
-          headers={["Name", "Email Address", "Company", "Tier", "Last Login"]}
+          headers={["Email Address", "Company", "Tier", "Last Login"]}
           data={archivedUsers}
           dataToRow={dataToRow}
           className="archived"

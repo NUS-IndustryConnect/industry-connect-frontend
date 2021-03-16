@@ -15,7 +15,7 @@ export default function UsersForm({ submit, initial }) {
   return (
     <Form
       fields={[
-        { type: "text", name: "name", label: "Name", initial: initial?.name },
+        // { type: "text", name: "name", label: "Name", initial: initial?.name },
         { type: "email", name: "email", label: "Email Address", initial: initial?.email },
         { type: "dropdown", name: "companyId", label: "Company", options: companiesDropdown, initial: initial?.companyId },
       ]}
