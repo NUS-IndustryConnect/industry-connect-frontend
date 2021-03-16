@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import Popup from 'reactjs-popup';
+
+import 'reactjs-popup/dist/index.css';
 
 import PostPreview from '../../../../common/post/PostPreview';
 import { requestSelector, requestThunks } from '../../../../redux/industry/requestSlice';
@@ -12,6 +15,7 @@ export default function Preview() {
   const history = useHistory();
   const dispatch = useDispatch();
   const { id } = useParams();
+  const [feedback, setFeedback] = useState("");
   const data = useSelector(requestSelector(id));
   const companyUser = useSelector(userSelector(data?.companyUserId));
 
@@ -21,12 +25,40 @@ export default function Preview() {
     // handle approver
     history.push("/admin/industry/posts")
   }
-  const handleReject = () => {
-    dispatch(requestThunks.rejectRequest({ companyPostRequestId: id, feedback: "" }));
-    // TODO: create form for typing in feedback
+  const handleReject = (feedback) => {
+    dispatch(requestThunks.rejectRequest({ companyPostRequestId: id, feedback }));
     history.push("/admin/industry/posts")
   }
 
+  const rejectWithPopup = (
+    <Popup
+      trigger={<button className="warning right">Reject</button>}
+      modal
+    >
+      {close => (
+        <div className="modal">
+          <h3>Feedback / Reason for rejecting post</h3>
+          <textarea
+            rows="5"
+            value={feedback}
+            onChange={e => setFeedback(e.target.value)}
+            placeholder="E.g. missing information"
+          />
+          <div className="action-buttons right">
+            <button className="right" onClick={close}>Cancel</button>
+            <button className="warning right" onClick={() => handleReject(feedback)}>Reject</button>
+          </div>
+        </div>
+      )}
+    </Popup>
+  )
+
+  let status = [];
+  if (data?.status === "rejected") {
+    status.push("This post has been rejected.");
+  }
+  status = status.concat(data?.feedback.split("\n"));
+  
   return (
     <Page
       title="Preview Post"
@@ -37,14 +69,12 @@ export default function Preview() {
       <section className="bottom-buttons">
         <ContactButton email={companyUser?.email} />
         <div className="action-buttons">
-          <button className="warning right" onClick={handleReject}>Reject</button>
+          {rejectWithPopup}
           <button className="success right" onClick={handleApprove}>Approve</button>
         </div>
       </section>
 
-      {data?.status === "rejected"
-        ? <p>This post has been rejected.</p>
-        : null}
+      {status.map((text, i) => <p key={i}>{text}</p>)}
     </Page>
   )
 }
