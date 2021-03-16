@@ -26,6 +26,13 @@ export const postThunks = {
   unarchivePosts,
 }
 
+const replacePost = (state, action) => {
+  return state.map(elem =>
+    elem.companyPostId === action.payload.companyPostId
+      ? action.payload
+      : elem);
+}
+
 export const postSlice = createSlice({
   name: "posts",
   initialState: [],
@@ -38,13 +45,8 @@ export const postSlice = createSlice({
     [getIndustryPosts.fulfilled]: putPayloadToState,
     [createPost.fulfilled]: putPayloadToState,
     [updatePost.fulfilled]: putPayloadToState,
-    [archivePosts.fulfilled]: putPayloadToState,
-    [unarchivePosts.fulfilled]: (state, action) => {
-      action.payload.forEach(companyPostId => {
-        const i = state.findIndex(elem => elem.companyPostId === companyPostId);
-        state[i].isActive = true;
-      })
-    },
+    [archivePosts.fulfilled]: replacePost,
+    [unarchivePosts.fulfilled]: replacePost,
     [approveRequest.fulfilled]: (state, action) => {
       // TODO: add the approved request to posts
     }

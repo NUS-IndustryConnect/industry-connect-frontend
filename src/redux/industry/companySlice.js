@@ -40,10 +40,7 @@ export const companySlice = createSlice({
     [postCompany.fulfilled]: putPayloadToState,
     [updateCompany.fulfilled]: putPayloadToState,
     [archiveCompany.fulfilled]: putPayloadToState,
-    [unarchiveCompany.fulfilled]: (state, action) => {
-      const i = state.findIndex(elem => elem.companyId === action.payload);
-      state[i].isActive = true;
-    }
+    [unarchiveCompany.fulfilled]: putPayloadToState,
   }
 });
 

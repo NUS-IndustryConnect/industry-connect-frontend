@@ -22,8 +22,8 @@ const archiveCompany = async id => {
 }
 
 const unarchiveCompany = async id => {
-  // TODO: BE API missing
-  return id;
+  return api.put(`/company/unarchive/${id}`)
+  .then(response => response.data);
 }
 
 const updateCompany = async data => {

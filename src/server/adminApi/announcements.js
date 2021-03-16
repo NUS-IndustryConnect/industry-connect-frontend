@@ -16,14 +16,13 @@ const postAnnouncement = async data => {
 }
 
 const archiveAnnouncement = async id => {
-	const body = { announceID: id };
-	return api.put(`/announcement/archive/${id}`, body)
+	return api.put(`/announcement/archive/${id}`)
 		.then(response => response.data.data);
 }
 
 const unarchiveAnnouncement = async id => {
-	// TODO: BE API missing
-	return id;
+	return api.put(`/announcement/unarchive/${id}`)
+		.then(response => response.data.data);
 }
 
 const updateAnnouncement = async data => {

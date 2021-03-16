@@ -26,6 +26,13 @@ export const userThunks = {
   unarchiveUsers,
 }
 
+const replaceUser = (state, action) => {
+  return state.map(elem =>
+    elem.companyUserId === action.payload.companyUserId
+      ? action.payload
+      : elem);
+}
+
 // slice
 export const userSlice = createSlice({
   name: "users",
@@ -35,27 +42,14 @@ export const userSlice = createSlice({
   },
   extraReducers: {
     [getUsers.fulfilled]: putPayloadToState,
-    [postUser.fulfilled]: (state, action) => {
-      state.push(action.payload);
-    },
-    [updateUser.fulfilled]: (state, action) => {
-      return state.map(elem =>
-        elem.companyUserId === action.payload.companyUserId
-          ? action.payload
-          : elem);
-    },
+    [postUser.fulfilled]: (state, action) => state.push(action.payload),
+    [updateUser.fulfilled]: replaceUser,
+    [archiveUser.fulfilled]: replaceUser,
+    [unarchiveUser.fulfilled]: replaceUser,
     [unlockUser.fulfilled]: (state, action) => {
       const i = state.findIndex(elem => elem.companyUserId === action.payload);
       state[i].isLocked = false;
       state[i].lockedUntil = null;
-    },
-    [archiveUser.fulfilled]: (state, action) => {
-      const i = state.findIndex(elem => elem.companyUserId === action.payload);
-      state[i].isActive = false;
-    },
-    [unarchiveUser.fulfilled]: (state, action) => {
-      const i = state.findIndex(elem => elem.companyUserId === action.payload);
-      state[i].isActive = true;
     }
   }
 });
@@ -81,6 +75,12 @@ export const usersOfCompanySelector = companyId => state => {
   return usersSelector(state)
     .filter(elem => elem.companyId === companyId)
 }
+
+export const companyUsersDropdownSelector = state => {
+  return activeUsersSelector(state)
+    .map(({ companyUserId, email }) => ({ value: companyUserId, label: email }));
+}
+
 export const userSelector = companyUserId => state => {
   const rawUser = usersSelector(state)
     .find(elem => elem.companyUserId === companyUserId);

@@ -47,9 +47,9 @@ const archivePosts = async companyPostId => {
 		.then(response => response.data);
 }
 
-const unarchivePosts = async companyPostIds => {
-	// TODO: BE API missing
-	return companyPostIds;
+const unarchivePosts = async companyPostId => {
+	return api.put(`/companyPost/unarchive/${companyPostId}`)
+		.then(response => response.data);
 }
 
 const companyPosts = {
