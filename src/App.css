@@ -62,6 +62,17 @@ textarea {
   resize: none;
 }
 
+/* modals */
+
+.modal {
+  padding: 0 15px 10px;
+}
+
+.popup-content {
+  border: none;
+  border-radius: 8px;
+}
+
 /* buttons */
 
 button, input[type="submit"], input[type="button"] {
@@ -72,6 +83,10 @@ button, input[type="submit"], input[type="button"] {
   border: none;
   outline: none;
   cursor: pointer;
+}
+
+.action-buttons.right {
+  text-align: end;
 }
 
 button.right {
@@ -86,8 +101,12 @@ button.email {
 button.email > .email-address {
   background-color: white;
   border-radius: 5px;
-  padding: 4px 8px;
+  padding: 4px 6px 4px 8px;
   margin: 0 4px;
+}
+
+button.email > .email-address > svg {
+  margin-left: 2px;
 }
 
 input[type="submit"].primary,

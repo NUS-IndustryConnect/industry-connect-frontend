@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import Popup from 'reactjs-popup';
+
+import 'reactjs-popup/dist/index.css';
 
 import ButtonLink from '../../../../common/ButtonLink';
 import { companyThunks, activeCompaniesSelector, archivedCompaniesSelector } from '../../../../redux/industry/companySlice';
@@ -12,6 +15,8 @@ export default function Manage() {
   const archivedCompanies = useSelector(archivedCompaniesSelector);
   const history = useHistory();
   const dispatch = useDispatch();
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [selections, setSelections] = useState([]);
 
   const dataToRow = (data, checkbox) => {
     const { companyId, companyName, companyTier } = data;
@@ -29,8 +34,15 @@ export default function Manage() {
     label: "Archive",
     className: "secondary",
     onClick: selections => {
-      dispatch(companyThunks.archiveCompanies(selections))
+      setSelections(selections);
+      setModalOpen(true);
     }
+  }
+
+  const handleArchive = () => {
+    setModalOpen(false);
+    setSelections([]);
+    dispatch(companyThunks.archiveCompanies(selections));
   }
 
   const unarchiveCompany = {
@@ -44,7 +56,15 @@ export default function Manage() {
   return (
     <Page title="Manage Company">
       <ButtonLink to="/admin/industry/companies/new" label="New Company" className="primary" />
-      
+      <Popup modal open={isModalOpen}>
+        <div className="modal">
+          <p>NOTE: Attempting to archive {selections.length} {selections.length === 1 ? "company" : "companies"}. If these companies still have pending post requests, the requests will be deleted. If the company is unarchived in future, they will have to re-submit their post requests.</p>
+          <div className="action-buttons right">
+            <button className="right" onClick={() => setModalOpen(false)}>Cancel</button>
+            <button className="warning right" onClick={handleArchive}>Archive</button>
+          </div>
+        </div>
+    </Popup>
       <section>
         <h3>Active</h3>
         <SelectTable
