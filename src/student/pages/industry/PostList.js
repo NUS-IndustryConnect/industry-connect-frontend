@@ -7,7 +7,7 @@ const PostList = ({ postList = [] }) => {
 
   const dataToRow = (data) => {
     const {
-      companyPostID,
+      companyPostId,
       postTitle,
       lastUpdated,
       companyName
@@ -16,9 +16,9 @@ const PostList = ({ postList = [] }) => {
         ...data
     }
     // TODO: same issue as announcements
-    const handleClick = () => history.push({pathname: `/student/industry/${companyPostID}`, state});
+    const handleClick = () => history.push({pathname: `/student/industry/${companyPostId}`, state});
     return (
-      <li key={companyPostID}>
+      <li key={companyPostId}>
         <Card
           className="industry-list-card"
           onClick={handleClick}

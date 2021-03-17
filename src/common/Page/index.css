@@ -9,6 +9,12 @@ header {
   color: white;
 }
 
+.app-title-text {
+  cursor: pointer;
+  color: white;
+  text-decoration: none;
+}
+
 .page-title {
   flex: 1;
   padding: 14px 16px;
@@ -18,6 +24,15 @@ header {
 
 .app-title, nav {
   width: 225px;
+}
+
+.logout-title {
+  background-color: white;
+}
+
+.logout-button {
+  color: white;
+  background-color: var(--orange);
 }
 
 nav {

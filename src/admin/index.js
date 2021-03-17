@@ -1,17 +1,18 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Switch, Route } from 'react-router-dom';
 
 import Login from './pages/Login';
-import Announcements from './pages/Announcements';
-import Industry from './pages/Industry';
+import Protected from './routes/Protected';
+import ProtectedRoute from './routes/ProtectedRoute';
 
 const Admin = () => {
+  const { isLoggedIn } = useSelector(state => state.user)
+
   return (
     <Switch>
-      <Route path="/admin/announcements"><Announcements /></Route>
-      <Route path="/admin/industry"><Industry /></Route>
-      <Route path="/admin/login"><Login /></Route>
-      <Route exact path="/admin"><Announcements /></Route>
+      <Route path="/admin/login" component={Login} />
+      <ProtectedRoute path='/admin' component={Protected} auth={isLoggedIn} />
     </Switch>
   )
 }

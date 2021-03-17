@@ -26,14 +26,18 @@ export const announcementThunks = {
   unarchiveAnnouncements,
 }
 
+const initialState = {
+  data: [],
+  dataFetched: false, // controls initial fetch from BE
+}
+
 // slice
 export const announcementSlice = createSlice({
   name: "announcements",
-  initialState: {
-    data: [],
-    dataFetched: false, // controls initial fetch from BE
+  initialState: initialState,
+  reducers: {
+    clearAnnouncements: (state) => initialState,
   },
-  reducers: {},
   extraReducers: {
     [getStudentAnnouncements.fulfilled]: putPayloadToData,
     [getAdminAnnouncements.fulfilled]: putPayloadToData,
@@ -56,6 +60,11 @@ export const announcementSlice = createSlice({
     }
   }
 });
+
+// actions
+export const {
+  clearAnnouncements,
+} = announcementSlice.actions
 
 // selectors
 export const announcementsFetchedSelector = state => state.announcements.dataFetched;

@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
 import Page from '../../../common/Page';
+import { getIndustryIndustryThunk } from '../../../redux/industry';
+import { loginCompanyWithOTP } from '../../../redux/user/userActions';
 import authenticationApi from '../../../server/authenticationApi';
 import './index.css';
 
@@ -16,7 +19,8 @@ const ERRORS = {
   LOCKED: <p>More than 5 incorrect OTP attempts. Your account has been locked for 24 hours. You may contact {ADMIN_EMAIL_LINK} to unlock it.</p>
 }
 
-export default function Login({ setLoggedIn }) {
+export default function Login() {
+  const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [OTP, setOTP] = useState("");
   const [isOTPSent, setOTPSent] = useState(false);
@@ -30,13 +34,14 @@ export default function Login({ setLoggedIn }) {
       // so the user may press enter to submit the login form, not this form
       return;
     } else if (email.length > 0) {
-      if (email === "wenjun.lye@gmail.com") { // TODO: temporary account mechanism
-        await authenticationApi.sendOTP(email)
-        setOTPSent(true);
-        setErrorMessage(null);
-      } else {
-        setErrorMessage(ERRORS.EMAIL_NOT_RECOGNISED)
-      }
+      await authenticationApi.sendOTP(email)
+        .then(res => {
+          setOTPSent(true);
+          setErrorMessage(null);
+        })
+        .catch(error => { // not a registered company user email
+          setErrorMessage(ERRORS.EMAIL_NOT_RECOGNISED)
+        })
     } else {
       setErrorMessage(ERRORS.INVALID_EMAIL);
     }
@@ -51,18 +56,21 @@ export default function Login({ setLoggedIn }) {
   const handleLogin = async event => {
     event.preventDefault();
     if (OTP) {
-      if (OTP === "123456") { // TODO: temporary OTP mechanism
-        await authenticationApi.auth.login(email, OTP);
-        // TODO: handle wrong credentials
-        history.push("/industry");
-        setLoggedIn(true);
-      } else {
-        setErrorMessage(ERRORS.INCORRECT_OTP);
+      const data = {
+        email: email,
+        otp: OTP
       }
+      await dispatch(loginCompanyWithOTP(data)).then(res => {
+        dispatch(getIndustryIndustryThunk());
+        history.push("/industry/posts");
+      }).catch(error => {
+        setErrorMessage(ERRORS.INCORRECT_OTP);
+      })
     } else {
       setErrorMessage(ERRORS.INVALID_OTP);
     }
   }
+  
   return (
     <Page title="Industry Posts" className="login-container">
       <h3>Login</h3>
@@ -97,7 +105,7 @@ export default function Login({ setLoggedIn }) {
           </div>
         </form>
         : null }
-      { errorMessage || null}
+      { errorMessage || null }
     </Page>
   )
 }

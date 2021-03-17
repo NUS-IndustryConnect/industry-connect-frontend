@@ -9,7 +9,7 @@ import SelectTable from '../../../common/SelectTable';
 import { requestsSelector } from '../../../redux/industry/requestSlice';
 import { activePostsSelector, archivedPostsSelector, postThunks } from '../../../redux/industry/postSlice';
 
-export default function AfterLogin() {
+const Manage = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const displayedPosts = useSelector(activePostsSelector);
@@ -94,3 +94,5 @@ export default function AfterLogin() {
     </Page>
   )
 }
+
+export default Manage;

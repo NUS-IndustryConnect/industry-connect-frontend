@@ -29,7 +29,9 @@ export const postThunks = {
 export const postSlice = createSlice({
   name: "posts",
   initialState: [],
-  reducers: {},
+  reducers: {
+    clearPostData: () => [],
+  },
   extraReducers: {
     [getAdminPosts.fulfilled]: putPayloadToState,
     [getStudentPosts.fulfilled]: putPayloadToState,
@@ -48,6 +50,9 @@ export const postSlice = createSlice({
     }
   }
 });
+
+// actions
+export const { clearPostData } = postSlice.actions;
 
 // selectors
 const rawPostsSelector = state => state.industry.posts;

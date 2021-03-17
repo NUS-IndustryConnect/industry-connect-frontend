@@ -19,10 +19,10 @@ export default function Post({ data = {}, history }) {
         <h3>{postTitle}</h3>
       </div>
       <h5>{postSubtitle}</h5>
-      <p className="description">
+      <div className="description">
         { companyName }
         { postDescription.split("\n").map((para, i) => <p key={i}>{para}</p>) }
-      </p>
+      </div>
       <VideoEmbed videoUrl={videoUrl} />
       { moreUrl ? <a href={moreUrl}><button className="primary right">Find out more</button></a> : null}
       <button type="button" onClick={() => history.push('/student/industry')}>Back</button>

@@ -30,7 +30,9 @@ export const userThunks = {
 export const userSlice = createSlice({
   name: "users",
   initialState: [],
-  reducers: {},
+  reducers: {
+    clearCompanyUserData: () => [],
+  },
   extraReducers: {
     [getUsers.fulfilled]: putPayloadToState,
     [postUser.fulfilled]: (state, action) => {
@@ -57,6 +59,9 @@ export const userSlice = createSlice({
     }
   }
 });
+
+// actions
+export const { clearCompanyUserData } = userSlice.actions;
 
 // selectors
 const rawUsersSelector = state => state.industry.users;

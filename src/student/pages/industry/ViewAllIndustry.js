@@ -22,7 +22,7 @@ const ViewAllIndustry = () => {
       const filtered = displayedPosts.filter(post => {
         return post.companyName.toLowerCase().includes(input.toLowerCase()) ||
           post.postTitle.toLowerCase().includes(input.toLowerCase()) ||
-          post.postSubtitle.toLowerCase().includes(input.toLowerCase())
+          post.postSubTitle.toLowerCase().includes(input.toLowerCase())
       })
       setPostList(filtered);
     } else {

@@ -31,7 +31,9 @@ export const companyThunks = {
 export const companySlice = createSlice({
   name: "companies",
   initialState: [],
-  reducers: {},
+  reducers: {
+    clearCompanyData: () => [],
+  },
   extraReducers: {
     [getAdminCompanies.fulfilled]: putPayloadToState,
     [getStudentCompanies.fulfilled]: putPayloadToState,
@@ -44,6 +46,9 @@ export const companySlice = createSlice({
     }
   }
 });
+
+// actions
+export const { clearCompanyData } = companySlice.actions;
 
 // selectors
 export const companiesSelector = state => state.industry.companies;
