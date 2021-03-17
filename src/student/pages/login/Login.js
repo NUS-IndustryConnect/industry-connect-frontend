@@ -5,6 +5,8 @@ import './Login.css';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { loginStudent } from '../../../redux/user/userActions';
+import { announcementThunks } from '../../../redux/announcementSlice';
+import { getStudentIndustryThunk } from '../../../redux/industry';
 
 export default function Login() {
   // TODO: link up to authentication (temporary placeholder)
@@ -13,6 +15,8 @@ export default function Login() {
   
   const handleLogin = () => {
     dispatch(loginStudent()).then(()=> {
+      dispatch(announcementThunks.getStudentAnnouncements());
+      dispatch(getStudentIndustryThunk());
       history.push("/student/announcements");
     })
   }

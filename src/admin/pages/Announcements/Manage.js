@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux'
 
@@ -15,11 +15,6 @@ import SelectTable from '../../../common/SelectTable';
 
 const Manage = () => {
   const dispatch = useDispatch();
-  const dataFetched = useSelector(announcementsFetchedSelector);
-  useEffect(() => {
-    if (!dataFetched) dispatch(announcementThunks.getAdminAnnouncements());
-  }, [dispatch, dataFetched]);
-
   const activeAnnouncements = useSelector(activeAnnouncementsSelector);
   const pinnedAnnouncements = useSelector(pinnedAnnouncementsSelector);
   const archivedAnnouncements = useSelector(archivedAnnouncementsSelector);

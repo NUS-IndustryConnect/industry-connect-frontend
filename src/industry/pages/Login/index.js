@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
 import Page from '../../../common/Page';
+import { getIndustryIndustryThunk } from '../../../redux/industry';
 import { loginCompanyWithOTP } from '../../../redux/user/userActions';
 import authenticationApi from '../../../server/authenticationApi';
 import './index.css';
@@ -60,6 +61,7 @@ export default function Login() {
         otp: OTP
       }
       await dispatch(loginCompanyWithOTP(data)).then(res => {
+        dispatch(getIndustryIndustryThunk());
         history.push("/industry/posts");
       }).catch(error => {
         setErrorMessage(ERRORS.INCORRECT_OTP);

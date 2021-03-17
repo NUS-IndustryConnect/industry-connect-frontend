@@ -5,6 +5,8 @@ import './index.css';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { loginAdmin } from '../../../redux/user/userActions';
+import { getAdminIndustryThunk } from '../../../redux/industry';
+import { announcementThunks } from '../../../redux/announcementSlice';
 
 export default function Login() {
   // TODO: link up to authentication (temporary placeholder)
@@ -13,6 +15,8 @@ export default function Login() {
   
   const handleLogin = () => {
     dispatch(loginAdmin()).then(()=> {
+      dispatch(announcementThunks.getAdminAnnouncements());
+      dispatch(getAdminIndustryThunk());
       history.push("/admin/announcements");
     })
   }

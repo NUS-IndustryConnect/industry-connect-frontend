@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
 import Manage from './Manage';
@@ -7,17 +7,8 @@ import Edit from './Edit';
 import View from './View';
 import Preview from './Preview';
 import Submitted from './Submitted';
-import { useDispatch, useSelector } from 'react-redux';
-import { getIndustryIndustryThunk, industryDataFetchedSelector } from '../../../redux/industry';
 
 export default function Post() {
-  const dispatch = useDispatch();
-  const dataFetched = useSelector(industryDataFetchedSelector);
-  
-  useEffect(() => {
-    if (!dataFetched) dispatch(getIndustryIndustryThunk());
-  }, [dispatch, dataFetched]);
-
   return (
     <Switch>
       <Route exact path="/industry/posts/new"><New /></Route>
