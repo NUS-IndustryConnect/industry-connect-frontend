@@ -43,7 +43,7 @@ export const userSlice = createSlice({
   extraReducers: {
     [getUsers.fulfilled]: putPayloadToState,
     [postUser.fulfilled]: (state, action) => state.push(action.payload),
-    [updateUser.fulfilled]: replaceUser,
+    [updateUser.fulfilled]: putPayloadToState,
     [archiveUser.fulfilled]: replaceUser,
     [unarchiveUser.fulfilled]: replaceUser,
     [unlockUser.fulfilled]: (state, action) => {

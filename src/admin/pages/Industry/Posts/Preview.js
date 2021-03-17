@@ -57,7 +57,7 @@ export default function Preview() {
   if (data?.status === "rejected") {
     status.push("This post has been rejected.");
   }
-  status = status.concat(data?.feedback.split("\n"));
+  status = status.concat(data?.feedback?.split("\n"));
   
   return (
     <Page

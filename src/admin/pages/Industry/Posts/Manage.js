@@ -19,13 +19,12 @@ export default function Manage() {
 
   const requestsDataToRow = (data) => {
     const urlPath = '/admin/industry/posts/preview';
-    const { companyPostRequestId, postTitle, company, lastUpdated, status } = data;
+    const { companyPostRequestId, postTitle, company, status } = data;
     const handleClick = () => history.push(`${urlPath}/${companyPostRequestId}`);
     return (
       <tr key={companyPostRequestId} className={status}>
         <td onClick={handleClick} className="clickable">{postTitle}</td>
         <td onClick={handleClick} className="clickable">{company?.companyName}</td>
-        <td onClick={handleClick} className="clickable">{new Date(lastUpdated).toLocaleDateString()}</td>
       </tr>
     )
   };
@@ -66,7 +65,7 @@ export default function Manage() {
       <section>
         <h3>Pending Requests</h3>
         <Table
-          headers={["Title", "Company", "Last Updated"]}
+          headers={["Title", "Company"]}
           data={requests}
           dataToRow={requestsDataToRow}
           className="pending"

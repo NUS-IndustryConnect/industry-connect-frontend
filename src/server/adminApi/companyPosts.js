@@ -30,11 +30,7 @@ const getPostsByUser = companyUserId => {
 
 const createPost = async data => {
 	return api.post('/companyPost/create', data)
-	.then(response => response.data.data)
-	.catch(error => {
-		console.error(error);
-		return [];
-	});
+	.then(response => response.data);
 }
 
 const updatePost = async data => {
