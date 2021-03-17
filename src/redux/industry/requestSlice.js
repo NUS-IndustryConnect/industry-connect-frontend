@@ -24,7 +24,9 @@ export const requestThunks = {
 export const requestSlice = createSlice({
   name: "requests",
   initialState: [],
-  reducers: {},
+  reducers: {
+    clearRequestData: () => [],
+  },
   extraReducers: {
     [getAdminRequests.fulfilled]: putPayloadToState,
     [getIndustryRequests.fulfilled]: putPayloadToState,
@@ -33,6 +35,9 @@ export const requestSlice = createSlice({
     [rejectRequest.fulfilled]: putPayloadToState,
   }
 });
+
+// actions
+export const { clearRequestData } = requestSlice.actions;
 
 // selectors
 const rawRequestsSelector = state => state.industry.requests;

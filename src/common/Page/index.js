@@ -1,6 +1,8 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
+import { clearAnnouncements } from '../../redux/announcementSlice';
+import { clearIndustry } from '../../redux/industry';
 import { logout } from '../../redux/user/userActions';
 
 import './index.css';
@@ -21,6 +23,8 @@ const Page = (props) => {
   
   const handleLogout = () => {
     dispatch(logout()).then(() => {
+      dispatch(clearAnnouncements());
+      dispatch(clearIndustry());
       history.push("/login");
     })
   }
