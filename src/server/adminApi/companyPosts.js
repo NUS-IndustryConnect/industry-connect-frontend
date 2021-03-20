@@ -2,7 +2,6 @@ import { api } from "../utils";
 
 const getPosts = async () => {
 	// gets all company posts including archived
-	console.log('Getting company post from database....');
 	return api.get("/companyPost")
 		.then(response => response.data)
 		.catch(error => { throw error });
@@ -30,11 +29,7 @@ const getPostsByUser = companyUserId => {
 
 const createPost = async data => {
 	return api.post('/companyPost/create', data)
-	.then(response => response.data.data)
-	.catch(error => {
-		console.error(error);
-		return [];
-	});
+	.then(response => response.data);
 }
 
 const updatePost = async data => {
@@ -47,9 +42,9 @@ const archivePosts = async companyPostId => {
 		.then(response => response.data);
 }
 
-const unarchivePosts = async companyPostIds => {
-	// TODO: BE API missing
-	return companyPostIds;
+const unarchivePosts = async companyPostId => {
+	return api.put(`/companyPost/unarchive/${companyPostId}`)
+		.then(response => response.data);
 }
 
 const companyPosts = {

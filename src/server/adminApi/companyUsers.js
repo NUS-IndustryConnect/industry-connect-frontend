@@ -26,10 +26,9 @@ const postCompanyUser = async data => {
   });
 }
 
-const updateCompanyUser = async data => {
-  return data;
-  // TODO: BE API missing
-  // return api.post('/companyUser/update', data);
+const updateCompanyUser = async (data) => {
+  return api.put('/companyUser/update/', data)
+  .then(response => response.data);
 }
 
 const unlockCompanyUser = async companyUserId => {
@@ -37,15 +36,13 @@ const unlockCompanyUser = async companyUserId => {
 }
 
 const archiveCompanyUser = async companyUserId => {
-  return companyUserId;
-  // TODO: BE API missing
-  // return api.post(`/companyUser/archive/${companyUserId}`)
-  // .then(response => response.data);
+  return api.put(`/companyUser/archive/${companyUserId}`)
+  .then(response => response.data);
 }
 
 const unarchiveCompanyUser = async companyUserId => {
-  // TODO: BE API missing
-  return companyUserId;
+  return api.put(`/companyUser/unarchive/${companyUserId}`)
+  .then(response => response.data);
 }
 
 const companyUsers = {

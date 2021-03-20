@@ -4,15 +4,14 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import VerticalTable from '../../../../common/VerticalTable';
 import ButtonLink from '../../../../common/ButtonLink';
-import { userSelector, userThunks } from '../../../../redux/industry/userSlice';
+import { companyUserSelector, companyUserThunks } from '../../../../redux/industry/userSlice';
 import Page from '../../Page';
 import Table from '../../../../common/Table';
 
 export default function View() {
   const { id } = useParams();
-  const data = useSelector(userSelector(id));
+  const data = useSelector(companyUserSelector(id));
   const {
-    name,
     email,
     company,
     lastLoggedIn,
@@ -35,12 +34,11 @@ export default function View() {
   )
 
   const unlockUser = () => {
-    return dispatch(userThunks.unlockUser(id));
+    return dispatch(companyUserThunks.unlockUser(id));
   }
 
   const userData = [
-    { header: "Name", data: name },
-    { header: "Email", data: email },
+    { header: "Email Address", data: email },
     { header: "Company", data: company?.companyName },
     { header: "Last login", data: new Date(lastLoggedIn)?.toLocaleDateString() },
   ];

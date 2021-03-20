@@ -1,7 +1,6 @@
 import { api } from "../utils";
 
 const getCompanies = () => {
-  console.log('Getting companies from database....');
   return api.get("/company/admin")
     .then(response => response.data)
     .catch(error => { throw error });
@@ -22,8 +21,8 @@ const archiveCompany = async id => {
 }
 
 const unarchiveCompany = async id => {
-  // TODO: BE API missing
-  return id;
+  return api.put(`/company/unarchive/${id}`)
+  .then(response => response.data);
 }
 
 const updateCompany = async data => {

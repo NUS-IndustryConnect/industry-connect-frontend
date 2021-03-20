@@ -26,6 +26,13 @@ export const announcementThunks = {
   unarchiveAnnouncements,
 }
 
+const replaceAnnouncement = (state, action) => {
+  state.data = state.data.map(elem =>
+    elem.announceID === action.payload.announceID
+      ? action.payload
+      : elem);
+}
+
 const initialState = {
   data: [],
   dataFetched: false, // controls initial fetch from BE
@@ -42,22 +49,9 @@ export const announcementSlice = createSlice({
     [getStudentAnnouncements.fulfilled]: putPayloadToData,
     [getAdminAnnouncements.fulfilled]: putPayloadToData,
     [postAnnouncement.fulfilled]: putPayloadToData,
-    [updateAnnouncement.fulfilled]: (state, action) => {
-      state.data = state.data.map(elem =>
-        elem.announceID === action.payload.announceID
-          ? action.payload
-          : elem);
-    },
-    [archiveAnnouncement.fulfilled]: (state, action) => {
-      state.data = state.data.map(elem =>
-        elem.announceID === action.payload.announceID
-          ? action.payload
-          : elem);
-    },
-    [unarchiveAnnouncement.fulfilled]: (state, action) => {
-      const i = state.data.findIndex(elem => elem.announceID === action.payload);
-      state.data[i].isActive = true;
-    }
+    [updateAnnouncement.fulfilled]: replaceAnnouncement,
+    [archiveAnnouncement.fulfilled]: replaceAnnouncement,
+    [unarchiveAnnouncement.fulfilled]: replaceAnnouncement
   }
 });
 

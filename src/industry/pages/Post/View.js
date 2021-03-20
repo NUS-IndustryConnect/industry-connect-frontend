@@ -9,6 +9,11 @@ import { postOrRequestSelector } from '../../../redux/industry/postSlice';
 export default function View() {
   const { id } = useParams();
   const data = useSelector(postOrRequestSelector(id));
+  let status = [];
+  if (data?.status === "rejected") {
+    status.push("This post has been rejected.");
+  }
+  status = status.concat(data?.feedback?.split("\n"));
   return (
     <Page
       title="View Post"
@@ -17,9 +22,7 @@ export default function View() {
     >
       <PostPreview data={data} urlPath="/industry/posts" />
 
-      {data?.status === "rejected"
-        ? <p>This post has been rejected.</p>
-        : null}
+      {status.map((text, i) => <p key={i}>{text}</p>)}
     </Page>
   )
 }

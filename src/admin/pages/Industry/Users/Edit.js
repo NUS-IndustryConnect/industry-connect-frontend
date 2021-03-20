@@ -2,7 +2,7 @@ import React from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { userSelector, userThunks } from '../../../../redux/industry/userSlice';
+import { companyUserSelector, companyUserThunks } from '../../../../redux/industry/userSlice';
 import Page from '../../Page';
 import UsersForm, { getUserFields } from './UsersForm';
 
@@ -10,14 +10,14 @@ export default function Edit() {
   const history = useHistory();
   const dispatch = useDispatch();
   const { id } = useParams();
-  const currentValues = useSelector(userSelector(id));
+  const currentValues = useSelector(companyUserSelector(id));
 
   const submit = data => {
     const userObj = {
-      ...currentValues,
+      companyUserId: currentValues.companyUserId,
       ...getUserFields(data)
     };
-    dispatch(userThunks.updateUser(userObj));
+    dispatch(companyUserThunks.updateUser(userObj));
     history.push('/admin/industry/users');
   }
 

@@ -18,7 +18,8 @@ const generateField = (fieldOptions) => {
     label,
     initial,
     optional = false,
-    options
+    options,
+    disabled = false
   } = fieldOptions;
   let component;
   if (type === "long-text") {
@@ -34,7 +35,7 @@ const generateField = (fieldOptions) => {
     );
   } else if (type === "dropdown") {
     component = (
-      <select name={name} id={name} required={!optional} defaultValue={initial}>
+      <select name={name} id={name} required={!optional} defaultValue={initial} disabled={disabled}>
         { options.map(({ value, label }) => (
           <option key={value} value={value}>{label}</option>
         )) }

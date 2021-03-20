@@ -1,25 +1,14 @@
 import { api } from '../utils';
 
-// TODO: WAITING FOR COMPANY AUTHENTICATION
-// this should be the implementation of getPosts
-// once company authentication is done
-const getPosts = () => {
+const getPostsByCompany = companyId => {
 	// gets all company posts for a given company (even archived)
-  return api.get("/companyPost")
+  return api.get(`/companyPost/company/${companyId}`)
   .then(response => response.data);
 }
 
-// TODO: WAITING FOR COMPANY AUTHENTICATION
-// this should be the implementation of getPosts
-// once company authentication is done
-const getPostsByCompany = companyID => {
-	// gets all company posts for a given company (even archived)
-  return api.get(`/companyPost/company/${companyID}`);
-}
-
-const getValidPostsByCompany = companyID => {
+const getValidPostsByCompany = companyId => {
 	// gets all active company posts for a given company
-  return api.get(`/companyPost/company/${companyID}/valid`);
+  return api.get(`/companyPost/company/${companyId}/valid`);
 }
 
 const getPostsByUser = companyUserId => {
@@ -28,7 +17,6 @@ const getPostsByUser = companyUserId => {
 }
 
 const companyPosts = {
-	getPosts,
   getPostsByCompany,
   getValidPostsByCompany,
   getPostsByUser,

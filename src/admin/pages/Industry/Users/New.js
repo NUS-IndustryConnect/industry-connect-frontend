@@ -4,14 +4,14 @@ import { useDispatch } from 'react-redux';
 
 import Page from '../../Page';
 import UsersForm, { getUserFields } from './UsersForm';
-import { userThunks } from '../../../../redux/industry/userSlice';
+import { companyUserThunks } from '../../../../redux/industry/userSlice';
 
 export default function New() {
   const history = useHistory();
   const dispatch = useDispatch();
   const submit = data => {
     const userObj = getUserFields(data);
-    dispatch(userThunks.postUser(userObj))
+    dispatch(companyUserThunks.postUser(userObj))
     history.push('/admin/industry/users');
   }
   return (

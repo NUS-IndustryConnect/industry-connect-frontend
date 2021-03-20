@@ -1,24 +1,24 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useHistory } from 'react-router-dom';
 
+import { requestThunks } from '../../../redux/industry/requestSlice';
+import { userSelector } from '../../../redux/user/userSelectors';
 import Page from '../../../common/Page';
 import PostPreview from '../../../common/post/PostPreview';
-import { requestThunks } from '../../../redux/industry/requestSlice';
 
 export default function Preview() {
   const history = useHistory();
   const dispatch = useDispatch();
   const location = useLocation();
   const data = location?.state.data;
+  const { userInfo } = useSelector(userSelector);
 
   const submit = () => {
-    // TODO: WAITING FOR COMPANY AUTHENTICATION
-    // get appropriate companyId and companyUserId
     const filledData = {
       ...data,
-      companyId: "nD7GMgRxi8wAe4LD",
-      companyUserId: "N0hJEtSr8vFiQvmn",
+      companyId: userInfo.companyId,
+      companyUserId: userInfo.companyUserId,
     }
     dispatch(requestThunks.createRequest(filledData));
     history.push("/industry/posts/submitted");

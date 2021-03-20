@@ -1,10 +1,11 @@
 import { combineReducers } from 'redux'
+import { createSlice } from '@reduxjs/toolkit';
 
 import companiesReducer, { clearCompanyData, companyThunks } from './companySlice';
-import usersReducer, { clearCompanyUserData, userThunks } from './userSlice';
+import usersReducer, { clearCompanyUserData, companyUserThunks } from './userSlice';
 import requestsReducer, { clearRequestData, requestThunks } from './requestSlice';
 import postsReducer, { clearPostData, postThunks } from './postSlice';
-import { createSlice } from '@reduxjs/toolkit';
+import { userInfoSelector } from '../user/userSelectors';
 
 const dataFetchedReducer = createSlice({
   name: "dataFetched",
@@ -33,7 +34,7 @@ export const industryDataFetchedSelector = state => state.industry.dataFetched;
 export const getAdminIndustryThunk = () => async dispatch => {
   await Promise.all([
     dispatch(companyThunks.getAdminCompanies()),
-    dispatch(userThunks.getUsers()),
+    dispatch(companyUserThunks.getUsers()),
     dispatch(requestThunks.getAdminRequests()),
     dispatch(postThunks.getAdminPosts()),
   ])
@@ -48,10 +49,11 @@ export const getStudentIndustryThunk = () => async dispatch => {
   dispatch(dataFetchedReducer.actions.fetch());
 }
 
-export const getIndustryIndustryThunk = () => async dispatch => {
+export const getIndustryIndustryThunk = () => async (dispatch, getState) => {
+  const { companyId } = userInfoSelector(getState())
   await Promise.all([
-    dispatch(postThunks.getIndustryPosts()),
-    dispatch(requestThunks.getIndustryRequests())
+    dispatch(postThunks.getIndustryPosts(companyId)),
+    dispatch(requestThunks.getIndustryRequests(companyId))
   ])
   dispatch(dataFetchedReducer.actions.fetch());
 }

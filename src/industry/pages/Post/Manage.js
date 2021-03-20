@@ -17,12 +17,11 @@ const Manage = () => {
   const requests = useSelector(requestsSelector);
 
   const requestsDataToRow = (data) => {
-    const { companyPostRequestId, postTitle, lastUpdated, status } = data;
+    const { companyPostRequestId, postTitle, status } = data;
     const handleClick = () => history.push(`/industry/posts/view/${companyPostRequestId}`);
     return (
       <tr key={companyPostRequestId} className={status}>
         <td onClick={handleClick} className="clickable">{postTitle}</td>
-        <td onClick={handleClick} className="clickable">{new Date(lastUpdated).toLocaleDateString()}</td>
       </tr>
     )
   };
@@ -62,7 +61,7 @@ const Manage = () => {
       <section>
         <h3>Pending Requests</h3>
         <Table
-          headers={["Title", "Last Updated"]}
+          headers={["Title"]}
           data={requests}
           dataToRow={requestsDataToRow}
           className="pending"
