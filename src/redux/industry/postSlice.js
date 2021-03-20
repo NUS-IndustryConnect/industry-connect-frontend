@@ -10,7 +10,7 @@ import { approveRequest, requestSelector } from './requestSlice';
 // thunks
 const getAdminPosts = createAsyncThunk('admin/posts/get', adminApi.companyPosts.getPosts)
 const getStudentPosts = createAsyncThunk('student/posts/get', studentApi.getCompanyPosts)
-const getIndustryPosts = createAsyncThunk('industry/posts/get', companyApi.companyPosts.getPosts)
+const getIndustryPosts = createAsyncThunk('industry/posts/get', companyApi.companyPosts.getPostsByCompany)
 const createPost = createAsyncThunk('admin/posts/create', adminApi.companyPosts.createPost)
 const updatePost = createAsyncThunk('admin/posts/update', adminApi.companyPosts.updatePost)
 const archivePosts = createAsyncThunk('admin/posts/archive', adminApi.companyPosts.archivePosts)
