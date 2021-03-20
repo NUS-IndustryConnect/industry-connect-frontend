@@ -14,7 +14,7 @@ export default function Edit() {
 
   const submit = data => {
     const userObj = {
-      ...currentValues,
+      companyUserId: currentValues.companyUserId,
       ...getUserFields(data)
     };
     dispatch(companyUserThunks.updateUser(userObj));

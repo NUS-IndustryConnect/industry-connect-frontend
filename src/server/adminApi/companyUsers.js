@@ -26,8 +26,7 @@ const postCompanyUser = async data => {
   });
 }
 
-const updateCompanyUser = async ({ companyUserId, companyId, email }) => {
-  const data = { companyUserId, companyId, email };
+const updateCompanyUser = async (data) => {
   return api.put('/companyUser/update/', data)
   .then(response => response.data);
 }
