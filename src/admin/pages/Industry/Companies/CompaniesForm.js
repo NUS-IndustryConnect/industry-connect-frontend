@@ -2,7 +2,7 @@ import React from 'react';
 
 import Form from '../../../../common/Form';
 
-const COMPANY_TIERS = [
+export const COMPANY_TIERS = [
   { value: "gold", label: "Gold" },
   { value: "silver", label: "Silver" }
 ];

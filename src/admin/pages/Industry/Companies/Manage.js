@@ -9,6 +9,7 @@ import ButtonLink from '../../../../common/ButtonLink';
 import { companyThunks, activeCompaniesSelector, archivedCompaniesSelector } from '../../../../redux/industry/companySlice';
 import Page from '../../Page';
 import SelectTable from '../../../../common/SelectTable';
+import { COMPANY_TIERS } from './CompaniesForm';
 
 export default function Manage() {
   const activeCompanies = useSelector(activeCompaniesSelector);
@@ -20,12 +21,13 @@ export default function Manage() {
 
   const dataToRow = (data, checkbox) => {
     const { companyId, companyName, companyTier } = data;
+    const companyTierDisplay = COMPANY_TIERS.find(elem => elem.value === companyTier).label;
     const handleClick = () => history.push(`/admin/industry/companies/view/${companyId}`);
     return (
       <tr key={companyId} >
         <td>{ checkbox }</td>
         <td className="clickable" onClick={handleClick}>{companyName}</td>
-        <td className="clickable" onClick={handleClick}>{companyTier}</td>
+        <td className="clickable" onClick={handleClick}>{companyTierDisplay}</td>
       </tr>
     )
   };

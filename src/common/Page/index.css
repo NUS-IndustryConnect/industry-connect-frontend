@@ -72,8 +72,10 @@ nav a {
 
 .page {
   width: 100%;
-  max-width: 750px;
+  max-width: 1000px;
+  box-sizing: border-box;
   margin: 16px auto;
+  padding: 0 16px;
 }
 
 footer {
