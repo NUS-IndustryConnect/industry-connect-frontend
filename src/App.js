@@ -9,6 +9,7 @@ import {
 
 import { Toaster } from 'react-hot-toast';
 
+import { userSelector } from './redux/user/userSelectors';
 import Home from './Home';
 import Student from './student';
 import Admin from './admin';
@@ -16,7 +17,7 @@ import Industry from './industry';
 import './App.css';
 
 function App() {
-  const { token, role } = useSelector(state => state.user);
+  const { token, role } = useSelector(userSelector);
 
   return (
     <div className="App">

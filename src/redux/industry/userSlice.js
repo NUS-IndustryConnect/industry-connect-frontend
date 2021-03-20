@@ -15,7 +15,7 @@ const unarchiveUser = createAsyncThunk('admin/users/unarchive', adminApi.company
 const archiveUsers = pluraliseThunk(archiveUser);
 const unarchiveUsers = pluraliseThunk(unarchiveUser);
 
-export const userThunks = {
+export const companyUserThunks = {
   getUsers,
   postUser,
   updateUser,
@@ -81,7 +81,7 @@ export const companyUsersDropdownSelector = state => {
     .map(({ companyUserId, email }) => ({ value: companyUserId, label: email }));
 }
 
-export const userSelector = companyUserId => state => {
+export const companyUserSelector = companyUserId => state => {
   const rawUser = usersSelector(state)
     .find(elem => elem.companyUserId === companyUserId);
   const rawPosts = postsSelector(state);

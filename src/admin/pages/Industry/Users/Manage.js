@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 import ButtonLink from '../../../../common/ButtonLink';
-import { userThunks, activeUsersSelector, archivedUsersSelector } from '../../../../redux/industry/userSlice';
+import { companyUserThunks, activeUsersSelector, archivedUsersSelector } from '../../../../redux/industry/userSlice';
 import Page from '../../Page';
 import SelectTable from '../../../../common/SelectTable';
 
@@ -17,14 +17,14 @@ export default function Manage() {
     label: "Archive",
     className: "secondary",
     onClick: selections => {
-      dispatch(userThunks.archiveUsers(selections));
+      dispatch(companyUserThunks.archiveUsers(selections));
     }
   }
   const unarchiveUser = {
     label: "Unarchive",
     className: "secondary",
     onClick: selections => {
-      dispatch(userThunks.unarchiveUsers(selections));
+      dispatch(companyUserThunks.unarchiveUsers(selections));
     }
   }
 

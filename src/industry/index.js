@@ -2,13 +2,14 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
+import { userSelector } from '../redux/user/userSelectors';
 import Landing from './pages/Landing';
 import Login from './pages/Login';
 import Protected from './routes/Protected';
 import ProtectedRoute from './routes/ProtectedRoute';
 
 export default function Industry() {
-  const { isLoggedIn } = useSelector(state => state.user);
+  const { isLoggedIn } = useSelector(userSelector);
 
   return (
     <Switch>

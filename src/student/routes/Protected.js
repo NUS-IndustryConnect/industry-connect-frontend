@@ -1,13 +1,14 @@
 import { useSelector } from "react-redux";
 import { Redirect, Route } from "react-router-dom";
 
+import { userSelector } from "../../redux/user/userSelectors";
 import Announcements from "../pages/announcements/Announcements";
 import ViewAnnouncement from "../pages/announcements/ViewAnnouncement";
 import Industry from "../pages/industry/Industry";
 import ViewIndustry from "../pages/industry/ViewIndustry";
 
 const Protected = () => {
-  const { isLoggedIn } = useSelector(state => state.user)
+  const { isLoggedIn } = useSelector(userSelector)
   return (
     <>
       {/* TODO: redirect to ADFS to login */}

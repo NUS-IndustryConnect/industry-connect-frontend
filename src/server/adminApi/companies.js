@@ -1,7 +1,6 @@
 import { api } from "../utils";
 
 const getCompanies = () => {
-  console.log('Getting companies from database....');
   return api.get("/company/admin")
     .then(response => response.data)
     .catch(error => { throw error });

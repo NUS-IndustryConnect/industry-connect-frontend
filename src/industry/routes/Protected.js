@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import { Redirect, Route } from "react-router-dom";
 
+import { userSelector } from "../../redux/user/userSelectors";
 import EditPost from "../pages/Post/Edit";
 import ManagePosts from "../pages/Post/Manage";
 import NewPost from "../pages/Post/New";
@@ -9,7 +10,7 @@ import SubmittedPost from "../pages/Post/Submitted";
 import ViewPost from "../pages/Post/View";
 
 const Protected = () => {
-  const { isLoggedIn } = useSelector(state => state.user)
+  const { isLoggedIn } = useSelector(userSelector)
 
   if (!isLoggedIn) {
     return (

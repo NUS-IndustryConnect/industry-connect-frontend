@@ -2,7 +2,6 @@ import { api } from "../utils";
 
 const getPosts = async () => {
 	// gets all company posts including archived
-	console.log('Getting company post from database....');
 	return api.get("/companyPost")
 		.then(response => response.data)
 		.catch(error => { throw error });

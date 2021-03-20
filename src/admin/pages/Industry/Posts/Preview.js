@@ -7,7 +7,7 @@ import 'reactjs-popup/dist/index.css';
 
 import PostPreview from '../../../../common/post/PostPreview';
 import { requestSelector, requestThunks } from '../../../../redux/industry/requestSlice';
-import { userSelector } from '../../../../redux/industry/userSlice';
+import { companyUserSelector } from '../../../../redux/industry/userSlice';
 import Page from '../../Page';
 import ContactButton from './ContactButton';
 
@@ -17,7 +17,7 @@ export default function Preview() {
   const { id } = useParams();
   const [feedback, setFeedback] = useState("");
   const data = useSelector(requestSelector(id));
-  const companyUser = useSelector(userSelector(data?.companyUserId));
+  const companyUser = useSelector(companyUserSelector(data?.companyUserId));
 
   const handleApprove = () => {
     dispatch(requestThunks.approveRequest({ companyPostRequestId: id, approvedBy: "approver name" }))

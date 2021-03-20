@@ -1,8 +1,10 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
+
 import { clearAnnouncements } from '../../redux/announcementSlice';
 import { clearIndustry } from '../../redux/industry';
+import { userSelector } from '../../redux/user/userSelectors';
 import { logout } from '../../redux/user/userActions';
 
 import './index.css';
@@ -18,7 +20,7 @@ const Page = (props) => {
   } = props;
   const dispatch = useDispatch();
   const history = useHistory();
-  const { isLoggedIn, role } = useSelector(state => state.user);
+  const { isLoggedIn, role } = useSelector(userSelector);
   const headerLink = !isLoggedIn ? "/login" : "/" + role;
   
   const handleLogout = () => {
