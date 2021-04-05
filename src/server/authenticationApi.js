@@ -1,4 +1,21 @@
-import { api } from "./utils";
+import { api, clientId, provider, redirectUri } from "./utils";
+
+const fetchAuth = async (code) => {
+  const data = {
+    clientId: clientId,
+    code: code,
+    provider: provider,
+    redirectUri: redirectUri
+  }
+  await api.post("/account/login/soc", data)
+  .then(res => {
+    // TODO: wait for backend to host the updated src with adfs
+    return res.data;
+  }).catch(err => {
+    console.log("User not authenticated");
+    throw err;
+  })
+}
 
 const sendOTP = (email) => {
   console.log(`OTP sent to ${email}`);
@@ -18,6 +35,7 @@ const verifyOTP = (data) => {
 }
 
 const authenticationApi = {
+  fetchAuth,
   sendOTP,
   verifyOTP
 }

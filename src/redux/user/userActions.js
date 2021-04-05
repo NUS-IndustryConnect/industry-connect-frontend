@@ -6,6 +6,23 @@ import {
   LOGOUT 
 } from "./userTypes"
 
+export const handleFetchAuth = (code) => async (dispatch) => {
+  await authenticationApi.fetchAuth(code)
+    .then(res => { // authenticated user
+      // TODO: Wait for BE to host adfs src
+      localStorage.setItem('@token', "res.webToken");
+      // Assume it is student login
+      dispatch({
+        type: LOGIN_STUDENT_SUCCESSFUL,
+        payload: {
+          role: "student",
+          token: "success",
+          isLoggedIn: true,
+        }
+      })   
+    }).catch(error => { throw error; })
+}
+
 export const loginAdmin = () => async (dispatch) => {
   // TODO: link up to backend call
   Promise.resolve().then(res => {
@@ -23,19 +40,14 @@ export const loginAdmin = () => async (dispatch) => {
 }
 
 export const loginStudent = () => async (dispatch) => {
-  // TODO: link up to backend call
-  Promise.resolve().then(res => {
-    // response sucessful
-    localStorage.setItem('@token', "res.data.token");
-    dispatch({
-      type: LOGIN_STUDENT_SUCCESSFUL,
-      payload: {
-        role: "student",
-        token: "success",
-        isLoggedIn: true,
-      }
-    })
-  }).catch(err => { throw err; })
+  dispatch({
+    type: LOGIN_STUDENT_SUCCESSFUL,
+    payload: {
+      role: "student",
+      token: "success",
+      isLoggedIn: true,
+    }
+  })
 }
 
 export const loginCompanyWithOTP = (data) => async (dispatch) => {
