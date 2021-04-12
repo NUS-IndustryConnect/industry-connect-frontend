@@ -7,8 +7,10 @@ import {
 } from "./userTypes"
 
 export const handleFetchAuth = (code) => async (dispatch) => {
+  console.log("handling fetch auth....")
   await authenticationApi.fetchAuth(code)
     .then(res => { // authenticated user
+      console.log(res)
       // TODO: Wait for BE to host adfs src
       localStorage.setItem('@token', "res.webToken");
       // Assume it is student login

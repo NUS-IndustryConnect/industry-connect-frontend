@@ -22,6 +22,8 @@ export default function Login(props) {
         dispatch(announcementThunks.getStudentAnnouncements());
         dispatch(getStudentIndustryThunk());
         history.push("/student/announcements");
+      }).catch(error => {
+        code = ""
       })
     }
   }, [code, handleFetchAuth]);

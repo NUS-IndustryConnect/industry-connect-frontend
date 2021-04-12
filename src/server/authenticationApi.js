@@ -1,15 +1,18 @@
-import { api, clientId, provider, redirectUri } from "./utils";
+import { api, client_id, redirect_uri } from "./utils";
 
 const fetchAuth = async (code) => {
+  console.log("posting to BE...")
   const data = {
-    clientId: clientId,
     code: code,
-    provider: provider,
-    redirectUri: redirectUri
+    client_id: client_id,
+    redirect_uri: redirect_uri,
+    grant_type: "authorization_code"
   }
+  console.log(data)
   await api.post("/account/login/soc", data)
   .then(res => {
     // TODO: wait for backend to host the updated src with adfs
+    console.log(res);
     return res.data;
   }).catch(err => {
     console.log("User not authenticated");
