@@ -4,6 +4,7 @@ import adminApi from '../../server/adminApi';
 import studentApi from '../../server/studentApi';
 import { pluraliseThunk, putPayloadToState } from '../utils';
 import { postsSelector } from './postSlice';
+import { COMPANY_TIERS } from '../../admin/pages/Industry/Companies/CompaniesForm';
 
 // thunks
 const getAdminCompanies = createAsyncThunk('admin/companies/get', adminApi.companies.getCompanies);
@@ -27,6 +28,12 @@ export const companyThunks = {
   unarchiveCompanies,
 }
 
+export const companyComparator = (a, b) => {
+  if (a.companyName < b.companyName) return -1;
+  if (a.companyName > b.companyName) return 1;
+  return 0;
+}
+
 // slice
 export const companySlice = createSlice({
   name: "companies",
@@ -48,10 +55,15 @@ export const companySlice = createSlice({
 export const { clearCompanyData } = companySlice.actions;
 
 // selectors
+const companyDisplayName = (companyName, companyTier) =>
+  `${companyName} (${COMPANY_TIERS.find(elem => elem.value === companyTier).label})`;
 export const companiesSelector = state => state.industry.companies;
 export const companiesDropdownSelector = state => {
   return companiesSelector(state)
-    .map(({ companyId, companyName }) => ({ value: companyId, label: companyName }))
+    .map(({ companyId, companyName, companyTier }) => ({
+      value: companyId,
+      label: companyDisplayName(companyName, companyTier),
+    }))
 }
 export const companySelector = companyId => state => {
   const rawCompany = companiesSelector(state)

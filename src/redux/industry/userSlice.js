@@ -33,6 +33,14 @@ const replaceUser = (state, action) => {
       : elem);
 }
 
+export const userComparator = (a, b) => {
+  if (a.company.companyName < b.company.companyName) return -1;
+  if (a.company.companyName > b.company.companyName) return 1;
+  if (a.email < b.email) return -1;
+  if (a.email > b.email) return 1;
+  return 0;
+}
+
 // slice
 export const userSlice = createSlice({
   name: "users",
@@ -42,7 +50,7 @@ export const userSlice = createSlice({
   },
   extraReducers: {
     [getUsers.fulfilled]: putPayloadToState,
-    [postUser.fulfilled]: (state, action) => state.push(action.payload),
+    [postUser.fulfilled]: putPayloadToState,
     [updateUser.fulfilled]: putPayloadToState,
     [archiveUser.fulfilled]: replaceUser,
     [unarchiveUser.fulfilled]: replaceUser,

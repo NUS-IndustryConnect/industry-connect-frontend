@@ -6,14 +6,14 @@ import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 
 import ButtonLink from '../../../../common/ButtonLink';
-import { companyThunks, activeCompaniesSelector, archivedCompaniesSelector } from '../../../../redux/industry/companySlice';
+import { companyThunks, activeCompaniesSelector, archivedCompaniesSelector, companyComparator } from '../../../../redux/industry/companySlice';
 import Page from '../../Page';
 import SelectTable from '../../../../common/SelectTable';
 import { COMPANY_TIERS } from './CompaniesForm';
 
 export default function Manage() {
-  const activeCompanies = useSelector(activeCompaniesSelector);
-  const archivedCompanies = useSelector(archivedCompaniesSelector);
+  const activeCompanies = useSelector(activeCompaniesSelector).sort(companyComparator);
+  const archivedCompanies = useSelector(archivedCompaniesSelector).sort(companyComparator);
   const history = useHistory();
   const dispatch = useDispatch();
   const [isModalOpen, setModalOpen] = useState(false);
