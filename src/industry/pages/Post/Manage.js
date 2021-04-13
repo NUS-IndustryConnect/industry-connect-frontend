@@ -6,15 +6,16 @@ import Page from '../../../common/Page';
 import ButtonLink from '../../../common/ButtonLink';
 import Table from '../../../common/Table';
 import SelectTable from '../../../common/SelectTable';
-import { requestsSelector } from '../../../redux/industry/requestSlice';
+import { pendingRequestsSelector, rejectedRequestsSelector } from '../../../redux/industry/requestSlice';
 import { activePostsSelector, archivedPostsSelector, postThunks } from '../../../redux/industry/postSlice';
 
 const Manage = () => {
   const history = useHistory();
   const dispatch = useDispatch();
-  const displayedPosts = useSelector(activePostsSelector);
+  const activePosts = useSelector(activePostsSelector);
   const archivedPosts = useSelector(archivedPostsSelector);
-  const requests = useSelector(requestsSelector);
+  const pendingRequests = useSelector(pendingRequestsSelector);
+  const rejectedRequests = useSelector(rejectedRequestsSelector)
 
   const requestsDataToRow = (data) => {
     const { companyPostRequestId, postTitle, status } = data;
@@ -22,6 +23,17 @@ const Manage = () => {
     return (
       <tr key={companyPostRequestId} className={status}>
         <td onClick={handleClick} className="clickable">{postTitle}</td>
+      </tr>
+    )
+  };
+
+  const rejectedRequestsDataToRow = (data) => {
+    const { companyPostRequestId, postTitle, status, feedback } = data;
+    const handleClick = () => history.push(`/industry/posts/view/${companyPostRequestId}`);
+    return (
+      <tr key={companyPostRequestId} className={status}>
+        <td onClick={handleClick} className="clickable">{postTitle}</td>
+        <td onClick={handleClick} className="clickable truncate">{feedback}</td>
       </tr>
     )
   };
@@ -58,33 +70,46 @@ const Manage = () => {
   return (
     <Page title="Industry Posts">
       <ButtonLink to="/industry/posts/new" label="Create new post" className="primary" />
+      <h3>Requests</h3>
       <section>
-        <h3>Pending Requests</h3>
+        <h4>Pending Approval</h4>
         <Table
           headers={["Title"]}
-          data={requests}
+          data={pendingRequests}
           dataToRow={requestsDataToRow}
           className="pending"
         />
       </section>
-  
+      {/* TODO: check table display */}
+      {/* TODO: check what happens if feedback is too long, truncate */}
       <section>
-        <h3>Active</h3>
+        <h4>Rejected</h4>
+        <Table
+          headers={["Title", "Reason for rejection"]}
+          data={rejectedRequests}
+          dataToRow={rejectedRequestsDataToRow}
+          className="pending"
+        />
+      </section>
+  
+      <h3>Posts</h3>
+      <section>
+        <h4>Active</h4>
         <SelectTable
           headers={['Title', "Last Updated"]}
-          data={displayedPosts}
-          idKey="companyPostID"
+          data={activePosts}
+          idKey="companyPostId"
           dataToRow={postsDataToRow}
           actions={[ archivePosts ]}
         />
       </section>
 
       <section>
-        <h3>Archived</h3>
+        <h4>Archived</h4>
         <SelectTable
           headers={['Title', "Last Updated"]}
           data={archivedPosts}
-          idKey="companyPostID"
+          idKey="companyPostId"
           dataToRow={postsDataToRow}
           className="archived"
           actions={[ unarchivePosts ]}

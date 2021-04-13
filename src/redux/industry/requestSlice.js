@@ -46,6 +46,12 @@ export const requestsSelector = state => {
   const companies = companiesSelector(state);
   return mergeCompanyInfo(requests, companies);
 }
+export const pendingRequestsSelector = state => {
+  return requestsSelector(state).filter(({ status }) => status === "pending");
+}
+export const rejectedRequestsSelector = state => {
+  return requestsSelector(state).filter(({ status }) => status === "rejected");
+}
 export const requestSelector = companyPostRequestId => state => {
   return requestsSelector(state)
     .find(elem => elem.companyPostRequestId === companyPostRequestId);

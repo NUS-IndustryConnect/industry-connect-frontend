@@ -24,7 +24,7 @@ h1, h2 {
 
 h3 {
   margin: 10px 0;
-  font-size: 1.15rem;
+  font-size: 1.2rem;
 }
 
 h4 {
@@ -149,6 +149,13 @@ td {
   padding: 5px 8px;
   background-color: white;
   border: 1px solid var(--lightgrey);
+}
+
+td.truncate {
+  max-width: 100px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden; 
 }
 
 th {

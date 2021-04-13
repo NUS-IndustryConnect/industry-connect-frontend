@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 
 import ButtonLink from '../../../../common/ButtonLink';
 import { activePostsSelector, archivedPostsSelector, postThunks } from '../../../../redux/industry/postSlice';
-import { requestsSelector } from '../../../../redux/industry/requestSlice';
+import { pendingRequestsSelector, rejectedRequestsSelector } from '../../../../redux/industry/requestSlice';
 
 import Page from '../../Page';
 import Table from '../../../../common/Table';
@@ -15,7 +15,8 @@ export default function Manage() {
   const dispatch = useDispatch();
   const activePosts = useSelector(activePostsSelector);
   const archivedPosts = useSelector(archivedPostsSelector);
-  const requests = useSelector(requestsSelector);
+  const pendingRequests = useSelector(pendingRequestsSelector);
+  const rejectedRequests = useSelector(rejectedRequestsSelector)
 
   const requestsDataToRow = (data) => {
     const urlPath = '/admin/industry/posts/preview';
@@ -28,6 +29,20 @@ export default function Manage() {
       </tr>
     )
   };
+
+  const rejectedRequestsDataToRow = (data) => {
+    const urlPath = '/admin/industry/posts/preview';
+    const { companyPostRequestId, postTitle, company, status, feedback } = data;
+    const handleClick = () => history.push(`${urlPath}/${companyPostRequestId}`);
+    return (
+      <tr key={companyPostRequestId} className={status}>
+        <td onClick={handleClick} className="clickable">{postTitle}</td>
+        <td onClick={handleClick} className="clickable">{company?.companyName}</td>
+        <td onClick={handleClick} className="clickable truncate">{feedback}</td>
+      </tr>
+    )
+  };
+
   const postsDataToRow = (data, checkbox=null) => {
     const urlPath = '/admin/industry/posts/view';
     const { companyPostId, postTitle, company, lastUpdated } = data;
@@ -62,18 +77,30 @@ export default function Manage() {
     <Page title="Manage Industry Posts">
       <ButtonLink to="/admin/industry/posts/new" label="New Industry Post" className="primary" />
       
+      <h3>Requests</h3>
       <section>
-        <h3>Pending Requests</h3>
+        <h4>Pending Approval</h4>
         <Table
           headers={["Title", "Company"]}
-          data={requests}
+          data={pendingRequests}
           dataToRow={requestsDataToRow}
           className="pending"
         />
       </section>
-  
+
       <section>
-        <h3>Active Posts</h3>
+        <h4>Rejected</h4>
+        <Table
+          headers={["Title", "Company", "Reason for rejection"]}
+          data={rejectedRequests}
+          dataToRow={rejectedRequestsDataToRow}
+          className="pending"
+        />
+      </section>
+  
+      <h3>Posts</h3>
+      <section>
+        <h4>Active</h4>
         <SelectTable
           headers={['Title', "Company", "Last Updated"]}
           data={activePosts}
@@ -84,7 +111,7 @@ export default function Manage() {
       </section>
 
       <section>
-        <h3>Archived Posts</h3>
+        <h4>Archived</h4>
         <SelectTable
           headers={['Title', "Company", "Last Updated"]}
           data={archivedPosts}
