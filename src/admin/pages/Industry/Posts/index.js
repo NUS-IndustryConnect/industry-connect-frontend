@@ -4,7 +4,8 @@ import {
   Route,
 } from "react-router-dom";
 
-import Manage from './Manage';
+import ManagePosts from './ManagePosts';
+import ManageRequests from './ManageRequests';
 import New from './New';
 import Edit from './Edit';
 import Preview from './Preview';
@@ -19,7 +20,8 @@ const Posts = () => {
       <Route exact path="/admin/industry/posts/edit/:id"><Edit /></Route>
       <Route exact path="/admin/industry/posts/preview/:id"><Preview /></Route>
       <Route exact path="/admin/industry/posts/view/:id"><View /></Route>
-      <Route exact path="/admin/industry/posts"><Manage /></Route>
+      <Route exact path="/admin/industry/posts/requests"><ManageRequests /></Route>
+      <Route exact path="/admin/industry/posts"><ManagePosts /></Route>
     </Switch>
   )
 }

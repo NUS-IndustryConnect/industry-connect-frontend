@@ -9,6 +9,7 @@ import EditCompany from "../pages/Industry/Companies/Edit";
 import NewCompany from "../pages/Industry/Companies/New";
 import ViewCompany from "../pages/Industry/Companies/View";
 import Posts from "../pages/Industry/Posts";
+import ManageRequests from "../pages/Industry/Posts/ManageRequests";
 import EditPost from "../pages/Industry/Posts/Edit";
 import NewPost from "../pages/Industry/Posts/New";
 import PreviewPost from "../pages/Industry/Posts/Preview";
@@ -40,6 +41,7 @@ const Protected = () => {
       <Route exact path="/admin/industry/users/view/:id" component={ViewUser} />
 
       <Route exact path="/admin/industry/posts" component={Posts} />
+      <Route exact path="/admin/industry/posts/requests" component={ManageRequests} />
       <Route exact path="/admin/industry/posts/new" component={NewPost} />
       <Route exact path="/admin/industry/posts/edit/:id" component={EditPost} />
       <Route exact path="/admin/industry/posts/preview/:id" component={PreviewPost} />

@@ -11,6 +11,7 @@ const NavigationPanel = () => (
       <li className="sub-page"><Link to="/admin/industry/companies">Companies</Link></li>
       <li className="sub-page"><Link to="/admin/industry/users">Company Users</Link></li>
       <li className="sub-page"><Link to="/admin/industry/posts">Posts</Link></li>
+      <li className="sub-page"><Link to="/admin/industry/posts/requests">Post Requests</Link></li>
     </ul>
   </nav>
 )
