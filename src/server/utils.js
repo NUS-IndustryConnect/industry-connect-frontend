@@ -5,7 +5,7 @@ export const LOGIN_ADFS_LINK = "https://vafs.nus.edu.sg/adfs/oauth2/authorize?re
 
 // ADFS Config
 export const client_id = "INC000002302194";
-export const redirect_uri = "http://winuat11-i.comp.nus.edu.sg:3344/login";
+export const redirect_uri = "http://winuat11-i.comp.nus.edu.sg:3344/student/login";
 
 export const api = axios.create({
   baseURL: BASE_URL,

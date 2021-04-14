@@ -5,7 +5,7 @@ import ClipLoader from "react-spinners/ClipLoader";
 
 import './Login.css';
 import Page from '../../../common/Page';
-import { handleFetchAuth } from '../../../redux/user/userActions';
+import { handleFetchAuth, logout } from '../../../redux/user/userActions';
 import { announcementThunks } from '../../../redux/announcementSlice';
 import { getStudentIndustryThunk } from '../../../redux/industry';
 
@@ -14,7 +14,7 @@ export default function Login(props) {
   const dispatch = useDispatch();
   const history = useHistory();
   const location = useLocation();
-  const code = location.search.substring(6);
+  let code = location.search.substring(6);
 
   React.useEffect(() => {
     if (code) {
@@ -23,10 +23,12 @@ export default function Login(props) {
         dispatch(getStudentIndustryThunk());
         history.push("/student/announcements");
       }).catch(error => {
-        code = ""
+        dispatch(logout()).then(() => {
+          history.push("/student/login");
+        })
       })
     }
-  }, [code, handleFetchAuth]);
+  }, [code, dispatch, history]);
 
   if (code) { // buffer to wait for info
     return (

@@ -7,21 +7,14 @@ import {
 } from "./userTypes"
 
 export const handleFetchAuth = (code) => async (dispatch) => {
-  console.log("handling fetch auth....")
   await authenticationApi.fetchAuth(code)
     .then(res => { // authenticated user
-      console.log(res)
-      // TODO: Wait for BE to host adfs src
-      localStorage.setItem('@token', "res.webToken");
-      // Assume it is student login
-      dispatch({
-        type: LOGIN_STUDENT_SUCCESSFUL,
-        payload: {
-          role: "student",
-          token: "success",
-          isLoggedIn: true,
-        }
-      })   
+      localStorage.setItem('@token', res.webToken);
+      if (res.role === "NUSSTU") { // It is student login
+        dispatch(loginStudent(res.webToken))
+      } else {
+        dispatch(loginAdmin())
+      }
     }).catch(error => { throw error; })
 }
 
@@ -41,12 +34,12 @@ export const loginAdmin = () => async (dispatch) => {
   }).catch(err => { throw err; })
 }
 
-export const loginStudent = () => async (dispatch) => {
+const loginStudent = (token) => async (dispatch) => {
   dispatch({
     type: LOGIN_STUDENT_SUCCESSFUL,
     payload: {
       role: "student",
-      token: "success",
+      token: token,
       isLoggedIn: true,
     }
   })
