@@ -13,25 +13,20 @@ export const handleFetchAuth = (code) => async (dispatch) => {
       if (res.role === "NUSSTU") { // It is student login
         dispatch(loginStudent(res.webToken))
       } else {
-        dispatch(loginAdmin())
+        dispatch(loginAdmin(res.webToken))
       }
     }).catch(error => { throw error; })
 }
 
-export const loginAdmin = () => async (dispatch) => {
-  // TODO: link up to backend call
-  Promise.resolve().then(res => {
-    // response sucessful
-    localStorage.setItem('@token', "res.data.token");
-    dispatch({
-      type: LOGIN_ADMIN_SUCCESSFUL,
-      payload: {
-        role: "admin",
-        token: "success",
-        isLoggedIn: true,
-      }
-    })
-  }).catch(err => { throw err; })
+const loginAdmin = (token) => async (dispatch) => {
+  dispatch({
+    type: LOGIN_ADMIN_SUCCESSFUL,
+    payload: {
+      role: "admin",
+      token: token,
+      isLoggedIn: true,
+    }
+  })
 }
 
 const loginStudent = (token) => async (dispatch) => {
