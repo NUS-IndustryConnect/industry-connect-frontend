@@ -10,6 +10,7 @@ import { requestSelector, requestThunks } from '../../../../redux/industry/reque
 import { companyUserSelector } from '../../../../redux/industry/userSlice';
 import Page from '../../Page';
 import ContactButton from './ContactButton';
+import ButtonLink from '../../../../common/ButtonLink';
 
 export default function Preview() {
   const history = useHistory();
@@ -65,7 +66,8 @@ export default function Preview() {
       isError={!Boolean(data)}
       errorMessage={<p>Post not found. Please select another post.</p>}
     >
-      <PostPreview data={data} urlPath="/admin/industry/posts" />
+      <ButtonLink to="/admin/industry/posts/requests" className="secondary" label="Back" />
+      <PostPreview data={data} urlPath="/admin/industry/posts" editable={false} />
       <section className="bottom-buttons">
         <ContactButton email={companyUser?.email} />
         <div className="action-buttons">

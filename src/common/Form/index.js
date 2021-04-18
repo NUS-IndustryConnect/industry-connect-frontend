@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 
 import './index.css';
 
@@ -77,15 +78,21 @@ const generateField = (fieldOptions) => {
 }
 
 export default function Form({ fields, submit, submitLabel }) {
+  const history = useHistory();
   const handleSubmit = (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
     submit(formData);
   }
+  const handleCancel = () => {
+    history.goBack();
+  }
   return (
     <form onSubmit={handleSubmit}>
       { fields.map(generateField) }
+      <input type="button" value="Cancel" onClick={handleCancel} className="secondary" />
       <input type="submit" value={submitLabel} className="primary"/>
+      {/* TODO: reset button to reset to initial values */}
     </form>
   )
 }

@@ -6,7 +6,7 @@ import VideoEmbed from './VideoEmbed';
 import './PostPreview.css'
 
 // used by Admin and Industry
-export default function Preview({ data = {}, urlPath = "" }) {
+export default function Preview({ data = {}, urlPath = "", editable = true }) {
   const {
     postTitle,
     postSubtitle,
@@ -25,7 +25,7 @@ export default function Preview({ data = {}, urlPath = "" }) {
     <div className="post">
       <div className="post-header">
         <h3>{postTitle}</h3>
-        {editButton}
+        {editable ? editButton : null}
       </div>
       <h5>{postSubtitle}</h5>
       { postDescription?.split("\n").map((para, i) => <p key={i}>{para}</p>) }
