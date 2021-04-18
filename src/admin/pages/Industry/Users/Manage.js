@@ -6,7 +6,7 @@ import ButtonLink from '../../../../common/ButtonLink';
 import { companyUserThunks, activeUsersSelector, archivedUsersSelector, userComparator } from '../../../../redux/industry/userSlice';
 import Page from '../../Page';
 import SelectTable from '../../../../common/SelectTable';
-import { COMPANY_TIERS } from '../Companies/CompaniesForm';
+import { COMPANY_TIERS, getCompanyTierDisplay } from '../Companies/CompaniesForm';
 
 export default function Manage() {
   const activeUsers = useSelector(activeUsersSelector).sort(userComparator);
@@ -31,12 +31,12 @@ export default function Manage() {
 
   const dataToRow = (data, checkbox) => {
     const { companyUserId, email, company, lastLoggedIn, isLocked } = data;
-    const companyTierDisplay = COMPANY_TIERS.find(elem => elem.value === company.companyTier).label;
+    const companyTierDisplay = getCompanyTierDisplay(company?.companyTier);
     const handleClick = () => history.push(`/admin/industry/users/view/${companyUserId}`);
     return (
       <tr key={companyUserId} className={isLocked ? "warning" : null}>
         <td>{ checkbox }</td>
-        <td className="clickable" onClick={handleClick}>{company.companyName}</td>
+        <td className="clickable" onClick={handleClick}>{company?.companyName}</td>
         <td className="clickable" onClick={handleClick}>{companyTierDisplay}</td>
         <td className="clickable" onClick={handleClick}>{email}</td>
         <td className="clickable" onClick={handleClick}>{new Date(lastLoggedIn).toLocaleDateString()}</td>

@@ -7,6 +7,9 @@ export const COMPANY_TIERS = [
   { value: "silver", label: "Silver" }
 ];
 
+export const getCompanyTierDisplay = companyTier => COMPANY_TIERS
+  .find(elem => elem.value === companyTier).label;
+
 export const getCompanyFields = data => ({
   companyName: data.get('companyName'),
   companyTier: data.get('companyTier'),

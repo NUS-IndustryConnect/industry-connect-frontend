@@ -2,9 +2,9 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 import adminApi from '../../server/adminApi';
 import studentApi from '../../server/studentApi';
+import { getCompanyTierDisplay } from '../../admin/pages/Industry/Companies/CompaniesForm';
 import { pluraliseThunk, putPayloadToState } from '../utils';
 import { postsSelector } from './postSlice';
-import { COMPANY_TIERS } from '../../admin/pages/Industry/Companies/CompaniesForm';
 
 // thunks
 const getAdminCompanies = createAsyncThunk('admin/companies/get', adminApi.companies.getCompanies);
@@ -56,14 +56,16 @@ export const { clearCompanyData } = companySlice.actions;
 
 // selectors
 const companyDisplayName = (companyName, companyTier) =>
-  `${companyName} (${COMPANY_TIERS.find(elem => elem.value === companyTier).label})`;
+  `${companyName} (${getCompanyTierDisplay(companyTier)})`;
+
 export const companiesSelector = state => state.industry.companies;
 export const companiesDropdownSelector = state => {
-  return companiesSelector(state)
+  return [...companiesSelector(state)]
+    .sort(companyComparator)
     .map(({ companyId, companyName, companyTier }) => ({
       value: companyId,
       label: companyDisplayName(companyName, companyTier),
-    }))
+    }));
 }
 export const companySelector = companyId => state => {
   const rawCompany = companiesSelector(state)

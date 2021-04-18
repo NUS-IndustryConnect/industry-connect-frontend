@@ -10,6 +10,7 @@ import { usersOfCompanySelector } from '../../../../redux/industry/userSlice';
 import { requestsByCompanySelector } from '../../../../redux/industry/requestSlice';
 import { postsByCompanySelector } from '../../../../redux/industry/postSlice';
 import Page from '../../Page';
+import { getCompanyTierDisplay } from './CompaniesForm';
 
 export default function View() {
   const history = useHistory();
@@ -24,24 +25,23 @@ export default function View() {
   const posts = useSelector(postsByCompanySelector(companyId));
   const requests = useSelector(requestsByCompanySelector(companyId))
 
-  const usersDataToRow = ({ companyUserId, name, email, lastLoggedIn }) => (
+  const usersDataToRow = ({ companyUserId, email, lastLoggedIn }) => (
     <tr
       key={companyUserId}
       onClick={() => history.push(`/admin/industry/users/view/${companyUserId}`)}
       className="clickable"
     >
-      <td>{name}</td>
       <td>{email}</td>
       <td>{new Date(lastLoggedIn).toLocaleDateString()}</td>
     </tr>
   );
-  const postsDataToRow = urlPath => ({ companyPostId, lastUpdated, postTitle }) => {
+  const postsDataToRow = urlPath => ({ companyPostId, lastUpdated, postTitle, status }) => {
     // TODO: date given is in DD-MM-YYYY format but new Date() expects MM-DD-YYYY
     return (
       <tr
         key={companyPostId}
         onClick={() => history.push(`/admin/industry/posts/${urlPath}/${companyPostId}`)}
-        className="clickable"
+        className={`clickable ${status}`}
       >
         <td>{postTitle}</td>
         <td>{new Date(lastUpdated).toLocaleDateString()}</td>
@@ -57,7 +57,7 @@ export default function View() {
       <h3>{companyName}</h3>
       <section>
         <VerticalTable data={[
-          { header: "Tier", data: companyTier },
+          { header: "Tier", data: getCompanyTierDisplay(companyTier) },
           { header: "Description", data: companyDescription },
           { header: "Users", data: users.length },
           { header: "Pending Requests", data: requests.length },
@@ -68,7 +68,7 @@ export default function View() {
       <section>
         <h4>Users</h4>
         <Table
-          headers={["Name", "Email", "Last login"]}
+          headers={["Email", "Last login"]}
           data={users}
           dataToRow={usersDataToRow}
         />
