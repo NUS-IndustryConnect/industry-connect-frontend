@@ -15,10 +15,11 @@ export default function Edit() {
   const submit = data => {
     const userObj = {
       companyUserId: currentValues.companyUserId,
+      companyId: currentValues.companyId,
       ...getUserFields(data)
     };
     dispatch(companyUserThunks.updateUser(userObj));
-    history.push('/admin/industry/users');
+    history.push(`/admin/industry/users/view/${id}`);
   }
 
   return (

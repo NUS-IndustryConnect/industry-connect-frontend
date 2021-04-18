@@ -18,7 +18,7 @@ export default function Edit() {
       ...getCompanyFields(data)
     };
     dispatch(companyThunks.updateCompany(companyObj));
-    history.push('/admin/industry/companies');
+    history.push(`/admin/industry/companies/view/${id}`);
   }
   return (
     <Page

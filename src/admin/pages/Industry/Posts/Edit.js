@@ -18,7 +18,7 @@ export default function Edit() {
       ...getPostFields(data)
     };
     dispatch(postThunks.updatePost(postObj))
-    history.push('/admin/industry/posts');
+    history.push(`/admin/industry/posts/view/${id}`);
   }
   return (
     <Page
