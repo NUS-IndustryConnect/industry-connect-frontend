@@ -1,15 +1,15 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 
-import { userSelector } from '../redux/user/userSelectors';
 import Landing from './pages/Landing';
 import Login from './pages/Login';
 import Protected from './routes/Protected';
 import ProtectedRoute from './routes/ProtectedRoute';
 
 export default function Industry() {
-  const { isLoggedIn } = useSelector(userSelector);
+  const token = localStorage.getItem('@token');
+  const role = localStorage.getItem('@role');
+  const isLoggedIn = token && role === 'industry' ? true : false;
 
   return (
     <Switch>

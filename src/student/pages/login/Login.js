@@ -6,8 +6,6 @@ import ClipLoader from "react-spinners/ClipLoader";
 import './Login.css';
 import Page from '../../../common/Page';
 import { handleFetchAuth, logout } from '../../../redux/user/userActions';
-import { announcementThunks } from '../../../redux/announcementSlice';
-import { getStudentIndustryThunk } from '../../../redux/industry';
 import { AUTH_ENPOINT } from '../../../server/utils';
 
 export default function Login(props) {
@@ -20,8 +18,6 @@ export default function Login(props) {
   React.useEffect(() => {
     if (code) {
       dispatch(handleFetchAuth(code)).then(() => {
-        dispatch(announcementThunks.getStudentAnnouncements());
-        dispatch(getStudentIndustryThunk());
         history.push("/student/announcements");
       }).catch(error => {
         dispatch(logout()).then(() => {

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const isDev = process.env.NODE_ENV === 'development';
+const isDev = process.env.REACT_APP_ENV === 'development';
 
 export const BASE_URL = isDev ? process.env.REACT_APP_DEV_BASE_URL : process.env.REACT_APP_PROD_BASE_URL;
 export const AUTH_ENPOINT = isDev ? process.env.REACT_APP_DEV_AUTH_ENPOINT : process.env.REACT_APP_PROD_AUTH_ENPOINT;

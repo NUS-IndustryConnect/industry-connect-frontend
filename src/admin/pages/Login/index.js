@@ -5,8 +5,6 @@ import ClipLoader from "react-spinners/ClipLoader";
 
 import './index.css';
 import Page from '../../../common/Page';
-import { getAdminIndustryThunk } from '../../../redux/industry';
-import { announcementThunks } from '../../../redux/announcementSlice';
 import { handleFetchAuth, logout } from '../../../redux/user/userActions';
 import { AUTH_ENPOINT } from '../../../server/utils';
 
@@ -20,8 +18,6 @@ export default function Login() {
   React.useEffect(() => {
     if (code) {
       dispatch(handleFetchAuth(code)).then(() => {
-        dispatch(announcementThunks.getAdminAnnouncements());
-        dispatch(getAdminIndustryThunk());
         history.push("/admin/announcements");
       }).catch(error => {
         dispatch(logout()).then(() => {

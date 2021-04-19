@@ -1,5 +1,4 @@
-import React from 'react';
-import { useSelector } from 'react-redux'
+import React, { useEffect } from 'react';
 import {
   BrowserRouter as Router,
   Switch,
@@ -9,21 +8,38 @@ import {
 
 import { Toaster } from 'react-hot-toast';
 
-import { userSelector } from './redux/user/userSelectors';
 import Home from './Home';
 import Student from './student';
 import Admin from './admin';
 import Industry from './industry';
 import './App.css';
+import { userSelector } from './redux/user/userSelectors';
+import { useDispatch, useSelector } from 'react-redux';
+import { refresh } from './redux/user/userActions';
 
 function App() {
-  const { token, role } = useSelector(userSelector);
-  console.log(process.env.REACT_APP_DEV_BASE_URL);
+  const dispatch = useDispatch();
+  const token = localStorage.getItem('@token');
+  const role = localStorage.getItem('@role');
+  console.log(localStorage)
+  console.log(token)
+  console.log(useSelector(userSelector))
+
+  useEffect(() => {
+    if (token) {
+      dispatch(refresh())
+    }
+  }, [token, dispatch]);
+
+  console.log(useSelector(userSelector))
 
   return (
     <div className="App">
       <div><Toaster position="bottom-right"/></div>
       <Router>
+        {
+          token && <Redirect to={"/" + role} />
+        }
         <Switch>
           <Route path="/student"><Student /></Route>
           <Route path="/admin"><Admin /></Route>

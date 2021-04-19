@@ -1,5 +1,6 @@
 // General Authentication Actions
 export const LOGOUT = "LOGOUT";
+export const REFRESH = "REFRESH";
 
 // Admin Authentication Actions
 export const LOGIN_ADMIN_SUCCESSFUL = "LOGIN_ADMIN_SUCCESSFUL";
