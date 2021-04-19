@@ -1,11 +1,13 @@
 import axios from "axios";
 
-export const BASE_URL = `https://winuat11-i.comp.nus.edu.sg/IR3`;
-export const LOGIN_ADFS_LINK = "https://vafs.nus.edu.sg/adfs/oauth2/authorize?response_type=code&client_id=INC000002302194&resource=sg_edu_nus_oauth&redirect_uri=http%3A%2F%2Fwinuat11-i.comp.nus.edu.sg%3A3344%2Fstudent%2Flogin";
+const isDev = process.env.NODE_ENV === 'development';
+
+export const BASE_URL = isDev ? process.env.REACT_APP_DEV_BASE_URL : process.env.REACT_APP_PROD_BASE_URL;
+export const AUTH_ENPOINT = isDev ? process.env.REACT_APP_DEV_AUTH_ENPOINT : process.env.REACT_APP_PROD_AUTH_ENPOINT;
 
 // ADFS Config
-export const client_id = "INC000002302194";
-export const redirect_uri = "http://winuat11-i.comp.nus.edu.sg:3344/student/login";
+export const CLIENT_ID = isDev ? process.env.REACT_APP_DEV_AUTH_CLIENT_ID : process.env.REACT_APP_PROD_AUTH_CLIENT_ID;
+export const REDIRECT_URI = isDev ? process.env.REACT_APP_DEV_AUTH_REDIRECT : process.env.REACT_APP_PROD_AUTH_REDIRECT;
 
 export const api = axios.create({
   baseURL: BASE_URL,

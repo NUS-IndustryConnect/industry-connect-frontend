@@ -8,6 +8,7 @@ import Page from '../../../common/Page';
 import { getAdminIndustryThunk } from '../../../redux/industry';
 import { announcementThunks } from '../../../redux/announcementSlice';
 import { handleFetchAuth, logout } from '../../../redux/user/userActions';
+import { AUTH_ENPOINT } from '../../../server/utils';
 
 export default function Login() {
   // TODO: link up to authentication (temporary placeholder)
@@ -49,7 +50,7 @@ export default function Login() {
         <h3>Welcome to IndustryConnect!</h3>
         <p>SoC Industry Updates is a platform made by students, for students. It serves as a one-stop shop for students from the School of Computing to learn about internships, jobs and future career opportunities in various industries.</p>
 
-        <a className="primary" href="https://vafs.nus.edu.sg/adfs/oauth2/authorize?response_type=code&client_id=INC000002302194&resource=sg_edu_nus_oauth&redirect_uri=http%3A%2F%2Fwinuat11-i.comp.nus.edu.sg%3A3344%2Fstudent%2Flogin">
+        <a className="primary" href={AUTH_ENPOINT}>
           <button className="primary">Login</button>
         </a>
       </div>

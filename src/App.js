@@ -18,6 +18,7 @@ import './App.css';
 
 function App() {
   const { token, role } = useSelector(userSelector);
+  console.log(process.env.REACT_APP_DEV_BASE_URL);
 
   return (
     <div className="App">

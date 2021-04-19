@@ -1,10 +1,10 @@
-import { api, client_id, redirect_uri } from "./utils";
+import { api, CLIENT_ID, REDIRECT_URI } from "./utils";
 
 const fetchAuth = async (code) => {
   const data = {
     code: code,
-    client_id: client_id,
-    redirect_uri: redirect_uri,
+    client_id: CLIENT_ID,
+    redirect_uri: REDIRECT_URI,
     grant_type: "authorization_code"
   }
   return api.post("/account/login/soc", data)
