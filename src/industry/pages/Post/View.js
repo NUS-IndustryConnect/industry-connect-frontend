@@ -20,7 +20,7 @@ export default function View() {
       isError={!Boolean(data)}
       errorMessage={<p>Post not found. Please select another post.</p>}
     >
-      <PostPreview data={data} urlPath="/industry/posts" />
+      <PostPreview data={data} urlPath="/industry/posts" editable={false} />
 
       {status.map((text, i) => <p key={i}>{text}</p>)}
     </Page>

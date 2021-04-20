@@ -7,8 +7,7 @@ import {
   activeAnnouncementsSelector,
   pinnedAnnouncementsSelector,
   archivedAnnouncementsSelector,
-  announcementThunks,
-  announcementsFetchedSelector
+  announcementThunks
 } from '../../../redux/announcementSlice';
 import Page from '../Page';
 import SelectTable from '../../../common/SelectTable';
