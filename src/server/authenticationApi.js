@@ -9,10 +9,7 @@ const fetchAuth = async (code) => {
   }
   return api.post("/account/login/soc", data)
   .then(res => res.data)
-  .catch(err => {
-    console.log("User not authenticated");
-    throw err;
-  })
+  .catch(err => { throw err; })
 }
 
 const sendOTP = (email) => {

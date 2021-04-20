@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 
 import Page from '../../../common/Page';
-import PostsForm, { getPostFields } from '../../../common/post/PostsForm';
+import PostsForm from '../../../common/post/PostsForm';
 import { postOrRequestSelector } from '../../../redux/industry/postSlice';
 
 
@@ -14,9 +14,7 @@ export default function Edit() {
   const initial = useSelector(postOrRequestSelector(id));
   // TODO: replace with redux dispatch
   const submit = data => {
-    const postObj = getPostFields(data);
     history.push('/industry/posts');
-    console.log(postObj);
   }
   return (
     <Page title="Edit Post">

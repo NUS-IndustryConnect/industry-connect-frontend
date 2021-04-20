@@ -17,7 +17,7 @@ export const getPostFields = data => ({
 })
 
 // shared by both admin and industry
-export default function PostsForm({ submit, submitLabel, initial, isAdmin }) {
+export default function PostsForm({ submit, submitLabel, initial, isAdmin, history }) {
   const companiesDropdown = useSelector(companiesDropdownSelector);
   const companyUsersDropdown = useSelector(companyUsersDropdownSelector);
 

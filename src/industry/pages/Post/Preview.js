@@ -29,8 +29,8 @@ export default function Preview() {
       isError={!Boolean(data)}
       errorMessage={<p>Post not found. Please select another post.</p>}
     >
-      <PostPreview data={data} urlPath="/industry/posts" />
-      <input type="button" onClick={submit} value="Submit for vetting" className="primary"/>
+        <PostPreview data={data} urlPath="/industry/posts" />
+        <input type="button" onClick={submit} value="Submit for vetting" className="primary"/>
     </Page>
   )
 }
