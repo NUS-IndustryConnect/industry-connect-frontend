@@ -62,7 +62,7 @@ const loginStudent = (token) => async (dispatch) => {
 
 export const loginCompanyWithOTP = (data) => async (dispatch) => {
   await authenticationApi.verifyOTP(data).then(res => {
-    localStorage.setItem('@token', 'res.webToken');
+    localStorage.setItem('@token', res.token);
     localStorage.setItem('@role', COMPANY);
     localStorage.setItem('@userInfo', JSON.stringify(res));
     localStorage.setItem('@isLoggedIn', true);
@@ -70,7 +70,7 @@ export const loginCompanyWithOTP = (data) => async (dispatch) => {
       type: LOGIN_COMPANY_SUCCESSFUL,
       payload: {
         role: COMPANY,
-        token: 'res.webToken',
+        token: res.token,
         isLoggedIn: true,
         userInfo: {...res},
       }
