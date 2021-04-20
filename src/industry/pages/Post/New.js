@@ -20,7 +20,13 @@ export default function New() {
   }
   return (
     <Page title="New Post">
-      <PostsForm initial={data} submit={submit} submitLabel="Preview" />
+      <div className="post">
+        <div className="post-header">
+          <h3>New Post</h3>
+          <button type="button" onClick={() => history.push('/industry/posts')}>Cancel</button>
+        </div>
+        <PostsForm initial={data} submit={submit} submitLabel="Preview" />
+      </div>
     </Page>
   )
 }
