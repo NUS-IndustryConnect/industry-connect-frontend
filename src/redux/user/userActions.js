@@ -1,19 +1,22 @@
 import authenticationApi from "../../server/authenticationApi";
+import { ADMIN, COMPANY, STUDENT } from "../../server/utils";
 import { announcementThunks } from "../announcementSlice";
 import { getAdminIndustryThunk, getIndustryIndustryThunk, getStudentIndustryThunk } from "../industry";
 import { 
   LOGIN_ADMIN_SUCCESSFUL, 
+  LOGIN_COMPANY_FAILURE, 
   LOGIN_COMPANY_SUCCESSFUL, 
   LOGIN_STUDENT_SUCCESSFUL, 
-  LOGOUT, 
-  REFRESH
+  LOGOUT,
+  REFRESH_FAILURE,
+  REFRESH_SUCCESS
 } from "./userTypes"
 
 export const handleFetchAuth = (code) => async (dispatch) => {
   await authenticationApi.fetchAuth(code)
     .then(res => { // authenticated user
       localStorage.setItem('@token', res.webToken);
-      localStorage.setItem('@userInfo', res);
+      localStorage.setItem('@userInfo', JSON.stringify(res));
       localStorage.setItem('@isLoggedIn', true);
       if (res.role === "NUSSTU") { // It is student login
         dispatch(loginStudent(res.webToken))
@@ -24,28 +27,33 @@ export const handleFetchAuth = (code) => async (dispatch) => {
 }
 
 const loginAdmin = (token) => async (dispatch) => {
-  localStorage.setItem('@role', "admin");
-  dispatch({
-    type: LOGIN_ADMIN_SUCCESSFUL,
-    payload: {
-      role: "admin",
-      token: token,
-      isLoggedIn: true,
-    }
+  localStorage.setItem('@role', ADMIN);
+  Promise.resolve().then(() => {
+    dispatch({
+      type: LOGIN_ADMIN_SUCCESSFUL,
+      payload: {
+        role: ADMIN,
+        token: token,
+        isLoggedIn: true,
+      }
+    })
+  }).then(() => {
+    dispatch(announcementThunks.getAdminAnnouncements());
+    dispatch(getAdminIndustryThunk());
   })
-  dispatch(announcementThunks.getAdminAnnouncements());
-  dispatch(getAdminIndustryThunk());
 }
 
 const loginStudent = (token) => async (dispatch) => {
-  localStorage.setItem('@role', "student");
-  dispatch({
-    type: LOGIN_STUDENT_SUCCESSFUL,
-    payload: {
-      role: "student",
-      token: token,
-      isLoggedIn: true,
-    }
+  localStorage.setItem('@role', STUDENT);
+  Promise.resolve().then(() => {
+    dispatch({
+      type: LOGIN_STUDENT_SUCCESSFUL,
+      payload: {
+        role: STUDENT,
+        token: token,
+        isLoggedIn: true,
+      }
+    })
   }).then(() => {
     dispatch(announcementThunks.getStudentAnnouncements());
     dispatch(getStudentIndustryThunk());
@@ -53,23 +61,25 @@ const loginStudent = (token) => async (dispatch) => {
 }
 
 export const loginCompanyWithOTP = (data) => async (dispatch) => {
-  await authenticationApi.verifyOTP(data)
-    .then(res => {
-      console.log(res);
-      localStorage.setItem('@token', "res.data.token");
-      localStorage.setItem('@role', "industry");
-      dispatch({
-        type: LOGIN_COMPANY_SUCCESSFUL,
-        payload: {
-          role: "industry",
-          token: "success",
-          isLoggedIn: true,
-          userInfo: {...res},
-        }
-      });
-      dispatch(getIndustryIndustryThunk());
+  await authenticationApi.verifyOTP(data).then(res => {
+    localStorage.setItem('@token', 'res.webToken');
+    localStorage.setItem('@role', COMPANY);
+    localStorage.setItem('@userInfo', JSON.stringify(res));
+    localStorage.setItem('@isLoggedIn', true);
+    dispatch({
+      type: LOGIN_COMPANY_SUCCESSFUL,
+      payload: {
+        role: COMPANY,
+        token: 'res.webToken',
+        isLoggedIn: true,
+        userInfo: {...res},
+      }
     })
-    .catch(err => { throw err; })
+  }).catch(err => { 
+    localStorage.clear();
+    dispatch({ type: LOGIN_COMPANY_FAILURE })
+    throw err;
+  })
 }
 
 export const logout = () => async (dispatch) => {
@@ -82,22 +92,30 @@ export const logout = () => async (dispatch) => {
 
 export const refresh = () => async (dispatch) => {
   const role = localStorage.getItem("@role");
-  dispatch({
-    type: REFRESH,
-    payload: {
-      token: localStorage.getItem("@token"),
-      role: localStorage.getItem("@role"),
-      isLoggedIn: localStorage.getItem("@isLoggedIn"),
-      userInfo: localStorage.getItem("@userInfo")
+  Promise.resolve().then(() => {
+    dispatch({
+      type: REFRESH_SUCCESS,
+      payload: {
+        token: localStorage.getItem("@token"),
+        role: localStorage.getItem("@role"),
+        isLoggedIn: JSON.parse(localStorage.getItem("@isLoggedIn")),
+        userInfo: JSON.parse(localStorage.getItem("@userInfo"))
+      }
+    })
+  }).then(() => {
+    if (role === STUDENT) {
+      dispatch(announcementThunks.getStudentAnnouncements());
+      dispatch(getStudentIndustryThunk());
+    } else if (role === ADMIN) {
+      dispatch(announcementThunks.getAdminAnnouncements());
+      dispatch(getAdminIndustryThunk());
+    } else if (role === COMPANY) {
+      dispatch(getIndustryIndustryThunk());
     }
+  }).catch(err => {
+    localStorage.clear();
+      dispatch({
+        type: REFRESH_FAILURE
+      })
   })
-  if (role === 'student') {
-    dispatch(announcementThunks.getStudentAnnouncements());
-    dispatch(getStudentIndustryThunk());
-  } else if (role === 'admin') {
-    dispatch(announcementThunks.getAdminAnnouncements());
-    dispatch(getAdminIndustryThunk());
-  } else if (role === 'industry') {
-    dispatch(getIndustryIndustryThunk());
-  }
 }

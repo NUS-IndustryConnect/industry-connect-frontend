@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
 import Page from '../../../common/Page';
+import { getIndustryIndustryThunk } from '../../../redux/industry';
 import { loginCompanyWithOTP } from '../../../redux/user/userActions';
+import { userSelector } from '../../../redux/user/userSelectors';
 import authenticationApi from '../../../server/authenticationApi';
 import './index.css';
 
@@ -25,6 +27,11 @@ export default function Login() {
   const [isOTPSent, setOTPSent] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
   const history = useHistory();
+  const { isLoggedIn } = useSelector(userSelector);
+  
+  if (isLoggedIn) {
+    history.push('/industry/posts');
+  }
 
   const handleSendOTP = async event => {
     event.preventDefault();
@@ -60,6 +67,7 @@ export default function Login() {
         otp: OTP
       }
       await dispatch(loginCompanyWithOTP(data)).then(res => {
+        dispatch(getIndustryIndustryThunk());
         history.push("/industry/posts");
       }).catch(error => {
         setErrorMessage(ERRORS.INCORRECT_OTP);

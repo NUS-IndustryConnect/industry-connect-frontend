@@ -16,7 +16,6 @@ const fetchAuth = async (code) => {
 }
 
 const sendOTP = (email) => {
-  console.log(`OTP sent to ${email}`);
   const data = {
     email: email
   }
@@ -26,7 +25,6 @@ const sendOTP = (email) => {
 }
 
 const verifyOTP = (data) => {
-  console.log(`Logging into ${data.email} with ${data.otp}`);
   return api.post("/account/login/company/otp", data)
 		.then(response => response.data)
 		.catch(error => { throw error });

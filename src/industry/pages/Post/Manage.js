@@ -38,7 +38,6 @@ const Manage = () => {
     )
   };
 
-
   const archivePosts = {
     label: "Archive",
     className: "secondary",

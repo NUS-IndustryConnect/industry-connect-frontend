@@ -3,7 +3,7 @@ import {
   LOGIN_COMPANY_SUCCESSFUL, 
   LOGIN_STUDENT_SUCCESSFUL, 
   LOGOUT, 
-  REFRESH
+  REFRESH_SUCCESS
 } from "./userTypes";
 
 const initState = {
@@ -15,7 +15,7 @@ const initState = {
 
 const userReducer = (state = initState, {type, payload}) => {
   switch (type) {
-    case REFRESH:
+    case REFRESH_SUCCESS:
       return {
         ...state,
         ...payload
