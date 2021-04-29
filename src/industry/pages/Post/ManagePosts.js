@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 import SelectTable from '../../../common/SelectTable';
 import { activePostsSelector, archivedPostsSelector, postThunks } from '../../../redux/industry/postSlice';
@@ -30,6 +31,7 @@ const Manage = () => {
     className: "secondary",
     onClick: selections => {
       dispatch(postThunks.archivePosts(selections));
+      toast.success("Archived post(s)");
     }
   }
   
@@ -38,6 +40,7 @@ const Manage = () => {
     className: "secondary",
     onClick: selections => {
       dispatch(postThunks.unarchivePosts(selections));
+      toast.success("Unarchived post(s)");
     }
   }
 

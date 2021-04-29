@@ -1,6 +1,7 @@
 import React from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import toast from 'react-hot-toast';
 
 import Page from '../../Page';
 import CompaniesForm, { getCompanyFields } from './CompaniesForm';
@@ -19,6 +20,7 @@ export default function Edit() {
     };
     dispatch(companyThunks.updateCompany(companyObj));
     history.push(`/admin/industry/companies/view/${id}`);
+    toast.success("Updated company");
   }
   return (
     <Page

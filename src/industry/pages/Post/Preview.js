@@ -1,10 +1,11 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useHistory } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
+import PostPreview from '../../../common/post/PostPreview';
 import { requestThunks } from '../../../redux/industry/requestSlice';
 import { userSelector } from '../../../redux/user/userSelectors';
-import PostPreview from '../../../common/post/PostPreview';
 import Page from '../Page';
 
 export default function Preview() {
@@ -22,6 +23,7 @@ export default function Preview() {
     }
     dispatch(requestThunks.createRequest(filledData));
     history.push("/industry/posts/submitted");
+    toast.success("Created request");
   }
   return (
     <Page

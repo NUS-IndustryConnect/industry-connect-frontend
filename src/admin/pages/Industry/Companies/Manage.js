@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import Popup from 'reactjs-popup';
+import toast from 'react-hot-toast';
 
 import 'reactjs-popup/dist/index.css';
 
@@ -45,13 +46,15 @@ export default function Manage() {
     setModalOpen(false);
     setSelections([]);
     dispatch(companyThunks.archiveCompanies(selections));
+    toast.success("Archived company");
   }
 
   const unarchiveCompany = {
     label: "Unarchive",
     className: "secondary",
     onClick: selections => {
-      dispatch(companyThunks.unarchiveCompanies(selections))
+      dispatch(companyThunks.unarchiveCompanies(selections));
+      toast.success("Unarchived company");
     }
   }
 

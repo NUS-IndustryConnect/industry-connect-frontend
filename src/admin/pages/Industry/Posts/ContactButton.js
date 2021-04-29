@@ -4,7 +4,7 @@ import toast from 'react-hot-toast';
 
 const copyToClipboard = item => {
   navigator.clipboard.writeText(item);
-  toast.success("Copied to clipboard!")
+  toast.success("Copied to clipboard");
 };
 
 export default function ContactButton({ email }) {

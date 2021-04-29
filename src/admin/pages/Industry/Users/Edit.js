@@ -1,6 +1,7 @@
 import React from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import toast from 'react-hot-toast';
 
 import { companyUserSelector, companyUserThunks } from '../../../../redux/industry/userSlice';
 import Page from '../../Page';
@@ -20,6 +21,7 @@ export default function Edit() {
     };
     dispatch(companyUserThunks.updateUser(userObj));
     history.push(`/admin/industry/users/view/${id}`);
+    toast.success("Updated user");
   }
 
   return (

@@ -1,6 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import toast from 'react-hot-toast';
 
 import ButtonLink from '../../../../common/ButtonLink';
 import { companyUserThunks, activeUsersSelector, archivedUsersSelector, userComparator } from '../../../../redux/industry/userSlice';
@@ -19,6 +20,7 @@ export default function Manage() {
     className: "secondary",
     onClick: selections => {
       dispatch(companyUserThunks.archiveUsers(selections));
+      toast.success("Archived user(s)");
     }
   }
   const unarchiveUser = {
@@ -26,6 +28,7 @@ export default function Manage() {
     className: "secondary",
     onClick: selections => {
       dispatch(companyUserThunks.unarchiveUsers(selections));
+      toast.success("Unarchived user(s)");
     }
   }
 

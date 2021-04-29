@@ -2,15 +2,16 @@ import React, { useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import Popup from 'reactjs-popup';
+import toast from 'react-hot-toast';
 
 import 'reactjs-popup/dist/index.css';
 
 import PostPreview from '../../../../common/post/PostPreview';
+import ButtonLink from '../../../../common/ButtonLink';
 import { requestSelector, requestThunks } from '../../../../redux/industry/requestSlice';
 import { companyUserSelector } from '../../../../redux/industry/userSlice';
 import Page from '../../Page';
 import ContactButton from './ContactButton';
-import ButtonLink from '../../../../common/ButtonLink';
 
 export default function Preview() {
   const history = useHistory();
@@ -25,10 +26,12 @@ export default function Preview() {
     // TODO: WAITING FOR ADMIN AUTHENTICATION
     // handle approver
     history.push("/admin/industry/posts");
+    toast.success("Approved post");
   }
   const handleReject = (feedback) => {
     dispatch(requestThunks.rejectRequest({ companyPostRequestId: id, feedback }));
     history.push("/admin/industry/posts/requests");
+    toast.success("Rejected post");
   }
 
   const rejectWithPopup = (
