@@ -2,7 +2,6 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
-import ButtonLink from '../../../../common/ButtonLink';
 import { pendingRequestsSelector, rejectedRequestsSelector } from '../../../../redux/industry/requestSlice';
 
 import Page from '../../Page';

@@ -6,7 +6,7 @@ import ButtonLink from '../../../../common/ButtonLink';
 import { companyUserThunks, activeUsersSelector, archivedUsersSelector, userComparator } from '../../../../redux/industry/userSlice';
 import Page from '../../Page';
 import SelectTable from '../../../../common/SelectTable';
-import { COMPANY_TIERS, getCompanyTierDisplay } from '../Companies/CompaniesForm';
+import { getCompanyTierDisplay } from '../Companies/CompaniesForm';
 
 export default function Manage() {
   const activeUsers = useSelector(activeUsersSelector).sort(userComparator);

@@ -24,11 +24,11 @@ export default function Preview() {
     dispatch(requestThunks.approveRequest({ companyPostRequestId: id, approvedBy: "approver name" }))
     // TODO: WAITING FOR ADMIN AUTHENTICATION
     // handle approver
-    history.push("/admin/industry/posts")
+    history.push("/admin/industry/posts");
   }
   const handleReject = (feedback) => {
     dispatch(requestThunks.rejectRequest({ companyPostRequestId: id, feedback }));
-    history.push("/admin/industry/posts")
+    history.push("/admin/industry/posts/requests");
   }
 
   const rejectWithPopup = (
