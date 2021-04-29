@@ -61,8 +61,8 @@ export const getIndustryIndustryThunk = () => async (dispatch, getState) => {
 const industryReducer = combineReducers({
   companies: companiesReducer,
   users: usersReducer,
-  requests: requestsReducer,
   posts: postsReducer,
+  requests: requestsReducer,
   dataFetched: dataFetchedReducer.reducer,
 })
 

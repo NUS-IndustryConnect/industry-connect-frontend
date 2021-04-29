@@ -47,9 +47,7 @@ export const postSlice = createSlice({
     [updatePost.fulfilled]: putPayloadToState,
     [archivePosts.fulfilled]: replacePost,
     [unarchivePosts.fulfilled]: replacePost,
-    [approveRequest.fulfilled]: (state, action) => {
-      // TODO: add the approved request to posts
-    }
+    [approveRequest.fulfilled]: putPayloadToState
   }
 });
 
