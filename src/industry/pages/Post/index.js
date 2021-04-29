@@ -1,7 +1,8 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
-import Manage from './Manage';
+import ManagePosts from './ManagePosts';
+import ManageRequests from './ManageRequests';
 import New from './New';
 import Edit from './Edit';
 import View from './View';
@@ -16,7 +17,8 @@ export default function Post() {
       <Route exact path="/industry/posts/view/:id"><View /></Route>
       <Route exact path="/industry/posts/preview"><Preview /></Route>
       <Route exact path="/industry/posts/submitted"><Submitted /></Route>
-      <Route exact path="/industry/posts"><Manage /></Route>
+      <Route exact path="/industry/posts/requests"><ManageRequests /></Route>
+      <Route exact path="/industry/posts"><ManagePosts /></Route>
     </Switch>
   )
 }

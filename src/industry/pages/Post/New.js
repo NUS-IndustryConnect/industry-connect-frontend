@@ -1,8 +1,8 @@
 import React from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 
-import Page from '../../../common/Page';
 import PostsForm, { getPostFields } from '../../../common/post/PostsForm';
+import Page from '../Page';
 
 export default function New() {
   const history = useHistory();

@@ -2,9 +2,9 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
-import Page from '../../../common/Page';
 import PostPreview from '../../../common/post/PostPreview';
 import { postOrRequestSelector } from '../../../redux/industry/postSlice';
+import Page from '../Page';
 
 export default function View() {
   const { id } = useParams();

@@ -2,9 +2,9 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 
-import Page from '../../../common/Page';
 import PostsForm, { getPostFields } from '../../../common/post/PostsForm';
 import { postOrRequestSelector } from '../../../redux/industry/postSlice';
+import Page from '../Page';
 
 
 // TODO: companies shouldn't be able to edit posts? need to go through approval process again

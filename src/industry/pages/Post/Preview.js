@@ -4,8 +4,8 @@ import { useLocation, useHistory } from 'react-router-dom';
 
 import { requestThunks } from '../../../redux/industry/requestSlice';
 import { userSelector } from '../../../redux/user/userSelectors';
-import Page from '../../../common/Page';
 import PostPreview from '../../../common/post/PostPreview';
+import Page from '../Page';
 
 export default function Preview() {
   const history = useHistory();
