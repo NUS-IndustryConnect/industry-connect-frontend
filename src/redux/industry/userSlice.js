@@ -84,12 +84,9 @@ export const usersOfCompanySelector = companyId => state => {
     .filter(elem => elem.companyId === companyId)
 }
 
-export const companyUsersDropdownSelector = companyId => state => {
-  const filteredUsers = companyId
-    ? activeUsersSelector(state).filter(user => user.companyId === companyId)
-    : activeUsersSelector(state);
-  return filteredUsers
-    .map(({ companyUserId, email }) => ({ value: companyUserId, label: email }));
+export const companyUsersDropdownSelector = state => {
+  return activeUsersSelector(state)
+    .map(({ companyId, companyUserId, email }) => ({ value: companyUserId, label: email, companyId }));
 }
 
 export const companyUserSelector = companyUserId => state => {

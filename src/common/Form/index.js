@@ -1,6 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 
+import CompanyUserDropdowns from './CompanyUserDropdowns';
 import './index.css';
 
 const convertDateFormat = dateString => {
@@ -53,9 +54,12 @@ const generateComponent = fieldOptions => {
 }
 
 const generateField = (fieldOptions) => {
-  const { type, name, label, optional = false } = fieldOptions;
+  const { type, name, label, optional = false, disabled } = fieldOptions;
   const component = generateComponent(fieldOptions);
-  
+
+  if (type === "company-user-dropdowns") {
+    return <CompanyUserDropdowns disabled={disabled} />;
+  }
   if (type === "checkbox") {
     return (
       <div className="form-field" key={name}>

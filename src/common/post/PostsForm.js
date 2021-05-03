@@ -1,9 +1,6 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 
 import Form from '../Form';
-import { companiesDropdownSelector } from '../../redux/industry/companySlice';
-import { companyUsersDropdownSelector } from '../../redux/industry/userSlice';
 
 export const getPostFields = data => ({
   companyId: data.get('companyId'),
@@ -18,9 +15,6 @@ export const getPostFields = data => ({
 
 // shared by both admin and industry
 export default function PostsForm({ submit, submitLabel, initial, isAdmin }) {
-  const companiesDropdown = useSelector(companiesDropdownSelector);
-  const companyUsersDropdown = useSelector(companyUsersDropdownSelector(initial?.companyId));
-
   let fields = [
     { type: "text", name: "postTitle", label: "Title", initial: initial?.postTitle },
     { type: "text", name: "postSubTitle", label: "Subtitle", initial: initial?.postSubTitle },
@@ -30,10 +24,7 @@ export default function PostsForm({ submit, submitLabel, initial, isAdmin }) {
     { type: "date", name: "expiryDate", label: "Expiry date", optional: true, initial: initial?.expiryDate },
   ];
   if (isAdmin) {
-    // TODO: company users dropdown should show a filtered list based on the selected company
-    // slightly problematic because this is using an uncontrolled form
-    fields.unshift({ type: "dropdown", name: "companyUserId", label: "Company User", options: companyUsersDropdown });
-    fields.unshift({ type: "dropdown", name: "companyId", label: "Company", options: companiesDropdown, initial: initial?.companyId });
+    fields.unshift({ type: "company-user-dropdowns" });
   }
 
   return (
