@@ -14,7 +14,7 @@ export const getPostFields = data => ({
 })
 
 // shared by both admin and industry
-export default function PostsForm({ submit, submitLabel, initial, isAdmin, companyUserDropdownDisabled = false }) {
+export default function PostsForm({ submit, submitLabel, initial, isAdmin, companyUserDropdownDisabled = false, resettable }) {
   let fields = [
     { type: "text", name: "postTitle", label: "Title", initial: initial?.postTitle },
     { type: "text", name: "postSubTitle", label: "Subtitle", initial: initial?.postSubTitle },
@@ -32,6 +32,7 @@ export default function PostsForm({ submit, submitLabel, initial, isAdmin, compa
       fields={fields}
       submit={submit}
       submitLabel={submitLabel}
+      resettable={resettable}
     />
   )
 }

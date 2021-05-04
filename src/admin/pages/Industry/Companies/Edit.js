@@ -28,7 +28,7 @@ export default function Edit() {
       isError={!Boolean(currentValues)}
       errorMessage={<p>Company not found. Please select another company.</p>}
     >
-      <CompaniesForm submit={submit} initial={currentValues} />
+      <CompaniesForm submit={submit} initial={currentValues} resettable/>
     </Page>
   )
 }

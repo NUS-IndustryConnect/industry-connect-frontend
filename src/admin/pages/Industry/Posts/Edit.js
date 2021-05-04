@@ -33,6 +33,7 @@ export default function Edit() {
         submitLabel="Update"
         isAdmin companyUserDropdownDisabled
         initial={currentValues}
+        resettable
       />
     </Page>
   )

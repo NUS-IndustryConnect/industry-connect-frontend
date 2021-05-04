@@ -30,7 +30,7 @@ export default function Edit() {
       isError={!Boolean(currentValues)}
       errorMessage={<p>User not found. Please select another user.</p>}
     >
-      <UsersForm submit={submit} initial={currentValues} />
+      <UsersForm submit={submit} initial={currentValues} resettable/>
     </Page>
   )
 }

@@ -29,7 +29,7 @@ export default function Edit() {
       isError={!Boolean(currentValues)}
       errorMessage={<p>Announcement not found. Please select another announcement.</p>}
     >
-      <AnnouncementForm submit={submit} initial={currentValues} />
+      <AnnouncementForm submit={submit} initial={currentValues} resettable />
     </Page>
   )
 }

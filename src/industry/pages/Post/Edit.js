@@ -20,7 +20,7 @@ export default function Edit() {
   }
   return (
     <Page title="Edit Post">
-      <PostsForm submit={submit} submitLabel="Update" initial={initial} />
+      <PostsForm submit={submit} submitLabel="Update" initial={initial} resettable/>
     </Page>
   )
 }

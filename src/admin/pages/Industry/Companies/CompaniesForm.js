@@ -16,7 +16,7 @@ export const getCompanyFields = data => ({
   companyDescription: data.get('companyDescription'),
 });
 
-export default function CompaniesForm({ submit, initial }) {
+export default function CompaniesForm({ submit, initial, resettable }) {
   return (
     <Form
       fields={[
@@ -26,6 +26,7 @@ export default function CompaniesForm({ submit, initial }) {
       ]}
       submit={submit}
       submitLabel={initial ? "Update" : "Create"}
+      resettable={resettable}
     />
   )
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import CompanyUserDropdowns from './CompanyUserDropdowns';
@@ -79,8 +79,9 @@ const generateField = (fieldOptions) => {
   );
 }
 
-export default function Form({ fields, submit, submitLabel }) {
+export default function Form({ fields, submit, submitLabel, resettable = false }) {
   const history = useHistory();
+  const [displayFields, setDisplayFields] = useState(fields);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -90,11 +91,23 @@ export default function Form({ fields, submit, submitLabel }) {
   const handleCancel = () => {
     history.goBack();
   }
+  const handleReset = () => {
+    setDisplayFields([]);
+  }
+  useEffect(() => { // repopulate displayFields with fields
+    if (displayFields.length === 0) setDisplayFields(fields);
+  }, [displayFields, fields]);
 
+  if (displayFields.length === 0) {
+    return <form onSubmit={handleSubmit}></form>;
+  }
   return (
     <form onSubmit={handleSubmit}>
-      { fields.map(generateField) }
+      { displayFields.map(generateField) }
       <input type="button" value="Cancel" onClick={handleCancel} className="secondary" />
+      { resettable
+        ? <input type="button" value="Reset" onClick={handleReset} className="secondary" />
+        : null }
       <input type="submit" value={submitLabel} className="primary"/>
     </form>
   );
