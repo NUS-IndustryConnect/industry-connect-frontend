@@ -20,9 +20,7 @@ export const announcementThunks = {
   getStudentAnnouncements,
   postAnnouncement,
   updateAnnouncement,
-  archiveAnnouncement,
   archiveAnnouncements,
-  unarchiveAnnouncement,
   unarchiveAnnouncements,
 }
 
