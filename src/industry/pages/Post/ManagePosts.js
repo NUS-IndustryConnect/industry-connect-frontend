@@ -7,7 +7,7 @@ import SelectTable from '../../../common/SelectTable';
 import { activePostsSelector, archivedPostsSelector, postThunks } from '../../../redux/industry/postSlice';
 import Page from '../Page';
 
-const Manage = () => {
+export default function ManagePosts() {
   const history = useHistory();
   const dispatch = useDispatch();
   const activePosts = useSelector(activePostsSelector);
@@ -70,5 +70,3 @@ const Manage = () => {
     </Page>
   )
 }
-
-export default Manage;

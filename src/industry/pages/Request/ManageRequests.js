@@ -7,7 +7,7 @@ import Table from '../../../common/Table';
 import { pendingRequestsSelector, rejectedRequestsSelector } from '../../../redux/industry/requestSlice';
 import Page from '../Page';
 
-const Manage = () => {
+export default function ManageRequests() {
   const history = useHistory();
   const pendingRequests = useSelector(pendingRequestsSelector);
   const rejectedRequests = useSelector(rejectedRequestsSelector)
@@ -57,5 +57,3 @@ const Manage = () => {
     </Page>
   )
 }
-
-export default Manage;

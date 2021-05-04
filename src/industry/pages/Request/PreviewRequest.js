@@ -27,7 +27,7 @@ export default function PreviewRequest() {
   }
   return (
     <Page
-      title="Preview Post"
+      title="Preview Post Request"
       isError={!Boolean(data)}
       errorMessage={<p>Post not found. Please select another post.</p>}
     >
