@@ -5,7 +5,7 @@ import toast from 'react-hot-toast';
 
 import PostPreview from '../../../common/post/PostPreview';
 import { requestThunks } from '../../../redux/industry/requestSlice';
-import { userSelector } from '../../../redux/user/userSelectors';
+import { userInfoSelector } from '../../../redux/user/userSelectors';
 import Page from '../Page';
 
 export default function Preview() {
@@ -13,7 +13,7 @@ export default function Preview() {
   const dispatch = useDispatch();
   const location = useLocation();
   const data = location?.state.data;
-  const { userInfo } = useSelector(userSelector);
+  const userInfo = useSelector(userInfoSelector);
 
   const submit = () => {
     const filledData = {

@@ -7,6 +7,7 @@ import { companiesDropdownSelector } from '../../../../redux/industry/companySli
 export const getUserFields = data => ({
   // name: data.get('name'),
   email: data.get('email'),
+  companyId: data.get('companyId'),
 });
 
 export default function UsersForm({ submit, initial, resettable }) {

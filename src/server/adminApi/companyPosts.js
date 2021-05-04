@@ -47,6 +47,11 @@ const unarchivePosts = async companyPostId => {
 		.then(response => response.data);
 }
 
+const deletePost = async companyPostId => {
+	return api.delete(`/companyPost/delete/${companyPostId}`)
+		.then(response => response.data);
+}
+
 const companyPosts = {
 	getPosts,
 	getValidPosts,
@@ -57,6 +62,7 @@ const companyPosts = {
 	updatePost,
 	archivePosts,
 	unarchivePosts,
+	deletePost
 }
 
 export default companyPosts;

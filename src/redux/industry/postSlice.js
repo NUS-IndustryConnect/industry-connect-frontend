@@ -15,6 +15,7 @@ const createPost = createAsyncThunk('admin/posts/create', adminApi.companyPosts.
 const updatePost = createAsyncThunk('admin/posts/update', adminApi.companyPosts.updatePost)
 const archivePosts = createAsyncThunk('admin/posts/archive', adminApi.companyPosts.archivePosts)
 const unarchivePosts = createAsyncThunk('admin/posts/unarchive', adminApi.companyPosts.unarchivePosts)
+const deletePost = createAsyncThunk('admin/posts/unarchive', adminApi.companyPosts.deletePost)
 
 export const postThunks = {
   getAdminPosts,
@@ -24,6 +25,7 @@ export const postThunks = {
   updatePost,
   archivePosts,
   unarchivePosts,
+  deletePost
 }
 
 const replacePost = (state, action) => {
@@ -47,7 +49,8 @@ export const postSlice = createSlice({
     [updatePost.fulfilled]: putPayloadToState,
     [archivePosts.fulfilled]: replacePost,
     [unarchivePosts.fulfilled]: replacePost,
-    [approveRequest.fulfilled]: putPayloadToState
+    [deletePost.fulfilled]: putPayloadToState,
+    [approveRequest.fulfilled]: putPayloadToState,
   }
 });
 
@@ -56,7 +59,7 @@ export const { clearPostData } = postSlice.actions;
 
 // selectors
 const rawPostsSelector = state => state.industry.posts;
-export const postsSelector = state => { // TODO: memoise this
+export const postsSelector = state => {
   const posts = rawPostsSelector(state);
   const companies = companiesSelector(state);
   return mergeCompanyInfo(posts, companies);

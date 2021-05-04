@@ -98,6 +98,8 @@ button.right {
 
 button.email {
   padding-right: 0;
+  padding-top: 4px;
+  padding-bottom: 4px;
 }
 
 button.email > .email-address {

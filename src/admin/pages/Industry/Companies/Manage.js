@@ -69,7 +69,7 @@ export default function Manage() {
             <button className="warning right" onClick={handleArchive}>Archive</button>
           </div>
         </div>
-    </Popup>
+      </Popup>
       <section>
         <h3>Active</h3>
         <SelectTable

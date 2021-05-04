@@ -12,6 +12,7 @@ import { requestSelector, requestThunks } from '../../../../redux/industry/reque
 import { companyUserSelector } from '../../../../redux/industry/userSlice';
 import Page from '../../Page';
 import ContactButton from './ContactButton';
+import { userInfoSelector } from '../../../../redux/user/userSelectors';
 
 export default function Preview() {
   const history = useHistory();
@@ -20,11 +21,15 @@ export default function Preview() {
   const [feedback, setFeedback] = useState("");
   const data = useSelector(requestSelector(id));
   const companyUser = useSelector(companyUserSelector(data?.companyUserId));
+  const userInfo = useSelector(userInfoSelector);
 
   const handleApprove = () => {
-    dispatch(requestThunks.approveRequest({ companyPostRequestId: id, approvedBy: "approver name" }))
+    dispatch(requestThunks.approveRequest({
+      companyPostRequestId: id,
+      approvedBy: "approver name"
+    }))
     // TODO: WAITING FOR ADMIN AUTHENTICATION
-    // handle approver
+    // approvedBy should be taken from redux's userInfo
     history.push("/admin/industry/posts");
     toast.success("Approved post");
   }
