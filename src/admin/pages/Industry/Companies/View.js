@@ -9,6 +9,7 @@ import { companySelector } from '../../../../redux/industry/companySlice';
 import { usersOfCompanySelector } from '../../../../redux/industry/userSlice';
 import { requestsByCompanySelector } from '../../../../redux/industry/requestSlice';
 import { postsByCompanySelector } from '../../../../redux/industry/postSlice';
+
 import Page from '../../Page';
 import { getCompanyTierDisplay } from './CompaniesForm';
 
@@ -35,16 +36,29 @@ export default function View() {
       <td>{new Date(lastLoggedIn).toLocaleDateString()}</td>
     </tr>
   );
-  const postsDataToRow = urlPath => ({ companyPostId, lastUpdated, postTitle, status }) => {
+
+  const postsDataToRow = ({ companyPostId, lastUpdated, postTitle }) => {
     // TODO: date given is in DD-MM-YYYY format but new Date() expects MM-DD-YYYY
     return (
       <tr
         key={companyPostId}
-        onClick={() => history.push(`/admin/industry/posts/${urlPath}/${companyPostId}`)}
-        className={`clickable ${status}`}
+        onClick={() => history.push(`/admin/industry/posts/view/${companyPostId}`)}
+        className="clickable"
       >
         <td>{postTitle}</td>
         <td>{new Date(lastUpdated).toLocaleDateString()}</td>
+      </tr>
+    )
+  };
+
+  const requestsDataToRow = ({ companyPostId, postTitle, status }) => {
+    return (
+      <tr
+        key={companyPostId}
+        onClick={() => history.push(`/admin/industry/posts/preview/${companyPostId}`)}
+        className={`clickable ${status}`}
+      >
+        <td>{postTitle}</td>
       </tr>
     )
   };
@@ -76,9 +90,9 @@ export default function View() {
       <section>
         <h4>Pending Requests</h4>
         <Table
-          headers={["Post Title", "Date"]}
+          headers={["Post Title"]}
           data={requests}
-          dataToRow={postsDataToRow("preview")}
+          dataToRow={requestsDataToRow}
           className="pending"
         />
       </section>
@@ -87,7 +101,7 @@ export default function View() {
         <Table
           headers={["Post Title", "Date"]}
           data={posts}
-          dataToRow={postsDataToRow("view")}
+          dataToRow={postsDataToRow}
         />
       </section>
     </Page>

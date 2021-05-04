@@ -61,7 +61,11 @@ export const requestSelector = companyPostRequestId => state => {
 }
 export const requestsByCompanySelector = companyId => state => {
   return requestsSelector(state)
-    .filter(elem => elem.companyId === companyId)
+    .filter(elem => elem.companyId === companyId);
+}
+export const requestsByUserSelector = companyUserId => state => {
+  return requestsSelector(state)
+    .filter(elem => elem.companyUserId === companyUserId);
 }
 
 export default requestSlice.reducer;
