@@ -14,7 +14,7 @@ const Manage = () => {
 
   const requestsDataToRow = (data) => {
     const { companyPostRequestId, postTitle, status } = data;
-    const handleClick = () => history.push(`/industry/posts/view/${companyPostRequestId}`);
+    const handleClick = () => history.push(`/industry/requests/view/${companyPostRequestId}`);
     return (
       <tr key={companyPostRequestId} className={status}>
         <td onClick={handleClick} className="clickable">{postTitle}</td>
@@ -24,7 +24,7 @@ const Manage = () => {
 
   const rejectedRequestsDataToRow = (data) => {
     const { companyPostRequestId, postTitle, status, feedback } = data;
-    const handleClick = () => history.push(`/industry/posts/view/${companyPostRequestId}`);
+    const handleClick = () => history.push(`/industry/requests/view/${companyPostRequestId}`);
     return (
       <tr key={companyPostRequestId} className={status}>
         <td onClick={handleClick} className="clickable">{postTitle}</td>
@@ -35,7 +35,7 @@ const Manage = () => {
 
   return (
     <Page title="Industry Post Requests">
-      <ButtonLink to="/industry/posts/new" label="Create new post request" className="primary" />
+      <ButtonLink to="/industry/requests/new" label="Create new post request" className="primary" />
       <section>
         <h3>Pending Approval</h3>
         <Table

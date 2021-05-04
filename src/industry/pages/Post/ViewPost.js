@@ -1,30 +1,24 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
+import { IoIosArrowBack } from 'react-icons/io';
 
 import PostPreview from '../../../common/post/PostPreview';
-import { postOrRequestSelector } from '../../../redux/industry/postSlice';
+import { postSelector } from '../../../redux/industry/postSlice';
 import Page from '../Page';
 
-export default function View() {
+export default function ViewPost() {
   const history = useHistory();
   const { id } = useParams();
-  const data = useSelector(postOrRequestSelector(id));
-  let status = [];
-  if (data?.status === "rejected") {
-    status.push("This post has been rejected.");
-  }
-  status = status.concat(data?.feedback?.split("\n"));
+  const data = useSelector(postSelector(id));
   return (
     <Page
       title="View Post"
       isError={!Boolean(data)}
       errorMessage={<p>Post not found. Please select another post.</p>}
     >
-      <button className="secondary" onClick={history.goBack}>Back</button>
+      <button className="secondary" onClick={history.goBack}><IoIosArrowBack />Back</button>
       <PostPreview data={data} urlPath="/industry/posts" />
-
-      {status.map((text, i) => <p key={i}>{text}</p>)}
     </Page>
   )
 }

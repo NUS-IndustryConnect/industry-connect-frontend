@@ -8,7 +8,7 @@ import { requestThunks } from '../../../redux/industry/requestSlice';
 import { userInfoSelector } from '../../../redux/user/userSelectors';
 import Page from '../Page';
 
-export default function Preview() {
+export default function PreviewRequest() {
   const history = useHistory();
   const dispatch = useDispatch();
   const location = useLocation();
@@ -22,7 +22,7 @@ export default function Preview() {
       companyUserId: userInfo.companyUserId,
     }
     dispatch(requestThunks.createRequest(filledData));
-    history.push("/industry/posts/submitted");
+    history.push("/industry/requests/submitted");
     toast.success("Created request");
   }
   return (
@@ -31,7 +31,7 @@ export default function Preview() {
       isError={!Boolean(data)}
       errorMessage={<p>Post not found. Please select another post.</p>}
     >
-      <PostPreview data={data} urlPath="/industry/posts" />
+      <PostPreview data={data} urlPath="/industry/requests" />
       <input type="button" onClick={submit} value="Submit for vetting" className="primary"/>
     </Page>
   )

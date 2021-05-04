@@ -4,18 +4,18 @@ import { useHistory, useParams } from 'react-router-dom';
 import Popup from 'reactjs-popup';
 
 import PostsForm, { getPostFields } from '../../../common/post/PostsForm';
-import { postOrRequestSelector, postThunks } from '../../../redux/industry/postSlice';
+import { postThunks, postSelector } from '../../../redux/industry/postSlice';
 import { requestThunks } from '../../../redux/industry/requestSlice';
 import { userInfoSelector } from '../../../redux/user/userSelectors';
 import Page from '../Page';
 
-export default function Edit() {
+export default function EditPost() {
   const history = useHistory();
   const dispatch = useDispatch();
   const [data, setData] = useState();
   const [isModalOpen, setModalOpen] = useState(false);
   const { id } = useParams();
-  const initial = useSelector(postOrRequestSelector(id));
+  const initial = useSelector(postSelector(id));
   const userInfo = useSelector(userInfoSelector);
 
   const handleClick = data => {
