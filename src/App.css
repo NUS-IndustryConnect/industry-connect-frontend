@@ -83,6 +83,8 @@ button, input[type="submit"], input[type="button"] {
   border: none;
   outline: none;
   cursor: pointer;
+  display: inline-flex;
+  align-items: center;
 }
 
 .action-buttons.right {

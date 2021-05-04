@@ -1,6 +1,7 @@
 import React from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import { IoIosArrowBack } from 'react-icons/io';
 
 import VerticalTable from '../../../../common/VerticalTable';
 import ButtonLink from '../../../../common/ButtonLink';
@@ -68,6 +69,7 @@ export default function View() {
       isError={!Boolean(data)}
       errorMessage={<p>User not found. Please select another user.</p>}
     >
+      <button className="secondary" onClick={history.goBack}><IoIosArrowBack />Back</button>
       <VerticalTable data={userData}/>
       <ButtonLink to={`/admin/industry/users/edit/${id}`} label="Edit" className="secondary" />
 

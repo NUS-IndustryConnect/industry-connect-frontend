@@ -1,12 +1,13 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 
 import PostPreview from '../../../common/post/PostPreview';
 import { postOrRequestSelector } from '../../../redux/industry/postSlice';
 import Page from '../Page';
 
 export default function View() {
+  const history = useHistory();
   const { id } = useParams();
   const data = useSelector(postOrRequestSelector(id));
   let status = [];
@@ -20,6 +21,7 @@ export default function View() {
       isError={!Boolean(data)}
       errorMessage={<p>Post not found. Please select another post.</p>}
     >
+      <button className="secondary" onClick={history.goBack}>Back</button>
       <PostPreview data={data} urlPath="/industry/posts" />
 
       {status.map((text, i) => <p key={i}>{text}</p>)}
