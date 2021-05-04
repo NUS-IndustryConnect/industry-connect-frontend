@@ -29,7 +29,10 @@ const generateComponent = fieldOptions => {
       );
     case "dropdown":
       return (
-        <select name={name} id={name} required={!optional} defaultValue={initial} disabled={disabled}>
+        <select
+          name={name} id={name}
+          required={!optional} defaultValue={initial} disabled={disabled}
+        >
           { options.map(({ value, label }) => (
             <option key={value} value={value}>{label}</option>
           )) }
@@ -94,5 +97,5 @@ export default function Form({ fields, submit, submitLabel }) {
       <input type="button" value="Cancel" onClick={handleCancel} className="secondary" />
       <input type="submit" value={submitLabel} className="primary"/>
     </form>
-  )
+  );
 }

@@ -31,7 +31,7 @@ export default function Edit() {
       <PostsForm
         submit={submit}
         submitLabel="Update"
-        isAdmin
+        isAdmin companyUserDropdownDisabled
         initial={currentValues}
       />
     </Page>
