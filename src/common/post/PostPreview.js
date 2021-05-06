@@ -17,6 +17,11 @@ export default function Preview({ data = {}, urlPath = "", editable = true }) {
   const { id } = useParams();
   const history = useHistory();
 
+  const isUrl = string => {
+    try { return Boolean(new URL(string)); }
+    catch(e){ return false; }
+  }
+
   const editButton = id
     ? <ButtonLink to={`${urlPath}/edit/${id}`} label="Edit" className="secondary right" />
     : <button className="secondary right" onClick={() => history.push(`${urlPath}/new`, { data })}>Edit</button>;
@@ -25,12 +30,15 @@ export default function Preview({ data = {}, urlPath = "", editable = true }) {
     <div className="post">
       <div className="post-header">
         <h3>{postTitle}</h3>
-        {editable ? editButton : null}
+        {editable && editButton}
       </div>
       <h5>{postSubtitle}</h5>
       { postDescription?.split("\n").map((para, i) => <p key={i}>{para}</p>) }
-      <VideoEmbed videoUrl={videoUrl} />
-      { moreUrl ? <a href={moreUrl}><button className="primary right">Find out more</button></a> : null}
+      { videoUrl && isUrl(videoUrl) && (<VideoEmbed videoUrl={videoUrl} />)}
+      { videoUrl && !isUrl(videoUrl) && (<p>(Video link is invalid and not able to be shown.)</p>)}
+      { moreUrl && isUrl(moreUrl) && (<a href={moreUrl}><button className="primary right">Find out more</button></a>)}
+      { moreUrl && !isUrl(moreUrl) && (<p>(View more link is invalid and not able to be shown.)</p>)}
+      { !editable && (<button type="button" onClick={() => history.push('/industry/posts')}>Back</button>)}
     </div>
   )
 }

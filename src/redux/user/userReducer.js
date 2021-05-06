@@ -2,19 +2,24 @@ import {
   LOGIN_ADMIN_SUCCESSFUL, 
   LOGIN_COMPANY_SUCCESSFUL, 
   LOGIN_STUDENT_SUCCESSFUL, 
-  LOGOUT 
+  LOGOUT, 
+  REFRESH_SUCCESS
 } from "./userTypes";
 
 const initState = {
   role: "",
   token: "",
   isLoggedIn: false,
-  lastLoggedIn: null,
   userInfo: {},
 }
 
 const userReducer = (state = initState, {type, payload}) => {
   switch (type) {
+    case REFRESH_SUCCESS:
+      return {
+        ...state,
+        ...payload
+      };
     case LOGIN_ADMIN_SUCCESSFUL:
       return {
         ...state,

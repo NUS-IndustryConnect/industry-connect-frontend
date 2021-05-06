@@ -23,7 +23,7 @@ export default function ViewRequest() {
       errorMessage={<p>Post not found. Please select another post.</p>}
     >
       <button className="secondary" onClick={history.goBack}><IoIosArrowBack />Back</button>
-      <PostPreview data={data} urlPath="/industry/requests" />
+      <PostPreview data={data} urlPath="/industry/requests" editable={false}  />
       {status.map((text, i) => <p key={i}>{text}</p>)}
     </Page>
   )

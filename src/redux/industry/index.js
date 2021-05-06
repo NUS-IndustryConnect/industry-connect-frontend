@@ -25,8 +25,11 @@ export const clearIndustry = () => async dispatch => {
     dispatch(clearCompanyUserData()),
     dispatch(clearPostData()),
     dispatch(clearRequestData()),
-  ])
-  dispatch(clearIndustryData());
+  ]).then(() => {
+    dispatch(clearIndustryData());
+  }).catch(err => {
+    throw err;
+  })
 }
 
 export const industryDataFetchedSelector = state => state.industry.dataFetched;
@@ -37,25 +40,34 @@ export const getAdminIndustryThunk = () => async dispatch => {
     dispatch(companyUserThunks.getUsers()),
     dispatch(requestThunks.getAdminRequests()),
     dispatch(postThunks.getAdminPosts()),
-  ])
-  dispatch(dataFetchedReducer.actions.fetch());
+  ]).then(() => {
+    dispatch(dataFetchedReducer.actions.fetch());
+  }).catch(err => { 
+    throw err; 
+  })
 }
 
 export const getStudentIndustryThunk = () => async dispatch => {
   await Promise.all([
     dispatch(companyThunks.getStudentCompanies()),
     dispatch(postThunks.getStudentPosts()),
-  ]);
-  dispatch(dataFetchedReducer.actions.fetch());
+  ]).then(() => {
+    dispatch(dataFetchedReducer.actions.fetch());
+  }).catch(err => {
+    throw err;
+  })
 }
 
 export const getIndustryIndustryThunk = () => async (dispatch, getState) => {
-  const { companyId } = userInfoSelector(getState())
+  const { companyId } = userInfoSelector(getState());
   await Promise.all([
     dispatch(postThunks.getIndustryPosts(companyId)),
     dispatch(requestThunks.getIndustryRequests(companyId))
-  ])
-  dispatch(dataFetchedReducer.actions.fetch());
+  ]).then(() => {
+    dispatch(dataFetchedReducer.actions.fetch());
+  }).catch(err => {
+    throw err;
+  })
 }
 
 const industryReducer = combineReducers({

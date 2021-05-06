@@ -1,70 +1,49 @@
-# Getting Started with Create React App
+# IndustryConnect Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+IndustryConnect (<https://iconnect.comp.nus.edu.sg/>) is a platform for students from the School of Computing to learn about internships, jobs and future career opportunities in various industries, developed in the School of Computing at the National University of Singapore. This repository houses the sources for the frontend of IndustryConnect, written in ReactJS with Redux.
 
-## Available Scripts
+## Features
+- Announcements for students to catch up on the latest news regarding the tech industry
+- Industry articles from partnered companies for students to view and find out more about the companies
 
-In the project directory, you can run:
+## Getting Started
 
-### `yarn start`
+### Installation
+1. Install a stable version of NodeJS. The active LTS or current version should work fine.
+1. Clone this repository and navigate to it using "cd" in your command line or shell tool.
+1. Run `yarn install` to install dependencies.
+1. Copy the `.env.example` file as `.env` and set the necessary variables (refer below for more information)
+1. Run `yarn run start` to start the server at `localhost:3000`. **It might take a couple of minutes for the server to start.**
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Setting up your environment
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+The project requires some environment variables to be set to work properly. In the `.env` file a few things need to be set up:
 
-### `yarn test`
+#### Backend configuration
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. `REACT_APP_DEV_BASE_URL`: The base URL of the backend in the development stage. If you are testing with a local backend, the value in `.env.example` matches the default development configuration of the backend.
+1. `REACT_APP_DEV_BASE_URL`: The base URL of the backend in the production stage. Set to your own if not running together with the [backend](https://github.com/NUS-IndustryConnect/SOC_IR_API).
 
-### `yarn build`
+#### Authentication provider configuration
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Your backend engineer should provide you with the configuration for the development and/or production stages of the backend.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. `REACT_APP_DEV_AUTH_CLIENT_ID`: The provider ID of the authentication provider at development stage. This must match the backend configuration.
+1. `REACT_APP_DEV_AUTH_REDIRECT`: The redirected link for the authentication provider to route back at development stage.
+1. `REACT_APP_DEV_AUTH_ENPOINT`: The authentication endpoint of the authentication provider at development stage.
+1. `REACT_APP_PROD_AUTH_CLIENT_ID`: The provider ID of the authentication provider at production stage. This must also match the backend configuration.
+1. `REACT_APP_PROD_AUTH_REDIRECT`: The redirected link for the authentication provider to route back at production stage.
+1. `REACT_APP_PROD_AUTH_ENPOINT`: The authentication endpoint of the authentication provider at production stage.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+#### Other configuration
 
-### `yarn eject`
+1. `REACT_APP_ENV`: Whether to build the project with the configurations of the development or production stage. Set "development" if it is in the development stage.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Application Structure
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+1. `admin` contains components related to admin users.
+1. `common` contains components or other code common to more than one page.
+1. `industry` contains components related to company/industry users.
+1. `redux` contains action creators, reducers and type declarations for specific functions.
+1. `server` contains function calls to backend API.
+1. `student` contains components related to student users.
