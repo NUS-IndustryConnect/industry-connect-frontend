@@ -38,19 +38,16 @@ export default function View() {
     </tr>
   );
 
-  const postsDataToRow = ({ companyPostId, lastUpdated, postTitle }) => {
-    // TODO: date given is in DD-MM-YYYY format but new Date() expects MM-DD-YYYY
-    return (
-      <tr
-        key={companyPostId}
-        onClick={() => history.push(`/admin/industry/posts/view/${companyPostId}`)}
-        className="clickable"
-      >
-        <td>{postTitle}</td>
-        <td>{new Date(lastUpdated).toLocaleDateString()}</td>
-      </tr>
-    )
-  };
+  const postsDataToRow = ({ companyPostId, lastUpdated, postTitle }) => (
+    <tr
+      key={companyPostId}
+      onClick={() => history.push(`/admin/industry/posts/view/${companyPostId}`)}
+      className="clickable"
+    >
+      <td>{postTitle}</td>
+      <td>{new Date(lastUpdated).toLocaleDateString()}</td>
+    </tr>
+  );
 
   const requestsDataToRow = ({ companyPostId, postTitle, status }) => {
     return (
@@ -63,6 +60,7 @@ export default function View() {
       </tr>
     )
   };
+
   return (
     <Page
       title="View Company"

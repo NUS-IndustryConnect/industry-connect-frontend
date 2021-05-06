@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 import PostsForm, { getPostFields } from '../../../common/post/PostsForm';
 import { requestThunks, requestSelector } from '../../../redux/industry/requestSlice';
@@ -24,6 +25,7 @@ export default function EditRequest() {
     // TODO: delete the original request? BE has no API for this though
     dispatch(requestThunks.createRequest(filledData)); // make the request again
     history.push('/industry/requests');
+    toast.success("Resubmitted request");
   }
   return (
     <Page title="Edit Request">
