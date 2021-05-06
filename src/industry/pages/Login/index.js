@@ -9,13 +9,13 @@ import { userSelector } from '../../../redux/user/userSelectors';
 import authenticationApi from '../../../server/authenticationApi';
 import './index.css';
 
-const ADMIN_EMAIL = "placeholder@nus.edu.sg"
+const ADMIN_EMAIL = "industry@comp.nus.edu.sg"
 const ADMIN_EMAIL_LINK = <a href={`mailto:${ADMIN_EMAIL}`}>{ADMIN_EMAIL}</a>
 
 const ERRORS = {
   INVALID_EMAIL: <p>Please enter a valid email address.</p>,
   INVALID_OTP: <p>Please enter a valid OTP.</p>,
-  EMAIL_NOT_RECOGNISED: <p>We don't recognise this email address. Would you like to request for an account with {ADMIN_EMAIL_LINK} instead?</p>,
+  EMAIL_NOT_RECOGNISED: <p>We don't recognise this email address. Please contact {ADMIN_EMAIL_LINK} if you have an issue accessing your account.</p>,
   INCORRECT_OTP: <p>Incorrect OTP. Your account will be locked after 5 incorrect attempts.</p>,
   LOCKED: <p>More than 5 incorrect OTP attempts. Your account has been locked for 24 hours. You may contact {ADMIN_EMAIL_LINK} to unlock it.</p>
 }

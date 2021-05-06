@@ -1,6 +1,7 @@
 import React from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import toast from 'react-hot-toast';
 
 import { companyUserSelector, companyUserThunks } from '../../../../redux/industry/userSlice';
 import Page from '../../Page';
@@ -15,10 +16,12 @@ export default function Edit() {
   const submit = data => {
     const userObj = {
       companyUserId: currentValues.companyUserId,
+      companyId: currentValues.companyId,
       ...getUserFields(data)
     };
     dispatch(companyUserThunks.updateUser(userObj));
-    history.push('/admin/industry/users');
+    history.push(`/admin/industry/users/view/${id}`);
+    toast.success("Updated user");
   }
 
   return (
@@ -27,7 +30,7 @@ export default function Edit() {
       isError={!Boolean(currentValues)}
       errorMessage={<p>User not found. Please select another user.</p>}
     >
-      <UsersForm submit={submit} initial={currentValues} />
+      <UsersForm submit={submit} initial={currentValues} resettable/>
     </Page>
   )
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import toast from 'react-hot-toast';
 
 import Page from '../Page';
 
@@ -20,6 +21,7 @@ export default function Edit() {
     };
     dispatch(announcementThunks.updateAnnouncement(announcementObj));
     history.push('/admin/announcements');
+    toast.success("Updated announcement");
   }
   return (
     <Page
@@ -27,7 +29,7 @@ export default function Edit() {
       isError={!Boolean(currentValues)}
       errorMessage={<p>Announcement not found. Please select another announcement.</p>}
     >
-      <AnnouncementForm submit={submit} initial={currentValues} />
+      <AnnouncementForm submit={submit} initial={currentValues} resettable />
     </Page>
   )
 }

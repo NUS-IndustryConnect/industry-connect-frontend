@@ -37,13 +37,18 @@ const updatePost = async data => {
 		.then(response => response.data);
 }
 
-const archivePosts = async companyPostId => {
+const archivePost = async companyPostId => {
 	return api.put(`/companyPost/archive/${companyPostId}`)
 		.then(response => response.data);
 }
 
-const unarchivePosts = async companyPostId => {
+const unarchivePost = async companyPostId => {
 	return api.put(`/companyPost/unarchive/${companyPostId}`)
+		.then(response => response.data);
+}
+
+const deletePost = async companyPostId => {
+	return api.delete(`/companyPost/delete/${companyPostId}`)
 		.then(response => response.data);
 }
 
@@ -55,8 +60,9 @@ const companyPosts = {
 	getPostsByUser,
 	createPost,
 	updatePost,
-	archivePosts,
-	unarchivePosts,
+	archivePost,
+	unarchivePost,
+	deletePost
 }
 
 export default companyPosts;

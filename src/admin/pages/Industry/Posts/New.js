@@ -1,6 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import toast from 'react-hot-toast';
 
 import PostsForm, { getPostFields } from '../../../../common/post/PostsForm';
 import { postThunks } from '../../../../redux/industry/postSlice';
@@ -14,6 +15,7 @@ export default function New() {
     const postObj = getPostFields(data);
     dispatch(postThunks.createPost(postObj));
     history.push('/admin/industry/posts');
+    toast.success("Created post");
   }
   return (
     <Page title="New Post">

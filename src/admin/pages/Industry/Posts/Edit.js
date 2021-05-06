@@ -1,6 +1,7 @@
 import React from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import toast from 'react-hot-toast';
 
 import PostsForm, { getPostFields } from '../../../../common/post/PostsForm';
 import { postOrRequestSelector, postThunks } from '../../../../redux/industry/postSlice';
@@ -17,8 +18,9 @@ export default function Edit() {
       ...currentValues,
       ...getPostFields(data)
     };
-    dispatch(postThunks.updatePost(postObj))
-    history.push('/admin/industry/posts');
+    dispatch(postThunks.updatePost(postObj));
+    history.push(`/admin/industry/posts/view/${id}`);
+    toast.success("Updated post");
   }
   return (
     <Page
@@ -29,8 +31,9 @@ export default function Edit() {
       <PostsForm
         submit={submit}
         submitLabel="Update"
-        isAdmin
+        isAdmin companyUserDropdownDisabled
         initial={currentValues}
+        resettable
       />
     </Page>
   )

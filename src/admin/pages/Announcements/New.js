@@ -1,6 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import toast from 'react-hot-toast';
 
 import { announcementThunks } from '../../../redux/announcementSlice';
 import Page from '../Page';
@@ -14,8 +15,9 @@ export default function New() {
       ...getAnnouncementFields(data),
       announceBy: "author",
     };
-    dispatch(announcementThunks.postAnnouncement(announcementObj))
-    history.push('/admin/announcements')
+    dispatch(announcementThunks.postAnnouncement(announcementObj));
+    history.push('/admin/announcements');
+    toast.success("Created announcement");
   }
   return (
     <Page title="New Announcement">

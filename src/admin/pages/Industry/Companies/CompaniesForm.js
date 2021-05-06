@@ -7,13 +7,16 @@ export const COMPANY_TIERS = [
   { value: "silver", label: "Silver" }
 ];
 
+export const getCompanyTierDisplay = companyTier => COMPANY_TIERS
+  .find(elem => elem.value === companyTier).label;
+
 export const getCompanyFields = data => ({
   companyName: data.get('companyName'),
   companyTier: data.get('companyTier'),
   companyDescription: data.get('companyDescription'),
 });
 
-export default function CompaniesForm({ submit, initial }) {
+export default function CompaniesForm({ submit, initial, resettable }) {
   return (
     <Form
       fields={[
@@ -23,6 +26,7 @@ export default function CompaniesForm({ submit, initial }) {
       ]}
       submit={submit}
       submitLabel={initial ? "Update" : "Create"}
+      resettable={resettable}
     />
   )
 }

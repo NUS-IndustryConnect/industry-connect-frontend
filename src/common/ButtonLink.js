@@ -1,11 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 export default function ButtonLink(props) {
-  const { to, className, label } = props;
-  return (
-    <Link to={to} {...props}>
-      <button className={className}>{label}</button>
-    </Link>
-  )
+  const history = useHistory();
+  const { to, label } = props;
+  return <button {...props} onClick={() => history.push(to)}>{label}</button>
 }

@@ -33,6 +33,14 @@ const replaceUser = (state, action) => {
       : elem);
 }
 
+export const userComparator = (a, b) => {
+  if (a.company?.companyName < b.company?.companyName) return -1;
+  if (a.company?.companyName > b.company?.companyName) return 1;
+  if (a.email < b.email) return -1;
+  if (a.email > b.email) return 1;
+  return 0;
+}
+
 // slice
 export const userSlice = createSlice({
   name: "users",
@@ -78,7 +86,7 @@ export const usersOfCompanySelector = companyId => state => {
 
 export const companyUsersDropdownSelector = state => {
   return activeUsersSelector(state)
-    .map(({ companyUserId, email }) => ({ value: companyUserId, label: email }));
+    .map(({ companyId, companyUserId, email }) => ({ value: companyUserId, label: email, companyId }));
 }
 
 export const companyUserSelector = companyUserId => state => {

@@ -12,6 +12,7 @@ const getRequestsByCompany = companyId => {
 
 const createRequest = async data => {
   return api.post('/companyPostRequest/create', data)
+  .then(response => response.data);
 }
 
 const approveRequest = async ({ companyPostRequestId, approvedBy }) => {

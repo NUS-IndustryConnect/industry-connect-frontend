@@ -1,13 +1,14 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux';
+import toast from 'react-hot-toast';
 
 import ButtonLink from '../../../common/ButtonLink';
 import {
   activeAnnouncementsSelector,
   pinnedAnnouncementsSelector,
   archivedAnnouncementsSelector,
-  announcementThunks
+  announcementThunks,
 } from '../../../redux/announcementSlice';
 import Page from '../Page';
 import SelectTable from '../../../common/SelectTable';
@@ -41,6 +42,7 @@ const Manage = () => {
     className: "secondary",
     onClick: selections => {
       dispatch(announcementThunks.archiveAnnouncements(selections));
+      toast.success("Archived announcement(s)");
     }
   };
 
@@ -49,6 +51,7 @@ const Manage = () => {
     className: "secondary",
     onClick: selections => {
       dispatch(announcementThunks.unarchiveAnnouncements(selections));
+      toast.success("Unarchived announcement(s)");
     }
   }
 

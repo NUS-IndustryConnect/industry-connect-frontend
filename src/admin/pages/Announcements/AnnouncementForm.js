@@ -12,7 +12,7 @@ export const getAnnouncementFields = data => {
   }
 };
 
-export default function AnnouncementForm({ submit, initial }) {
+export default function AnnouncementForm({ submit, initial, resettable }) {
   return (
     <Form
       fields={[
@@ -24,6 +24,7 @@ export default function AnnouncementForm({ submit, initial }) {
       ]}
       submit={submit}
       submitLabel={initial ? "Update" : "Post"}
+      resettable={resettable}
     />
   );
 }

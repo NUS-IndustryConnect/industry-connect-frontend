@@ -3,7 +3,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import adminApi from '../../server/adminApi';
 import companyApi from '../../server/companyApi';
 import studentApi from '../../server/studentApi';
-import { putPayloadToState } from '../utils';
+import { putPayloadToState, pluraliseThunk } from '../utils';
 import { companiesSelector, mergeCompanyInfo } from './companySlice';
 import { approveRequest, requestSelector } from './requestSlice';
 
@@ -13,8 +13,12 @@ const getStudentPosts = createAsyncThunk('student/posts/get', studentApi.getComp
 const getIndustryPosts = createAsyncThunk('industry/posts/get', companyApi.companyPosts.getPostsByCompany)
 const createPost = createAsyncThunk('admin/posts/create', adminApi.companyPosts.createPost)
 const updatePost = createAsyncThunk('admin/posts/update', adminApi.companyPosts.updatePost)
-const archivePosts = createAsyncThunk('admin/posts/archive', adminApi.companyPosts.archivePosts)
-const unarchivePosts = createAsyncThunk('admin/posts/unarchive', adminApi.companyPosts.unarchivePosts)
+const archivePost = createAsyncThunk('admin/posts/archive', adminApi.companyPosts.archivePost)
+const unarchivePost = createAsyncThunk('admin/posts/unarchive', adminApi.companyPosts.unarchivePost)
+const deletePost = createAsyncThunk('admin/posts/delete', adminApi.companyPosts.deletePost)
+
+const archivePosts = pluraliseThunk(archivePost);
+const unarchivePosts = pluraliseThunk(unarchivePost);
 
 export const postThunks = {
   getAdminPosts,
@@ -24,6 +28,7 @@ export const postThunks = {
   updatePost,
   archivePosts,
   unarchivePosts,
+  deletePost
 }
 
 const replacePost = (state, action) => {
@@ -45,11 +50,10 @@ export const postSlice = createSlice({
     [getIndustryPosts.fulfilled]: putPayloadToState,
     [createPost.fulfilled]: putPayloadToState,
     [updatePost.fulfilled]: putPayloadToState,
-    [archivePosts.fulfilled]: replacePost,
-    [unarchivePosts.fulfilled]: replacePost,
-    [approveRequest.fulfilled]: (state, action) => {
-      // TODO: add the approved request to posts
-    }
+    [archivePost.fulfilled]: replacePost,
+    [unarchivePost.fulfilled]: replacePost,
+    [deletePost.fulfilled]: putPayloadToState,
+    [approveRequest.fulfilled]: putPayloadToState,
   }
 });
 
@@ -58,7 +62,7 @@ export const { clearPostData } = postSlice.actions;
 
 // selectors
 const rawPostsSelector = state => state.industry.posts;
-export const postsSelector = state => { // TODO: memoise this
+export const postsSelector = state => {
   const posts = rawPostsSelector(state);
   const companies = companiesSelector(state);
   return mergeCompanyInfo(posts, companies);

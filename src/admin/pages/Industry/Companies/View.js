@@ -1,6 +1,7 @@
 import React from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { IoIosArrowBack } from 'react-icons/io';
 
 import VerticalTable from '../../../../common/VerticalTable';
 import Table from '../../../../common/Table';
@@ -9,7 +10,9 @@ import { companySelector } from '../../../../redux/industry/companySlice';
 import { usersOfCompanySelector } from '../../../../redux/industry/userSlice';
 import { requestsByCompanySelector } from '../../../../redux/industry/requestSlice';
 import { postsByCompanySelector } from '../../../../redux/industry/postSlice';
+
 import Page from '../../Page';
+import { getCompanyTierDisplay } from './CompaniesForm';
 
 export default function View() {
   const history = useHistory();
@@ -24,40 +27,51 @@ export default function View() {
   const posts = useSelector(postsByCompanySelector(companyId));
   const requests = useSelector(requestsByCompanySelector(companyId))
 
-  const usersDataToRow = ({ companyUserId, name, email, lastLoggedIn }) => (
+  const usersDataToRow = ({ companyUserId, email, lastLoggedIn }) => (
     <tr
       key={companyUserId}
       onClick={() => history.push(`/admin/industry/users/view/${companyUserId}`)}
       className="clickable"
     >
-      <td>{name}</td>
       <td>{email}</td>
       <td>{new Date(lastLoggedIn).toLocaleDateString()}</td>
     </tr>
   );
-  const postsDataToRow = urlPath => ({ companyPostId, lastUpdated, postTitle }) => {
-    // TODO: date given is in DD-MM-YYYY format but new Date() expects MM-DD-YYYY
+
+  const postsDataToRow = ({ companyPostId, lastUpdated, postTitle }) => (
+    <tr
+      key={companyPostId}
+      onClick={() => history.push(`/admin/industry/posts/view/${companyPostId}`)}
+      className="clickable"
+    >
+      <td>{postTitle}</td>
+      <td>{new Date(lastUpdated).toLocaleDateString()}</td>
+    </tr>
+  );
+
+  const requestsDataToRow = ({ companyPostId, postTitle, status }) => {
     return (
       <tr
         key={companyPostId}
-        onClick={() => history.push(`/admin/industry/posts/${urlPath}/${companyPostId}`)}
-        className="clickable"
+        onClick={() => history.push(`/admin/industry/posts/preview/${companyPostId}`)}
+        className={`clickable ${status}`}
       >
         <td>{postTitle}</td>
-        <td>{new Date(lastUpdated).toLocaleDateString()}</td>
       </tr>
     )
   };
+
   return (
     <Page
       title="View Company"
       isError={!Boolean(data)}
       errorMessage={<p>Company not found. Please select another company.</p>}
     >
+      <button className="secondary" onClick={history.goBack}><IoIosArrowBack />Back</button>
       <h3>{companyName}</h3>
       <section>
         <VerticalTable data={[
-          { header: "Tier", data: companyTier },
+          { header: "Tier", data: getCompanyTierDisplay(companyTier) },
           { header: "Description", data: companyDescription },
           { header: "Users", data: users.length },
           { header: "Pending Requests", data: requests.length },
@@ -68,7 +82,7 @@ export default function View() {
       <section>
         <h4>Users</h4>
         <Table
-          headers={["Name", "Email", "Last login"]}
+          headers={["Email", "Last login"]}
           data={users}
           dataToRow={usersDataToRow}
         />
@@ -76,9 +90,9 @@ export default function View() {
       <section>
         <h4>Pending Requests</h4>
         <Table
-          headers={["Post Title", "Date"]}
+          headers={["Post Title"]}
           data={requests}
-          dataToRow={postsDataToRow("preview")}
+          dataToRow={requestsDataToRow}
           className="pending"
         />
       </section>
@@ -87,7 +101,7 @@ export default function View() {
         <Table
           headers={["Post Title", "Date"]}
           data={posts}
-          dataToRow={postsDataToRow("view")}
+          dataToRow={postsDataToRow}
         />
       </section>
     </Page>

@@ -31,7 +31,10 @@ export const requestSlice = createSlice({
     [getAdminRequests.fulfilled]: putPayloadToState,
     [getIndustryRequests.fulfilled]: putPayloadToState,
     [createRequest.fulfilled]: putPayloadToState,
-    [approveRequest.fulfilled]: putPayloadToState,
+    [approveRequest.fulfilled]: (state, action) => {
+      const { companyPostRequestId } = action.meta.arg;
+      return state.filter(elem => elem.companyPostRequestId !== companyPostRequestId);
+    },
     [rejectRequest.fulfilled]: putPayloadToState,
   }
 });
@@ -46,13 +49,23 @@ export const requestsSelector = state => {
   const companies = companiesSelector(state);
   return mergeCompanyInfo(requests, companies);
 }
+export const pendingRequestsSelector = state => {
+  return requestsSelector(state).filter(({ status }) => status === "pending");
+}
+export const rejectedRequestsSelector = state => {
+  return requestsSelector(state).filter(({ status }) => status === "rejected");
+}
 export const requestSelector = companyPostRequestId => state => {
   return requestsSelector(state)
     .find(elem => elem.companyPostRequestId === companyPostRequestId);
 }
 export const requestsByCompanySelector = companyId => state => {
   return requestsSelector(state)
-    .filter(elem => elem.companyId === companyId)
+    .filter(elem => elem.companyId === companyId);
+}
+export const requestsByUserSelector = companyUserId => state => {
+  return requestsSelector(state)
+    .filter(elem => elem.companyUserId === companyUserId);
 }
 
 export default requestSlice.reducer;

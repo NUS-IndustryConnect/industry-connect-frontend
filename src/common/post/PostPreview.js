@@ -38,7 +38,6 @@ export default function Preview({ data = {}, urlPath = "", editable = true }) {
       { videoUrl && !isUrl(videoUrl) && (<p>(Video link is invalid and not able to be shown.)</p>)}
       { moreUrl && isUrl(moreUrl) && (<a href={moreUrl}><button className="primary right">Find out more</button></a>)}
       { moreUrl && !isUrl(moreUrl) && (<p>(View more link is invalid and not able to be shown.)</p>)}
-      { !editable && (<button type="button" onClick={() => history.push('/industry/posts')}>Back</button>)}
     </div>
   )
 }

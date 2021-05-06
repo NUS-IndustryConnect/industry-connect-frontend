@@ -1,30 +1,17 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
-import Page from '../../../common/Page';
-import ButtonLink from '../../../common/ButtonLink';
-import Table from '../../../common/Table';
 import SelectTable from '../../../common/SelectTable';
-import { requestsSelector } from '../../../redux/industry/requestSlice';
 import { activePostsSelector, archivedPostsSelector, postThunks } from '../../../redux/industry/postSlice';
+import Page from '../Page';
 
-const Manage = () => {
+export default function ManagePosts() {
   const history = useHistory();
   const dispatch = useDispatch();
-  const displayedPosts = useSelector(activePostsSelector);
+  const activePosts = useSelector(activePostsSelector);
   const archivedPosts = useSelector(archivedPostsSelector);
-  const requests = useSelector(requestsSelector);
-
-  const requestsDataToRow = (data) => {
-    const { companyPostRequestId, postTitle, status } = data;
-    const handleClick = () => history.push(`/industry/posts/view/${companyPostRequestId}`);
-    return (
-      <tr key={companyPostRequestId} className={status}>
-        <td onClick={handleClick} className="clickable">{postTitle}</td>
-      </tr>
-    )
-  };
 
   const postsDataToRow = (data, checkbox=null) => {
     const { companyPostId, postTitle, lastUpdated } = data;
@@ -43,6 +30,7 @@ const Manage = () => {
     className: "secondary",
     onClick: selections => {
       dispatch(postThunks.archivePosts(selections));
+      toast.success("Archived post(s)");
     }
   }
   
@@ -51,28 +39,18 @@ const Manage = () => {
     className: "secondary",
     onClick: selections => {
       dispatch(postThunks.unarchivePosts(selections));
+      toast.success("Unarchived post(s)");
     }
   }
 
   return (
     <Page title="Industry Posts">
-      <ButtonLink to="/industry/posts/new" label="Create new post" className="primary" />
-      <section>
-        <h3>Pending Requests</h3>
-        <Table
-          headers={["Title"]}
-          data={requests}
-          dataToRow={requestsDataToRow}
-          className="pending"
-        />
-      </section>
-  
       <section>
         <h3>Active</h3>
         <SelectTable
           headers={['Title', "Last Updated"]}
-          data={displayedPosts}
-          idKey="companyPostID"
+          data={activePosts}
+          idKey="companyPostId"
           dataToRow={postsDataToRow}
           actions={[ archivePosts ]}
         />
@@ -83,7 +61,7 @@ const Manage = () => {
         <SelectTable
           headers={['Title', "Last Updated"]}
           data={archivedPosts}
-          idKey="companyPostID"
+          idKey="companyPostId"
           dataToRow={postsDataToRow}
           className="archived"
           actions={[ unarchivePosts ]}
@@ -92,5 +70,3 @@ const Manage = () => {
     </Page>
   )
 }
-
-export default Manage;

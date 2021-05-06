@@ -2,18 +2,19 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import Popup from 'reactjs-popup';
+import toast from 'react-hot-toast';
 
 import 'reactjs-popup/dist/index.css';
 
 import ButtonLink from '../../../../common/ButtonLink';
-import { companyThunks, activeCompaniesSelector, archivedCompaniesSelector } from '../../../../redux/industry/companySlice';
+import { companyThunks, activeCompaniesSelector, archivedCompaniesSelector, companyComparator } from '../../../../redux/industry/companySlice';
 import Page from '../../Page';
 import SelectTable from '../../../../common/SelectTable';
-import { COMPANY_TIERS } from './CompaniesForm';
+import { getCompanyTierDisplay } from './CompaniesForm';
 
 export default function Manage() {
-  const activeCompanies = useSelector(activeCompaniesSelector);
-  const archivedCompanies = useSelector(archivedCompaniesSelector);
+  const activeCompanies = useSelector(activeCompaniesSelector).sort(companyComparator);
+  const archivedCompanies = useSelector(archivedCompaniesSelector).sort(companyComparator);
   const history = useHistory();
   const dispatch = useDispatch();
   const [isModalOpen, setModalOpen] = useState(false);
@@ -21,7 +22,7 @@ export default function Manage() {
 
   const dataToRow = (data, checkbox) => {
     const { companyId, companyName, companyTier } = data;
-    const companyTierDisplay = COMPANY_TIERS.find(elem => elem.value === companyTier).label;
+    const companyTierDisplay = getCompanyTierDisplay(companyTier);
     const handleClick = () => history.push(`/admin/industry/companies/view/${companyId}`);
     return (
       <tr key={companyId} >
@@ -45,13 +46,15 @@ export default function Manage() {
     setModalOpen(false);
     setSelections([]);
     dispatch(companyThunks.archiveCompanies(selections));
+    toast.success("Archived company");
   }
 
   const unarchiveCompany = {
     label: "Unarchive",
     className: "secondary",
     onClick: selections => {
-      dispatch(companyThunks.unarchiveCompanies(selections))
+      dispatch(companyThunks.unarchiveCompanies(selections));
+      toast.success("Unarchived company");
     }
   }
 
@@ -66,7 +69,7 @@ export default function Manage() {
             <button className="warning right" onClick={handleArchive}>Archive</button>
           </div>
         </div>
-    </Popup>
+      </Popup>
       <section>
         <h3>Active</h3>
         <SelectTable

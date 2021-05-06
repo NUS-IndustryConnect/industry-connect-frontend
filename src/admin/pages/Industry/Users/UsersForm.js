@@ -10,7 +10,7 @@ export const getUserFields = data => ({
   companyId: data.get('companyId'),
 });
 
-export default function UsersForm({ submit, initial }) {
+export default function UsersForm({ submit, initial, resettable }) {
   const companiesDropdown = useSelector(companiesDropdownSelector);
   return (
     <Form
@@ -21,6 +21,7 @@ export default function UsersForm({ submit, initial }) {
       ]}
       submit={submit}
       submitLabel={initial ? "Update" : "Create"}
+      resettable={resettable}
     />
   )
 }
