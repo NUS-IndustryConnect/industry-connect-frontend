@@ -38,6 +38,8 @@ Your backend engineer should provide you with the configuration for the developm
 #### Other configuration
 
 1. `REACT_APP_ENV`: Whether to build the project with the configurations of the development or production stage. Set "development" if it is in the development stage.
+2. `REACT_APP_IS_LOCAL_DEV`: Whether it is on local development to allow developers to bypass
+adfs login for admin and student user type. Set "TRUE" if it is local development.
 
 ### Application Structure
 
