@@ -1,5 +1,6 @@
 import axios from "axios";
 
+export const isLocalDev = process.env.REACT_APP_IS_LOCAL_DEV === 'TRUE';
 export const isDevMode = process.env.REACT_APP_ENV === 'development';
 
 export const ADMIN = 'admin';
