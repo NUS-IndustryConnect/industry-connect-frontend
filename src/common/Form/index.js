@@ -14,7 +14,7 @@ const convertDateFormat = dateString => {
 }
 
 const generateComponent = fieldOptions => {
-  const { type, name, initial, optional = false, options, disabled = false } = fieldOptions;
+  const { type, name, initial, optional = false, options, disabled = false, placeholder } = fieldOptions;
 
   switch (type) {
     case "long-text":
@@ -24,6 +24,7 @@ const generateComponent = fieldOptions => {
           rows="5"
           required={!optional}
           defaultValue={initial}
+          placeholder={placeholder}
         >
         </textarea>
       );
@@ -51,6 +52,7 @@ const generateComponent = fieldOptions => {
           type={type} id={name} name={name}
           required={!optional}
           defaultValue={type === "date" ? convertDateFormat(initial) : initial}
+          placeholder={placeholder}
         />
       );
   }
