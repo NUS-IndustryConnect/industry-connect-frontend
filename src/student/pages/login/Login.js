@@ -5,8 +5,8 @@ import ClipLoader from "react-spinners/ClipLoader";
 
 import './Login.css';
 import Page from '../../../common/Page';
-import { handleFetchAuth, logout } from '../../../redux/user/userActions';
-import { AUTH_ENPOINT } from '../../../server/utils';
+import { handleFetchAuth, handleLocalAuth, logout } from '../../../redux/user/userActions';
+import { AUTH_ENPOINT, isLocalDev, STUDENT } from '../../../server/utils';
 
 export default function Login(props) {
   // TODO: link up to authentication (temporary placeholder)
@@ -46,14 +46,27 @@ export default function Login(props) {
     )
   }
 
+  const handleLocalDevAuth = () => {
+    dispatch(handleLocalAuth(STUDENT)).then(() => {
+      history.push("/student/announcements");
+    }).catch(error => {
+      dispatch(logout()).then(() => {
+        history.push("/student/login");
+      })
+    })
+  }
+
   return (
     <Page title="Student Dashboard">
       <div className="login">
         <h3>Welcome to IndustryConnect!</h3>
         <p>SoC Industry Updates is a platform made by students, for students. It serves as a one-stop shop for students from the School of Computing to learn about internships, jobs and future career opportunities in various industries.</p>
-        <a className="primary" href={AUTH_ENPOINT}>
-          <button className="primary">Login</button>
-        </a>
+        {isLocalDev && <button className="primary" onClick={handleLocalDevAuth}>Login</button>}
+        { !isLocalDev && (
+          <a className="primary" href={AUTH_ENPOINT}>
+            <button className="primary">Login</button>
+          </a>
+        )}
       </div>
     </Page>
   )

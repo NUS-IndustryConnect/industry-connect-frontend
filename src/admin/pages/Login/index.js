@@ -5,8 +5,8 @@ import ClipLoader from "react-spinners/ClipLoader";
 
 import './index.css';
 import Page from '../../../common/Page';
-import { handleFetchAuth, logout } from '../../../redux/user/userActions';
-import { AUTH_ENPOINT } from '../../../server/utils';
+import { handleFetchAuth, handleLocalAuth, logout } from '../../../redux/user/userActions';
+import { ADMIN, AUTH_ENPOINT, isLocalDev } from '../../../server/utils';
 
 export default function Login() {
   const dispatch = useDispatch();
@@ -45,15 +45,28 @@ export default function Login() {
     )
   }
 
+  const handleLocalDevAuth = () => {
+    dispatch(handleLocalAuth(ADMIN)).then(() => {
+      history.push("/admin/announcements");
+    }).catch(error => {
+      dispatch(logout()).then(() => {
+        history.push("/admin/login");
+      })
+    })
+  }
+
   return (
     <Page title="Admin Dashboard">
       <div className="login">
         <h3>Welcome to IndustryConnect!</h3>
         <p>SoC Industry Updates is a platform made by students, for students. It serves as a one-stop shop for students from the School of Computing to learn about internships, jobs and future career opportunities in various industries.</p>
 
-        <a className="primary" href={AUTH_ENPOINT}>
-          <button className="primary">Login</button>
-        </a>
+        {isLocalDev && <button className="primary" onClick={handleLocalDevAuth}>Login</button>}
+        { !isLocalDev && (
+          <a className="primary" href={AUTH_ENPOINT}>
+            <button className="primary">Login</button>
+          </a>
+        )}
       </div>
     </Page>
   )

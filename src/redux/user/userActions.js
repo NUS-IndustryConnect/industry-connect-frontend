@@ -26,6 +26,16 @@ export const handleFetchAuth = (code) => async (dispatch) => {
     }).catch(error => { throw error; })
 }
 
+export const handleLocalAuth = (role) => async (dispatch) => {
+  localStorage.setItem('@token', 'token');
+  localStorage.setItem('@isLoggedIn', true);
+  if (role === STUDENT) {
+    dispatch(loginStudent('token'))
+  } else {
+    dispatch(loginAdmin('token'))
+  }
+}
+
 const loginAdmin = (token) => async (dispatch) => {
   localStorage.setItem('@role', ADMIN);
   Promise.resolve().then(() => {
