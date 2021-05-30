@@ -1,10 +1,13 @@
 import React from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
+import { IoIosArrowBack } from 'react-icons/io';
+
 import Page from '../../common/Page/index.js';
 
 const NavigationPanel = () => {
   const match = useRouteMatch();
-  const urlPrefix = match.path.includes("/admin") ? "/admin/student" : "/student";
+  const isAdmin = match.path.includes("/admin");
+  const urlPrefix = isAdmin ? "/admin/student" : "/student";
 
   return (
     <nav>
@@ -12,6 +15,7 @@ const NavigationPanel = () => {
         <li><Link to={`${urlPrefix}/announcements`}>Announcements</Link></li>
         <li><Link to={`${urlPrefix}/industry`}>Industry</Link></li>
       </ul>
+      { isAdmin ? <Link to="/admin"><IoIosArrowBack />Back to Admin Dashboard</Link> : null}
     </nav>
   )
 }

@@ -39,6 +39,14 @@ nav {
   padding: 16px;
   background-color: var(--blue);
   color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+nav a {
+  display: inline-flex;
+  align-items: center;
 }
 
 nav ul {
