@@ -12,6 +12,7 @@ const NavigationPanel = () => (
       <li className="sub-page"><Link to="/admin/industry/users">Company Users</Link></li>
       <li className="sub-page"><Link to="/admin/industry/posts/requests">Post Requests</Link></li>
       <li className="sub-page"><Link to="/admin/industry/posts">Posts</Link></li>
+      <li><Link to="/admin/student">Student View</Link></li>
     </ul>
   </nav>
 )
