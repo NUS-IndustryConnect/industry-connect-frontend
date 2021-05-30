@@ -4,19 +4,11 @@ import ClipLoader from "react-spinners/ClipLoader";
 
 import { userSelector } from "../../redux/user/userSelectors";
 
-import ManageRequests from "../pages/Request/ManageRequests";
-import NewRequest from "../pages/Request/NewRequest";
-import PreviewRequest from "../pages/Request/PreviewRequest";
-import SubmittedRequest from "../pages/Request/SubmittedRequest";
-import ViewRequest from "../pages/Request/ViewRequest";
-import EditRequest from "../pages/Request/EditRequest";
+import Request from "../pages/Request";
+import Post from "../pages/Post";
 
-import ManagePosts from "../pages/Post/ManagePosts";
-import ViewPost from "../pages/Post/ViewPost";
-import EditPost from "../pages/Post/EditPost";
-
-import { logout } from "../../redux/user/userActions";
 import Page from "../../common/Page";
+import { logout } from "../../redux/user/userActions";
 
 const Protected = () => {
   const dispatch = useDispatch();
@@ -43,15 +35,9 @@ const Protected = () => {
   return (
     <>
       <Route exact path="/industry" render={() => <Redirect to="/industry/posts" />} />
-      <Route exact path="/industry/requests" component={ManageRequests} />
-      <Route exact path="/industry/requests/new" component={NewRequest} />
-      <Route exact path="/industry/requests/preview" component={PreviewRequest} />
-      <Route exact path="/industry/requests/submitted" component={SubmittedRequest} />
-      <Route exact path="/industry/requests/view/:id" component={ViewRequest} />
-      <Route exact path="/industry/requests/edit/:id" component={EditRequest} />
-      <Route exact path="/industry/posts" component={ManagePosts} />
-      <Route exact path="/industry/posts/view/:id" component={ViewPost} />
-      <Route exact path="/industry/posts/edit/:id" component={EditPost} />
+
+      <Route path="/industry/requests" component={Request} />
+      <Route path="/industry/posts" component={Post} />
     </>
   )
 }
