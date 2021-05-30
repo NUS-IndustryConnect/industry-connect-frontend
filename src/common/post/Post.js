@@ -25,8 +25,7 @@ export default function Post({ data = {}, history }) {
       </div>
       <VideoEmbed videoUrl={videoUrl} />
       { moreUrl ? <a href={moreUrl}><button className="primary right">Find out more</button></a> : null}
-      <button type="button" onClick={() => history.push('/student/industry')}>Back</button>
-      {moreUrl ? <ButtonLink to={moreUrl} /> : <></>}
+      { moreUrl ? <ButtonLink to={moreUrl} /> : <></>}
     </div>
   )
 }

@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
-
-// Redux
 import { useSelector } from 'react-redux'
 
+import SearchBar from '../../../common/SearchBar';
 import { postsSelector } from '../../../redux/industry/postSlice';
 import Page from '../Page';
-import './index.css';
-import SearchBar from '../../../common/SearchBar';
 import PostList from './PostList';
+import './index.css';
 
 const ViewAllIndustry = () => {
   const displayedPosts = useSelector(postsSelector);

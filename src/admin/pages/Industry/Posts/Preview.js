@@ -3,16 +3,16 @@ import { useParams, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import Popup from 'reactjs-popup';
 import toast from 'react-hot-toast';
-import { IoIosArrowBack } from 'react-icons/io';
 
 import 'reactjs-popup/dist/index.css';
 
 import PostPreview from '../../../../common/post/PostPreview';
+import BackButton from '../../../../common/BackButton';
 import { requestSelector, requestThunks } from '../../../../redux/industry/requestSlice';
 import { companyUserSelector } from '../../../../redux/industry/userSlice';
+import { userInfoSelector } from '../../../../redux/user/userSelectors';
 import Page from '../../Page';
 import ContactButton from './ContactButton';
-import { userInfoSelector } from '../../../../redux/user/userSelectors';
 
 export default function Preview() {
   const history = useHistory();
@@ -74,7 +74,7 @@ export default function Preview() {
       isError={!Boolean(data)}
       errorMessage={<p>Post not found. Please select another post.</p>}
     >
-      <button className="secondary" onClick={history.goBack}><IoIosArrowBack />Back</button>
+      <BackButton />
       <PostPreview data={data} urlPath="/admin/industry/posts" editable={false} />
       <section className="bottom-buttons">
         <ContactButton email={companyUser?.email} />

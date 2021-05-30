@@ -1,14 +1,14 @@
 import React from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { IoIosArrowBack } from 'react-icons/io';
 
 import VerticalTable from '../../../../common/VerticalTable';
-import ButtonLink from '../../../../common/ButtonLink';
-import { companyUserSelector, companyUserThunks } from '../../../../redux/industry/userSlice';
-import Page from '../../Page';
 import Table from '../../../../common/Table';
+import ButtonLink from '../../../../common/ButtonLink';
+import BackButton from '../../../../common/BackButton';
+import { companyUserSelector, companyUserThunks } from '../../../../redux/industry/userSlice';
 import { requestsByUserSelector } from '../../../../redux/industry/requestSlice';
+import Page from '../../Page';
 
 export default function View() {
   const { id } = useParams();
@@ -69,7 +69,7 @@ export default function View() {
       isError={!Boolean(data)}
       errorMessage={<p>User not found. Please select another user.</p>}
     >
-      <button className="secondary" onClick={history.goBack}><IoIosArrowBack />Back</button>
+      <BackButton />
       <VerticalTable data={userData}/>
       <ButtonLink to={`/admin/industry/users/edit/${id}`} label="Edit" className="secondary" />
 

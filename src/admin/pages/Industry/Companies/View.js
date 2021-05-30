@@ -1,11 +1,11 @@
 import React from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { IoIosArrowBack } from 'react-icons/io';
 
 import VerticalTable from '../../../../common/VerticalTable';
 import Table from '../../../../common/Table';
 import ButtonLink from '../../../../common/ButtonLink';
+import BackButton from '../../../../common/BackButton';
 import { companySelector } from '../../../../redux/industry/companySlice';
 import { usersOfCompanySelector } from '../../../../redux/industry/userSlice';
 import { requestsByCompanySelector } from '../../../../redux/industry/requestSlice';
@@ -67,7 +67,7 @@ export default function View() {
       isError={!Boolean(data)}
       errorMessage={<p>Company not found. Please select another company.</p>}
     >
-      <button className="secondary" onClick={history.goBack}><IoIosArrowBack />Back</button>
+      <BackButton />
       <h3>{companyName}</h3>
       <section>
         <VerticalTable data={[
