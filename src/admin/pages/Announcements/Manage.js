@@ -73,7 +73,7 @@ const Manage = () => {
       <Tabs tabs={TABS} />
 
       <Switch>
-        <Route exact path="/admin/announcements"><Redirect to={IMPORTANT}/></Route>
+        <Route exact path="/admin/announcements"><Redirect to={TABS[0].link}/></Route>
         <Route path={IMPORTANT}>
           <SelectTable
             headers={["Announcement Title", "Last Updated"]}

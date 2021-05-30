@@ -1,11 +1,20 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { Redirect, Route, Switch, useHistory } from 'react-router-dom';
 
 import { pendingRequestsSelector, rejectedRequestsSelector } from '../../../../redux/industry/requestSlice';
 
 import Page from '../../Page';
 import Table from '../../../../common/Table';
+import Tabs from '../../../../common/Tabs';
+
+const PENDING = "/admin/industry/posts/requests/pending";
+const REJECTED = "/admin/industry/posts/requests/rejected";
+
+const TABS = [
+  { name: "Pending Approval", link: PENDING },
+  { name: "Rejected", link: REJECTED },
+];
 
 export default function ManageRequests() {
   const history = useHistory();
@@ -39,25 +48,28 @@ export default function ManageRequests() {
 
   return (
     <Page title="Manage Industry Post Requests">
-      <section>
-        <h3>Pending Approval</h3>
-        <Table
-          headers={["Title", "Company"]}
-          data={pendingRequests}
-          dataToRow={requestsDataToRow}
-          className="pending"
-        />
-      </section>
 
-      <section>
-        <h3>Rejected</h3>
-        <Table
-          headers={["Title", "Company", "Reason for rejection"]}
-          data={rejectedRequests}
-          dataToRow={rejectedRequestsDataToRow}
-          className="pending"
-        />
-      </section>
+      <Tabs tabs={TABS} />
+
+      <Switch>
+        <Route exact path="/admin/industry/posts/requests"><Redirect to={TABS[0].link}/></Route>
+        <Route path={PENDING}>
+          <Table
+            headers={["Title", "Company"]}
+            data={pendingRequests}
+            dataToRow={requestsDataToRow}
+            className="pending"
+          />
+        </Route>
+        <Route path={REJECTED}>
+          <Table
+            headers={["Title", "Company", "Reason for rejection"]}
+            data={rejectedRequests}
+            dataToRow={rejectedRequestsDataToRow}
+            className="pending"
+          />
+        </Route>
+      </Switch>
     </Page>
   )
 }

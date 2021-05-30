@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { Redirect, Route, Switch, useHistory } from 'react-router-dom';
 import toast from 'react-hot-toast';
 
 import ButtonLink from '../../../../common/ButtonLink';
@@ -8,6 +8,15 @@ import { activePostsSelector, archivedPostsSelector, postThunks } from '../../..
 
 import Page from '../../Page';
 import SelectTable from '../../../../common/SelectTable';
+import Tabs from '../../../../common/Tabs';
+
+const ACTIVE = "/admin/industry/posts/active";
+const ARCHIVED = "/admin/industry/posts/archived";
+
+const TABS = [
+  { name: "Active", link: ACTIVE },
+  { name: "Archived", link: ARCHIVED },
+];
 
 export default function ManagePosts() {
   const history = useHistory();
@@ -51,28 +60,30 @@ export default function ManagePosts() {
     <Page title="Manage Industry Posts">
       <ButtonLink to="/admin/industry/posts/new" label="New Industry Post" className="primary" />
       
-      <section>
-        <h3>Active</h3>
-        <SelectTable
-          headers={['Title', "Company", "Last Updated"]}
-          data={activePosts}
-          idKey="companyPostId"
-          dataToRow={postsDataToRow}
-          actions={[ archivePosts ]}
-        />
-      </section>
+      <Tabs tabs={TABS} />
 
-      <section>
-        <h3>Archived</h3>
-        <SelectTable
-          headers={['Title', "Company", "Last Updated"]}
-          data={archivedPosts}
-          idKey="companyPostId"
-          dataToRow={postsDataToRow}
-          className="archived"
-          actions={[ unarchivePosts ]}
-        />
-      </section>
+      <Switch>
+        <Route exact path="/admin/industry/posts"><Redirect to={TABS[0].link} /></Route>
+        <Route exact path={ACTIVE}>
+          <SelectTable
+            headers={['Title', "Company", "Last Updated"]}
+            data={activePosts}
+            idKey="companyPostId"
+            dataToRow={postsDataToRow}
+            actions={[ archivePosts ]}
+          />
+        </Route>
+        <Route exact path={ARCHIVED}>
+          <SelectTable
+            headers={['Title', "Company", "Last Updated"]}
+            data={archivedPosts}
+            idKey="companyPostId"
+            dataToRow={postsDataToRow}
+            className="archived"
+            actions={[ unarchivePosts ]}
+          />
+        </Route>
+      </Switch>
     </Page>
   )
 }

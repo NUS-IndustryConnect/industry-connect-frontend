@@ -17,8 +17,8 @@ const Posts = () => {
       <Route exact path="/admin/industry/posts/edit/:id"><Edit /></Route>
       <Route exact path="/admin/industry/posts/preview/:id"><Preview /></Route>
       <Route exact path="/admin/industry/posts/view/:id"><View /></Route>
-      <Route exact path="/admin/industry/posts/requests"><ManageRequests /></Route>
-      <Route exact path="/admin/industry/posts"><ManagePosts /></Route>
+      <Route path="/admin/industry/posts/requests"><ManageRequests /></Route>
+      <Route path="/admin/industry/posts"><ManagePosts /></Route>
     </Switch>
   )
 }
