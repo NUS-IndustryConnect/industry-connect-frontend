@@ -1,14 +1,11 @@
-import React, { useEffect } from 'react';
-import {
-  Switch,
-  Route,
-} from "react-router-dom";
+import React from 'react';
+import { Switch, Route } from "react-router-dom";
 
 import ManageAnnouncements from './Manage';
 import NewAnnouncement from './New';
 import EditAnnouncement from './Edit';
 
-export default function Announcements () {
+export default function Announcements() {
   return (
     <Switch>
       <Route exact path="/admin/announcements/new"><NewAnnouncement /></Route>

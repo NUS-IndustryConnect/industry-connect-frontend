@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card } from 'react-bootstrap';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useRouteMatch } from 'react-router-dom';
 
 // Redux
 import { useSelector } from 'react-redux'
@@ -16,22 +16,19 @@ const ViewAllAnnouncements = () => {
   const displayedAnnouncements = useSelector(activeAnnouncementsSelector);
   const pinnedAnnouncements = useSelector(pinnedAnnouncementsSelector);
   const history = useHistory();
+  const match = useRouteMatch();
+  const urlPrefix = match.path.includes("/admin") ? "/admin/student" : "/student";
 
   const dataToRow = (item) => {
     const {
       announceID,
       title,
       subtitle,
-      description,
       lastUpdated
     } = item;
-    const state = {
-      title: title, 
-      subtitle: subtitle, 
-      body: description,
-    }
 
-    const handleClick = () => history.push({pathname: `/student/announcements/${announceID}`, state});
+    const handleClick = () => history.push(`${urlPrefix}/announcements/${announceID}`)
+
     return (
       <li key={announceID}>
         <Card
@@ -52,25 +49,22 @@ const ViewAllAnnouncements = () => {
     )
   }
 
-  const pinnedListItems = pinnedAnnouncements.map((item) => dataToRow(item))
-  const listItems = displayedAnnouncements.map((item) => dataToRow(item))
-
   return (
-  <Page title="Announcements">
-    <section className="pinned-list">
-      <h3>Pinned Announcements</h3>
-      <ul className="list-unstyled">
-        {pinnedListItems}
-      </ul>
-    </section>
-  
-    <section className="announcement-list">
-      <h3 >Announcements</h3>
-      <ul className="list-unstyled">
-        {listItems}
-      </ul>
-    </section>
-  </Page>
+    <Page title="Announcements">
+      <section className="pinned-list">
+        <h3>Pinned Announcements</h3>
+        <ul className="list-unstyled">
+          {pinnedAnnouncements.map(dataToRow)}
+        </ul>
+      </section>
+    
+      <section className="announcement-list">
+        <h3>Announcements</h3>
+        <ul className="list-unstyled">
+          {displayedAnnouncements.map(dataToRow)}
+        </ul>
+      </section>
+    </Page>
   )
 }
 

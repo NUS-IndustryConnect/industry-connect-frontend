@@ -17,7 +17,6 @@ export default function Announcement({ data = {}, history }) {
       <div className="description">
         { description.split("\n").map((para, i) => <p key={i}>{para}</p>) }
       </div>
-      <button type="button" onClick={() => history.push('/student/announcements')}>Back</button>
     </div>
   )
 }

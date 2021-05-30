@@ -1,9 +1,11 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useRouteMatch } from 'react-router-dom';
 import { Card } from 'react-bootstrap';
 
 const PostList = ({ postList = [] }) => {
   const history = useHistory();
+  const match = useRouteMatch();
+  const urlPrefix = match.path.includes("/admin") ? "/admin/student" : "/student";
 
   const dataToRow = (data) => {
     const {
@@ -12,11 +14,8 @@ const PostList = ({ postList = [] }) => {
       lastUpdated,
       companyName
     } = data;
-    const state = {
-        ...data
-    }
-    // TODO: same issue as announcements
-    const handleClick = () => history.push({pathname: `/student/industry/${companyPostId}`, state});
+    
+    const handleClick = () => history.push(`${urlPrefix}/industry/${companyPostId}`);
     return (
       <li key={companyPostId}>
         <Card
@@ -38,12 +37,7 @@ const PostList = ({ postList = [] }) => {
 
   return (
     <>
-    { postList.map((data, index) => {
-        if (data) {
-          return dataToRow(data)
-    	 }
-    	 return null
-    }) }
+      { postList.map(dataToRow) }
     </>
   );
 }

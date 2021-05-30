@@ -1,23 +1,28 @@
 import { Redirect, Route } from "react-router-dom";
 
-import EditAnnouncement from "../pages/Announcements/Edit";
 import ManageAnnouncements from "../pages/Announcements/Manage";
 import NewAnnouncement from "../pages/Announcements/New";
+import EditAnnouncement from "../pages/Announcements/Edit";
+
 import Industry from "../pages/Industry";
 import Companies from "../pages/Industry/Companies";
-import EditCompany from "../pages/Industry/Companies/Edit";
 import NewCompany from "../pages/Industry/Companies/New";
 import ViewCompany from "../pages/Industry/Companies/View";
+import EditCompany from "../pages/Industry/Companies/Edit";
+
 import Posts from "../pages/Industry/Posts";
 import ManageRequests from "../pages/Industry/Posts/ManageRequests";
-import EditPost from "../pages/Industry/Posts/Edit";
+import ViewPost from "../pages/Industry/Posts/View";
 import NewPost from "../pages/Industry/Posts/New";
 import PreviewPost from "../pages/Industry/Posts/Preview";
-import ViewPost from "../pages/Industry/Posts/View";
+import EditPost from "../pages/Industry/Posts/Edit";
+
 import Users from "../pages/Industry/Users";
-import EditUser from "../pages/Industry/Users/Edit";
 import NewUser from "../pages/Industry/Users/New";
 import ViewUser from "../pages/Industry/Users/View";
+import EditUser from "../pages/Industry/Users/Edit";
+
+import Student from "../pages/Student";
 
 const Protected = () => {
   return (
@@ -46,6 +51,8 @@ const Protected = () => {
       <Route exact path="/admin/industry/posts/edit/:id" component={EditPost} />
       <Route exact path="/admin/industry/posts/preview/:id" component={PreviewPost} />
       <Route exact path="/admin/industry/posts/view/:id" component={ViewPost} />
+
+      <Route path="/admin/student" component={Student} />
     </>
   )
 }
