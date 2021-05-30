@@ -30,16 +30,13 @@ const ViewAllIndustry = () => {
 
   return (
     <Page title="Industry">
-      <section>
-        <h3>Industry</h3>
-        <SearchBar 
-          input={input}
-          onChange={updateInput}
-        />
-        <ul className="list-unstyled">
-          <PostList postList={postList} />
-        </ul>
-      </section>
+      <SearchBar 
+        input={input}
+        onChange={updateInput}
+      />
+      <ul className="list-unstyled">
+        <PostList postList={postList} />
+      </ul>
     </Page>
   )
 }
