@@ -12,7 +12,6 @@ export default function Preview({ data = {}, urlPath = "", editable = true }) {
     postSubtitle,
     postDescription = "",
     videoUrl,
-    moreUrl,
   } = data;
   const { id } = useParams();
   const history = useHistory();
@@ -36,8 +35,6 @@ export default function Preview({ data = {}, urlPath = "", editable = true }) {
       { postDescription?.split("\n").map((para, i) => <p key={i}>{para}</p>) }
       { videoUrl && isUrl(videoUrl) && (<VideoEmbed videoUrl={videoUrl} />)}
       { videoUrl && !isUrl(videoUrl) && (<p>(Video link is invalid and not able to be shown.)</p>)}
-      { moreUrl && isUrl(moreUrl) && (<a href={moreUrl}><button className="primary right">Find out more</button></a>)}
-      { moreUrl && !isUrl(moreUrl) && (<p>(View more link is invalid and not able to be shown.)</p>)}
     </div>
   )
 }
