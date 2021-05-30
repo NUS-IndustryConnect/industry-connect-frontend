@@ -1,0 +1,27 @@
+.tabs-container {
+  border-bottom: 1px solid var(--mediumgrey);
+  margin: 20px 0;
+}
+
+.tabs-container ul {
+  margin: 4px;
+  padding: 0;
+  display: flex;
+}
+
+.tabs-container li {
+  list-style: none;
+  margin-right: 20px;
+  font-weight: 600;
+}
+
+.tabs-container a {
+  color: var(--grey);
+  text-decoration: none;
+  padding-bottom: 3px;
+}
+
+.tabs-container li.active a {
+  color: var(--blue);
+  border-bottom: 3px solid var(--blue);
+}
