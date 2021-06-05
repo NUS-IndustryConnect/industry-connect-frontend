@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { Redirect, Route, Switch, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import Popup from 'reactjs-popup';
 import toast from 'react-hot-toast';
@@ -11,6 +11,15 @@ import { companyThunks, activeCompaniesSelector, archivedCompaniesSelector, comp
 import Page from '../../Page';
 import SelectTable from '../../../../common/SelectTable';
 import { getCompanyTierDisplay } from './CompaniesForm';
+import Tabs from '../../../../common/Tabs';
+
+const ACTIVE = "/admin/industry/companies/active";
+const ARCHIVED = "/admin/industry/companies/archived";
+
+const TABS = [
+  { name: "Active", link: ACTIVE },
+  { name: "Archived", link: ARCHIVED },
+];
 
 export default function Manage() {
   const activeCompanies = useSelector(activeCompaniesSelector).sort(companyComparator);
@@ -59,8 +68,11 @@ export default function Manage() {
   }
 
   return (
-    <Page title="Manage Company">
+    <Page title="Manage Companies">
       <ButtonLink to="/admin/industry/companies/new" label="New Company" className="primary" />
+
+      <Tabs tabs={TABS} />
+
       <Popup modal open={isModalOpen}>
         <div className="modal">
           <p>NOTE: Attempting to archive {selections.length} {selections.length === 1 ? "company" : "companies"}. If these companies still have pending post requests, the requests will be deleted. If the company is unarchived in future, they will have to re-submit their post requests.</p>
@@ -70,27 +82,29 @@ export default function Manage() {
           </div>
         </div>
       </Popup>
-      <section>
-        <h3>Active</h3>
-        <SelectTable
-          headers={["Company Name", "Tier"]}
-          data={activeCompanies}
-          dataToRow={dataToRow}
-          idKey="companyId"
-          actions={[ archiveCompany ]}
-        />
-      </section>
-      <section>
-        <h3>Archived</h3>
-        <SelectTable
-          headers={["Company Name", "Tier"]}
-          data={archivedCompanies}
-          dataToRow={dataToRow}
-          className="archived"
-          idKey="companyId"
-          actions={[ unarchiveCompany ]}
-        />
-      </section>
+
+      <Switch>
+        <Route exact path="/admin/industry/companies"><Redirect to={TABS[0].link} /></Route>
+        <Route path={ACTIVE}>
+          <SelectTable
+            headers={["Company Name", "Tier"]}
+            data={activeCompanies}
+            dataToRow={dataToRow}
+            idKey="companyId"
+            actions={[ archiveCompany ]}
+          />
+        </Route>
+        <Route path={ARCHIVED}>
+          <SelectTable
+            headers={["Company Name", "Tier"]}
+            data={archivedCompanies}
+            dataToRow={dataToRow}
+            className="archived"
+            idKey="companyId"
+            actions={[ unarchiveCompany ]}
+          />
+        </Route>
+      </Switch>
     </Page>
   )
 }

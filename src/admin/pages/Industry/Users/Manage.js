@@ -1,5 +1,5 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { Redirect, Route, Switch, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import toast from 'react-hot-toast';
 
@@ -8,6 +8,15 @@ import { companyUserThunks, activeUsersSelector, archivedUsersSelector, userComp
 import Page from '../../Page';
 import SelectTable from '../../../../common/SelectTable';
 import { getCompanyTierDisplay } from '../Companies/CompaniesForm';
+import Tabs from '../../../../common/Tabs';
+
+const ACTIVE = "/admin/industry/users/active";
+const ARCHIVED = "/admin/industry/users/archived";
+
+const TABS = [
+  { name: "Active", link: ACTIVE },
+  { name: "Archived", link: ARCHIVED },
+];
 
 export default function Manage() {
   const activeUsers = useSelector(activeUsersSelector).sort(userComparator);
@@ -50,27 +59,31 @@ export default function Manage() {
   return (
     <Page title="Manage Company Users">
       <ButtonLink to="/admin/industry/users/new" label="New Company User" className="primary" />
-      <section>
-        <h3>Active</h3>
-        <SelectTable
-          headers={["Company", "Tier", "Email Address", "Last Login"]}
-          data={activeUsers}
-          dataToRow={dataToRow}
-          idKey="companyUserId"
-          actions={[ archiveUser ]}
-        />
-      </section>
-      <section>
-        <h3>Archived</h3>
-        <SelectTable
-          headers={["Company", "Tier", "Email Address", "Last Login"]}
-          data={archivedUsers}
-          dataToRow={dataToRow}
-          className="archived"
-          idKey="companyUserId"
-          actions={[ unarchiveUser ]}
-        />
-      </section>
+
+      <Tabs tabs={TABS} />
+
+      <Switch>
+        <Route exact path="/admin/industry/users"><Redirect to={TABS[0].link} /></Route>
+        <Route path={ACTIVE}>
+          <SelectTable
+            headers={["Company", "Tier", "Email Address", "Last Login"]}
+            data={activeUsers}
+            dataToRow={dataToRow}
+            idKey="companyUserId"
+            actions={[ archiveUser ]}
+          />
+        </Route>
+        <Route path={ARCHIVED}>
+          <SelectTable
+            headers={["Company", "Tier", "Email Address", "Last Login"]}
+            data={archivedUsers}
+            dataToRow={dataToRow}
+            className="archived"
+            idKey="companyUserId"
+            actions={[ unarchiveUser ]}
+          />
+        </Route>
+      </Switch>
     </Page>
   )
 }

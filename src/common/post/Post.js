@@ -1,6 +1,5 @@
 import React from 'react';
 
-import ButtonLink from '../ButtonLink';
 import VideoEmbed from './VideoEmbed';
 import './Post.css'
 
