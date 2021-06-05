@@ -3,7 +3,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import ClipLoader from "react-spinners/ClipLoader";
 
-import './Login.css';
+import './index.css';
 import Page from '../../../common/Page';
 import { handleFetchAuth, handleLocalAuth, logout } from '../../../redux/user/userActions';
 import { AUTH_ENPOINT, isLocalDev, STUDENT } from '../../../server/utils';

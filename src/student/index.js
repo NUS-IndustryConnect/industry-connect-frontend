@@ -4,7 +4,7 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import { userSelector } from '../redux/user/userSelectors';
 import { STUDENT } from '../server/utils';
 
-import Login from './pages/login/Login';
+import Login from './pages/Login';
 import Protected from './routes/Protected';
 import ProtectedRoute from './routes/ProtectedRoute';
 
