@@ -1,7 +1,7 @@
 import { Redirect, Route } from "react-router-dom";
 
-import Announcements from "../pages/announcements/Announcements";
-import Industry from "../pages/industry/Industry";
+import Announcements from "../pages/Announcements";
+import Industry from "../pages/Industry";
 
 const Protected = () => {
   return (
