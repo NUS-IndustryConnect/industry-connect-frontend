@@ -59,11 +59,11 @@ const generateComponent = fieldOptions => {
 }
 
 const generateField = (fieldOptions) => {
-  const { type, name, label, optional = false, disabled } = fieldOptions;
+  const { type, name, label, optional = false, disabled, initial } = fieldOptions;
   const component = generateComponent(fieldOptions);
 
   if (type === "company-user-dropdowns") {
-    return <CompanyUserDropdowns disabled={disabled} />;
+    return <CompanyUserDropdowns disabled={disabled} initial={initial} />;
   }
   if (type === "checkbox") {
     return (
