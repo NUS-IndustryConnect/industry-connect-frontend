@@ -22,7 +22,14 @@ export default function PostsForm({ submit, submitLabel, initial, isAdmin, compa
     { type: "date", name: "expiryDate", label: "Expiry date", optional: true, initial: initial?.expiryDate },
   ];
   if (isAdmin) {
-    fields.unshift({ type: "company-user-dropdowns", disabled: companyUserDropdownDisabled });
+    fields.unshift({
+      type: "company-user-dropdowns",
+      disabled: companyUserDropdownDisabled,
+      initial: {
+        companyId: initial.companyId,
+        companyUserId: initial.companyUserId,
+      }
+    });
   }
 
   return (
