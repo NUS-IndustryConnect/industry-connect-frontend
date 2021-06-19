@@ -16,11 +16,16 @@ const Dropdown = ({ name, value, onChange, options, disabled }) => {
   </div>
 }
 
-export default function CompanyUserDropdowns({ disabled = false }) {
+export default function CompanyUserDropdowns({ disabled = false, initial = {} }) {
+  // get all dropdown values from Redux
   const companiesDropdown = useSelector(companiesDropdownSelector);
   const rawCompanyUsersDropdown = useSelector(companyUsersDropdownSelector);
-  const [companyId, setCompanyId] = useState(companiesDropdown[0]?.value);
-  const [companyUserId, setCompanyUserId] = useState("");
+
+  // keep track of selected values
+  const defaultCompanyId = (disabled && initial.companyId) ? initial.companyId : companiesDropdown[0]?.value;
+  const defaultCompanyUserId = disabled ? initial.companyUserId : "";
+  const [companyId, setCompanyId] = useState(defaultCompanyId);
+  const [companyUserId, setCompanyUserId] = useState(defaultCompanyUserId);
   const [filteredCompanyUsers, setFilteredCompanyUsers] = useState(rawCompanyUsersDropdown);
 
   useEffect(() => {
